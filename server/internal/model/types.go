@@ -33,6 +33,11 @@ type RecipeDef struct {
 	SeasonBonusMonths []int      `json:"season_bonus_months"`
 	Branch            string     `json:"branch,omitempty"`
 	TierUnlock        int        `json:"tier_unlock,omitempty"`
+	// WaterCost / UtilityCost — operational ₽ costs (not hidden free SKUs). Catalog V2.
+	WaterCost   float64 `json:"water_cost,omitempty"`
+	UtilityCost float64 `json:"utility_cost,omitempty"`
+	// ExtractMode: depleting (geology) | renewable (agro/forest) | "" (factory).
+	ExtractMode string `json:"extract_mode,omitempty"`
 }
 
 type BuildingDef struct {
@@ -47,6 +52,8 @@ type BuildingDef struct {
 	Branch      string `json:"branch,omitempty"`
 	TierUnlock  int    `json:"tier_unlock,omitempty"`
 	Icon        string `json:"icon,omitempty"`
+	// ResourceMode: depleting | renewable for extract buildings (catalog V2).
+	ResourceMode string `json:"resource_mode,omitempty"`
 }
 
 // ShopDef — тип розничной точки: продуктовый не продаёт электронику и т.п.
@@ -58,6 +65,8 @@ type ShopDef struct {
 	AllowedTiers       []string `json:"allowed_tiers"`
 	AllowedItems       []string `json:"allowed_items,omitempty"` // если задано — белый список
 	Icon               string   `json:"icon,omitempty"`
+	Markup             float64  `json:"markup,omitempty"`
+	Capacity           int      `json:"capacity,omitempty"`
 }
 
 // InputSource — откуда завод закупает вход (свой склад / город / биржа / конкретная фирма).
@@ -119,8 +128,12 @@ type BalanceConfig struct {
 	WagePerTick        map[string]float64 `json:"wage_per_tick"`
 	EnergyCostExtract  float64            `json:"energy_cost_extract"`
 	EnergyCostFactory  float64            `json:"energy_cost_factory"`
+	WaterCostPerUnit   float64            `json:"water_cost_per_unit"`
+	UtilityCostScale   float64            `json:"utility_cost_scale"`
 	TargetMargin       map[string]float64 `json:"target_margin"`
 	Notes              string             `json:"notes"`
+	Region             string             `json:"region,omitempty"`
+	Year               int                `json:"year,omitempty"`
 }
 
 // DemandConfig — CapLab-ish retail demand (class mix, quality, brand, corridor price).
@@ -178,6 +191,7 @@ type RnDTree struct {
 }
 
 type Catalog struct {
+	Version      int `json:"economy_catalog_version,omitempty"`
 	Items        []ItemDef
 	Recipes      []RecipeDef
 	Buildings    []BuildingDef
@@ -330,7 +344,8 @@ type Shipment struct {
 	Mode       string  `json:"mode"`     // local|road|rail
 }
 
-// ResourceDeposit — конечная залежь на карте; после исчерпания появляется в другом месте.
+// ResourceDeposit — залежь/участок на карте.
+// Geological deposits deplete; renewable agro/forest plots regenerate toward MaxAmount.
 type ResourceDeposit struct {
 	ID        string  `json:"id"`
 	ItemID    string  `json:"item_id"`
@@ -339,6 +354,7 @@ type ResourceDeposit struct {
 	Amount    int     `json:"amount"`
 	MaxAmount int     `json:"max_amount"`
 	Quality   float64 `json:"quality"`
+	Renewable bool    `json:"renewable,omitempty"`
 }
 
 type CityState struct {
@@ -372,22 +388,23 @@ type CityMarketStock struct {
 }
 
 type World struct {
-	Tick           int                      `json:"tick"`
-	Month          int                      `json:"month"` // 1-12
-	Year           int                      `json:"year"`
-	Cities         map[string]*CityState    `json:"cities"`
-	Firms          map[string]*Firm         `json:"firms"`
-	Buildings      map[string]*BuildingInst `json:"buildings"`
-	Shops          map[string]*ShopLease    `json:"shops"`
-	Orders         map[string]*MarketOrder  `json:"orders"`
-	Contracts      map[string]*Contract     `json:"contracts"`
-	Shipments      map[string]*Shipment     `json:"shipments"`
-	Events         []string                 `json:"events"`
-	LastTickLog    []string                 `json:"last_tick_log"`
-	Chat           []ChatMessage            `json:"chat"`
-	CityMarket     map[string]CityMarketStock `json:"city_market"` // item_id -> offer
-	MapRevision    int                      `json:"map_revision"`
-	DirtyTiles     []DirtyTile              `json:"dirty_tiles,omitempty"`
+	Tick            int                      `json:"tick"`
+	Month           int                      `json:"month"` // 1-12
+	Year            int                      `json:"year"`
+	CatalogVersion  int                      `json:"catalog_version,omitempty"`
+	Cities          map[string]*CityState    `json:"cities"`
+	Firms           map[string]*Firm         `json:"firms"`
+	Buildings       map[string]*BuildingInst `json:"buildings"`
+	Shops           map[string]*ShopLease    `json:"shops"`
+	Orders          map[string]*MarketOrder  `json:"orders"`
+	Contracts       map[string]*Contract     `json:"contracts"`
+	Shipments       map[string]*Shipment     `json:"shipments"`
+	Events          []string                 `json:"events"`
+	LastTickLog     []string                 `json:"last_tick_log"`
+	Chat            []ChatMessage            `json:"chat"`
+	CityMarket      map[string]CityMarketStock `json:"city_market"` // item_id -> offer
+	MapRevision     int                      `json:"map_revision"`
+	DirtyTiles      []DirtyTile              `json:"dirty_tiles,omitempty"`
 }
 
 type DirtyTile struct {
