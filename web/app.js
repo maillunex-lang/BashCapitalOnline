@@ -735,7 +735,13 @@ function drawMap() {
     const [ix, iy] = iso(p.x, p.y);
     const cx = ox + ix, cy = oy + iy;
     const selected = state.selected && state.selected.x === p.x && state.selected.y === p.y;
-    const tile = mapImg(ZONE_TILE[p.zone] || "tile_grass");
+    // Empty industrial pads look like a gray checkerboard at scale — use meadow unless occupied.
+    const occupied = buildings.some((b) => b.x === p.x && b.y === p.y)
+      || shops.some((s) => s.x === p.x && s.y === p.y);
+    let tileName = ZONE_TILE[p.zone] || "tile_grass";
+    if (p.zone === "industrial" && !occupied) tileName = "tile_meadow";
+    if (p.zone === "empty") tileName = "tile_grass";
+    const tile = mapImg(tileName);
     if (preferMapSprite(tile)) {
       const dw = tw * 1.08, dh = th * 2.1;
       ctx.drawImage(tile, cx - dw / 2, cy - dh * 0.55, dw, dh);
