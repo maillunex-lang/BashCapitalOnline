@@ -10,12 +10,12 @@
   },
   "packs": [
     {
-      "id": "base_art",
-      "version": 3,
-      "url": "/api/packs/base_art_v3.zip",
-      "sha256": "6968c8b276b823c00b4606a5bb1f680bfee6b9c7ae3dbcab2e6cd33f5c0f6524",
-      "required": true,
-      "size_bytes": 14071883
+      "id": "catalog_v2",
+      "version": 1,
+      "url": "/api/packs/catalog_v2_v1.zip",
+      "sha256": "cdfe1449ff4c5e4a49f8c5ff247e45da14dbfb93daeb09b16a51a040abbfa5a2",
+      "required": false,
+      "size_bytes": 568147
     },
     {
       "id": "city_tiles",
@@ -34,6 +34,6 @@
       "text": "#e8f2ee"
     },
     "map": "isometric teal-roof Bashkortostan industry",
-    "icons": "painted product icons for full 1000-item catalog"
+    "icons": "Economy V2 catalog icons with shared fallbacks"
   }
 }

@@ -51,20 +51,15 @@ func fetch_manifest() -> Dictionary:
 	var res = await _http_get("/api/updates/manifest")
 	return res if res is Dictionary else {}
 
-func fetch_catalog() -> void:
+func fetch_catalog() -> bool:
 	var res = await _http_get("/api/catalog")
-	if res is Dictionary:
-		# Soft-compat: V2 catalog is dynamic (170 SKU). Missing icon files are OK —
-		# UI must not assume legacy _std/_prem IDs or fixed item counts.
-		catalog = res
-		if not catalog.has("items"):
-			catalog["items"] = []
-		if not catalog.has("recipes"):
-			catalog["recipes"] = []
-		if not catalog.has("buildings"):
-			catalog["buildings"] = []
-		if not catalog.has("shops"):
-			catalog["shops"] = []
+	if not res is Dictionary or not res.has("economy_catalog_version"):
+		return false
+	for kind in ["items", "recipes", "buildings", "shops", "cities"]:
+		if not res.get(kind) is Array:
+			return false
+	catalog = res
+	return true
 
 func fetch_world() -> void:
 	var res = await _http_get("/api/world")
@@ -95,6 +90,7 @@ func rankings() -> Array:
 
 func _http_get(path: String):
 	var http := HTTPRequest.new()
+	http.timeout = 15.0
 	add_child(http)
 	var err := http.request(base_url + path)
 	if err != OK:
@@ -107,6 +103,7 @@ func _http_get(path: String):
 
 func _post(path: String, body: Dictionary):
 	var http := HTTPRequest.new()
+	http.timeout = 15.0
 	add_child(http)
 	var err := http.request(base_url + path, _headers(), HTTPClient.METHOD_POST, JSON.stringify(body))
 	if err != OK:
@@ -121,8 +118,11 @@ func _parse(result: Array):
 	var response_code: int = result[1]
 	var body: PackedByteArray = result[3]
 	var text := body.get_string_from_utf8()
-	connected_changed.emit(response_code >= 200 and response_code < 300)
-	if response_code >= 400:
+	var ok := response_code >= 200 and response_code < 300
+	connected_changed.emit(ok)
+	if response_code == 0:
+		return null
+	if not ok:
 		return {"error": text, "code": response_code}
 	var data = JSON.parse_string(text)
 	return data

@@ -490,6 +490,7 @@ def main():
         if not dest.exists() or dest.stat().st_mtime < f.stat().st_mtime:
             shutil.copy(f, dest)
     pack_zips()
+    runpy.run_path(str(ROOT / "scripts/build_catalog_v2_icons.py"), run_name="__main__")
     print("art pack build complete")
 
 

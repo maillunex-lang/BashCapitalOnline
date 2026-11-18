@@ -25,7 +25,7 @@ func check_and_fetch() -> void:
 		packs_ready.emit()
 		return
 	var apk: Dictionary = manifest.get("apk", {})
-	if int(apk.get("version_code", 0)) > _local_apk_code():
+	if str(apk.get("sha256", "")).length() == 64 and int(apk.get("version_code", 0)) > _local_apk_code():
 		update_available.emit(apk)
 	for pack in manifest.get("packs", []):
 		await _ensure_pack(pack)

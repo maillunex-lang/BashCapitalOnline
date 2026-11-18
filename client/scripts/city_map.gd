@@ -26,35 +26,16 @@ var zone_colors := {
 	"empty": Color("3A4A46"),
 }
 
-var building_sprite := {
-	"farm": "bld_farm",
-	"livestock_farm": "bld_livestock",
-	"orchard": "bld_orchard",
-	"logging_camp": "bld_logging",
-	"quarry": "bld_quarry",
-	"mine": "bld_mine",
-	"oil_well": "bld_oil",
-	"gas_well": "bld_gas",
-	"chem_plant": "bld_chem",
-	"mill": "bld_mill",
-	"bakery": "bld_bakery",
-	"food_plant": "bld_food",
-	"dairy_plant": "bld_dairy",
-	"textile_mill": "bld_textile",
-	"apparel_factory": "bld_apparel",
-	"board_plant": "bld_board",
-	"sawmill": "bld_sawmill",
-	"furniture_plant": "bld_furniture",
-	"glass_plant": "bld_glass",
-	"paper_mill": "bld_paper",
-	"plastics_plant": "bld_plastics",
-	"refinery": "bld_refinery",
-	"steel_mill": "bld_steel",
-	"electronics_plant": "bld_electronics",
-	"appliance_plant": "bld_appliance",
-	"warehouse": "bld_warehouse",
-	"garage": "bld_garage",
-}
+var _building_icons: Dictionary = {}
+var _item_icons: Dictionary = {}
+
+func bind_catalog(catalog: Dictionary) -> void:
+	_building_icons.clear()
+	_item_icons.clear()
+	for entry in catalog.get("buildings", []):
+		_building_icons[entry["id"]] = entry
+	for entry in catalog.get("items", []):
+		_item_icons[entry["id"]] = entry
 
 var zone_tile := {
 	"center": "tile_center",
@@ -72,7 +53,6 @@ func _tex(name: String) -> Texture2D:
 		return _sprites[name]
 	for path in [
 		"res://assets/map/%s.png" % name,
-		"res://assets/icons/%s.png" % name,
 		"res://assets/ui/%s.png" % name,
 	]:
 		if ResourceLoader.exists(path):
@@ -172,13 +152,11 @@ func _draw_tile(center: Vector2, col: Color) -> void:
 		draw_polyline(pts + PackedVector2Array([pts[0]]), Color(1, 1, 1, 0.12), 1.0, true)
 
 func _draw_building_sprite(center: Vector2, typ: String, zone: String) -> void:
-	var name := str(building_sprite.get(typ, ""))
-	var tex := _tex(name) if name != "" else null
-	if tex == null:
-		tex = _tex("bld_" + typ)
-	if tex == null:
+	var entry: Dictionary = _building_icons.get(typ, {})
+	if entry.is_empty():
 		_draw_building(center, zone)
 		return
+	var tex := CatalogUI.icon(entry, "buildings")
 	var s := tex.get_size()
 	var scale := 0.78 if detail_level < 3 else 0.86
 	draw_texture_rect(tex, Rect2(center - Vector2(s.x * scale * 0.5, s.y * scale * 0.78), s * scale), false)
@@ -229,8 +207,8 @@ func _draw_catchment(cx: int, cy: int, radius: int) -> void:
 
 func _draw_deposit(center: Vector2, item_id: String, fill_ratio: float) -> void:
 	var tex := _tex("res_" + item_id)
-	if tex == null:
-		tex = _tex("item_" + item_id)
+	if tex == null and _item_icons.has(item_id):
+		tex = CatalogUI.icon(_item_icons[item_id], "items")
 	if tex:
 		var s := tex.get_size()
 		draw_texture_rect(tex, Rect2(center + Vector2(-s.x * 0.28, -s.y * 0.15), s * 0.55), false)

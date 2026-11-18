@@ -3,7 +3,7 @@
 > **Для AI:** сначала [`AGENTS.md`](./AGENTS.md) → подробные этапы [`roadmap/STAGES.md`](./roadmap/STAGES.md) → статус [`roadmap/STATUS.json`](./roadmap/STATUS.json).  
 > `STATUS.json` — источник истины. `STAGES.md` — как выполнять. Этот файл — краткое зеркало.
 
-Обновлено: 2026-11-18 · Ветка: **`main`** · Текущий этап: **S6 Payments** (код live готов; нужны ключи ЮKassa)
+Обновлено: 2026-11-18 · Ветка: **`main`** · Текущий этап: **Android V2** (следующий шаг — карта трёх городов)
 
 ## Честность статусов
 
@@ -14,14 +14,9 @@
 
 Готовое **всегда** сливать в **`main`** (`merge` + `git push origin main`). Feature-ветки `cursor/*-c48e` — только рабочий буфер.
 
-## Сейчас (этап S6 → дальше S7)
+## Сейчас
 
-Платежный код live готов. Дальше по приоритету:
-
-1. **RM-APK-VERIFY** — APK на устройстве  
-2. **RM-MAP-INCREMENTAL** — частичная перерисовка карты  
-
-**Поиграть сейчас:** README → кабинет → стройка; «Опт» — ордера; «Ещё» — ЮKassa / mock подписка.
+[RM-ANDROID-V2-VERTICAL-SLICE](roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md) в работе. Каталог V2 и аренда магазина проверены через Godot и локальный Go-сервер. Следующий шаг — инкрементальная перерисовка карты Уфы, Белорецка и Стерлитамака. Подписанную APK и проверку на устройстве планируем после игрового цикла.
 
 ## Этапы (сводка)
 
@@ -37,6 +32,7 @@
 
 | ID | maturity | Что |
 |----|----------|-----|
+| Android V2 · каталог | mvp | 170 товаров, 200 рецептов, 92 здания и 14 типов магазинов в Godot. Проверена аренда с товаром V2 |
 | RM-PAYMENT-LIVE | mvp | Live YooKassa create + verify webhook; mock-pay только -dev/ALLOW_MOCK_PAY |
 | RM-CONTRACTS-UI | mvp | Web ордера + контракты |
 | RM-DEMAND | mvp | class shares, quality/brand/corridor |

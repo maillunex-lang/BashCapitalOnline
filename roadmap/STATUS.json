@@ -27,7 +27,7 @@
       "status": "in_progress",
       "maturity": "unverified",
       "area": "client/server",
-      "notes": "Owner-approved milestone. Phase 1 is V2 Godot catalog/UI audit and integration. Acceptance is signed APK and verified real production-to-retail loop, not only successful Go tests.",
+      "notes": "Phase 1 complete on local Go + headless Godot: 170 items, 200 recipes, 92 buildings, 14 shops and V2 grocery rental. Phase 2 (three cities and incremental Godot map) is next. Signed APK, device verification, and the full production-to-retail loop remain pending.",
       "files": [
         "roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md",
         "data/catalog_v2/",

@@ -232,6 +232,11 @@ bbcode_enabled = true
 fit_content = true
 text = "Выберите участок на карте"
 
+[node name="CatalogBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+text = "Каталог экономики"
+[connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/CatalogBtn" to="." method="_on_catalog_pressed"]
+
 [node name="BuildType" type="OptionButton" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
 

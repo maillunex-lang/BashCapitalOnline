@@ -4,6 +4,7 @@ class_name ManagePanel
 signal closed
 signal save_building(payload: Dictionary)
 signal save_shop(payload: Dictionary)
+signal rent_shop(payload: Dictionary)
 signal stock_shop(shop_id: String, qty: int)
 
 @onready var title: Label = $Margin/VBox/Title
@@ -31,20 +32,22 @@ func open_building(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fir
 	kind = "building"
 	target_id = str(b.get("id", ""))
 	_clear_body()
-	title.text = _building_name(str(b.get("type", "")), catalog)
-	sub.text = "Специализация: только рецепты «%s»" % b.get("type", "")
-	hint.text = "Как в Capitalism Lab: выберите продукт, источник входов и можно ли продавать другим."
+	title.text = CatalogUI.entry_name(catalog, "buildings", str(b.get("type", "")))
+	sub.text = "Производство"
+	hint.text = ""
 
 	_recipe = OptionButton.new()
 	var btype := str(b.get("type", ""))
 	for r in catalog.get("recipes", []):
 		if str(r.get("building_type", "")) != btype:
 			continue
-		var label := "%s → %s" % [r.get("name", r.get("id")), r.get("output", {}).get("item_id", "")]
-		_recipe.add_item(label)
+		var output := CatalogUI.find(catalog, "items", r["output"]["item_id"])
+		_recipe.add_icon_item(CatalogUI.icon(output, "items"), r["name"])
 		_recipe.set_item_metadata(_recipe.item_count - 1, str(r.get("id")))
 		if str(r.get("id")) == str(b.get("recipe_id", "")):
 			_recipe.select(_recipe.item_count - 1)
+	_recipe.add_theme_constant_override("icon_max_width", 28)
+	_recipe.get_popup().add_theme_constant_override("icon_max_width", 28)
 	_add_field("Что производить", _recipe)
 
 	_input = OptionButton.new()
@@ -89,28 +92,10 @@ func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	kind = "shop"
 	target_id = str(s.get("id", ""))
 	_clear_body()
-	title.text = _shop_name(str(s.get("shop_type", "")), catalog)
+	title.text = CatalogUI.entry_name(catalog, "shops", str(s.get("shop_type", "")))
 	sub.text = "Ассортимент ограничен типом магазина"
-	hint.text = "Продуктовый не продаст электронику — тип витрины как в Capitalism Lab."
-
-	_shop_type = OptionButton.new()
-	for sh in catalog.get("shops", []):
-		_shop_type.add_item(str(sh.get("name", sh.get("id"))))
-		_shop_type.set_item_metadata(_shop_type.item_count - 1, str(sh.get("id")))
-		if str(sh.get("id")) == str(s.get("shop_type", "")):
-			_shop_type.select(_shop_type.item_count - 1)
-	_shop_type.item_selected.connect(func(_i): _refill_shop_items(catalog, ""))
-	_add_field("Тип магазина", _shop_type)
-
-	_shop_item = OptionButton.new()
-	_add_field("Товар на витрине", _shop_item)
-	_refill_shop_items(catalog, str(s.get("item_id", "")))
-
-	_price = SpinBox.new()
-	_price.min_value = 1
-	_price.max_value = 100000
-	_price.value = float(s.get("price", 50))
-	_add_field("Розничная цена", _price)
+	hint.text = ""
+	_shop_fields(catalog, s)
 
 	_stock_src = OptionButton.new()
 	for pair in [["own", "Со своего склада"], ["city", "У города"], ["market", "С биржи"]]:
@@ -128,6 +113,8 @@ func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	var save := Button.new()
 	save.text = "Сохранить"
 	save.pressed.connect(_on_save_shop)
+	save.disabled = _shop_item.item_count == 0
+	_shop_type.item_selected.connect(func(_index): save.disabled = _shop_item.item_count == 0)
 	body.add_child(save)
 
 	var stock := Button.new()
@@ -136,35 +123,44 @@ func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	body.add_child(stock)
 	visible = true
 
-func _refill_shop_items(catalog: Dictionary, selected: String) -> void:
-	if _shop_item == null or _shop_type == null:
-		return
-	_shop_item.clear()
-	var typ := str(_shop_type.get_item_metadata(_shop_type.selected))
-	var shop_def := {}
-	for sh in catalog.get("shops", []):
-		if str(sh.get("id")) == typ:
-			shop_def = sh
-			break
-	for it in catalog.get("items", []):
-		if not _shop_allows(shop_def, it):
-			continue
-		_shop_item.add_item(str(it.get("name", it.get("id"))))
-		_shop_item.set_item_metadata(_shop_item.item_count - 1, str(it.get("id")))
-		if str(it.get("id")) == selected:
-			_shop_item.select(_shop_item.item_count - 1)
+func open_rental(catalog: Dictionary, parcel: Dictionary) -> void:
+	kind = "rental"
+	_clear_body()
+	title.text = "Аренда магазина"
+	sub.text = "Участок (%s, %s)" % [parcel["x"], parcel["y"]]
+	hint.text = ""
+	_shop_fields(catalog, {})
+	var confirm := Button.new()
+	confirm.text = "Арендовать"
+	confirm.disabled = _shop_item.item_count == 0
+	_shop_type.item_selected.connect(func(_index): confirm.disabled = _shop_item.item_count == 0)
+	confirm.pressed.connect(func():
+		var payload := parcel.duplicate()
+		payload["shop_type"] = CatalogUI.selected_id(_shop_type)
+		payload["item_id"] = CatalogUI.selected_id(_shop_item)
+		payload["price"] = _price.value
+		visible = false
+		rent_shop.emit(payload)
+	)
+	body.add_child(confirm)
+	visible = true
 
-func _shop_allows(shop_def: Dictionary, item: Dictionary) -> bool:
-	var allowed_items: Array = shop_def.get("allowed_items", [])
-	if not allowed_items.is_empty():
-		return str(item.get("id")) in allowed_items
-	var cats: Array = shop_def.get("allowed_categories", [])
-	var tiers: Array = shop_def.get("allowed_tiers", [])
-	if not cats.is_empty() and not (str(item.get("category")) in cats):
-		return false
-	if not tiers.is_empty() and not (str(item.get("tier")) in tiers):
-		return false
-	return true
+func _shop_fields(catalog: Dictionary, shop: Dictionary) -> void:
+	_shop_type = OptionButton.new()
+	for entry in catalog.get("shops", []):
+		CatalogUI.add_option(_shop_type, entry, "shops", str(shop.get("shop_type", "")))
+	_add_field("Тип магазина", _shop_type)
+	_shop_item = OptionButton.new()
+	_add_field("Товар на витрине", _shop_item)
+	CatalogUI.fill_shop_items(_shop_item, catalog, CatalogUI.selected_id(_shop_type), str(shop.get("item_id", "")))
+	_shop_type.item_selected.connect(func(_index):
+		CatalogUI.fill_shop_items(_shop_item, catalog, CatalogUI.selected_id(_shop_type))
+	)
+	_price = SpinBox.new()
+	_price.min_value = 1
+	_price.max_value = 100000
+	_price.value = float(shop.get("price", 55))
+	_add_field("Розничная цена", _price)
 
 func _on_save_building() -> void:
 	var recipe_id := ""
@@ -189,8 +185,8 @@ func _on_save_building() -> void:
 func _on_save_shop() -> void:
 	save_shop.emit({
 		"shop_id": target_id,
-		"shop_type": str(_shop_type.get_item_metadata(_shop_type.selected)) if _shop_type else "",
-		"item_id": str(_shop_item.get_item_metadata(_shop_item.selected)) if _shop_item and _shop_item.item_count > 0 else "",
+		"shop_type": CatalogUI.selected_id(_shop_type),
+		"item_id": CatalogUI.selected_id(_shop_item),
 		"price": _price.value if _price else 50,
 		"stock_source": str(_stock_src.get_item_metadata(_stock_src.selected)) if _stock_src else "own",
 		"auto_restock": _restock.button_pressed if _restock else true,
@@ -203,6 +199,7 @@ func _on_close() -> void:
 
 func _clear_body() -> void:
 	for c in body.get_children():
+		body.remove_child(c)
 		c.queue_free()
 	_recipe = null
 	_input = null
@@ -220,15 +217,3 @@ func _add_field(label: String, control: Control) -> void:
 	l.text = label
 	body.add_child(l)
 	body.add_child(control)
-
-func _building_name(id: String, catalog: Dictionary) -> String:
-	for b in catalog.get("buildings", []):
-		if str(b.get("id")) == id:
-			return str(b.get("name", id))
-	return id
-
-func _shop_name(id: String, catalog: Dictionary) -> String:
-	for s in catalog.get("shops", []):
-		if str(s.get("id")) == id:
-			return str(s.get("name", id))
-	return id
