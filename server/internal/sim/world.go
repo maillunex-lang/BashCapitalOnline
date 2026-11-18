@@ -43,6 +43,7 @@ func NewEngine(cat *model.Catalog) *Engine {
 	}}
 	e.seedCities()
 	e.seedAI()
+	e.ensureOpenExtractDeposits()
 	e.initCityMarket()
 	msg := "Мир Башкортостана инициализирован. Активны Уфа, Белорецк и Стерлитамак."
 	if ver >= 2 {
@@ -375,13 +376,6 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 	if parcel.Building != "" {
 		return "", fmt.Errorf("участок занят")
 	}
-	needZone := bdef.Zone
-	if needZone == "industrial" && parcel.Zone != "industrial" && parcel.Zone != "empty" {
-		return "", fmt.Errorf("промка только в промзоне/пустых окраинах")
-	}
-	if needZone == "rural" && parcel.Zone != "rural" && parcel.Zone != "empty" {
-		return "", fmt.Errorf("фермы только в сельской зоне")
-	}
 	if recipeID == "" {
 		recipeID = e.defaultRecipeForBuilding(firm, typ)
 	}
@@ -390,7 +384,9 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 			return "", err
 		}
 	}
+	needZone := bdef.Zone
 	needRes := e.depositItemForBuild(typ, recipeID)
+	depositOK := false
 	if extractBuildingResources[typ] || needRes != "" {
 		if err := e.requireDepositForBuild(city, typ, recipeID, x, y); err != nil {
 			if free && needRes != "" {
@@ -401,12 +397,31 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 						ID: uuid.NewString(), ItemID: base, X: x, Y: y,
 						Amount: 200, MaxAmount: 200, Quality: 3.5, Renewable: renew,
 					})
+					depositOK = true
 				}
 			} else {
 				return "", err
 			}
+		} else {
+			depositOK = true
 		}
 	}
+	// Extractors may sit on a matching deposit even if the parcel zone drifted
+	// (e.g. oil on rural edge); convert the tile to the building zone on place.
+	zoneOK := true
+	if needZone == "industrial" && parcel.Zone != "industrial" && parcel.Zone != "empty" {
+		zoneOK = depositOK && extractBuildingResources[typ]
+		if !zoneOK {
+			return "", fmt.Errorf("промка только в промзоне/пустых окраинах")
+		}
+	}
+	if needZone == "rural" && parcel.Zone != "rural" && parcel.Zone != "empty" {
+		zoneOK = depositOK && extractBuildingResources[typ]
+		if !zoneOK {
+			return "", fmt.Errorf("фермы только в сельской зоне")
+		}
+	}
+	_ = zoneOK
 	// Сначала дорога до сети (за счёт строителя), потом здание
 	roadTiles, roadCost, err := e.ensureRoadAccess(firm, city, x, y, free)
 	if err != nil {
@@ -432,7 +447,7 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 	parcel.Building = id
 	parcel.OwnerID = firmID
 	parcel.HasRoad = true
-	if parcel.Zone == "empty" {
+	if parcel.Zone == "empty" || (extractBuildingResources[typ] && depositOK && parcel.Zone != needZone && needZone != "") {
 		parcel.Zone = needZone
 	}
 	if !free {

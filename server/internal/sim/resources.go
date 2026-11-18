@@ -122,21 +122,42 @@ func (e *Engine) seedResourceDeposits() {
 }
 
 func (e *Engine) spawnDeposit(city *model.CityState, itemID string, initial bool) *model.ResourceDeposit {
-	candidates := []model.Parcel{}
-	for _, p := range city.Parcels {
-		if p.Building != "" {
-			continue
+	renewableHint := ruralDepositItems[itemID]
+	switch itemID {
+	case "iron_ore", "crude_oil", "coal", "copper_ore", "natural_gas", "oil", "gas", "bauxite":
+		renewableHint = false
+	case "softwood", "hardwood", "wood", "flax", "wheat", "potato", "milk", "honey", "apples", "cherries":
+		renewableHint = true
+	case "sand", "quartz", "stone", "clay", "limestone", "peat", "salt":
+		renewableHint = itemID == "peat"
+	}
+	pick := func(preferZones map[string]bool) []model.Parcel {
+		out := []model.Parcel{}
+		for _, p := range city.Parcels {
+			if p.Building != "" || depositAt(city, p.X, p.Y) != nil {
+				continue
+			}
+			if p.Zone == "center" {
+				continue
+			}
+			if p.Zone == "residential" && !renewableHint {
+				continue
+			}
+			if preferZones != nil && !preferZones[p.Zone] {
+				continue
+			}
+			out = append(out, p)
 		}
-		if depositAt(city, p.X, p.Y) != nil {
-			continue
-		}
-		if p.Zone == "center" {
-			continue
-		}
-		if p.Zone == "residential" && !ruralDepositItems[itemID] {
-			continue
-		}
-		candidates = append(candidates, p)
+		return out
+	}
+	var candidates []model.Parcel
+	if renewableHint {
+		candidates = pick(map[string]bool{"rural": true, "empty": true})
+	} else {
+		candidates = pick(map[string]bool{"industrial": true, "empty": true})
+	}
+	if len(candidates) == 0 {
+		candidates = pick(nil)
 	}
 	if len(candidates) == 0 {
 		for _, p := range city.Parcels {
@@ -150,7 +171,7 @@ func (e *Engine) spawnDeposit(city *model.CityState, itemID string, initial bool
 	}
 	p := candidates[rand.Intn(len(candidates))]
 	base := 80 + rand.Intn(120)
-	renewable := ruralDepositItems[itemID]
+	renewable := renewableHint
 	switch itemID {
 	case "iron_ore", "crude_oil", "coal", "copper_ore", "natural_gas", "oil", "gas", "bauxite":
 		base = 150 + rand.Intn(200)
@@ -189,6 +210,39 @@ func depositAtAny(city *model.CityState, x, y int) *model.ResourceDeposit {
 		}
 	}
 	return nil
+}
+
+// ensureOpenExtractDeposits spawns one free deposit per city resource when AI
+// seeding occupied every matching tile — players must still be able to extract.
+func (e *Engine) ensureOpenExtractDeposits() {
+	for _, city := range e.World.Cities {
+		def := e.Catalog.CityByID[city.ID]
+		for _, res := range def.Resources {
+			if it, ok := e.Catalog.ItemByID[res]; ok && it.Tier != "raw" {
+				continue
+			}
+			hasFree := false
+			for _, d := range city.Deposits {
+				if resourceBaseID(d.ItemID) != resourceBaseID(res) {
+					continue
+				}
+				occ := false
+				for _, p := range city.Parcels {
+					if p.X == d.X && p.Y == d.Y && p.Building != "" {
+						occ = true
+						break
+					}
+				}
+				if !occ {
+					hasFree = true
+					break
+				}
+			}
+			if !hasFree {
+				e.spawnDeposit(city, res, true)
+			}
+		}
+	}
 }
 
 func (e *Engine) requireDepositForBuild(city *model.CityState, buildingType, recipeID string, x, y int) error {
