@@ -9,35 +9,55 @@ import (
 	"bashcapital/server/internal/model"
 )
 
-// extractBuildingResources — какие здания требуют залежь какого сырья.
-var extractBuildingResources = map[string]string{
-	"mine":         "iron_ore",
-	"logging_camp": "wood",
-	"quarry":       "", // зависит от рецепта
-	"farm":         "", // milk / flax по рецепту
-	"orchard":      "cherry",
-	"chem_plant":   "chemicals",
-	"oil_well":     "oil",
+// extractBuildingResources — здания добычи/сбора (могут требовать залежь).
+var extractBuildingResources = map[string]bool{
+	"farm":           true,
+	"livestock_farm": true,
+	"orchard":        true,
+	"logging_camp":   true,
+	"quarry":         true,
+	"mine":           true,
+	"oil_well":       true,
+	"gas_well":       true,
+	"chem_plant":     true, // базовая химия как «залежь»
 }
 
-var recipeOutputResource = map[string]string{
-	"mine_iron":         "iron_ore",
-	"extract_wood":      "wood",
-	"extract_sand":      "sand",
-	"extract_quartz":    "quartz",
-	"farm_milk":         "milk",
-	"extract_flax":      "flax",
-	"farm_cherry":       "cherry",
-	"extract_chemicals": "chemicals",
-	"extract_oil":       "oil",
+var ruralDepositItems = map[string]bool{
+	"wheat": true, "potato": true, "flax": true, "cotton": true,
+	"milk": true, "cattle": true, "cherry": true, "apple": true,
 }
 
 func resourceForRecipe(buildingType, recipeID string) string {
-	if item, ok := recipeOutputResource[recipeID]; ok {
-		return item
+	if recipeID != "" {
+		// Prefer recipe output for extract recipes (Capitalism Lab style: many raws per building).
+		return ""
 	}
-	if item, ok := extractBuildingResources[buildingType]; ok && item != "" {
-		return item
+	_ = buildingType
+	return ""
+}
+
+func (e *Engine) depositItemForBuild(buildingType, recipeID string) string {
+	if recipeID != "" {
+		if r, ok := e.Catalog.RecipeByID[recipeID]; ok && isExtractRecipe(r) {
+			return r.Output.ItemID
+		}
+	}
+	// fallback defaults by building
+	switch buildingType {
+	case "orchard":
+		return "cherry"
+	case "logging_camp":
+		return "wood"
+	case "mine":
+		return "iron_ore"
+	case "oil_well":
+		return "oil"
+	case "gas_well":
+		return "gas"
+	case "chem_plant":
+		return "chemicals"
+	case "livestock_farm":
+		return "milk"
 	}
 	return ""
 }
@@ -51,15 +71,19 @@ func (e *Engine) seedResourceDeposits() {
 		def := e.Catalog.CityByID[city.ID]
 		city.Deposits = nil
 		for _, res := range def.Resources {
+			// skip non-raw catalog items accidentally listed
+			if it, ok := e.Catalog.ItemByID[res]; ok && it.Tier != "raw" {
+				continue
+			}
 			n := 2
-			if res == "iron_ore" || res == "oil" {
+			switch res {
+			case "iron_ore", "oil", "coal", "wheat", "milk":
 				n = 3
 			}
 			for i := 0; i < n; i++ {
 				e.spawnDeposit(city, res, true)
 			}
 		}
-		// гарантия песка/дерева рядом с промкой если город металлургический
 		if len(city.Deposits) == 0 {
 			e.spawnDeposit(city, "wood", true)
 			e.spawnDeposit(city, "sand", true)
@@ -76,17 +100,15 @@ func (e *Engine) spawnDeposit(city *model.CityState, itemID string, initial bool
 		if depositAt(city, p.X, p.Y) != nil {
 			continue
 		}
-		// ресурсы на окраине / rural / industrial / empty
 		if p.Zone == "center" {
 			continue
 		}
-		if p.Zone == "residential" && itemID != "milk" && itemID != "flax" && itemID != "cherry" {
+		if p.Zone == "residential" && !ruralDepositItems[itemID] {
 			continue
 		}
 		candidates = append(candidates, p)
 	}
 	if len(candidates) == 0 {
-		// расширим город слегка поиском любых empty
 		for _, p := range city.Parcels {
 			if p.Building == "" && depositAt(city, p.X, p.Y) == nil {
 				candidates = append(candidates, p)
@@ -99,9 +121,9 @@ func (e *Engine) spawnDeposit(city *model.CityState, itemID string, initial bool
 	p := candidates[rand.Intn(len(candidates))]
 	base := 80 + rand.Intn(120)
 	switch itemID {
-	case "iron_ore", "oil":
+	case "iron_ore", "oil", "coal", "copper_ore", "gas":
 		base = 150 + rand.Intn(200)
-	case "wood", "flax", "cherry", "milk":
+	case "wood", "flax", "cherry", "milk", "wheat", "potato", "apple", "cattle", "cotton":
 		base = 60 + rand.Intn(80)
 	case "sand", "quartz":
 		base = 100 + rand.Intn(100)
@@ -141,15 +163,11 @@ func depositAtAny(city *model.CityState, x, y int) *model.ResourceDeposit {
 }
 
 func (e *Engine) requireDepositForBuild(city *model.CityState, buildingType, recipeID string, x, y int) error {
-	need := resourceForRecipe(buildingType, recipeID)
-	if need == "" && extractBuildingResources[buildingType] == "" && buildingType != "quarry" && buildingType != "farm" {
-		// не добыча
-		if _, isExtract := extractBuildingResources[buildingType]; !isExtract {
-			return nil
-		}
+	if !extractBuildingResources[buildingType] {
+		return nil
 	}
+	need := e.depositItemForBuild(buildingType, recipeID)
 	if need == "" {
-		// quarry/farm без рецепта — любая подходящая залежь на клетке
 		d := depositAt(city, x, y)
 		if d == nil {
 			return fmt.Errorf("нужна залежь ресурса на этой клетке")
@@ -158,7 +176,11 @@ func (e *Engine) requireDepositForBuild(city *model.CityState, buildingType, rec
 	}
 	d := depositAt(city, x, y)
 	if d == nil || d.ItemID != need {
-		return fmt.Errorf("нужна залежь «%s» на клетке (сгенерированы на окраине)", need)
+		name := need
+		if it, ok := e.Catalog.ItemByID[need]; ok {
+			name = it.Name
+		}
+		return fmt.Errorf("нужна залежь «%s» на клетке (сгенерированы на окраине)", name)
 	}
 	return nil
 }
@@ -179,7 +201,6 @@ func (e *Engine) consumeDeposit(city *model.CityState, x, y, qty int, itemID str
 	if d.Amount <= 0 {
 		d.Amount = 0
 		*log = append(*log, fmt.Sprintf("Залежь %s в %s (%d,%d) исчерпана", itemID, city.ID, x, y))
-		// возобновление в другом месте
 		e.removeEmptyDeposits(city)
 		if nd := e.spawnDeposit(city, itemID, false); nd != nil {
 			*log = append(*log, fmt.Sprintf("Ресурс %s появился в другом месте (%d,%d)", itemID, nd.X, nd.Y))
@@ -198,7 +219,6 @@ func (e *Engine) removeEmptyDeposits(city *model.CityState) {
 	city.Deposits = out
 }
 
-// occasional discovery: rare new deposits on monthly event
 func (e *Engine) discoverResources(log *[]string) {
 	for _, city := range e.World.Cities {
 		def := e.Catalog.CityByID[city.ID]
@@ -206,6 +226,9 @@ func (e *Engine) discoverResources(log *[]string) {
 			continue
 		}
 		res := def.Resources[rand.Intn(len(def.Resources))]
+		if it, ok := e.Catalog.ItemByID[res]; ok && it.Tier != "raw" {
+			continue
+		}
 		if d := e.spawnDeposit(city, res, false); d != nil {
 			*log = append(*log, fmt.Sprintf("Геологи нашли %s у %s", res, city.ID))
 		}

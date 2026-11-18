@@ -7,7 +7,7 @@
     "focus": "capital",
     "start_population": 12000,
     "start_radius": 4,
-    "resources": ["sand", "milk", "cherry", "flax"],
+    "resources": ["wheat", "potato", "milk", "cattle", "cherry", "apple", "flax", "wood", "sand"],
     "labor": {"worker": 4000, "engineer": 900, "manager": 350},
     "enabled": true
   },
@@ -19,7 +19,7 @@
     "focus": "metallurgy",
     "start_population": 5000,
     "start_radius": 3,
-    "resources": ["iron_ore", "wood", "quartz"],
+    "resources": ["iron_ore", "coal", "copper_ore", "wood", "quartz", "oil"],
     "labor": {"worker": 2200, "engineer": 500, "manager": 120},
     "enabled": true
   },
@@ -31,7 +31,7 @@
     "focus": "chemistry",
     "start_population": 7000,
     "start_radius": 3,
-    "resources": ["chemicals", "sand"],
+    "resources": ["chemicals", "sand", "gas", "oil"],
     "labor": {"worker": 2800, "engineer": 700, "manager": 180},
     "enabled": false
   },
@@ -43,7 +43,7 @@
     "focus": "petrochem",
     "start_population": 6000,
     "start_radius": 3,
-    "resources": ["chemicals"],
+    "resources": ["oil", "gas", "chemicals"],
     "labor": {"worker": 2500, "engineer": 650, "manager": 160},
     "enabled": false
   },
@@ -55,7 +55,7 @@
     "focus": "auto_metal",
     "start_population": 5500,
     "start_radius": 3,
-    "resources": ["iron_ore", "chemicals"],
+    "resources": ["iron_ore", "steel", "chemicals", "coal"],
     "labor": {"worker": 2400, "engineer": 600, "manager": 150},
     "enabled": false
   },
@@ -67,7 +67,7 @@
     "focus": "oil",
     "start_population": 4500,
     "start_radius": 3,
-    "resources": ["oil", "chemicals"],
+    "resources": ["oil", "gas", "chemicals"],
     "labor": {"worker": 1800, "engineer": 400, "manager": 100},
     "enabled": false
   },
@@ -79,7 +79,7 @@
     "focus": "oil_gas",
     "start_population": 4000,
     "start_radius": 3,
-    "resources": ["oil", "chemicals", "wood"],
+    "resources": ["oil", "gas", "wood", "wheat"],
     "labor": {"worker": 1600, "engineer": 350, "manager": 90},
     "enabled": false
   },
@@ -91,7 +91,7 @@
     "focus": "nonferrous",
     "start_population": 3500,
     "start_radius": 3,
-    "resources": ["iron_ore", "quartz"],
+    "resources": ["copper_ore", "iron_ore", "quartz"],
     "labor": {"worker": 1400, "engineer": 320, "manager": 80},
     "enabled": false
   },
@@ -100,10 +100,10 @@
     "name": "Мелеуз",
     "x": 500,
     "y": 500,
-    "focus": "fertilizer",
+    "focus": "agro_chem",
     "start_population": 3800,
     "start_radius": 3,
-    "resources": ["chemicals", "flax"],
+    "resources": ["chemicals", "flax", "wheat", "potato"],
     "labor": {"worker": 1500, "engineer": 300, "manager": 80},
     "enabled": false
   },
@@ -115,7 +115,7 @@
     "focus": "oil_heritage",
     "start_population": 4200,
     "start_radius": 3,
-    "resources": ["oil", "chemicals", "sand"],
+    "resources": ["oil", "chemicals", "sand", "coal"],
     "labor": {"worker": 1700, "engineer": 380, "manager": 95},
     "enabled": false
   }

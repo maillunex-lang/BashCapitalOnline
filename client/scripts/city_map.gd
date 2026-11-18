@@ -13,6 +13,7 @@ var deposits: Array = []
 var selected: Vector2i = Vector2i(9999, 9999)
 var hover: Vector2i = Vector2i(9999, 9999)
 var detail_level: int = 2
+var _sprites: Dictionary = {} # path -> Texture2D
 
 var zone_colors := {
 	"center": Color("2F6F6A"),
@@ -22,6 +23,58 @@ var zone_colors := {
 	"rural": Color("7FAE6E"),
 	"empty": Color("3A4A46"),
 }
+
+var building_sprite := {
+	"farm": "bld_farm",
+	"livestock_farm": "bld_livestock",
+	"orchard": "bld_orchard",
+	"logging_camp": "bld_logging",
+	"quarry": "bld_quarry",
+	"mine": "bld_mine",
+	"oil_well": "bld_oil",
+	"gas_well": "bld_gas",
+	"chem_plant": "bld_chem",
+	"mill": "bld_mill",
+	"bakery": "bld_bakery",
+	"food_plant": "bld_food",
+	"dairy_plant": "bld_dairy",
+	"textile_mill": "bld_textile",
+	"apparel_factory": "bld_apparel",
+	"board_plant": "bld_board",
+	"sawmill": "bld_sawmill",
+	"furniture_plant": "bld_furniture",
+	"glass_plant": "bld_glass",
+	"paper_mill": "bld_paper",
+	"plastics_plant": "bld_plastics",
+	"refinery": "bld_refinery",
+	"steel_mill": "bld_steel",
+	"electronics_plant": "bld_electronics",
+	"appliance_plant": "bld_appliance",
+	"warehouse": "bld_warehouse",
+	"garage": "bld_garage",
+}
+
+var zone_tile := {
+	"center": "tile_center",
+	"residential": "tile_residential",
+	"industrial": "tile_industrial",
+	"rural": "tile_rural",
+	"empty": "tile_grass",
+	"commercial": "tile_center",
+}
+
+func _tex(name: String) -> Texture2D:
+	if name == "":
+		return null
+	if _sprites.has(name):
+		return _sprites[name]
+	var path := "res://assets/map/%s.png" % name
+	if ResourceLoader.exists(path):
+		var t: Texture2D = load(path)
+		_sprites[name] = t
+		return t
+	_sprites[name] = null
+	return null
 
 func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: Dictionary) -> void:
 	parcels = city.get("parcels", [])
@@ -39,7 +92,6 @@ func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: D
 	queue_redraw()
 
 func _draw() -> void:
-	# soft ground wash
 	draw_circle(Vector2.ZERO, 520, Color(0.18, 0.28, 0.24, 0.35))
 	var sorted := parcels.duplicate()
 	sorted.sort_custom(func(a, b): return (a.x + a.y) < (b.x + b.y))
@@ -53,19 +105,34 @@ func _draw() -> void:
 		elif Vector2i(x, y) == hover:
 			col = col.lightened(0.12)
 		var center := _iso(x, y)
-		_draw_tile(center, col)
+		var tile_tex := _tex(str(zone_tile.get(zone, "tile_grass")))
+		if tile_tex:
+			var ts := tile_tex.get_size()
+			var tint := Color(1.18, 1.18, 1.12, 1.0) if Vector2i(x, y) == selected else Color(1, 1, 1, 0.96)
+			draw_texture_rect(tile_tex, Rect2(center - Vector2(ts.x * 0.5, ts.y * 0.62), ts), false, tint)
+		else:
+			_draw_tile(center, col)
 		if bool(p.get("has_road", false)):
-			_draw_road(center)
+			var road := _tex("tile_road")
+			if road:
+				var rs := road.get_size()
+				draw_texture_rect(road, Rect2(center - Vector2(rs.x * 0.5, rs.y * 0.55), rs * 0.55), false, Color(1, 1, 1, 0.9))
+			else:
+				_draw_road(center)
 		for d in deposits:
 			if int(d.get("x", 999)) == x and int(d.get("y", 999)) == y and int(d.get("amount", 0)) > 0:
 				_draw_deposit(center, str(d.get("item_id", "")), float(d.get("amount", 0)) / maxf(1.0, float(d.get("max_amount", 1))))
-		# building prism
 		var key := "%s,%s" % [x, y]
 		if buildings.has(key):
-			_draw_building(center, zone)
+			var b: Dictionary = buildings[key]
+			_draw_building_sprite(center, str(b.get("type", "")), zone)
 		elif int(p.get("retail_slots", 0)) > 0:
-			_draw_shop_marker(center, shops.has(key))
-			# зона охвата выбранного магазина
+			var shop_tex := _tex("bld_shop")
+			if shop_tex:
+				var ss := shop_tex.get_size()
+				draw_texture_rect(shop_tex, Rect2(center - Vector2(ss.x * 0.5, ss.y * 0.72), ss * 0.72), false)
+			else:
+				_draw_shop_marker(center, shops.has(key))
 			if shops.has(key) and Vector2i(x, y) == selected:
 				var r: int = int(shops[key].get("radius", 2))
 				_draw_catchment(x, y, r)
@@ -81,7 +148,6 @@ func _draw_tile(center: Vector2, col: Color) -> void:
 		center + Vector2(-TILE_W * 0.5, 0),
 	])
 	if detail_level >= 1:
-		# soft ground shadow
 		var shadow := PackedVector2Array()
 		for p in pts:
 			shadow.append(p + Vector2(3, 4))
@@ -89,6 +155,16 @@ func _draw_tile(center: Vector2, col: Color) -> void:
 	draw_colored_polygon(pts, col)
 	if detail_level >= 1:
 		draw_polyline(pts + PackedVector2Array([pts[0]]), Color(1, 1, 1, 0.12), 1.0, true)
+
+func _draw_building_sprite(center: Vector2, typ: String, zone: String) -> void:
+	var name := str(building_sprite.get(typ, ""))
+	var tex := _tex(name)
+	if tex == null:
+		_draw_building(center, zone)
+		return
+	var s := tex.get_size()
+	var scale := 0.78 if detail_level < 3 else 0.86
+	draw_texture_rect(tex, Rect2(center - Vector2(s.x * scale * 0.5, s.y * scale * 0.78), s * scale), false)
 
 func _draw_building(center: Vector2, zone: String) -> void:
 	var h := 28.0 if zone == "industrial" else 18.0
@@ -135,6 +211,12 @@ func _draw_catchment(cx: int, cy: int, radius: int) -> void:
 			draw_circle(c, 4, Color(0.85, 0.7, 0.2, 0.2))
 
 func _draw_deposit(center: Vector2, item_id: String, fill_ratio: float) -> void:
+	var tex := _tex("res_" + item_id)
+	if tex:
+		var s := tex.get_size()
+		draw_texture_rect(tex, Rect2(center + Vector2(-s.x * 0.28, -s.y * 0.15), s * 0.55), false)
+		draw_arc(center + Vector2(0, 8), 8, -PI/2, -PI/2 + TAU * clampf(fill_ratio, 0.05, 1.0), 16, Color(1, 1, 1, 0.55), 2.0)
+		return
 	var col := Color("8B7355")
 	match item_id:
 		"oil": col = Color("2C2C2C")
@@ -146,6 +228,14 @@ func _draw_deposit(center: Vector2, item_id: String, fill_ratio: float) -> void:
 		"cherry": col = Color("8B1E3F")
 		"flax": col = Color("6B8F3C")
 		"chemicals": col = Color("4A6FA5")
+		"wheat": col = Color("D2B45A")
+		"coal": col = Color("2A2A2E")
+		"cattle": col = Color("A07850")
+		"apple": col = Color("B04040")
+		"potato": col = Color("A07846")
+		"gas": col = Color("A8C8E0")
+		"copper_ore": col = Color("B06A3A")
+		"cotton": col = Color("E8E8E0")
 	draw_circle(center + Vector2(0, 2), 7, col)
 	draw_arc(center + Vector2(0, 2), 7, -PI/2, -PI/2 + TAU * clampf(fill_ratio, 0.05, 1.0), 16, Color(1, 1, 1, 0.55), 2.0)
 
@@ -172,7 +262,6 @@ func _input(event: InputEvent) -> void:
 		queue_redraw()
 
 func _pick(local: Vector2) -> Vector2i:
-	# inverse iso approx
 	var a := local.x / (TILE_W * 0.5)
 	var b := local.y / (TILE_H * 0.5)
 	var x := int(round((a + b) * 0.5))

@@ -80,7 +80,9 @@ func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 func (s *Server) handleCatalog(w http.ResponseWriter, r *http.Request) {
 	c := s.Engine.Catalog
 	writeJSON(w, map[string]any{
-		"items": c.Items, "recipes": c.Recipes, "buildings": c.Buildings, "cities": c.Cities, "routes": c.Routes,
+		"items": c.Items, "recipes": c.Recipes, "buildings": c.Buildings, "shops": c.Shops,
+		"cities": c.Cities, "routes": c.Routes,
+		"economy": c.Economy, "ai_personas": c.AIPersonas,
 	})
 }
 
@@ -176,8 +178,17 @@ func (s *Server) handleAction(w http.ResponseWriter, r *http.Request) {
 		result, err = s.Engine.Build(firmID, str(body["city_id"]), str(body["building_type"]), str(body["recipe_id"]), intNum(body["x"]), intNum(body["y"]))
 	case "set_recipe":
 		err = s.Engine.SetRecipe(firmID, str(body["building_id"]), str(body["recipe_id"]))
+	case "configure_building":
+		inputs, _ := body["input_sources"].(map[string]any)
+		result, err = s.Engine.ConfigureBuilding(
+			firmID, str(body["building_id"]), str(body["recipe_id"]),
+			boolNum(body["auto_procure"]), str(body["default_input"]), str(body["firm_id"]),
+			boolDefaultTrue(body["sell_external"]), inputs,
+		)
 	case "rent_shop":
-		result, err = s.Engine.RentShop(firmID, str(body["city_id"]), intNum(body["x"]), intNum(body["y"]), str(body["item_id"]), floatNum(body["price"]))
+		result, err = s.Engine.RentShop(firmID, str(body["city_id"]), intNum(body["x"]), intNum(body["y"]), str(body["shop_type"]), str(body["item_id"]), floatNum(body["price"]))
+	case "configure_shop":
+		result, err = s.Engine.ConfigureShop(firmID, str(body["shop_id"]), str(body["shop_type"]), str(body["item_id"]), floatNum(body["price"]), str(body["stock_source"]), boolDefaultTrue(body["auto_restock"]))
 	case "stock_shop":
 		err = s.Engine.StockShop(firmID, str(body["shop_id"]), intNum(body["qty"]))
 	case "order":
@@ -205,6 +216,10 @@ func (s *Server) handleAction(w http.ResponseWriter, r *http.Request) {
 	case "set_deputy_tasks":
 		err = s.Engine.SetDeputyTasks(firmID, strList(body["tasks"]))
 		result = s.Engine.World.Firms[firmID]
+	case "buy_city_market":
+		err = s.Engine.BuyFromCity(firmID, str(body["item_id"]), intNum(body["qty"]))
+	case "chat":
+		result, err = s.Engine.PostChat(firmID, str(body["channel"]), str(body["text"]))
 	default:
 		http.Error(w, "unknown action", 404)
 		return
@@ -290,6 +305,20 @@ func floatNum(v any) float64 {
 func boolNum(v any) bool {
 	b, _ := v.(bool)
 	return b
+}
+
+func boolDefaultTrue(v any) bool {
+	if v == nil {
+		return true
+	}
+	switch t := v.(type) {
+	case bool:
+		return t
+	case string:
+		return t != "false" && t != "0"
+	default:
+		return true
+	}
 }
 
 func strList(v any) []string {

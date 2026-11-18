@@ -1,0 +1,71 @@
+[
+  {
+    "id": "grocery",
+    "name": "Продуктовый",
+    "rent_mult": 1.0,
+    "allowed_categories": ["food", "dairy", "grain", "veg", "fruit"],
+    "allowed_tiers": ["finished", "intermediate"],
+    "icon": "shop_grocery"
+  },
+  {
+    "id": "bakery_shop",
+    "name": "Булочная",
+    "rent_mult": 0.9,
+    "allowed_categories": ["food", "grain"],
+    "allowed_tiers": ["finished"],
+    "allowed_items": ["bread", "pastry", "flour", "snack"],
+    "icon": "shop_bakery"
+  },
+  {
+    "id": "furniture_shop",
+    "name": "Мебельный",
+    "rent_mult": 1.2,
+    "allowed_categories": ["home"],
+    "allowed_tiers": ["finished"],
+    "allowed_items": ["furniture", "toy", "book", "steel_goods"],
+    "icon": "shop_furniture"
+  },
+  {
+    "id": "apparel_shop",
+    "name": "Одежда и обувь",
+    "rent_mult": 1.1,
+    "allowed_categories": ["apparel"],
+    "allowed_tiers": ["finished"],
+    "icon": "shop_apparel"
+  },
+  {
+    "id": "electronics_shop",
+    "name": "Электроника",
+    "rent_mult": 1.4,
+    "allowed_categories": ["tech", "home"],
+    "allowed_tiers": ["finished"],
+    "allowed_items": ["electronics", "appliance"],
+    "icon": "shop_electronics"
+  },
+  {
+    "id": "fuel_station",
+    "name": "АЗС",
+    "rent_mult": 1.3,
+    "allowed_categories": ["fuel"],
+    "allowed_tiers": ["finished", "intermediate"],
+    "allowed_items": ["fuel_can", "gasoline", "diesel"],
+    "icon": "shop_fuel"
+  },
+  {
+    "id": "hardware",
+    "name": "Хозтовары",
+    "rent_mult": 1.0,
+    "allowed_categories": ["home", "metal", "timber", "packaging"],
+    "allowed_tiers": ["finished", "intermediate"],
+    "allowed_items": ["steel_goods", "furniture", "planks", "particle_board", "tool"],
+    "icon": "shop_hardware"
+  },
+  {
+    "id": "department",
+    "name": "Универмаг",
+    "rent_mult": 1.6,
+    "allowed_categories": ["food", "apparel", "home", "tech"],
+    "allowed_tiers": ["finished"],
+    "icon": "shop_department"
+  }
+]

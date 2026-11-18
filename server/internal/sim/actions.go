@@ -11,12 +11,16 @@ import (
 
 func (e *Engine) Build(firmID, cityID, buildingType, recipeID string, x, y int) (*model.BuildingInst, error) {
 	if recipeID == "" {
-		// pick first recipe for type
 		for _, r := range e.Catalog.Recipes {
 			if r.BuildingType == buildingType {
 				recipeID = r.ID
 				break
 			}
+		}
+	}
+	if recipeID != "" {
+		if err := e.RecipeFitsBuilding(buildingType, recipeID); err != nil {
+			return nil, err
 		}
 	}
 	id, err := e.placeBuilding(firmID, cityID, buildingType, recipeID, x, y, false)
@@ -31,10 +35,10 @@ func (e *Engine) SetRecipe(firmID, buildingID, recipeID string) error {
 	if b == nil || b.FirmID != firmID {
 		return fmt.Errorf("здание не найдено")
 	}
-	r, ok := e.Catalog.RecipeByID[recipeID]
-	if !ok || r.BuildingType != b.Type {
-		return fmt.Errorf("рецепт не подходит зданию")
+	if err := e.RecipeFitsBuilding(b.Type, recipeID); err != nil {
+		return err
 	}
+	r := e.Catalog.RecipeByID[recipeID]
 	firm := e.World.Firms[firmID]
 	if r.ResearchCost > 0 && !firm.Researched[recipeID] {
 		return fmt.Errorf("рецепт не исследован")
@@ -46,7 +50,35 @@ func (e *Engine) SetRecipe(firmID, buildingID, recipeID string) error {
 	return nil
 }
 
-func (e *Engine) RentShop(firmID, cityID string, x, y int, itemID string, price float64) (*model.ShopLease, error) {
+func (e *Engine) ConfigureBuilding(firmID, buildingID, recipeID string, autoProcure bool, defaultMode, preferFirm string, sellExternal bool, inputMap map[string]any) (*model.BuildingInst, error) {
+	b := e.World.Buildings[buildingID]
+	if b == nil || b.FirmID != firmID {
+		return nil, fmt.Errorf("здание не найдено")
+	}
+	if recipeID != "" {
+		if err := e.SetRecipe(firmID, buildingID, recipeID); err != nil {
+			return nil, err
+		}
+	}
+	b.AutoProcure = autoProcure
+	b.SellExternal = sellExternal
+	b.DefaultInput = model.InputSource{Mode: normalizeInputMode(defaultMode), FirmID: preferFirm}
+	if b.DefaultInput.Mode == "firm" && preferFirm == "" {
+		return nil, fmt.Errorf("для закупки у фирмы укажите firm_id")
+	}
+	if inputMap != nil {
+		b.InputSources = map[string]model.InputSource{}
+		for itemID, raw := range inputMap {
+			m, _ := raw.(map[string]any)
+			mode, _ := m["mode"].(string)
+			fid, _ := m["firm_id"].(string)
+			b.InputSources[itemID] = model.InputSource{Mode: normalizeInputMode(mode), FirmID: fid}
+		}
+	}
+	return b, nil
+}
+
+func (e *Engine) RentShop(firmID, cityID string, x, y int, shopType, itemID string, price float64) (*model.ShopLease, error) {
 	city := e.World.Cities[cityID]
 	if city == nil {
 		return nil, fmt.Errorf("город не найден")
@@ -54,6 +86,12 @@ func (e *Engine) RentShop(firmID, cityID string, x, y int, itemID string, price 
 	firm := e.World.Firms[firmID]
 	if firm == nil {
 		return nil, fmt.Errorf("фирма не найдена")
+	}
+	if shopType == "" {
+		shopType = e.defaultShopTypeForItem(itemID)
+	}
+	if err := e.ShopAllowsItem(shopType, itemID); err != nil {
+		return nil, err
 	}
 	var parcel *model.Parcel
 	for i := range city.Parcels {
@@ -69,21 +107,29 @@ func (e *Engine) RentShop(firmID, cityID string, x, y int, itemID string, price 
 	if parcel.RentedBy != "" {
 		return nil, fmt.Errorf("слот уже арендован")
 	}
-	if _, ok := e.Catalog.ItemByID[itemID]; !ok {
-		return nil, fmt.Errorf("неизвестный товар")
-	}
 	if price <= 0 {
 		price = 50
 	}
-	// Магазин тоже должен быть на дороге / с подъездом
+	var err error
+	price, err = e.ClampPrice(itemID, price)
+	if err != nil {
+		return nil, err
+	}
 	if _, _, err := e.ensureRoadAccess(firm, city, x, y, false); err != nil {
 		return nil, err
+	}
+	sdef := e.Catalog.ShopByID[shopType]
+	rent := (400 + parcel.Traffic*400) * sdef.RentMult
+	if rent <= 0 {
+		rent = 400
 	}
 	id := uuid.NewString()
 	shop := &model.ShopLease{
 		ID: id, FirmID: firmID, CityID: cityID, X: x, Y: y,
-		ItemID: itemID, Price: price, Stock: 0, FixedRent: 400 + parcel.Traffic*400, RevenueShare: 0.08,
+		ShopType: shopType, ItemID: itemID, Price: price, Stock: 0,
+		FixedRent: rent, RevenueShare: 0.08,
 		Radius: shopRadiusForZone(parcel.Zone, parcel.Slots),
+		StockSource: "own", AutoRestock: true,
 	}
 	e.World.Shops[id] = shop
 	parcel.RentedBy = firmID
@@ -91,14 +137,54 @@ func (e *Engine) RentShop(firmID, cityID string, x, y int, itemID string, price 
 	return shop, nil
 }
 
+func (e *Engine) defaultShopTypeForItem(itemID string) string {
+	for _, s := range e.Catalog.Shops {
+		if e.ShopAllowsItem(s.ID, itemID) == nil {
+			return s.ID
+		}
+	}
+	return "department"
+}
+
+func (e *Engine) ConfigureShop(firmID, shopID, shopType, itemID string, price float64, stockSource string, autoRestock bool) (*model.ShopLease, error) {
+	shop := e.World.Shops[shopID]
+	if shop == nil || shop.FirmID != firmID {
+		return nil, fmt.Errorf("магазин не найден")
+	}
+	if shopType == "" {
+		shopType = shop.ShopType
+	}
+	if itemID == "" {
+		itemID = shop.ItemID
+	}
+	if err := e.ShopAllowsItem(shopType, itemID); err != nil {
+		return nil, err
+	}
+	if price > 0 {
+		p, err := e.ClampPrice(itemID, price)
+		if err != nil {
+			return nil, err
+		}
+		shop.Price = p
+	}
+	shop.ShopType = shopType
+	shop.ItemID = itemID
+	shop.StockSource = normalizeInputMode(stockSource)
+	if shop.StockSource == "firm" {
+		shop.StockSource = "market"
+	}
+	shop.AutoRestock = autoRestock
+	return shop, nil
+}
+
 func shopRadiusForZone(zone string, slots int) int {
 	if zone == "center" || slots >= 3 {
-		return 4 // якорь ТЦ / центр
+		return 4
 	}
 	if slots >= 2 {
 		return 3
 	}
-	return 2 // витрина в доме — только соседние кварталы
+	return 2
 }
 
 func (e *Engine) StockShop(firmID, shopID string, qty int) error {
@@ -106,11 +192,30 @@ func (e *Engine) StockShop(firmID, shopID string, qty int) error {
 	if shop == nil || shop.FirmID != firmID {
 		return fmt.Errorf("магазин не найден")
 	}
-	taken := e.takeInventory(firmID, shop.CityID, shop.ItemID, qty)
-	if taken == 0 {
-		return fmt.Errorf("нет товара на складе в городе")
+	if err := e.ShopAllowsItem(shop.ShopType, shop.ItemID); err != nil {
+		return err
 	}
-	shop.Stock += taken
+	taken := 0
+	switch shop.StockSource {
+	case "city":
+		// temporary building-like buy into firm then to shop
+		for _, b := range e.World.Buildings {
+			if b.FirmID == firmID {
+				taken = e.buyCityIntoBuilding(b, shop.ItemID, qty, nil)
+				if taken > 0 {
+					b.Inventory[shop.ItemID] -= taken
+					shop.Stock += taken
+				}
+				break
+			}
+		}
+	default:
+		taken = e.takeInventory(firmID, shop.CityID, shop.ItemID, qty)
+		shop.Stock += taken
+	}
+	if taken == 0 {
+		return fmt.Errorf("нет товара для витрины (проверьте источник и склад)")
+	}
 	return nil
 }
 
@@ -122,12 +227,22 @@ func (e *Engine) PlaceOrder(firmID, cityID, itemID, side string, qty int, price 
 	if qty <= 0 || price <= 0 {
 		return nil, fmt.Errorf("qty/price")
 	}
+	var err error
+	price, err = e.ClampPrice(itemID, price)
+	if err != nil {
+		return nil, err
+	}
 	if side == "sell" {
-		taken := e.takeInventory(firmID, cityID, itemID, qty)
+		if !e.firmAllowsExternalSale(firmID, itemID) {
+			return nil, fmt.Errorf("продажа другим игрокам запрещена на ваших заводах (режим «только себе»)")
+		}
+		taken := e.takeInventoryRespectingSales(firmID, cityID, itemID, qty, true)
 		if taken < qty {
 			e.putInventory(firmID, cityID, itemID, taken)
-			return nil, fmt.Errorf("недостаточно товара")
+			return nil, fmt.Errorf("недостаточно товара для внешней продажи")
 		}
+		// hold inventory: put back as reserved via order — restore for matching to take again
+		e.putInventory(firmID, cityID, itemID, taken)
 	}
 	id := uuid.NewString()
 	o := &model.MarketOrder{ID: id, FirmID: firmID, CityID: cityID, ItemID: itemID, Side: side, Qty: qty, Price: price, Quality: 3}
@@ -137,7 +252,10 @@ func (e *Engine) PlaceOrder(firmID, cityID, itemID, side string, qty int, price 
 
 func (e *Engine) CreateContract(sellerID, buyerID, itemID, from, to string, qty int, price float64, ticks int, ownFleet bool) (*model.Contract, error) {
 	if ticks <= 0 {
-		ticks = 24 // 1 game month
+		ticks = 24
+	}
+	if sellerID != buyerID && !e.firmAllowsExternalSale(sellerID, itemID) {
+		return nil, fmt.Errorf("продавец запретил продажи другим фирмам")
 	}
 	id := uuid.NewString()
 	c := &model.Contract{
@@ -158,10 +276,11 @@ func (e *Engine) Research(firmID, recipeID string) error {
 	if firm.Researched[recipeID] {
 		return nil
 	}
-	if firm.Cash < float64(r.ResearchCost) {
-		return fmt.Errorf("недостаточно средств")
+	cost := float64(r.ResearchCost)
+	if firm.Cash < cost {
+		return fmt.Errorf("недостаточно средств на R&D")
 	}
-	firm.Cash -= float64(r.ResearchCost)
+	firm.Cash -= cost
 	firm.Researched[recipeID] = true
 	return nil
 }
@@ -182,26 +301,11 @@ func (e *Engine) BuyTruck(firmID string) error {
 
 func (e *Engine) TakeCredit(firmID string, amount float64) error {
 	firm := e.World.Firms[firmID]
-	if firm == nil {
-		return fmt.Errorf("фирма не найдена")
+	if firm == nil || amount <= 0 || amount > 500000 {
+		return fmt.Errorf("кредит 1…500000")
 	}
-	if amount <= 0 || amount > 200000 {
-		return fmt.Errorf("сумма кредита 1..200000")
-	}
-	// simple collateral: buildings
-	collateral := 0.0
-	for _, b := range e.World.Buildings {
-		if b.FirmID == firmID {
-			if def, ok := e.Catalog.BuildingByID[b.Type]; ok {
-				collateral += float64(def.BuildCost) * 0.5
-			}
-		}
-	}
-	if firm.Credit+amount > collateral+50000 {
-		return fmt.Errorf("не хватает залога")
-	}
-	firm.Credit += amount
 	firm.Cash += amount
+	firm.Credit += amount * 1.08
 	return nil
 }
 
@@ -215,13 +319,13 @@ func (e *Engine) BuyParcel(firmID, cityID string, x, y int) error {
 		p := &city.Parcels[i]
 		if p.X == x && p.Y == y {
 			if p.OwnerID != "" {
-				return fmt.Errorf("уже занято")
+				return fmt.Errorf("участок занят")
 			}
-			price := 8000.0 + float64(abs(x)+abs(y))*500
-			if firm.Cash < price {
+			cost := 5000.0
+			if firm.Cash < cost {
 				return fmt.Errorf("недостаточно средств")
 			}
-			firm.Cash -= price
+			firm.Cash -= cost
 			p.OwnerID = firmID
 			return nil
 		}
@@ -235,30 +339,21 @@ func (e *Engine) DevelopHousing(firmID, cityID string, x, y int) error {
 	if city == nil || firm == nil {
 		return fmt.Errorf("не найдено")
 	}
-	cost := 20000.0
+	cost := 18000.0
 	if firm.Cash < cost {
 		return fmt.Errorf("недостаточно средств")
 	}
 	for i := range city.Parcels {
 		p := &city.Parcels[i]
 		if p.X == x && p.Y == y {
-			if p.OwnerID != firmID {
-				return fmt.Errorf("нужна собственность на участок")
-			}
 			if p.Building != "" {
-				return fmt.Errorf("занято зданием")
-			}
-			if _, _, err := e.ensureRoadAccess(firm, city, x, y, false); err != nil {
-				return err
-			}
-			if firm.Cash < cost {
-				return fmt.Errorf("недостаточно средств")
+				return fmt.Errorf("занято")
 			}
 			firm.Cash -= cost
 			p.Zone = "residential"
-			p.Slots = 2
-			p.Traffic = 0.75
-			p.HasRoad = true
+			p.Slots = 1
+			p.OwnerID = firmID
+			city.Population += 40
 			return nil
 		}
 	}
@@ -268,7 +363,7 @@ func (e *Engine) DevelopHousing(firmID, cityID string, x, y int) error {
 func (e *Engine) Advertise(firmID, category string, budget float64) error {
 	firm := e.World.Firms[firmID]
 	if firm == nil || budget <= 0 {
-		return fmt.Errorf("ошибка")
+		return fmt.Errorf("бюджет")
 	}
 	if firm.Cash < budget {
 		return fmt.Errorf("недостаточно средств")

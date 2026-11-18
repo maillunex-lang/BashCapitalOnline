@@ -150,20 +150,43 @@ func (e *Engine) runDeputyTask(firm *model.Firm, t *model.DeputyTask) string {
 			}
 			item := e.Catalog.ItemByID[shop.ItemID]
 			base := 40.0
-			if item.Tier == "finished" {
-				base = 70
+			switch item.Tier {
+			case "intermediate":
+				base = 55
+			case "finished":
+				base = 75
 			}
-			if item.Category == "home" {
+			switch item.Category {
+			case "home":
 				base = 180
+			case "apparel":
+				base = 120
+			case "tech":
+				base = 250
+			case "fuel":
+				base = 90
+			case "food":
+				base = 55
 			}
-			// competitive nudge vs average sell orders
+			if corr, ok := e.Catalog.Economy.PriceCorridors[shop.ItemID]; ok {
+				mid := (corr.Min + corr.Max) / 2
+				base = mid
+			}
 			shop.Price = base * (0.9 + firm.BrandAwareness[item.Category]*0.4)
+			if corr, ok := e.Catalog.Economy.PriceCorridors[shop.ItemID]; ok {
+				if shop.Price < corr.Min {
+					shop.Price = corr.Min
+				}
+				if shop.Price > corr.Max {
+					shop.Price = corr.Max
+				}
+			}
 		}
 		return "обновил розничные цены"
 	case "sell_excess":
 		sold := 0
 		for _, b := range e.World.Buildings {
-			if b.FirmID != firm.ID {
+			if b.FirmID != firm.ID || !b.SellExternal {
 				continue
 			}
 			for item, qty := range b.Inventory {

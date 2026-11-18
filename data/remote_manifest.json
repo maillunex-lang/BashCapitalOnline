@@ -1,0 +1,29 @@
+{
+  "app_version": "0.1.0",
+  "min_client_version": "0.1.0",
+  "apk": {
+    "version_code": 1,
+    "version_name": "0.1.0",
+    "url": "https://cdn.example.local/bashcapital/app-0.1.0.apk",
+    "sha256": "replace-on-release",
+    "changelog": "Первый MVP: экономика, залежи, дороги, админка"
+  },
+  "packs": [
+    {
+      "id": "base_art",
+      "version": 1,
+      "url": "https://cdn.example.local/bashcapital/packs/base_art_v1.zip",
+      "sha256": "replace-on-release",
+      "required": true,
+      "size_bytes": 0
+    },
+    {
+      "id": "city_tiles",
+      "version": 1,
+      "url": "https://cdn.example.local/bashcapital/packs/city_tiles_v1.zip",
+      "sha256": "replace-on-release",
+      "required": true,
+      "size_bytes": 0
+    }
+  ]
+}

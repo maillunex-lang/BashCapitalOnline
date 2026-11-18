@@ -1,0 +1,81 @@
+package sim
+
+import (
+	"fmt"
+
+	"bashcapital/server/internal/model"
+)
+
+func (e *Engine) ClampPrice(itemID string, price float64) (float64, error) {
+	c, ok := e.Catalog.Economy.PriceCorridors[itemID]
+	if !ok {
+		if price <= 0 {
+			return 0, fmt.Errorf("цена должна быть > 0")
+		}
+		if price > 100000 {
+			return 0, fmt.Errorf("цена вне разумного коридора")
+		}
+		return price, nil
+	}
+	if price < c.Min || price > c.Max {
+		return 0, fmt.Errorf("цена %s должна быть в коридоре %.0f…%.0f ₽", itemID, c.Min, c.Max)
+	}
+	return price, nil
+}
+
+func (e *Engine) initCityMarket() {
+	e.World.CityMarket = map[string]model.CityMarketStock{}
+	for _, o := range e.Catalog.Economy.CityMarket {
+		e.World.CityMarket[o.ItemID] = model.CityMarketStock{
+			ItemID: o.ItemID, Price: o.Price, Quality: o.Quality, Stock: o.StockPerTick * 3,
+		}
+	}
+}
+
+func (e *Engine) refreshCityMarket() {
+	for _, o := range e.Catalog.Economy.CityMarket {
+		cur := e.World.CityMarket[o.ItemID]
+		cur.ItemID = o.ItemID
+		cur.Price = o.Price
+		cur.Quality = o.Quality
+		cur.Stock = min(o.StockPerTick*5, cur.Stock+o.StockPerTick)
+		e.World.CityMarket[o.ItemID] = cur
+	}
+}
+
+func (e *Engine) BuyFromCity(firmID, itemID string, qty int) error {
+	if qty <= 0 {
+		return fmt.Errorf("qty")
+	}
+	firm := e.World.Firms[firmID]
+	offer, ok := e.World.CityMarket[itemID]
+	if firm == nil || !ok {
+		return fmt.Errorf("нет предложения города")
+	}
+	if offer.Stock < qty {
+		return fmt.Errorf("у города мало товара (осталось %d)", offer.Stock)
+	}
+	pay := float64(qty) * offer.Price
+	if firm.Cash < pay {
+		return fmt.Errorf("недостаточно средств")
+	}
+	firm.Cash -= pay
+	offer.Stock -= qty
+	e.World.CityMarket[itemID] = offer
+	// dump into any building inventory in firm's home-ish city
+	placed := false
+	for _, b := range e.World.Buildings {
+		if b.FirmID == firmID {
+			b.Inventory[itemID] += qty
+			// city goods are low quality — pull building quality slightly down if mixing
+			b.Quality = clamp((b.Quality*0.7)+(offer.Quality*0.3), 1, 5)
+			placed = true
+			break
+		}
+	}
+	if !placed {
+		return fmt.Errorf("нужен хотя бы один склад/здание для приёмки")
+	}
+	e.World.Events = append(e.World.Events, fmt.Sprintf("%s купил у города %d %s (качество %.1f)", firm.Name, qty, itemID, offer.Quality))
+	return nil
+}

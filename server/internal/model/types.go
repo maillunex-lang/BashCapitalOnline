@@ -33,10 +33,29 @@ type RecipeDef struct {
 type BuildingDef struct {
 	ID        string `json:"id"`
 	Name      string `json:"name"`
-	Category  string `json:"category"`
+	Category  string `json:"category"` // extract|factory|logistics
 	BuildCost int    `json:"build_cost"`
 	Zone      string `json:"zone"`
 	Footprint int    `json:"footprint"`
+	// IndustryTag — специализация как в Capitalism Lab (food/furniture/steel…).
+	IndustryTag string `json:"industry_tag,omitempty"`
+}
+
+// ShopDef — тип розничной точки: продуктовый не продаёт электронику и т.п.
+type ShopDef struct {
+	ID                 string   `json:"id"`
+	Name               string   `json:"name"`
+	RentMult           float64  `json:"rent_mult"`
+	AllowedCategories  []string `json:"allowed_categories"`
+	AllowedTiers       []string `json:"allowed_tiers"`
+	AllowedItems       []string `json:"allowed_items,omitempty"` // если задано — белый список
+	Icon               string   `json:"icon,omitempty"`
+}
+
+// InputSource — откуда завод закупает вход (свой склад / город / биржа / конкретная фирма).
+type InputSource struct {
+	Mode   string `json:"mode"`              // own|city|market|firm
+	FirmID string `json:"firm_id,omitempty"` // для mode=firm
 }
 
 type CityDef struct {
@@ -60,16 +79,60 @@ type RouteDef struct {
 	Mode        string  `json:"mode"`
 }
 
+type PriceCorridor struct {
+	Min float64 `json:"min"`
+	Max float64 `json:"max"`
+}
+
+type CityMarketOffer struct {
+	ItemID       string  `json:"item_id"`
+	Price        float64 `json:"price"`
+	Quality      float64 `json:"quality"`
+	StockPerTick int     `json:"stock_per_tick"`
+}
+
+type ChatConfig struct {
+	MaxMessages           int `json:"max_messages"`
+	AIMessagesPerTickCap  int `json:"ai_messages_per_tick_cap"`
+	MinTicksBetweenAIMsg  int `json:"min_ticks_between_ai_msg"`
+}
+
+type EconomyConfig struct {
+	PriceCorridors map[string]PriceCorridor `json:"price_corridors"`
+	CityMarket     []CityMarketOffer        `json:"city_market"`
+	Chat           ChatConfig               `json:"chat"`
+}
+
+type AIPersona struct {
+	ID            string  `json:"id"`
+	Skill         string  `json:"skill"`
+	Focus         string  `json:"focus"`
+	Style         string  `json:"style"`
+	ChatTone      string  `json:"chat_tone"`
+	Aggression    float64 `json:"aggression"`
+	NoobMistakes  bool    `json:"noob_mistakes"`
+	Spawn         bool    `json:"spawn"`
+	Name          string  `json:"name"`
+	Industry      string  `json:"industry"`
+	City          string  `json:"city"`
+	Cash          float64 `json:"cash"`
+}
+
 type Catalog struct {
-	Items     []ItemDef
-	Recipes   []RecipeDef
-	Buildings []BuildingDef
-	Cities    []CityDef
-	Routes    []RouteDef
-	ItemByID  map[string]ItemDef
-	RecipeByID map[string]RecipeDef
+	Items        []ItemDef
+	Recipes      []RecipeDef
+	Buildings    []BuildingDef
+	Shops        []ShopDef
+	Cities       []CityDef
+	Routes       []RouteDef
+	Economy      EconomyConfig
+	AIPersonas   []AIPersona
+	ItemByID     map[string]ItemDef
+	RecipeByID   map[string]RecipeDef
 	BuildingByID map[string]BuildingDef
-	CityByID  map[string]CityDef
+	ShopByID     map[string]ShopDef
+	CityByID     map[string]CityDef
+	PersonaByID  map[string]AIPersona
 }
 
 type Parcel struct {
@@ -85,17 +148,25 @@ type Parcel struct {
 }
 
 type BuildingInst struct {
-	ID           string         `json:"id"`
-	Type         string         `json:"type"`
-	FirmID       string         `json:"firm_id"`
-	CityID       string         `json:"city_id"`
-	X            int            `json:"x"`
-	Y            int            `json:"y"`
-	RecipeID     string         `json:"recipe_id"`
-	RetoolWeeks  int            `json:"retool_weeks"`
-	Inventory    map[string]int `json:"inventory"`
-	Quality      float64        `json:"quality"`
-	Active       bool           `json:"active"`
+	ID           string                   `json:"id"`
+	Type         string                   `json:"type"`
+	FirmID       string                   `json:"firm_id"`
+	CityID       string                   `json:"city_id"`
+	X            int                      `json:"x"`
+	Y            int                      `json:"y"`
+	RecipeID     string                   `json:"recipe_id"`
+	RetoolWeeks  int                      `json:"retool_weeks"`
+	Inventory    map[string]int           `json:"inventory"`
+	Quality      float64                  `json:"quality"`
+	Active       bool                     `json:"active"`
+	// AutoProcure — перед тиком производства докупать входы по InputSources.
+	AutoProcure bool `json:"auto_procure"`
+	// DefaultInput — источник по умолчанию для всех входов рецепта.
+	DefaultInput InputSource `json:"default_input"`
+	// InputSources — переопределение источника по item_id.
+	InputSources map[string]InputSource `json:"input_sources,omitempty"`
+	// SellExternal=false — завод/склад не продаёт другим фирмам (только себе).
+	SellExternal bool `json:"sell_external"`
 }
 
 type ShopLease struct {
@@ -104,12 +175,16 @@ type ShopLease struct {
 	CityID       string  `json:"city_id"`
 	X            int     `json:"x"`
 	Y            int     `json:"y"`
+	ShopType     string  `json:"shop_type"` // grocery|furniture_shop|…
 	ItemID       string  `json:"item_id"`
 	Price        float64 `json:"price"`
 	Stock        int     `json:"stock"`
 	FixedRent    float64 `json:"fixed_rent"`
 	RevenueShare float64 `json:"revenue_share"`
 	Radius       int     `json:"radius"` // зона охвата в клетках (манхэттен)
+	// StockSource — откуда пополнять витрину: own|city|market
+	StockSource string `json:"stock_source"`
+	AutoRestock bool   `json:"auto_restock"`
 }
 
 // DeputyTask — задание для ИИ-заместителя (доступно по подписке).
@@ -142,6 +217,8 @@ type Firm struct {
 	SubscriptionActive bool               `json:"subscription_active"`
 	SubscriptionUntil  int                `json:"subscription_until_tick"` // world tick expiry
 	Deputy             *Deputy            `json:"deputy,omitempty"`
+	PersonaID          string             `json:"persona_id,omitempty"`
+	LastChatTick       int                `json:"last_chat_tick,omitempty"`
 }
 
 type MarketOrder struct {
@@ -206,17 +283,46 @@ type CityState struct {
 	HousingOcc   float64            `json:"housing_occupancy"`
 }
 
+type ChatMessage struct {
+	ID        string `json:"id"`
+	Tick      int    `json:"tick"`
+	FirmID    string `json:"firm_id,omitempty"`
+	Author    string `json:"author"`
+	Channel   string `json:"channel"` // global|city:ufa|system
+	Text      string `json:"text"`
+	IsAI      bool   `json:"is_ai"`
+	CreatedAt int64  `json:"created_at"`
+}
+
+type CityMarketStock struct {
+	ItemID  string  `json:"item_id"`
+	Price   float64 `json:"price"`
+	Quality float64 `json:"quality"`
+	Stock   int     `json:"stock"`
+}
+
 type World struct {
-	Tick           int                    `json:"tick"`
-	Month          int                    `json:"month"` // 1-12
-	Year           int                    `json:"year"`
-	Cities         map[string]*CityState  `json:"cities"`
-	Firms          map[string]*Firm       `json:"firms"`
+	Tick           int                      `json:"tick"`
+	Month          int                      `json:"month"` // 1-12
+	Year           int                      `json:"year"`
+	Cities         map[string]*CityState    `json:"cities"`
+	Firms          map[string]*Firm         `json:"firms"`
 	Buildings      map[string]*BuildingInst `json:"buildings"`
-	Shops          map[string]*ShopLease  `json:"shops"`
-	Orders         map[string]*MarketOrder `json:"orders"`
-	Contracts      map[string]*Contract   `json:"contracts"`
-	Shipments      map[string]*Shipment   `json:"shipments"`
-	Events         []string               `json:"events"`
-	LastTickLog    []string               `json:"last_tick_log"`
+	Shops          map[string]*ShopLease    `json:"shops"`
+	Orders         map[string]*MarketOrder  `json:"orders"`
+	Contracts      map[string]*Contract     `json:"contracts"`
+	Shipments      map[string]*Shipment     `json:"shipments"`
+	Events         []string                 `json:"events"`
+	LastTickLog    []string                 `json:"last_tick_log"`
+	Chat           []ChatMessage            `json:"chat"`
+	CityMarket     map[string]CityMarketStock `json:"city_market"` // item_id -> offer
+	MapRevision    int                      `json:"map_revision"`
+	DirtyTiles     []DirtyTile              `json:"dirty_tiles,omitempty"`
+}
+
+type DirtyTile struct {
+	CityID string `json:"city_id"`
+	X      int    `json:"x"`
+	Y      int    `json:"y"`
+	Reason string `json:"reason"`
 }

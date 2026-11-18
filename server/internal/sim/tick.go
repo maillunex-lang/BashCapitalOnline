@@ -35,6 +35,8 @@ func (e *Engine) Tick() {
 	e.runRetail(&log)
 	e.payRentsAndWages(&log)
 	e.aiAct(&log)
+	e.refreshCityMarket()
+	e.runAIChat(&log)
 	e.growCities(&log)
 	e.updateRankings()
 	if hourOfMonth == ticksPerMonth {
@@ -176,6 +178,9 @@ func (e *Engine) runProduction(log *[]string) {
 				break
 			}
 		}
+		if err := e.RecipeFitsBuilding(b.Type, recipe.ID); err != nil {
+			continue
+		}
 		// Добыча: списываем запас залежи на клетке (не бесконечно)
 		if isExtractRecipe(recipe) {
 			depQ, ok := e.consumeDeposit(city, b.X, b.Y, outQty, recipe.Output.ItemID, log)
@@ -188,6 +193,7 @@ func (e *Engine) runProduction(log *[]string) {
 			b.Quality = clamp((depQ*0.7)+(b.Quality*0.3), 1, 5)
 			continue
 		}
+		e.procureInputs(b, recipe, log)
 		// check inputs
 		can := true
 		for _, in := range recipe.Inputs {
@@ -263,8 +269,8 @@ func (e *Engine) matchMarket(log *[]string) {
 				}
 				continue
 			}
-			// take from seller inventory
-			taken := e.takeInventory(s.FirmID, s.CityID, s.ItemID, qty)
+			external := s.FirmID != b.FirmID
+			taken := e.takeInventoryRespectingSales(s.FirmID, s.CityID, s.ItemID, qty, external)
 			if taken == 0 {
 				si++
 				continue
@@ -469,17 +475,34 @@ func (e *Engine) aiAct(log *[]string) {
 		if !f.IsAI {
 			continue
 		}
-		// list excess finished goods on market / restock shops
+		// restock shops (respect shop specialization + stock source)
 		for _, shop := range e.World.Shops {
-			if shop.FirmID != f.ID || shop.Stock >= 15 {
+			if shop.FirmID != f.ID || !shop.AutoRestock || shop.Stock >= 15 {
+				continue
+			}
+			if e.ShopAllowsItem(shop.ShopType, shop.ItemID) != nil {
 				continue
 			}
 			need := 15 - shop.Stock
-			taken := e.takeInventory(f.ID, shop.CityID, shop.ItemID, need)
-			shop.Stock += taken
+			switch shop.StockSource {
+			case "city":
+				for _, b := range e.World.Buildings {
+					if b.FirmID == f.ID {
+						n := e.buyCityIntoBuilding(b, shop.ItemID, need, log)
+						if n > 0 {
+							b.Inventory[shop.ItemID] -= n
+							shop.Stock += n
+						}
+						break
+					}
+				}
+			default:
+				taken := e.takeInventory(f.ID, shop.CityID, shop.ItemID, need)
+				shop.Stock += taken
+			}
 		}
 		for _, b := range e.World.Buildings {
-			if b.FirmID != f.ID {
+			if b.FirmID != f.ID || !b.SellExternal {
 				continue
 			}
 			for item, qty := range b.Inventory {

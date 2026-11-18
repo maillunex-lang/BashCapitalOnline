@@ -1,0 +1,57 @@
+[
+  {
+    "id": "ai_dairy",
+    "skill": "solid",
+    "focus": "vertical_dairy",
+    "style": "retail_and_produce",
+    "chat_tone": "friendly_local",
+    "aggression": 0.35,
+    "noob_mistakes": false
+  },
+  {
+    "id": "ai_furniture",
+    "skill": "expert",
+    "focus": "furniture_chain",
+    "style": "wholesale",
+    "chat_tone": "dry_humor",
+    "aggression": 0.55,
+    "noob_mistakes": false
+  },
+  {
+    "id": "ai_steel",
+    "skill": "solid",
+    "focus": "steel",
+    "style": "wholesale",
+    "chat_tone": "gruff",
+    "aggression": 0.5,
+    "noob_mistakes": false
+  },
+  {
+    "id": "ai_rookie",
+    "skill": "noob",
+    "focus": "retail",
+    "style": "retail",
+    "chat_tone": "excited_noob",
+    "aggression": 0.15,
+    "noob_mistakes": true,
+    "spawn": true,
+    "name": "ИП Сулейманов",
+    "industry": "dairy",
+    "city": "ufa",
+    "cash": 90000
+  },
+  {
+    "id": "ai_trader",
+    "skill": "expert",
+    "focus": "arbitrage",
+    "style": "wholesale",
+    "chat_tone": "market_nerd",
+    "aggression": 0.7,
+    "noob_mistakes": false,
+    "spawn": true,
+    "name": "БашкирОпт",
+    "industry": "general",
+    "city": "ufa",
+    "cash": 150000
+  }
+]

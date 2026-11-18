@@ -35,12 +35,17 @@ func _ready() -> void:
 	backdrop.texture = load("res://assets/bg/city_backdrop.jpg")
 	logo.texture = load("res://assets/ui/logo_bashcapital.jpg")
 	industry_option.clear()
-	industry_option.add_item("Молочка (Уфа)", 0)
-	industry_option.set_item_metadata(0, "dairy")
-	industry_option.add_item("Мебель (Уфа)", 1)
-	industry_option.set_item_metadata(1, "furniture")
-	industry_option.add_item("Металл (Белорецк)", 2)
-	industry_option.set_item_metadata(2, "steel")
+	var industries := [
+		["Молочка (Уфа)", "dairy"],
+		["Еда / пекарня (Уфа)", "food"],
+		["Мебель (Уфа)", "furniture"],
+		["Одежда (Уфа)", "apparel"],
+		["Металл (Белорецк)", "steel"],
+		["Нефть (Белорецк)", "oil"],
+	]
+	for i in industries.size():
+		industry_option.add_item(str(industries[i][0]), i)
+		industry_option.set_item_metadata(i, industries[i][1])
 	_fill_build_options()
 	city_map.tile_clicked.connect(_on_tile_clicked)
 	ambience.setup(gfx)
@@ -61,9 +66,14 @@ func _ready() -> void:
 
 func _fill_build_options() -> void:
 	build_option.clear()
-	var types := ["farm", "orchard", "dairy_plant", "glass_plant", "quarry", "textile_mill", "board_plant", "furniture_plant", "mine", "steel_mill", "chem_plant", "logging_camp", "warehouse", "garage"]
+	var types: Array = []
+	for b in api.catalog.get("buildings", []):
+		types.append(str(b.get("id", "")))
+	if types.is_empty():
+		types = ["farm", "orchard", "dairy_plant", "furniture_plant", "bakery", "mine", "steel_mill", "warehouse", "garage"]
 	for t in types:
-		build_option.add_item(t)
+		if t != "":
+			build_option.add_item(t)
 
 func _on_quality_changed(level: int) -> void:
 	city_map.detail_level = level
@@ -125,6 +135,7 @@ func _on_deputy_tasks(kinds: PackedStringArray) -> void:
 func _on_connect_pressed() -> void:
 	api.configure(url_edit.text.strip_edges())
 	await api.fetch_catalog()
+	_fill_build_options()
 	var industry: String = str(industry_option.get_item_metadata(industry_option.selected))
 	var firm := await api.register_firm(name_edit.text.strip_edges(), industry)
 	if firm.has("error"):
@@ -137,7 +148,7 @@ func _on_connect_pressed() -> void:
 	rank_panel.visible = true
 	city_tabs.visible = true
 	side.visible = true
-	current_city = "beloretsk" if industry == "steel" else "ufa"
+	current_city = "beloretsk" if industry == "steel" or industry == "oil" else "ufa"
 	await _refresh()
 
 func _refresh() -> void:
@@ -202,15 +213,30 @@ func _on_build_pressed() -> void:
 func _on_rent_pressed() -> void:
 	if selected_parcel.is_empty():
 		return
+	var industry := str(api.firm.get("industry", ""))
 	var item := "bottled_milk"
-	if api.firm.get("industry", "") == "furniture":
-		item = "furniture"
-	elif api.firm.get("industry", "") == "steel":
-		item = "steel_goods"
+	var shop_type := "grocery"
+	match industry:
+		"furniture":
+			item = "furniture"
+			shop_type = "furniture_shop"
+		"steel":
+			item = "steel_goods"
+			shop_type = "hardware"
+		"food":
+			item = "bread"
+			shop_type = "bakery_shop"
+		"apparel":
+			item = "clothing"
+			shop_type = "apparel_shop"
+		"oil":
+			item = "fuel_can"
+			shop_type = "fuel_station"
 	var res := await api.action("rent_shop", {
 		"city_id": current_city,
 		"x": selected_parcel.get("x", 0),
 		"y": selected_parcel.get("y", 0),
+		"shop_type": shop_type,
 		"item_id": item,
 		"price": 55,
 	})
