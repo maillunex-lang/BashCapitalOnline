@@ -5,7 +5,7 @@
   "branch_default": "main",
   "active_pr": null,
   "honesty_rule": "status=done means code exists and runs in-repo. It does NOT mean production-ready, device-verified, load-tested, or live payments. Use maturity: shipped | mvp | scaffold | unverified. Never mark scaffold as if it were shipped.",
-  "instructions_for_ai": "Always merge to main. Next: RM-APK-VERIFY (device) or RM-MAP-INCREMENTAL. RM-PAYMENT-LIVE is code-complete (mvp) — real money needs shop credentials in env.",
+  "instructions_for_ai": "Always merge to main. Economy Catalog V2 lives in data/catalog_v2 (loader prefers it). Legacy snapshot in data/legacy_v1. Next: RM-APK-VERIFY or RM-MAP-INCREMENTAL; regenerate V2 icons; migrate any local saves via store.MigrateWorldCopyToV2 on a DB copy only.",
   "maturity_legend": {
     "shipped": "Used end-to-end in normal play; no known major gaps for the claimed scope",
     "mvp": "Works for local/dev play; balance/UX still need iteration",
@@ -60,6 +60,29 @@
         "scripts/rebalance_economy.py",
         "data/chain_validation.json",
         "data/balance_report.json"
+      ],
+      "updated": "2026-11-18",
+      "stage": "S1"
+    },
+    {
+      "id": "RM-ECONOMY-V2",
+      "title": "Economy catalog V2: 170 SKU, utility costs, renewable deposits, 14 shops",
+      "status": "done",
+      "maturity": "mvp",
+      "area": "economy",
+      "notes": "data/catalog_v2 preferred by ResolveCatalogDir. 40+55+75 SKU, 200 recipes, 92 buildings, 14 shops. E2E Tick chains green. Legacy kept under data/legacy_v1. Icons still fall back to missing art for new IDs.",
+      "files": [
+        "data/catalog_v2/",
+        "data/legacy_v1/",
+        "docs/ECONOMY_V2.md",
+        "docs/ECONOMY_V2_MIGRATION.md",
+        "docs/ECONOMY_V2_AUDIT.md",
+        "scripts/gen_catalog_v2.py",
+        "scripts/validate_catalog_v2.py",
+        "server/internal/store/catalog.go",
+        "server/internal/store/migrate_v2.go",
+        "server/internal/sim/resources.go",
+        "server/internal/sim/catalog_v2_e2e_test.go"
       ],
       "updated": "2026-11-18",
       "stage": "S1"

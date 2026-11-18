@@ -1,0 +1,122 @@
+[
+  {
+    "id": "ufa",
+    "name": "Уфа",
+    "x": 420,
+    "y": 310,
+    "focus": "capital",
+    "start_population": 12000,
+    "start_radius": 4,
+    "resources": ["wheat", "potato", "milk", "cattle", "cherry", "apple", "flax", "wood", "sand"],
+    "labor": {"worker": 4000, "engineer": 900, "manager": 350},
+    "enabled": true
+  },
+  {
+    "id": "beloretsk",
+    "name": "Белорецк",
+    "x": 620,
+    "y": 380,
+    "focus": "metallurgy",
+    "start_population": 5000,
+    "start_radius": 3,
+    "resources": ["iron_ore", "coal", "copper_ore", "wood", "quartz", "oil"],
+    "labor": {"worker": 2200, "engineer": 500, "manager": 120},
+    "enabled": true
+  },
+  {
+    "id": "sterlitamak",
+    "name": "Стерлитамак",
+    "x": 480,
+    "y": 420,
+    "focus": "chemistry",
+    "start_population": 7000,
+    "start_radius": 3,
+    "resources": ["chemicals", "sand", "gas", "oil", "salt", "limestone", "clay"],
+    "labor": {"worker": 2800, "engineer": 700, "manager": 180},
+    "enabled": true
+  },
+  {
+    "id": "salavat",
+    "name": "Салават",
+    "x": 460,
+    "y": 450,
+    "focus": "petrochem",
+    "start_population": 6000,
+    "start_radius": 3,
+    "resources": ["oil", "gas", "chemicals"],
+    "labor": {"worker": 2500, "engineer": 650, "manager": 160},
+    "enabled": false
+  },
+  {
+    "id": "neftekamsk",
+    "name": "Нефтекамск",
+    "x": 280,
+    "y": 220,
+    "focus": "auto_metal",
+    "start_population": 5500,
+    "start_radius": 3,
+    "resources": ["iron_ore", "steel", "chemicals", "coal"],
+    "labor": {"worker": 2400, "engineer": 600, "manager": 150},
+    "enabled": false
+  },
+  {
+    "id": "oktyabrsky",
+    "name": "Октябрьский",
+    "x": 200,
+    "y": 300,
+    "focus": "oil",
+    "start_population": 4500,
+    "start_radius": 3,
+    "resources": ["oil", "gas", "chemicals"],
+    "labor": {"worker": 1800, "engineer": 400, "manager": 100},
+    "enabled": false
+  },
+  {
+    "id": "tuymazy",
+    "name": "Туймазы",
+    "x": 240,
+    "y": 320,
+    "focus": "oil_gas",
+    "start_population": 4000,
+    "start_radius": 3,
+    "resources": ["oil", "gas", "wood", "wheat"],
+    "labor": {"worker": 1600, "engineer": 350, "manager": 90},
+    "enabled": false
+  },
+  {
+    "id": "sibay",
+    "name": "Сибай",
+    "x": 700,
+    "y": 520,
+    "focus": "nonferrous",
+    "start_population": 3500,
+    "start_radius": 3,
+    "resources": ["copper_ore", "iron_ore", "quartz"],
+    "labor": {"worker": 1400, "engineer": 320, "manager": 80},
+    "enabled": false
+  },
+  {
+    "id": "meleuz",
+    "name": "Мелеуз",
+    "x": 500,
+    "y": 500,
+    "focus": "agro_chem",
+    "start_population": 3800,
+    "start_radius": 3,
+    "resources": ["chemicals", "flax", "wheat", "potato"],
+    "labor": {"worker": 1500, "engineer": 300, "manager": 80},
+    "enabled": false
+  },
+  {
+    "id": "ishimbay",
+    "name": "Ишимбай",
+    "x": 440,
+    "y": 430,
+    "focus": "oil_heritage",
+    "start_population": 4200,
+    "start_radius": 3,
+    "resources": ["oil", "chemicals", "sand", "coal"],
+    "labor": {"worker": 1700, "engineer": 380, "manager": 95},
+    "enabled": false
+  }
+]

@@ -1,0 +1,361 @@
+[
+  {
+    "id": "apparel_shop",
+    "name": "Одежда и обувь",
+    "rent_mult": 1.1,
+    "allowed_categories": [
+      "apparel"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_apparel_shop"
+  },
+  {
+    "id": "appliance_shop",
+    "name": "Бытовая техника",
+    "rent_mult": 1.3,
+    "allowed_categories": [
+      "home",
+      "tech"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_appliance_shop"
+  },
+  {
+    "id": "auto_parts",
+    "name": "Автотовары",
+    "rent_mult": 1.2,
+    "allowed_categories": [
+      "fuel",
+      "metal",
+      "tech"
+    ],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "icon": "shop_auto_parts"
+  },
+  {
+    "id": "bakery_shop",
+    "name": "Булочная",
+    "rent_mult": 0.9,
+    "allowed_categories": [
+      "food",
+      "grain"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_bakery_shop"
+  },
+  {
+    "id": "bashkir_souvenir",
+    "name": "Башкирские сувениры",
+    "rent_mult": 1.25,
+    "allowed_categories": [
+      "home",
+      "food",
+      "dairy",
+      "apparel"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_bashkir_souvenir"
+  },
+  {
+    "id": "beverage_shop",
+    "name": "Напитки",
+    "rent_mult": 1.0,
+    "allowed_categories": [
+      "food",
+      "dairy"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_beverage_shop"
+  },
+  {
+    "id": "bookstore",
+    "name": "Книжный",
+    "rent_mult": 1.0,
+    "allowed_categories": [
+      "home"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_bookstore"
+  },
+  {
+    "id": "building_market",
+    "name": "Строймаркет",
+    "rent_mult": 1.2,
+    "allowed_categories": [
+      "mineral",
+      "metal",
+      "timber",
+      "home"
+    ],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "icon": "shop_building_market"
+  },
+  {
+    "id": "butcher",
+    "name": "Мясной",
+    "rent_mult": 1.1,
+    "allowed_categories": [
+      "food"
+    ],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "icon": "shop_butcher"
+  },
+  {
+    "id": "confectionery_shop",
+    "name": "Кондитерская",
+    "rent_mult": 1.1,
+    "allowed_categories": [
+      "food"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_confectionery_shop"
+  },
+  {
+    "id": "dairy_shop",
+    "name": "Молочный",
+    "rent_mult": 1.0,
+    "allowed_categories": [
+      "dairy",
+      "food"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_dairy_shop"
+  },
+  {
+    "id": "department",
+    "name": "Универмаг",
+    "rent_mult": 1.6,
+    "allowed_categories": [
+      "food",
+      "apparel",
+      "home",
+      "tech",
+      "dairy"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_department"
+  },
+  {
+    "id": "electronics_shop",
+    "name": "Электроника",
+    "rent_mult": 1.4,
+    "allowed_categories": [
+      "tech",
+      "home"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_electronics_shop"
+  },
+  {
+    "id": "fashion_boutique",
+    "name": "Бутик",
+    "rent_mult": 1.4,
+    "allowed_categories": [
+      "apparel"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_fashion_boutique"
+  },
+  {
+    "id": "fish_shop",
+    "name": "Рыбный / кумысный",
+    "rent_mult": 1.0,
+    "allowed_categories": [
+      "dairy",
+      "food"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_fish_shop"
+  },
+  {
+    "id": "fuel_station",
+    "name": "АЗС",
+    "rent_mult": 1.3,
+    "allowed_categories": [
+      "fuel"
+    ],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "icon": "shop_fuel_station"
+  },
+  {
+    "id": "furniture_shop",
+    "name": "Мебельный",
+    "rent_mult": 1.2,
+    "allowed_categories": [
+      "home"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_furniture_shop"
+  },
+  {
+    "id": "grocery",
+    "name": "Продуктовый",
+    "rent_mult": 1.0,
+    "allowed_categories": [
+      "food",
+      "dairy",
+      "grain",
+      "veg",
+      "fruit"
+    ],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "icon": "shop_grocery"
+  },
+  {
+    "id": "hardware",
+    "name": "Хозтовары",
+    "rent_mult": 1.0,
+    "allowed_categories": [
+      "home",
+      "metal",
+      "timber",
+      "packaging",
+      "mineral"
+    ],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "icon": "shop_hardware"
+  },
+  {
+    "id": "home_decor",
+    "name": "Дом и уют",
+    "rent_mult": 1.15,
+    "allowed_categories": [
+      "home"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_home_decor"
+  },
+  {
+    "id": "hypermarket",
+    "name": "Гипермаркет",
+    "rent_mult": 1.8,
+    "allowed_categories": [
+      "food",
+      "apparel",
+      "home",
+      "tech",
+      "dairy",
+      "fuel"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_hypermarket"
+  },
+  {
+    "id": "organic_shop",
+    "name": "Эко-лавка",
+    "rent_mult": 1.3,
+    "allowed_categories": [
+      "food",
+      "dairy",
+      "fruit",
+      "veg"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_organic_shop"
+  },
+  {
+    "id": "pharmacy_adjacent",
+    "name": "Сопутствующие товары",
+    "rent_mult": 1.1,
+    "allowed_categories": [
+      "food",
+      "home"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_pharmacy_adjacent"
+  },
+  {
+    "id": "toy_shop",
+    "name": "Игрушки",
+    "rent_mult": 1.1,
+    "allowed_categories": [
+      "home"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_toy_shop"
+  },
+  {
+    "id": "wholesale_club",
+    "name": "Оптовый клуб",
+    "rent_mult": 1.5,
+    "allowed_categories": [
+      "food",
+      "home",
+      "apparel",
+      "tech",
+      "fuel",
+      "dairy"
+    ],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "icon": "shop_wholesale_club"
+  },
+  {
+    "id": "workwear_shop",
+    "name": "Спецодежда",
+    "rent_mult": 1.0,
+    "allowed_categories": [
+      "apparel"
+    ],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "icon": "shop_workwear_shop"
+  }
+]

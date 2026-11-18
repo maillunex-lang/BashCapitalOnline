@@ -533,6 +533,12 @@ async function refresh() {
   state.world = await api("/api/world");
   if (!state.catalog) {
     state.catalog = await api("/api/catalog");
+    // Soft-compat for Economy Catalog V2 (dynamic IDs; no _std/_prem clones).
+    state.catalog.items = state.catalog.items || [];
+    state.catalog.recipes = state.catalog.recipes || [];
+    state.catalog.buildings = state.catalog.buildings || [];
+    state.catalog.shops = state.catalog.shops || [];
+    state.economyCatalogVersion = state.catalog.economy_catalog_version || state.catalog.version || 0;
     fillBuildsFromCatalog();
   }
   const w = state.world;
