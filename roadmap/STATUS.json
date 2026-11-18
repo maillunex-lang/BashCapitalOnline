@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "project": "BashCapitalOnline",
+  "updated": "2026-11-18",
+  "branch_default": "main",
+  "active_pr": "https://github.com/maillunex-lang/BashCapitalOnline/pull/1",
+  "instructions_for_ai": "Pick the highest-priority item with status=next that is not claimed. Set status=in_progress and claim.owner before coding. On finish set status=done, fill notes/files, update ROADMAP.md, commit and push to main (and keep PR branch in sync if open).",
+  "priority_order": [
+    "RM-ADMIN",
+    "RM-ASSETS-APK",
+    "RM-MAP-DIRTY",
+    "RM-GODOT-MOBILE",
+    "RM-PERSIST",
+    "RM-CONTRACTS-UI",
+    "RM-STERLITAMAK",
+    "RM-DEMAND",
+    "RM-BALANCE",
+    "RM-AUTH",
+    "RM-PAYMENT",
+    "RM-I18N"
+  ],
+  "items": [
+    {
+      "id": "RM-MVP-CORE",
+      "title": "Core economy server + web/Godot MVP",
+      "status": "done",
+      "area": "server",
+      "notes": "Go sim, hourly ticks, Ufa/Beloretsk, roads, deposits",
+      "files": ["server/", "client/", "web/", "data/"]
+    },
+    {
+      "id": "RM-CATALOG",
+      "title": "Capitalism Lab–style diverse catalog",
+      "status": "done",
+      "area": "data",
+      "notes": "54 items, 56 recipes, specialized buildings",
+      "files": ["data/items.json", "data/recipes.json", "data/buildings.json"]
+    },
+    {
+      "id": "RM-SHOP-SPEC",
+      "title": "Shop type specialization allowlists",
+      "status": "done",
+      "area": "economy",
+      "notes": "grocery cannot sell electronics; furniture_shop etc.",
+      "files": ["data/shops.json", "server/internal/sim/policies.go"]
+    },
+    {
+      "id": "RM-FACTORY-SPEC",
+      "title": "Factory recipe locked to building type",
+      "status": "done",
+      "area": "economy",
+      "notes": "furniture_plant cannot bake bread",
+      "files": ["server/internal/sim/policies.go", "server/internal/sim/actions.go"]
+    },
+    {
+      "id": "RM-FACTORY-OPS",
+      "title": "Factory/shop ops: sources + sell_external",
+      "status": "done",
+      "area": "economy",
+      "notes": "own/city/market/firm buy; sell-to-self-only",
+      "files": ["server/internal/sim/actions.go", "web/app.js"]
+    },
+    {
+      "id": "RM-CITY-MARKET",
+      "title": "City wholesale low-quality + price corridors",
+      "status": "done",
+      "area": "economy",
+      "files": ["data/economy.json", "server/internal/sim/prices.go"]
+    },
+    {
+      "id": "RM-AI-SEED",
+      "title": "Diverse AI production chains",
+      "status": "done",
+      "area": "ai",
+      "files": ["server/internal/sim/world.go", "data/ai_personas.json"]
+    },
+    {
+      "id": "RM-AI-CHAT",
+      "title": "AI personas + rate-limited chat",
+      "status": "done",
+      "area": "ai",
+      "files": ["server/internal/sim/chat.go"]
+    },
+    {
+      "id": "RM-MAP-SPRITES",
+      "title": "Iso map sprites for buildings/deposits",
+      "status": "done",
+      "area": "art",
+      "files": ["scripts/gen_map_sprites.py", "client/assets/map/", "web/assets/map/"]
+    },
+    {
+      "id": "RM-WEB-MOBILE",
+      "title": "Mobile web UI + manage sheets",
+      "status": "done",
+      "area": "client-web",
+      "files": ["web/index.html", "web/styles.css", "web/app.js"]
+    },
+    {
+      "id": "RM-ROADMAP-DOCS",
+      "title": "In-repo roadmap for AI executors",
+      "status": "done",
+      "area": "meta",
+      "notes": "STATUS.json + AGENTS.md + sync script; GitHub Issues sync needs owner write token",
+      "files": ["ROADMAP.md", "AGENTS.md", "roadmap/STATUS.json", "scripts/sync_roadmap_to_github.sh", ".github/"]
+    },
+    {
+      "id": "RM-ADMIN",
+      "title": "Admin portal: world/prices/recipes/cities",
+      "status": "next",
+      "area": "admin",
+      "acceptance": [
+        "Web admin behind token",
+        "Edit economy.json corridors and city market live or via restart",
+        "Enable/disable cities",
+        "Force tick / pause"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "RM-ASSETS-APK",
+      "title": "Remote asset pack + in-app APK update",
+      "status": "next",
+      "area": "client-godot",
+      "acceptance": [
+        "Manifest-driven download of map/ui assets",
+        "Version check + APK download prompt on Android"
+      ],
+      "files_hint": ["data/remote_manifest.json", "client/scripts/"]
+    },
+    {
+      "id": "RM-MAP-DIRTY",
+      "title": "Finish dirty-tile incremental map redraw",
+      "status": "next",
+      "area": "client",
+      "files_hint": ["server/internal/sim/dirty.go", "client/scripts/city_map.gd", "web/app.js"]
+    },
+    {
+      "id": "RM-GODOT-MOBILE",
+      "title": "Godot mobile factory/shop configure panels",
+      "status": "next",
+      "area": "client-godot",
+      "acceptance": [
+        "Parity with web manage sheet",
+        "Safe-area phone layouts"
+      ]
+    },
+    {
+      "id": "RM-PERSIST",
+      "title": "Persist world state (SQLite/Postgres)",
+      "status": "backlog",
+      "area": "server"
+    },
+    {
+      "id": "RM-CONTRACTS-UI",
+      "title": "Mobile UI for contracts and exchange",
+      "status": "backlog",
+      "area": "client-web"
+    },
+    {
+      "id": "RM-STERLITAMAK",
+      "title": "Enable Sterlitamak as 3rd city",
+      "status": "backlog",
+      "area": "world",
+      "depends_on": ["RM-ADMIN"]
+    },
+    {
+      "id": "RM-DEMAND",
+      "title": "Deeper CapLab demand/quality/brand model",
+      "status": "backlog",
+      "area": "economy"
+    },
+    {
+      "id": "RM-BALANCE",
+      "title": "Economy balance pass for hourly ticks",
+      "status": "backlog",
+      "area": "economy"
+    },
+    {
+      "id": "RM-AUTH",
+      "title": "Player accounts / sessions",
+      "status": "backlog",
+      "area": "server"
+    },
+    {
+      "id": "RM-PAYMENT",
+      "title": "Real subscription payment webhook",
+      "status": "backlog",
+      "area": "monetization",
+      "blocked_reason": "Needs payment secrets from owner"
+    },
+    {
+      "id": "RM-I18N",
+      "title": "Bashkir / English UI",
+      "status": "backlog",
+      "area": "client"
+    }
+  ]
+}
