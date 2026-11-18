@@ -196,14 +196,25 @@ func (e *Engine) runProduction(log *[]string) {
 		if err := e.RecipeFitsBuilding(b.Type, recipe.ID); err != nil {
 			continue
 		}
-		// Добыча: списываем запас залежи на клетке (не бесконечно)
+		// Utility extract (e.g. bottled water): no deposit, pays water/utility.
+		if isUtilityExtract(recipe) {
+			cost := e.opsCost(recipe, true)
+			if firm.Cash < cost {
+				continue
+			}
+			firm.Cash -= cost
+			b.Inventory[recipe.Output.ItemID] += outQty
+			b.Quality = clamp(b.Quality*0.5+2.5*0.5, 1, 5)
+			continue
+		}
+		// Добыча: списываем запас залежи / участка на клетке
 		if isExtractRecipe(recipe) {
 			depQ, ok := e.consumeDeposit(city, b.X, b.Y, outQty, recipe.Output.ItemID, log)
 			if !ok {
 				continue // залежь иссякла / нет ресурса
 			}
-			energyCost := float64(recipe.Energy) * e.energyRate(true)
-			firm.Cash -= energyCost
+			cost := e.opsCost(recipe, true)
+			firm.Cash -= cost
 			b.Inventory[recipe.Output.ItemID] += outQty
 			b.Quality = clamp((depQ*0.7)+(b.Quality*0.3), 1, 5)
 			continue
@@ -224,8 +235,8 @@ func (e *Engine) runProduction(log *[]string) {
 		for _, in := range recipe.Inputs {
 			b.Inventory[in.ItemID] -= in.Qty
 		}
-		energyCost := float64(recipe.Energy) * e.energyRate(false)
-		firm.Cash -= energyCost
+		cost := e.opsCost(recipe, false)
+		firm.Cash -= cost
 		b.Inventory[recipe.Output.ItemID] += outQty
 		b.Quality = clamp((inputQ*0.7)+2.0*0.3, 1, 5)
 	}

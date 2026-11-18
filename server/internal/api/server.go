@@ -117,17 +117,26 @@ func (s *Server) StartTicker() {
 	}()
 }
 
-func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, map[string]any{"ok": true, "tick": s.Engine.World.Tick})
-}
-
 func (s *Server) handleCatalog(w http.ResponseWriter, r *http.Request) {
 	c := s.Engine.Catalog
 	writeJSON(w, map[string]any{
+		"economy_catalog_version": c.Version,
 		"items": c.Items, "recipes": c.Recipes, "buildings": c.Buildings, "shops": c.Shops,
 		"cities": c.Cities, "routes": c.Routes,
 		"economy": c.Economy, "ai_personas": c.AIPersonas, "rnd_tree": c.RnDTree,
 	})
+}
+
+func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
+	ver := 1
+	if s.Engine != nil && s.Engine.Catalog != nil && s.Engine.Catalog.Version > 0 {
+		ver = s.Engine.Catalog.Version
+	}
+	tick := 0
+	if s.Engine != nil && s.Engine.World != nil {
+		tick = s.Engine.World.Tick
+	}
+	writeJSON(w, map[string]any{"ok": true, "tick": tick, "economy_catalog_version": ver})
 }
 
 func (s *Server) handleWorld(w http.ResponseWriter, r *http.Request) {
