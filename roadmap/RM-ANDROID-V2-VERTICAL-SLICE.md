@@ -89,7 +89,7 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 
 ## Phase 5 preview verification (2026-11-18)
 
-- Version 0.4.0 (code 4) has an Android APK for API 24+, ARM64 and x86_64. The preview uses its own application ID and the Godot debug certificate. APK signature and manifest checks are included in the export script. The APK, SHA‑256 and build provenance are attached to the [GitHub prerelease](https://github.com/maillunex-lang/BashCapitalOnline/releases/tag/v0.4.0-preview.1).
+- Version 0.4.0 (code 4) has an Android APK for API 24+, ARM64 and x86_64. The preview uses its own application ID and the Godot debug certificate. APK signature and manifest checks are included in the export script. The APK, SHA‑256 and build provenance are linked from the [GitHub prerelease](https://github.com/maillunex-lang/BashCapitalOnline/releases/tag/v0.4.0-preview.1).
 - Against a local V2 server, the Godot smoke checks confirmed remote catalog and city textures, cache repair, rejection of a mismatched checksum, bundled fallback, and sign-in/reconnection. Android executable launch, touch, performance and the full chain on device remain pending. ADB found no connected device.
 - The release export preset accepts an authorized key through Godot's environment variables. The public preview is separate from the server's regular APK update channel. The owner release key was unavailable in this session.
 
