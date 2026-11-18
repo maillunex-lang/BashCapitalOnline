@@ -5,7 +5,7 @@
   "branch_default": "main",
   "active_pr": null,
   "honesty_rule": "status=done means code exists and runs in-repo. It does NOT mean production-ready, device-verified, load-tested, or live payments. Use maturity: shipped | mvp | scaffold | unverified. Never mark scaffold as if it were shipped.",
-  "instructions_for_ai": "Always merge to main. Economy Catalog V2 lives in data/catalog_v2 (loader prefers it). Legacy snapshot in data/legacy_v1. Next: RM-APK-VERIFY or RM-MAP-INCREMENTAL; regenerate V2 icons; migrate any local saves via store.MigrateWorldCopyToV2 on a DB copy only.",
+  "instructions_for_ai": "Approved next milestone: RM-ANDROID-V2-VERTICAL-SLICE, see roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md. Work in order: V2 Godot catalog integration, incremental map, real economic chain, V2 graphics/UI, signed Android APK/device verification. Main only; no HTML demo; clean new world, no V1 save migration. Do not deploy/reset live VPS without separate action. Mark only verified progress.",
   "maturity_legend": {
     "shipped": "Used end-to-end in normal play; no known major gaps for the claimed scope",
     "mvp": "Works for local/dev play; balance/UX still need iteration",
@@ -13,13 +13,30 @@
     "unverified": "Code path exists but not proven on real device/env"
   },
   "priority_order": [
+    "RM-ANDROID-V2-VERTICAL-SLICE",
     "RM-APK-VERIFY",
     "RM-MAP-INCREMENTAL",
-    "RM-POSTGRES",
     "RM-LOAD-TEST",
+    "RM-POSTGRES",
     "RM-I18N"
   ],
   "items": [
+    {
+      "id": "RM-ANDROID-V2-VERTICAL-SLICE",
+      "title": "Playable Android V2 economy vertical slice",
+      "status": "in_progress",
+      "maturity": "unverified",
+      "area": "client/server",
+      "notes": "Owner-approved milestone. Phase 1 is V2 Godot catalog/UI audit and integration. Acceptance is signed APK and verified real production-to-retail loop, not only successful Go tests.",
+      "files": [
+        "roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md",
+        "data/catalog_v2/",
+        "client/",
+        "server/"
+      ],
+      "updated": "2026-11-18",
+      "stage": "S2"
+    },
     {
       "id": "RM-MVP-CORE",
       "title": "Core economy server + web/Godot MVP",
