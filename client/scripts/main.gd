@@ -4,6 +4,7 @@ extends Control
 @onready var api: ApiClient = $ApiClient
 @onready var backdrop: TextureRect = $Backdrop
 @onready var logo: TextureRect = $SafeArea/UI/TopBar/Logo
+@onready var company_btn: Button = $SafeArea/UI/TopBar/CompanyBtn
 @onready var status_label: Label = $SafeArea/UI/TopBar/Status
 @onready var tick_label: Label = $SafeArea/UI/TopBar/TickLabel
 @onready var cash_label: Label = $SafeArea/UI/TopBar/CashLabel
@@ -31,6 +32,7 @@ extends Control
 @onready var rank_panel: PanelContainer = $SafeArea/UI/RankPanel
 
 var connecting := false
+var polling_world := false
 var current_city: String = "ufa"
 var selected_parcel: Dictionary = {}
 var grade_material: ShaderMaterial
@@ -82,6 +84,12 @@ func _ready() -> void:
 	manage_panel.rent_shop.connect(_on_rent_shop)
 	manage_panel.stock_shop.connect(_on_stock_shop)
 	manage_panel.transfer_stock.connect(_on_transfer_stock)
+	manage_panel.asset_chosen.connect(_on_asset_chosen)
+	var refresh_timer := Timer.new()
+	refresh_timer.wait_time = 8.0
+	refresh_timer.autostart = true
+	refresh_timer.timeout.connect(_poll_world)
+	add_child(refresh_timer)
 	manage_panel.closed.connect(func(): manage_panel.visible = false)
 	side.visible = false
 	game_layer.visible = false
@@ -214,6 +222,7 @@ func _connect_to_world(register_account: bool) -> void:
 	password.clear()
 	status_label.text = "Фирма: %s" % api.firm.get("name", "")
 	login_panel.visible = false
+	company_btn.show()
 	game_layer.visible = true
 	bottom_panel.visible = true
 	rank_panel.visible = true
@@ -254,7 +263,8 @@ func _render_world() -> void:
 	if logs is Array:
 		for line in logs:
 			log_box.append_text(str(line) + "\n")
-	_render_my_assets()
+	if manage_panel.visible:
+		manage_panel.refresh_snapshot(api.catalog, w, api.firm_id)
 
 func _render_rankings() -> void:
 	var rows: Array = await api.rankings()
@@ -392,6 +402,7 @@ func _rebuild_city_tabs() -> void:
 			continue
 		var btn := Button.new()
 		btn.text = str(c.get("name", c.get("id")))
+		btn.custom_minimum_size.y = 52
 		var cid := str(c.get("id"))
 		btn.pressed.connect(_on_city_selected.bind(cid))
 		if tick_btn:
@@ -419,9 +430,25 @@ func _city_name(id: String) -> String:
 func _money(v) -> String:
 	return str(int(float(v)))
 
-func _render_my_assets() -> void:
-	# Asset shortcuts stay in side body footer when no parcel focus needed.
-	pass
+func _on_company_pressed() -> void:
+	manage_panel.open_company(api.catalog, api.world, api.firm_id)
+
+func _on_asset_chosen(asset_kind: String, asset_id: String) -> void:
+	var asset: Dictionary = api.world.get(asset_kind, {}).get(asset_id, {})
+	if asset.is_empty() or asset["firm_id"] != api.firm_id:
+		return
+	if asset_kind == "buildings":
+		manage_panel.open_building(asset, api.catalog, api.world, api.firm_id)
+	elif asset_kind == "shops":
+		manage_panel.open_shop(asset, api.catalog)
+
+func _poll_world() -> void:
+	if login_panel.visible or polling_world:
+		return
+	polling_world = true
+	await api.fetch_world()
+	polling_world = false
+	_render_world()
 
 func _on_save_building(payload: Dictionary) -> void:
 	var res := await api.action("configure_building", payload)

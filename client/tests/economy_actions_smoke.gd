@@ -18,7 +18,18 @@ func _run() -> void:
 		return
 	var id: String = game.api.firm_id
 	var farm := await _build(game, "ufa", "grain_farm", "extract_wheat", "wheat")
-	await game.api.manual_tick()
+	if not _check(farm.has("id"), "built farm"):
+		quit(1)
+		return
+	game._on_asset_chosen("buildings", farm["id"])
+	var initial_summary: Label = game.manage_panel._snapshot
+	_check(initial_summary.text.contains("Ожидается"), "new farm waits for first tick")
+	await game._on_tick_pressed()
+	_check(game.manage_panel._snapshot == initial_summary, "tick refresh preserves the open form")
+	_check(initial_summary.text.contains("Партия выпущена") and initial_summary.text.contains("Последний выпуск"), "live panel shows the server's successful batch")
+	_check(game.manage_panel._inventory_rows.item_count == 1, "live panel shows the new wheat stock")
+	_check(game.manage_panel._inventory_rows.get_item_icon(0) != null, "stock has a visible icon")
+	_check(game.manage_panel._transfer.custom_minimum_size.y >= 48, "transfer has a large touch target")
 	var warehouse := await _build(game, "sterlitamak", "warehouse", "", "")
 	if not _check(farm.has("id") and warehouse.has("id"), "built farm and warehouse"):
 		quit(1)
@@ -45,6 +56,12 @@ func _run() -> void:
 			shipment = row
 	if _check(not shipment.is_empty(), "send control queued a shipment"):
 		_check(shipment["to_building_id"] == warehouse["id"] and shipment["item_id"] == "wheat", "form sent wheat to the selected warehouse")
+		game._on_company_pressed()
+		_check(game.manage_panel.kind == "company" and game.manage_panel._snapshot.text.contains("Уфа → Стерлитамак"), "company shows the shipment route")
+		await process_frame
+		await process_frame
+		await _check_company_layout(game)
+		game.manage_panel.hide()
 		for _tick in int(shipment["ticks_left"]):
 			await game.api.manual_tick()
 		var target: Dictionary = game.api.world["buildings"][warehouse["id"]]
@@ -56,6 +73,28 @@ func _run() -> void:
 	_check(reconnected.api.firm_id == id and reconnected.api.world["buildings"].has(warehouse["id"]), "login reopened the same firm and warehouse")
 	print("Economy controls smoke: %s" % ("failed" if failed else "passed"))
 	quit(1 if failed else 0)
+
+func _check_company_layout(game) -> void:
+	var panel: ManagePanel = game.manage_panel
+	var safe: Control = game.get_node("SafeArea/UI")
+	var close_button: Button = panel.get_node("Margin/VBox/CloseBtn")
+	var settings_button: Button = game.get_node("SafeArea/UI/TopBar/SettingsBtn")
+	var previous_scale_size := root.content_scale_size
+	var previous_window_size := root.size
+	for layout in [Vector2i(1600, 900), Vector2i(2000, 900)]:
+		root.content_scale_size = layout
+		root.size = layout
+		await process_frame
+		await process_frame
+		_check(game.get_viewport_rect().size == Vector2(layout), "viewport uses the requested landscape size")
+		_check(safe.get_global_rect().encloses(panel.get_global_rect()), "panel fits inside the safe area")
+		_check(panel.get_global_rect().encloses(close_button.get_global_rect()), "close button remains inside the panel")
+		_check(safe.get_global_rect().encloses(game.company_btn.get_global_rect()), "company button fits inside the safe area")
+		_check(not game.company_btn.get_global_rect().intersects(settings_button.get_global_rect()), "top-bar buttons do not overlap")
+		print("Economy panel layout: %dx%d" % [layout.x, layout.y])
+	_check(panel.scroll.horizontal_scroll_mode == ScrollContainer.SCROLL_MODE_DISABLED, "form scrolls vertically")
+	root.content_scale_size = previous_scale_size
+	root.size = previous_window_size
 
 func _start_game(url: String, register: bool):
 	var game = load("res://scenes/main.tscn").instantiate()

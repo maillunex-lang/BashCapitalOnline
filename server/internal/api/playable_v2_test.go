@@ -188,6 +188,11 @@ func TestPlayableV2Bread(t *testing.T) {
 	}
 	farm := p.build("ufa", "grain_farm", "extract_wheat", "wheat")
 	world := p.tick()
+	production := world.Buildings[farm].Production
+	if production == nil || production.Status != "produced" || production.ItemID != "wheat" ||
+		production.Qty != world.Buildings[farm].Inventory["wheat"] || production.OutputTick != world.Tick {
+		t.Fatalf("farm reported the wrong production state: %+v", production)
+	}
 	if world.Buildings[farm].Inventory["wheat"] < 4 || world.Firms[p.firm].Cash >= initialCash {
 		t.Fatal("farm should produce wheat and incur expenses")
 	}
@@ -304,8 +309,18 @@ func TestPlayableV2Fuel(t *testing.T) {
 		t.Fatalf("refining inputs/output and wages/utilities: charged %.2f, expected %.2f", cash-world.Firms[p.firm].Cash, cost)
 	}
 
+	world = p.tick()
+	if report := world.Buildings[refinery].Production; report.Status != "inputs" ||
+		report.Qty != 3 || report.OutputTick >= world.Tick {
+		t.Fatalf("missing inputs did not preserve the previous output: %+v", report)
+	}
+
 	p.post("/api/action/set_recipe", map[string]any{"building_id": refinery, "recipe_id": "fuel_01"}, nil)
-	p.tick() // retool
+	world = p.tick()
+	if report := world.Buildings[refinery].Production; report.Status != "retooling" ||
+		report.ItemID != "gasoline_base" || report.OutputTick >= world.Tick {
+		t.Fatalf("retooling did not preserve the previous output: %+v", report)
+	}
 	world = p.tick()
 	if world.Buildings[refinery].Inventory["ai92"] != 3 || world.Buildings[refinery].Inventory["gasoline_base"] != 0 {
 		t.Fatalf("refinery inventory: %v", world.Buildings[refinery].Inventory)

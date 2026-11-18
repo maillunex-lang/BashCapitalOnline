@@ -35,7 +35,7 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 - Test from zero player state without injecting resources, cash or research in the test itself except normal starter grants.
 - Automated integration tests must confirm positive and negative cases and persistence after restart.
 
-### 4. UI and graphics
+### 4. UI and graphics (verified headless; device checks pending)
 - Update V2 item/building/shop icons, inventory, recipe tree, store catalog, company panels, tooltips and production progress.
 - Android touch hit targets, safe areas, orientation, readable text, minimal animation stutter.
 - Missing assets should have intentional fallbacks, not blank or broken sprites.
@@ -80,6 +80,13 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 - Godot's account and warehouse controls passed a headless smoke against the built server. The server process was also restarted with the same scratch database, and the account, firm, tick, cash and delivered wheat were restored.
 - Run `go test ./... -run TestPlayableV2 -v` from `server/`. To check the Godot controls on a fresh local server, run `godot --headless --path client --script res://tests/economy_actions_smoke.gd -- http://127.0.0.1:18081` after importing the project.
 
+## Phase 4 verification (2026-11-18)
+
+- Godot shows the firm's buildings, shops, balance, and in-transit shipments in the company panel. The warehouse and shelf views show actual stock and item icons. Recipes show ingredients and output, while the catalog shows which recipes produce or consume each item.
+- Each building now reports the last production attempt and last completed batch. The integration tests verify missing ingredients and retooling preserve information about the last batch. Godot updates the open panel from a new world snapshot without rebuilding the form.
+- Landscape layout is explicit. Scrollable forms keep the close control visible. Larger mobile controls and safe-area offsets are applied for touch use. New mobile installs default to medium graphics with traffic animation disabled.
+- Godot headless smoke verified live stock, shelf icons, shipment details, and panel geometry at 1600×900 and 2000×900. Go tests and server build passed. Touch, notch behavior and frame pacing still need an Android device check.
+
 ## Immediate next action
 
-Phase 4: polish the Android UI for inventory, recipes, retail and production progress, and verify touch layout.
+Phase 5: export a signed Android APK through the authorized build pipeline and verify the catalog, reconnection, and economic loop on a device.

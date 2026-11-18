@@ -178,30 +178,44 @@ func deliverCargo(b *model.BuildingInst, s *model.Shipment) {
 
 func (e *Engine) runProduction(log *[]string) {
 	for _, b := range e.World.Buildings {
+		if b.Production == nil {
+			b.Production = &model.ProductionReport{}
+		}
+		report := b.Production
+		report.Tick = e.World.Tick
+		report.Status = "inactive"
 		if !b.Active {
 			continue
 		}
 		if b.RetoolWeeks > 0 {
+			report.Status = "retooling"
 			b.RetoolWeeks--
 			*log = append(*log, fmt.Sprintf("Переналадка %s (%d)", b.Type, b.RetoolWeeks))
 			continue
 		}
 		recipe, ok := e.Catalog.RecipeByID[b.RecipeID]
 		if !ok {
+			report.Status = "no_recipe"
 			continue
 		}
+		report.Status = "unavailable"
 		firm := e.World.Firms[b.FirmID]
 		if firm == nil {
 			continue
 		}
 		if recipe.ResearchCost > 0 && !firm.Researched[recipe.ID] {
+			report.Status = "research"
 			continue
 		}
 		city := e.World.Cities[b.CityID]
 		if city == nil {
 			continue
 		}
-		if !hasLabor(city, recipe.Labor) || e.RecipeFitsBuilding(b.Type, recipe.ID) != nil {
+		if e.RecipeFitsBuilding(b.Type, recipe.ID) != nil {
+			continue
+		}
+		if !hasLabor(city, recipe.Labor) {
+			report.Status = "labor"
 			continue
 		}
 		extract := isExtractRecipe(recipe)
@@ -210,6 +224,7 @@ func (e *Engine) runProduction(log *[]string) {
 		cost := e.opsCost(recipe, extract || utility) +
 			float64(recipe.Labor.Worker)*ww + float64(recipe.Labor.Engineer)*we + float64(recipe.Labor.Manager)*wm
 		if firm.Cash < cost {
+			report.Status = "cash"
 			continue
 		}
 		outQty := recipe.Output.Qty
@@ -227,13 +242,19 @@ func (e *Engine) runProduction(log *[]string) {
 		case extract:
 			qty, depositQuality := e.consumeDeposit(city, b.X, b.Y, outQty, recipe.Output.ItemID, log)
 			if qty == 0 {
+				report.Status = "deposit"
 				continue
 			}
 			outQty = qty
 			quality = clamp(depositQuality*0.7+b.Quality*0.3, 1, 5)
 		default:
 			e.procureInputs(b, recipe, log)
-			if firm.Cash < cost || !hasInputs(b, recipe) {
+			if firm.Cash < cost {
+				report.Status = "cash"
+				continue
+			}
+			if !hasInputs(b, recipe) {
+				report.Status = "inputs"
 				continue
 			}
 			for _, in := range recipe.Inputs {
@@ -247,6 +268,10 @@ func (e *Engine) runProduction(log *[]string) {
 		firm.Cash -= cost
 		b.Inventory[recipe.Output.ItemID] += outQty
 		b.Quality = quality
+		report.Status = "produced"
+		report.OutputTick = report.Tick
+		report.ItemID = recipe.Output.ItemID
+		report.Qty = outQty
 	}
 }
 

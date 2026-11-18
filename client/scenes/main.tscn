@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/api_client.gd" id="2"]
@@ -8,6 +8,20 @@
 [ext_resource type="Script" path="res://scripts/city_ambience.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/settings_panel.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/manage_panel.gd" id="8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_manage"]
+bg_color = Color(0.055, 0.10, 0.095, 0.99)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.47, 0.41, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 10
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -72,7 +86,8 @@ size_flags_vertical = 3
 [node name="ApiClient" type="Node" parent="."]
 script = ExtResource("2")
 
-[node name="TopBar" type="PanelContainer" parent="SafeArea/UI"]
+[node name="TopBar" type="Control" parent="SafeArea/UI"]
+mouse_filter = 2
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -80,7 +95,10 @@ offset_bottom = 64.0
 grow_horizontal = 2
 
 [node name="TopBG" type="ColorRect" parent="SafeArea/UI/TopBar"]
-layout_mode = 2
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 color = Color(0.09, 0.14, 0.15, 0.92)
 
 [node name="Logo" type="TextureRect" parent="SafeArea/UI/TopBar"]
@@ -99,6 +117,7 @@ offset_top = 20.0
 offset_right = 480.0
 offset_bottom = 48.0
 text = "BashCapital · Башкортостан"
+clip_text = true
 
 [node name="TickLabel" type="Label" parent="SafeArea/UI/TopBar"]
 layout_mode = 0
@@ -116,12 +135,26 @@ offset_right = 1100.0
 offset_bottom = 48.0
 text = "Касса: —"
 
+[node name="CompanyBtn" type="Button" parent="SafeArea/UI/TopBar"]
+visible = false
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -304.0
+offset_top = 8.0
+offset_right = -174.0
+offset_bottom = 60.0
+text = "Компания"
+[connection signal="pressed" from="SafeArea/UI/TopBar/CompanyBtn" to="." method="_on_company_pressed"]
+
 [node name="SettingsBtn" type="Button" parent="SafeArea/UI/TopBar"]
-layout_mode = 0
-offset_left = 1120.0
-offset_top = 14.0
-offset_right = 1280.0
-offset_bottom = 50.0
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -164.0
+offset_top = 8.0
+offset_right = -4.0
+offset_bottom = 60.0
 text = "Настройки"
 [connection signal="pressed" from="SafeArea/UI/TopBar/SettingsBtn" to="." method="_on_settings_pressed"]
 
@@ -186,11 +219,13 @@ text = "http://127.0.0.1:8080"
 
 [node name="ConnectBtn" type="Button" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Войти в мир"
 [connection signal="pressed" from="SafeArea/UI/LoginPanel/Margin/VBox/ConnectBtn" to="." method="_on_connect_pressed"]
 
 [node name="RegisterBtn" type="Button" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Зарегистрироваться"
 [connection signal="pressed" from="SafeArea/UI/LoginPanel/Margin/VBox/RegisterBtn" to="." method="_on_connect_pressed" binds= [true]]
 
@@ -204,14 +239,17 @@ theme_override_constants/separation = 8
 
 [node name="TickBtn" type="Button" parent="SafeArea/UI/CityTabs"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Тик (dev)"
 [connection signal="pressed" from="SafeArea/UI/CityTabs/TickBtn" to="." method="_on_tick_pressed"]
 
 [node name="SidePanel" type="PanelContainer" parent="SafeArea/UI"]
-layout_mode = 0
-offset_left = 1080.0
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
 offset_top = 80.0
-offset_right = 1420.0
+offset_right = -20.0
 offset_bottom = 620.0
 
 [node name="SideBG" type="ColorRect" parent="SafeArea/UI/SidePanel"]
@@ -227,7 +265,7 @@ theme_override_constants/margin_bottom = 16
 
 [node name="VBox" type="VBoxContainer" parent="SafeArea/UI/SidePanel/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
 [node name="Title" type="Label" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
@@ -238,20 +276,23 @@ text = "Город"
 layout_mode = 2
 custom_minimum_size = Vector2(0, 120)
 bbcode_enabled = true
-fit_content = true
+fit_content = false
 text = "Выберите участок на карте"
 
 [node name="CatalogBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Каталог экономики"
 [connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/CatalogBtn" to="." method="_on_catalog_pressed"]
 
 [node name="BuildType" type="OptionButton" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 
 [node name="BuildRecipe" type="OptionButton" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 visible = false
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 theme_override_constants/icon_max_width = 28
 fit_to_longest_item = false
 text_overrun_behavior = 3
@@ -259,26 +300,31 @@ tooltip_text = "Рецепт для нового здания"
 
 [node name="BuildBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Построить"
 [connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/BuildBtn" to="." method="_on_build_pressed"]
 
 [node name="RentBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Арендовать магазин"
 [connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/RentBtn" to="." method="_on_rent_pressed"]
 
 [node name="BuyParcelBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Купить участок"
 [connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/BuyParcelBtn" to="." method="_on_buy_parcel_pressed"]
 
 [node name="DevelopBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Жилой проект (девелопер)"
 [connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/DevelopBtn" to="." method="_on_develop_pressed"]
 
 [node name="TruckBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
 text = "Купить фуру"
 [connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/TruckBtn" to="." method="_on_truck_pressed"]
 
@@ -433,20 +479,12 @@ text = "Закрыть"
 [node name="ManagePanel" type="PanelContainer" parent="SafeArea/UI"]
 visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -340.0
-offset_right = 300.0
-offset_bottom = 340.0
+anchor_left = 0.25
+anchor_top = 0.06
+anchor_right = 0.75
+anchor_bottom = 0.94
+theme_override_styles/panel = SubResource("StyleBoxFlat_manage")
 script = ExtResource("8")
-
-[node name="BG" type="ColorRect" parent="SafeArea/UI/ManagePanel"]
-layout_mode = 2
-color = Color(0.08, 0.12, 0.13, 0.98)
 
 [node name="Margin" type="MarginContainer" parent="SafeArea/UI/ManagePanel"]
 layout_mode = 2
@@ -459,26 +497,47 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
+[node name="Header" type="HBoxContainer" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_constants/separation = 14
+
+[node name="Icon" type="TextureRect" parent="SafeArea/UI/ManagePanel/Margin/VBox/Header"]
+layout_mode = 2
+custom_minimum_size = Vector2(54, 54)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="SafeArea/UI/ManagePanel/Margin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 26
+autowrap_mode = 3
 text = "Настройка"
 
 [node name="Sub" type="Label" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
 layout_mode = 2
 text = "Завод / магазин"
+theme_override_colors/font_color = Color(0.84, 0.72, 0.45, 1)
+theme_override_font_sizes/font_size = 18
 
 [node name="Hint" type="Label" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
 layout_mode = 2
 autowrap_mode = 3
 text = ""
 
-[node name="Body" type="VBoxContainer" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
+[node name="Scroll" type="ScrollContainer" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 6
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="Body" type="VBoxContainer" parent="SafeArea/UI/ManagePanel/Margin/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
 
 [node name="CloseBtn" type="Button" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 52)
 text = "Закрыть"
 [connection signal="pressed" from="SafeArea/UI/ManagePanel/Margin/VBox/CloseBtn" to="SafeArea/UI/ManagePanel" method="_on_close"]

@@ -27,7 +27,7 @@
       "status": "in_progress",
       "maturity": "unverified",
       "area": "client/server",
-      "notes": "Phases 1–3 verified locally. A new wheat firm produces, ships and sells bread, then reinvests 5000 ₽; a new fuel firm buys crude, refines it and sells AI-92. Account, stock and active shipments survive reopening SQLite. Godot registration, reconnect and transfer controls passed headless. Next is Android UI and graphics; device profiling, signing and verification remain open.",
+      "notes": "Phases 1–3 verified locally. A new wheat firm produces, ships and sells bread, then reinvests 5000 ₽; a new fuel firm buys crude, refines it and sells AI-92. Account, stock and active shipments survive reopening SQLite. Godot registration, reconnect and transfer controls passed headless. Phase 4 economy UI is verified in Godot headless, including live production status and landscape layout checks. Next is the signed Android export. Device touch and performance verification remain open.",
       "files": [
         "roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md",
         "data/catalog_v2/",

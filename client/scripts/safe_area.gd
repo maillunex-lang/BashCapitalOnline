@@ -1,36 +1,27 @@
 extends MarginContainer
 class_name SafeAreaRoot
 
-## Учитывает вырез камеры / notch / home indicator.
-## Вешает отступы на корневой UI-контейнер.
-
 func _ready() -> void:
 	_apply()
-	get_tree().root.size_changed.connect(_apply)
-	# mobile/display cutouts update
-	if DisplayServer.has_signal("window_safe_area_changed"):
-		pass
+	get_viewport().size_changed.connect(_apply)
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_WINDOW_FOCUS_IN or what == NOTIFICATION_RESIZED:
+	if what == NOTIFICATION_WM_WINDOW_FOCUS_IN and is_node_ready():
 		_apply()
 
 func _apply() -> void:
-	var wa: Rect2i = DisplayServer.get_display_safe_area()
-	var win: Vector2i = DisplayServer.window_get_size()
-	if win.x <= 0 or win.y <= 0:
-		return
-	# Convert absolute safe rect into margins relative to window
-	var left := maxi(wa.position.x, 0)
-	var top := maxi(wa.position.y, 0)
-	var right := maxi(win.x - (wa.position.x + wa.size.x), 0)
-	var bottom := maxi(win.y - (wa.position.y + wa.size.y), 0)
-	# Extra padding under typical camera punch-hole
-	top = maxi(top, 12)
-	left = maxi(left, 8)
-	right = maxi(right, 8)
-	bottom = maxi(bottom, 8)
-	add_theme_constant_override("margin_left", left)
-	add_theme_constant_override("margin_top", top)
-	add_theme_constant_override("margin_right", right)
-	add_theme_constant_override("margin_bottom", bottom)
+	var margins := Vector4(8, 12, 8, 8)
+	if OS.has_feature("mobile"):
+		var safe := DisplayServer.get_display_safe_area()
+		var window := DisplayServer.window_get_size()
+		if safe.has_area() and window.x > 0 and window.y > 0:
+			var scale := get_viewport().get_stretch_transform().get_scale()
+			var safe_end := safe.end
+			margins.x = maxf(margins.x, ceilf(safe.position.x / scale.x))
+			margins.y = maxf(margins.y, ceilf(safe.position.y / scale.y))
+			margins.z = maxf(margins.z, ceilf((window.x - safe_end.x) / scale.x))
+			margins.w = maxf(margins.w, ceilf((window.y - safe_end.y) / scale.y))
+	add_theme_constant_override("margin_left", int(margins.x))
+	add_theme_constant_override("margin_top", int(margins.y))
+	add_theme_constant_override("margin_right", int(margins.z))
+	add_theme_constant_override("margin_bottom", int(margins.w))

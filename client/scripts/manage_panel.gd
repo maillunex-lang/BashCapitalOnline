@@ -7,10 +7,13 @@ signal save_shop(payload: Dictionary)
 signal rent_shop(payload: Dictionary)
 signal stock_shop(shop_id: String, qty: int)
 signal transfer_stock(payload: Dictionary)
+signal asset_chosen(asset_kind: String, asset_id: String)
 
-@onready var title: Label = $Margin/VBox/Title
+@onready var title: Label = $Margin/VBox/Header/Title
+@onready var icon: TextureRect = $Margin/VBox/Header/Icon
 @onready var sub: Label = $Margin/VBox/Sub
-@onready var body: VBoxContainer = $Margin/VBox/Body
+@onready var scroll: ScrollContainer = $Margin/VBox/Scroll
+@onready var body: VBoxContainer = $Margin/VBox/Scroll/Body
 @onready var hint: Label = $Margin/VBox/Hint
 
 var kind: String = ""
@@ -25,17 +28,32 @@ var _shop_item: OptionButton
 var _price: SpinBox
 var _stock_src: OptionButton
 var _restock: CheckBox
+var _snapshot: Label
+var _inventory_rows: ItemList
+var _inventory_heading: Label
+var _transfer: Button
+var _current_world: Dictionary = {}
 
 func _ready() -> void:
+	$Margin/VBox/CloseBtn.custom_minimum_size.y = EconomyView.touch_height()
 	visible = false
 
 func open_building(b: Dictionary, catalog: Dictionary, world: Dictionary, my_firm: String) -> void:
 	kind = "building"
 	target_id = str(b.get("id", ""))
 	_clear_body()
-	title.text = CatalogUI.entry_name(catalog, "buildings", str(b.get("type", "")))
-	sub.text = "Производство"
+	var definition := CatalogUI.find(catalog, "buildings", str(b.get("type", "")))
+	title.text = str(definition.get("name", b.get("type", "")))
+	icon.texture = CatalogUI.icon(definition, "buildings")
+	sub.text = "Производство и склад"
 	hint.text = ""
+	_snapshot = _add_summary()
+	_inventory_heading = _add_summary()
+	_inventory_heading.text = "Склад пуст"
+	_inventory_rows = EconomyView.list_view()
+	_inventory_rows.hide()
+	body.add_child(_inventory_rows)
+	_current_world = world
 
 	_recipe = OptionButton.new()
 	var btype := str(b.get("type", ""))
@@ -50,9 +68,16 @@ func open_building(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fir
 	_recipe.add_theme_constant_override("icon_max_width", 28)
 	_recipe.get_popup().add_theme_constant_override("icon_max_width", 28)
 	_add_field("Что производить", _recipe)
+	var recipe_info := _add_summary()
+	var show_recipe := func():
+		var recipe := CatalogUI.find(catalog, "recipes", CatalogUI.selected_id(_recipe))
+		recipe_info.text = EconomyView.recipe_text(recipe, catalog)
+		recipe_info.visible = not recipe_info.text.is_empty()
+	_recipe.item_selected.connect(func(_index): show_recipe.call())
+	show_recipe.call()
 
 	_input = OptionButton.new()
-	for pair in [["own", "Со своего склада"], ["city", "У города (low quality)"], ["market", "У других (биржа)"], ["firm", "У конкретной фирмы"]]:
+	for pair in [["own", "Со своего склада"], ["city", "У города"], ["market", "У других (биржа)"], ["firm", "У конкретной фирмы"]]:
 		_input.add_item(pair[1])
 		_input.set_item_metadata(_input.item_count - 1, pair[0])
 		if str(b.get("default_input", {}).get("mode", "own")) == pair[0]:
@@ -76,23 +101,26 @@ func open_building(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fir
 	_auto = CheckBox.new()
 	_auto.text = "Автозакупка перед производством"
 	_auto.button_pressed = bool(b.get("auto_procure", false))
-	body.add_child(_auto)
+	_add_touch_control(_auto)
 
 	_sell = CheckBox.new()
 	_sell.text = "Разрешить продажу другим игрокам"
 	_sell.button_pressed = b.get("sell_external", true) != false
-	body.add_child(_sell)
+	_add_touch_control(_sell)
 
 	var save := Button.new()
 	save.text = "Сохранить"
 	save.pressed.connect(_on_save_building)
-	body.add_child(save)
-	var inventory: Dictionary = b.get("inventory", {}) if b.get("inventory") is Dictionary else {}
-	if inventory.values().any(func(quantity): return int(quantity) > 0):
-		var transfer := Button.new()
-		transfer.text = "Склад и отправка груза"
-		transfer.pressed.connect(_open_transfer.bind(b, catalog, world, my_firm, inventory))
-		body.add_child(transfer)
+	_add_touch_control(save)
+	_transfer = Button.new()
+	_transfer.text = "Склад и отправка груза"
+	_transfer.pressed.connect(func():
+		var latest: Dictionary = _current_world.get("buildings", {}).get(target_id, b)
+		_open_transfer(latest, catalog, _current_world, my_firm, latest.get("inventory", {}))
+	)
+	_transfer.disabled = true
+	_add_touch_control(_transfer)
+	_show_building_snapshot(b, catalog)
 	visible = true
 
 func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_firm: String, inventory: Dictionary) -> void:
@@ -136,15 +164,22 @@ func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fi
 			"qty": int(qty.value),
 		})
 	)
-	body.add_child(send)
+	_add_touch_control(send)
 
 func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	kind = "shop"
 	target_id = str(s.get("id", ""))
 	_clear_body()
-	title.text = CatalogUI.entry_name(catalog, "shops", str(s.get("shop_type", "")))
-	sub.text = "Ассортимент ограничен типом магазина"
+	var definition := CatalogUI.find(catalog, "shops", str(s.get("shop_type", "")))
+	title.text = str(definition.get("name", s.get("shop_type", "")))
+	icon.texture = CatalogUI.icon(definition, "shops")
+	sub.text = "Розничная торговля"
 	hint.text = ""
+	_snapshot = _add_summary()
+	_inventory_rows = EconomyView.list_view()
+	_inventory_rows.add_item("", null, false)
+	body.add_child(_inventory_rows)
+	_show_shop_snapshot(s, catalog)
 	_shop_fields(catalog, s)
 
 	_stock_src = OptionButton.new()
@@ -158,25 +193,26 @@ func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	_restock = CheckBox.new()
 	_restock.text = "Автопополнение"
 	_restock.button_pressed = s.get("auto_restock", true) != false
-	body.add_child(_restock)
+	_add_touch_control(_restock)
 
 	var save := Button.new()
 	save.text = "Сохранить"
 	save.pressed.connect(_on_save_shop)
 	save.disabled = _shop_item.item_count == 0
 	_shop_type.item_selected.connect(func(_index): save.disabled = _shop_item.item_count == 0)
-	body.add_child(save)
+	_add_touch_control(save)
 
 	var stock := Button.new()
-	stock.text = "Пополнить +10 со склада"
+	stock.text = "Пополнить на 10 ед."
 	stock.pressed.connect(func(): stock_shop.emit(target_id, 10))
-	body.add_child(stock)
+	_add_touch_control(stock)
 	visible = true
 
 func open_rental(catalog: Dictionary, parcel: Dictionary) -> void:
 	kind = "rental"
 	_clear_body()
 	title.text = "Аренда магазина"
+	icon.texture = CatalogUI.icon({}, "shops")
 	sub.text = "Участок (%s, %s)" % [parcel["x"], parcel["y"]]
 	hint.text = ""
 	_shop_fields(catalog, {})
@@ -192,7 +228,7 @@ func open_rental(catalog: Dictionary, parcel: Dictionary) -> void:
 		visible = false
 		rent_shop.emit(payload)
 	)
-	body.add_child(confirm)
+	_add_touch_control(confirm)
 	visible = true
 
 func _shop_fields(catalog: Dictionary, shop: Dictionary) -> void:
@@ -210,7 +246,123 @@ func _shop_fields(catalog: Dictionary, shop: Dictionary) -> void:
 	_price.min_value = 1
 	_price.max_value = 100000
 	_price.value = float(shop.get("price", 55))
-	_add_field("Розничная цена", _price)
+	_add_field("Розничная цена, ₽", _price)
+	var price_info := _add_summary()
+	var show_price := func():
+		var id := CatalogUI.selected_id(_shop_item)
+		var corridor: Dictionary = catalog.get("economy", {}).get("price_corridors", {}).get(id, {})
+		price_info.text = ""
+		if not corridor.is_empty():
+			price_info.text = "Допустимая цена %.2f–%.2f ₽" % [float(corridor["min"]), float(corridor["max"])]
+		price_info.visible = not price_info.text.is_empty()
+	_shop_item.item_selected.connect(func(_index): show_price.call())
+	_shop_type.item_selected.connect(func(_index): show_price.call())
+	show_price.call()
+
+func open_company(catalog: Dictionary, world: Dictionary, firm_id: String) -> void:
+	kind = "company"
+	_clear_body()
+	var firm: Dictionary = world.get("firms", {}).get(firm_id, {})
+	title.text = str(firm.get("name", "Компания"))
+	icon.texture = load("res://assets/ui/icon_firm.png")
+	sub.text = "Имущество и грузы"
+	hint.text = ""
+	_snapshot = _add_summary()
+	for section in [["buildings", "Здания"], ["shops", "Магазины"]]:
+		var label := _add_summary()
+		label.text = section[1]
+		var entries: Array = world.get(section[0], {}).values()
+		var count := 0
+		for asset in entries:
+			if asset["firm_id"] != firm_id:
+				continue
+			count += 1
+			var type_id: String = asset.get("type", asset.get("shop_type", ""))
+			var definition := CatalogUI.find(catalog, section[0], type_id)
+			var city := CatalogUI.entry_name(catalog, "cities", asset["city_id"])
+			var btn := Button.new()
+			btn.text = "%s · %s (%d, %d)" % [definition.get("name", type_id), city, int(asset["x"]), int(asset["y"])]
+			btn.icon = CatalogUI.icon(definition, section[0])
+			btn.add_theme_constant_override("icon_max_width", 30)
+			btn.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+			btn.tooltip_text = btn.text
+			btn.pressed.connect(asset_chosen.emit.bind(section[0], asset["id"]))
+			_add_touch_control(btn)
+		if count == 0:
+			label.text += " · нет"
+	refresh_snapshot(catalog, world, firm_id)
+	visible = true
+
+func refresh_snapshot(catalog: Dictionary, world: Dictionary, firm_id: String) -> void:
+	if _snapshot == null:
+		return
+	_current_world = world
+	match kind:
+		"building":
+			var building: Dictionary = world.get("buildings", {}).get(target_id, {})
+			if not building.is_empty():
+				_show_building_snapshot(building, catalog)
+		"shop":
+			var shop: Dictionary = world.get("shops", {}).get(target_id, {})
+			if not shop.is_empty():
+				_show_shop_snapshot(shop, catalog)
+		"company":
+			var firm: Dictionary = world.get("firms", {}).get(firm_id, {})
+			var lines := PackedStringArray(["Касса %.0f ₽ · Долг %.0f ₽ · Фуры %d" % [
+				float(firm.get("cash", 0)), float(firm.get("credit", 0)), int(firm.get("trucks", 0)),
+			]])
+			for shipment in world.get("shipments", {}).values():
+				if shipment["firm_id"] != firm_id:
+					continue
+				lines.append("%s · %s → %s · %d тик." % [
+					EconomyView.quantity_text(shipment, catalog),
+					CatalogUI.entry_name(catalog, "cities", shipment["from_city"]),
+					CatalogUI.entry_name(catalog, "cities", shipment["to_city"]),
+					int(shipment["ticks_left"]),
+				])
+			if lines.size() == 1:
+				lines.append("Грузов в пути нет")
+			_snapshot.text = "\n".join(lines)
+
+func _show_building_snapshot(building: Dictionary, catalog: Dictionary) -> void:
+	_snapshot.text = EconomyView.production_text(building, catalog)
+	var inventory: Dictionary = building.get("inventory", {}) if building.get("inventory") is Dictionary else {}
+	if inventory == _inventory_rows.get_meta("snapshot", {}):
+		return
+	_inventory_rows.set_meta("snapshot", inventory.duplicate())
+	_inventory_rows.clear()
+	for id in inventory:
+		var qty := int(inventory[id])
+		if qty > 0:
+			EconomyView.add_item_row(_inventory_rows, catalog, id, EconomyView.quantity_text({"item_id": id, "qty": qty}, catalog))
+	_inventory_rows.visible = _inventory_rows.item_count > 0
+	_transfer.disabled = not _inventory_rows.visible
+	_inventory_heading.text = "На складе" if _inventory_rows.visible else "Склад пуст"
+
+func _show_shop_snapshot(shop: Dictionary, catalog: Dictionary) -> void:
+	var id := str(shop.get("item_id", ""))
+	var product := CatalogUI.entry_name(catalog, "items", id)
+	_snapshot.text = "Витрина · %.2f ₽ за ед." % float(shop.get("price", 0))
+	var item_icon := CatalogUI.icon(CatalogUI.find(catalog, "items", id), "items")
+	_inventory_rows.set_item_icon(0, item_icon)
+	_inventory_rows.set_item_text(0, EconomyView.quantity_text({"item_id": id, "qty": shop.get("stock", 0)}, catalog))
+	_inventory_rows.set_item_tooltip(0, product)
+
+func _add_summary() -> Label:
+	var label := Label.new()
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.add_theme_font_size_override("font_size", 18)
+	label.add_theme_color_override("font_color", Color("#bfdad1"))
+	body.add_child(label)
+	return label
+
+func _add_touch_control(control: Control) -> void:
+	control.custom_minimum_size.y = EconomyView.touch_height()
+	if control is OptionButton:
+		control.fit_to_longest_item = false
+		control.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		control.get_popup().add_theme_constant_override("v_separation", EconomyView.touch_height() - 28)
+	body.add_child(control)
 
 func _on_save_building() -> void:
 	var recipe_id := ""
@@ -251,6 +403,10 @@ func _clear_body() -> void:
 	for c in body.get_children():
 		body.remove_child(c)
 		c.queue_free()
+	scroll.scroll_vertical = 0
+	_snapshot = null
+	_inventory_rows = null
+	_transfer = null
 	_recipe = null
 	_input = null
 	_firm = null
@@ -265,5 +421,6 @@ func _clear_body() -> void:
 func _add_field(label: String, control: Control) -> void:
 	var l := Label.new()
 	l.text = label
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	body.add_child(l)
-	body.add_child(control)
+	_add_touch_control(control)

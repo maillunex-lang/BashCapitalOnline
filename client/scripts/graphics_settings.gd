@@ -13,14 +13,14 @@ var quality: int = QUALITY_HIGH
 var fullscreen: bool = true
 
 func _ready() -> void:
-	if ConfigFile.new().load("user://settings.cfg") == OK:
-		pass
+	if OS.has_feature("mobile"):
+		quality = QUALITY_MEDIUM
 	_load()
 
 func _load() -> void:
 	var cfg := ConfigFile.new()
 	if cfg.load("user://settings.cfg") == OK:
-		quality = int(cfg.get_value("graphics", "quality", QUALITY_HIGH))
+		quality = int(cfg.get_value("graphics", "quality", quality))
 		fullscreen = bool(cfg.get_value("display", "fullscreen", true))
 	apply()
 

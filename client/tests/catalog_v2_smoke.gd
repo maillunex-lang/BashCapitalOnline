@@ -105,6 +105,9 @@ func _run() -> void:
 			for shop in game.api.world["shops"].values():
 				if shop["firm_id"] == game.api.firm_id and shop["shop_type"] == "grocery" and shop["item_id"] == "wheat_bread":
 					rented = true
+					manage.open_shop(shop, catalog)
+					_check(manage._inventory_rows.item_count == 1 and manage._inventory_rows.get_item_icon(0) != null, "leased shelf shows a product icon")
+					_check(manage._inventory_rows.get_item_text(0).ends_with("×0"), "leased shelf shows actual stock")
 			_check(rented, "game rented the V2 grocery slot through the server")
 			await process_frame
 			await game.api.world_updated

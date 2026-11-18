@@ -234,6 +234,7 @@ type BuildingInst struct {
 	Inventory    map[string]int           `json:"inventory"`
 	Quality      float64                  `json:"quality"`
 	Active       bool                     `json:"active"`
+	Production   *ProductionReport        `json:"production,omitempty"`
 	// AutoProcure — перед тиком производства докупать входы по InputSources.
 	AutoProcure bool `json:"auto_procure"`
 	// DefaultInput — источник по умолчанию для всех входов рецепта.
@@ -242,6 +243,15 @@ type BuildingInst struct {
 	InputSources map[string]InputSource `json:"input_sources,omitempty"`
 	// SellExternal=false — завод/склад не продаёт другим фирмам (только себе).
 	SellExternal bool `json:"sell_external"`
+}
+
+// ProductionReport records the latest production attempt and the last successful batch.
+type ProductionReport struct {
+	Status     string `json:"status"`
+	Tick       int    `json:"tick"`
+	OutputTick int    `json:"output_tick,omitempty"`
+	ItemID     string `json:"item_id,omitempty"`
+	Qty        int    `json:"qty,omitempty"`
 }
 
 type ShopLease struct {

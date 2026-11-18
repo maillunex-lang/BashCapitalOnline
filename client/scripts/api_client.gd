@@ -10,6 +10,8 @@ var session_token: String = ""
 var firm: Dictionary = {}
 var catalog: Dictionary = {}
 var world: Dictionary = {}
+var _world_requested := 0
+var _world_received := 0
 
 func _ready() -> void:
 	pass
@@ -68,8 +70,12 @@ func fetch_catalog() -> bool:
 	return true
 
 func fetch_world() -> void:
+	_world_requested += 1
+	var request := _world_requested
+	var url := base_url
 	var res = await _http_get("/api/world")
-	if res is Dictionary:
+	if url == base_url and request > _world_received and res is Dictionary and res.get("cities") is Dictionary:
+		_world_received = request
 		world = res
 		world_updated.emit(world)
 
