@@ -110,16 +110,29 @@ function enabledCities() {
 
 function money(v) { return Math.round(Number(v || 0)).toLocaleString("ru-RU"); }
 
+function cityRadius() {
+  return state.world?.cities?.[state.city]?.radius || 4;
+}
+
 function tileScale() {
-  // Larger when placing or on high quality
-  const q = [0.85, 1, 1.15, 1.3][state.quality] || 1.15;
-  const placeBoost = state.place ? 1.18 : 1.05;
-  return q * placeBoost;
+  // Fit isometric city into canvas; quality + placement bump size further.
+  const canvas = $("map");
+  const w = canvas?.width || 1100;
+  const h = canvas?.height || 720;
+  const r = cityRadius();
+  // city spans ~(2r+1) tiles on both diagonals
+  const span = 2 * r + 1;
+  const fitX = (w * 0.86) / (span * 72 * 0.5);
+  const fitY = (h * 0.72) / (span * 36 * 0.5);
+  let s = Math.min(fitX, fitY);
+  s *= [0.92, 1, 1.08, 1.16][state.quality] || 1.08;
+  if (state.place) s *= 1.12;
+  return Math.max(1.05, Math.min(2.4, s));
 }
 
 function isoMetrics() {
   const s = tileScale();
-  return { tw: 72 * s, th: 36 * s, sprite: 0.72 * s };
+  return { tw: 72 * s, th: 36 * s, sprite: 0.78 * s, icon: 56 * s };
 }
 
 async function api(path, opts = {}) {
@@ -677,36 +690,41 @@ function iso(x, y) {
   return [(x - y) * tw * 0.5, (x + y) * th * 0.5];
 }
 
+function preferMapSprite(el) {
+  // Skip tiny placeholder map sprites (~1KB / tiny natural size); prefer catalog icons.
+  if (!el?.complete || !el.naturalWidth) return false;
+  return el.naturalWidth >= 64 && el.naturalHeight >= 64;
+}
+
 function drawMap() {
   const canvas = $("map");
-  if (!canvas || canvas.offsetParent === null && state.tab !== "map") {
-    // still draw when visible
-  }
-  const ctx = canvas.getContext("2d");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d", { alpha: false });
   const w = canvas.width, h = canvas.height;
-  ctx.clearRect(0, 0, w, h);
 
-  // atmospheric ground
-  const g = ctx.createRadialGradient(w * 0.5, h * 0.35, 40, w * 0.5, h * 0.5, w * 0.7);
-  g.addColorStop(0, "rgba(70, 120, 100, 0.45)");
-  g.addColorStop(0.55, "rgba(28, 55, 48, 0.55)");
-  g.addColorStop(1, "rgba(12, 22, 20, 0.75)");
+  // Opaque base — never leave transparent pixels (headless shots / photo bleed)
+  ctx.fillStyle = "#122820";
+  ctx.fillRect(0, 0, w, h);
+  const g = ctx.createRadialGradient(w * 0.5, h * 0.32, 30, w * 0.5, h * 0.48, w * 0.75);
+  g.addColorStop(0, "#2d5a4c");
+  g.addColorStop(0.55, "#1a3830");
+  g.addColorStop(1, "#0e1c18");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, w, h);
 
   const city = state.world?.cities?.[state.city];
   if (!city) {
-    ctx.fillStyle = "rgba(238,246,242,0.7)";
+    ctx.fillStyle = "#eef6f2";
     ctx.font = "600 22px Manrope";
     ctx.fillText("Загрузка города…", 40, 60);
     return;
   }
 
-  const { tw, th, sprite } = isoMetrics();
-  const ox = w / 2, oy = h * 0.38;
+  const { tw, th, sprite, icon } = isoMetrics();
+  const ox = w / 2, oy = h * 0.36;
   const colors = {
-    center: "#2F6F6A", residential: "#4A7C59", industrial: "#6B7280",
-    rural: "#7FAE6E", empty: "#3A4A46", commercial: "#C4A35A",
+    center: "#3a7f78", residential: "#4f8a5f", industrial: "#7a828c",
+    rural: "#7fad68", empty: "#3f524c", commercial: "#c4a35a",
   };
   const parcels = [...city.parcels].sort((a, b) => (a.x + a.y) - (b.x + b.y));
   const buildings = Object.values(state.world.buildings || {}).filter((b) => b.city_id === state.city);
@@ -718,11 +736,9 @@ function drawMap() {
     const cx = ox + ix, cy = oy + iy;
     const selected = state.selected && state.selected.x === p.x && state.selected.y === p.y;
     const tile = mapImg(ZONE_TILE[p.zone] || "tile_grass");
-    if (tile?.complete && tile.naturalWidth) {
-      const s = sprite * 0.95;
-      ctx.globalAlpha = selected ? 1 : 0.96;
-      ctx.drawImage(tile, cx - tile.width * s * 0.5, cy - tile.height * s * 0.62, tile.width * s, tile.height * s);
-      ctx.globalAlpha = 1;
+    if (preferMapSprite(tile)) {
+      const dw = tw * 1.08, dh = th * 2.1;
+      ctx.drawImage(tile, cx - dw / 2, cy - dh * 0.55, dw, dh);
     } else {
       drawTile(ctx, cx, cy, colors[p.zone] || colors.empty, selected, tw, th);
     }
@@ -733,67 +749,83 @@ function drawMap() {
       ctx.lineTo(cx, cy + th / 2);
       ctx.lineTo(cx - tw / 2, cy);
       ctx.closePath();
-      ctx.strokeStyle = "rgba(212,181,106,0.95)";
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#e0c575";
+      ctx.lineWidth = Math.max(3, 4 * tileScale() * 0.45);
       ctx.stroke();
     }
 
     const dep = deposits.find((d) => d.x === p.x && d.y === p.y && d.amount > 0);
     if (dep) {
-      const di = assetImg("res_" + dep.item_id, "item_" + dep.item_id);
-      const size = 40 * tileScale();
-      if (di?.complete && di.naturalWidth) ctx.drawImage(di, cx - size / 2, cy - size * 0.15, size, size);
+      const di = assetImg("item_" + dep.item_id, itemDef(dep.item_id)?.icon, "res_" + dep.item_id);
+      const size = Math.min(icon * 0.55, tw * 0.55);
+      if (di?.complete && di.naturalWidth) {
+        // Soft plate under deposit icon
+        ctx.fillStyle = "rgba(8,20,16,0.45)";
+        ctx.beginPath();
+        ctx.ellipse(cx, cy + th * 0.05, size * 0.42, size * 0.22, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.drawImage(di, cx - size / 2, cy - size * 0.55, size, size);
+      }
     }
     if (p.has_road) {
       const road = mapImg("tile_road");
-      if (road?.complete && road.naturalWidth) {
-        const rs = 42 * tileScale();
+      if (preferMapSprite(road)) {
+        const dw = tw * 0.95, dh = th * 1.7;
         ctx.globalAlpha = 0.9;
-        ctx.drawImage(road, cx - rs / 2, cy - rs * 0.4, rs, rs * 0.75);
+        ctx.drawImage(road, cx - dw / 2, cy - dh * 0.45, dw, dh);
         ctx.globalAlpha = 1;
       }
     }
     const bld = buildings.find((b) => b.x === p.x && b.y === p.y);
     const shopHere = shops.find((s) => s.x === p.x && s.y === p.y);
     if (bld) {
-      const bi = assetImg(BUILDING_SPRITE[bld.type] || "", "bld_" + bld.type, buildingDef(bld.type)?.icon);
-      if (bi?.complete && bi.naturalWidth) {
-        const s = sprite;
-        ctx.drawImage(bi, cx - bi.width * s * 0.5, cy - bi.height * s * 0.82, bi.width * s, bi.height * s);
-      } else drawBuilding(ctx, cx, cy, p.zone === "industrial");
-      // firm badge
+      const mapSprite = mapImg(BUILDING_SPRITE[bld.type] || ("bld_" + bld.type));
+      if (preferMapSprite(mapSprite)) {
+        const s = Math.min(tw / 110, th / 40) * 1.35;
+        ctx.drawImage(mapSprite, cx - mapSprite.width * s * 0.5, cy - mapSprite.height * s * 0.88, mapSprite.width * s, mapSprite.height * s);
+      } else {
+        drawBuilding(ctx, cx, cy, p.zone === "industrial" || buildingDef(bld.type)?.category === "factory", tw);
+        const badge = assetImg("bld_" + bld.type, buildingDef(bld.type)?.icon);
+        const bs = Math.min(icon * 0.38, tw * 0.38);
+        if (badge?.complete && badge.naturalWidth) {
+          ctx.drawImage(badge, cx - bs / 2, cy - tw * 0.55 - bs * 0.2, bs, bs);
+        }
+      }
       if (bld.firm_id === state.firmId) {
-        ctx.fillStyle = "rgba(212,181,106,0.95)";
+        ctx.fillStyle = "#e0c575";
         ctx.beginPath();
-        ctx.arc(cx + 18 * tileScale(), cy - 28 * tileScale(), 5, 0, Math.PI * 2);
+        ctx.arc(cx + tw * 0.28, cy - th * 1.1, Math.max(4, tw * 0.06), 0, Math.PI * 2);
         ctx.fill();
       }
     } else if (shopHere) {
-      const si = assetImg(shopDef(shopHere.shop_type)?.icon, "shop_" + shopHere.shop_type, "bld_shop");
-      if (si?.complete && si.naturalWidth) {
-        const s = sprite * 0.92;
-        ctx.drawImage(si, cx - si.width * s * 0.5, cy - si.height * s * 0.78, si.width * s, si.height * s);
+      const mapShop = mapImg("bld_shop");
+      if (preferMapSprite(mapShop)) {
+        const s = Math.min(tw / 110, th / 40) * 1.25;
+        ctx.drawImage(mapShop, cx - mapShop.width * s * 0.5, cy - mapShop.height * s * 0.88, mapShop.width * s, mapShop.height * s);
+      } else {
+        drawBuilding(ctx, cx, cy, false, tw);
       }
       const pi = assetImg("item_" + shopHere.item_id, itemDef(shopHere.item_id)?.icon);
-      const ps = 28 * tileScale();
-      if (pi?.complete && pi.naturalWidth) ctx.drawImage(pi, cx + 8, cy - 4, ps, ps);
+      const ps = Math.min(icon * 0.32, tw * 0.32);
+      if (pi?.complete && pi.naturalWidth) ctx.drawImage(pi, cx + tw * 0.12, cy - th * 0.2, ps, ps);
     } else if ((p.retail_slots || p.slots || 0) > 0) {
-      const shopImg = mapImg("bld_shop");
-      if (shopImg?.complete && shopImg.naturalWidth) {
-        const s = sprite * 0.7;
-        ctx.globalAlpha = 0.55;
-        ctx.drawImage(shopImg, cx - shopImg.width * s * 0.5, cy - shopImg.height * s * 0.75, shopImg.width * s, shopImg.height * s);
-        ctx.globalAlpha = 1;
-      }
+      ctx.fillStyle = "rgba(212,181,106,0.4)";
+      ctx.beginPath();
+      ctx.arc(cx, cy - th * 0.12, Math.max(6, tw * 0.1), 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(212,181,106,0.8)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
     }
   }
 
-  // legend strip
-  ctx.fillStyle = "rgba(7,20,18,0.55)";
-  ctx.fillRect(16, h - 48, 280, 32);
-  ctx.fillStyle = "rgba(238,246,242,0.85)";
-  ctx.font = "600 13px Manrope";
-  ctx.fillText(`${cityDefName()} · масштаб ×${tileScale().toFixed(2)}`, 26, h - 28);
+  ctx.fillStyle = "#0a1613";
+  ctx.globalAlpha = 0.72;
+  ctx.fillRect(16, h - 52, 320, 36);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = "#eef6f2";
+  ctx.font = "700 14px Manrope";
+  ctx.fillText(`${cityDefName()} · ×${tileScale().toFixed(2)} · тап = участок`, 26, h - 28);
 }
 
 function cityDefName() {
@@ -811,10 +843,11 @@ function drawTile(ctx, cx, cy, color, selected, tw, th) {
   ctx.fill();
 }
 
-function drawBuilding(ctx, cx, cy, tall) {
-  const h = tall ? 36 : 22;
+function drawBuilding(ctx, cx, cy, tall, tw = 72) {
+  const h = tall ? tw * 0.55 : tw * 0.35;
+  const w = tw * 0.42;
   ctx.fillStyle = tall ? "#9AA3AD" : "#D9C4A0";
-  ctx.fillRect(cx - 16, cy - h, 32, h);
+  ctx.fillRect(cx - w / 2, cy - h, w, h);
 }
 
 function shade(hex, f) {
@@ -826,7 +859,7 @@ function pickTile(mx, my) {
   const city = state.world?.cities?.[state.city];
   if (!city) return null;
   const { tw, th } = isoMetrics();
-  const ox = $("map").width / 2, oy = $("map").height * 0.38;
+  const ox = $("map").width / 2, oy = $("map").height * 0.36;
   const a = (mx - ox) / (tw * 0.5), b = (my - oy) / (th * 0.5);
   const x = Math.round((a + b) * 0.5);
   const y = Math.round((b - a) * 0.5);
