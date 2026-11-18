@@ -31,7 +31,7 @@ var current_city: String = "ufa"
 var selected_parcel: Dictionary = {}
 var grade_material: ShaderMaterial
 var remote_assets: RemoteAssets
-var season_names := ["", "Ҡыш", "Ҡыш", "Яҙ", "Яҙ", "Яҙ", "Йәй", "Йәй", "Йәй", "Көҙ", "Көҙ", "Көҙ", "Ҡыш"]
+var season_names: PackedStringArray = ["", "Ҡыш", "Ҡыш", "Яҙ", "Яҙ", "Яҙ", "Йәй", "Йәй", "Йәй", "Көҙ", "Көҙ", "Көҙ", "Ҡыш"]
 
 func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -184,7 +184,7 @@ func _refresh() -> void:
 func _render_world() -> void:
 	var w: Dictionary = api.world
 	var month: int = int(w.get("month", 1))
-	var season := season_names[month] if month >= 1 and month <= 12 else ""
+	var season: String = season_names[month] if month >= 1 and month <= 12 else ""
 	tick_label.text = "Тик %s · %s.%s · %s" % [w.get("tick", 0), month, w.get("year", 2026), season]
 	if api.firm_id != "" and w.has("firms"):
 		var f: Dictionary = w["firms"].get(api.firm_id, {})

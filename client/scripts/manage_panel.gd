@@ -137,7 +137,7 @@ func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	visible = true
 
 func _refill_shop_items(catalog: Dictionary, selected: String) -> void:
-	if _shop_item == null or _shop_type == nil:
+	if _shop_item == null or _shop_type == null:
 		return
 	_shop_item.clear()
 	var typ := str(_shop_type.get_item_metadata(_shop_type.selected))

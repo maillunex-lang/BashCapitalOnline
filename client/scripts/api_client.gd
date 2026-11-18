@@ -40,7 +40,7 @@ func auth_login(username: String, password: String) -> Dictionary:
 	return res if res is Dictionary else {}
 
 func route_quote(from_city: String, to_city: String) -> Dictionary:
-	var res = await _get("/api/route?from=%s&to=%s" % [from_city, to_city])
+	var res = await _http_get("/api/route?from=%s&to=%s" % [from_city, to_city])
 	return res if res is Dictionary else {}
 
 func create_payment(months: int = 1) -> Dictionary:
@@ -48,16 +48,16 @@ func create_payment(months: int = 1) -> Dictionary:
 	return res if res is Dictionary else {}
 
 func fetch_manifest() -> Dictionary:
-	var res = await _get("/api/updates/manifest")
+	var res = await _http_get("/api/updates/manifest")
 	return res if res is Dictionary else {}
 
 func fetch_catalog() -> void:
-	var res = await _get("/api/catalog")
+	var res = await _http_get("/api/catalog")
 	if res is Dictionary:
 		catalog = res
 
 func fetch_world() -> void:
-	var res = await _get("/api/world")
+	var res = await _http_get("/api/world")
 	if res is Dictionary:
 		world = res
 		world_updated.emit(world)
@@ -80,10 +80,10 @@ func manual_tick() -> Dictionary:
 	return res if res is Dictionary else {}
 
 func rankings() -> Array:
-	var res = await _get("/api/rankings")
+	var res = await _http_get("/api/rankings")
 	return res if res is Array else []
 
-func _get(path: String):
+func _http_get(path: String):
 	var http := HTTPRequest.new()
 	add_child(http)
 	var err := http.request(base_url + path)
