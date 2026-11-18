@@ -225,7 +225,7 @@ func _connect_to_world(register_account: bool) -> void:
 	company_btn.show()
 	game_layer.visible = true
 	bottom_panel.visible = true
-	rank_panel.visible = true
+	rank_panel.visible = false
 	city_tabs.visible = true
 	side.visible = true
 	if industry == "steel":
@@ -268,19 +268,17 @@ func _render_world() -> void:
 		manage_panel.refresh_snapshot(api.catalog, w, api.firm_id)
 
 func _fit_city_map() -> void:
-	var bounds := city_map.visual_bounds()
-	if not bounds.has_area():
-		return
-	var left := rank_panel.get_global_rect().end.x + 20.0
-	var right := side.get_global_rect().position.x - 20.0
-	var top := city_tabs.get_global_rect().end.y + 20.0
-	var bottom := bottom_panel.get_global_rect().position.y - 20.0
-	var available := Rect2(Vector2(left, top), Vector2(right - left, bottom - top))
-	if not available.has_area():
-		return
-	var zoom := minf(available.size.x / bounds.size.x, available.size.y / bounds.size.y)
-	city_host.scale = Vector2.ONE * zoom
-	city_host.position = available.get_center() - bounds.get_center() * zoom
+	var left := 20.0
+	if rank_panel.visible:
+		left = rank_panel.get_global_rect().end.x + 20.0
+	var right := side.get_global_rect().position.x - 16.0
+	var top := city_tabs.get_global_rect().end.y + 10.0
+	var bottom := bottom_panel.get_global_rect().position.y - 8.0
+	city_map.frame_map(Rect2(Vector2(left, top), Vector2(right - left, bottom - top)))
+
+func _on_rank_toggle() -> void:
+	rank_panel.visible = not rank_panel.visible
+	_fit_city_map()
 
 func _render_rankings() -> void:
 	var rows: Array = await api.rankings()
@@ -408,7 +406,7 @@ func _rebuild_city_tabs() -> void:
 	if city_tabs == null:
 		return
 	for child in city_tabs.get_children():
-		if child.name == "TickBtn":
+		if not child.has_meta("dynamic_city_tab"):
 			continue
 		city_tabs.remove_child(child)
 		child.queue_free()
@@ -417,6 +415,7 @@ func _rebuild_city_tabs() -> void:
 		if not bool(c.get("enabled", false)):
 			continue
 		var btn := Button.new()
+		btn.set_meta("dynamic_city_tab", true)
 		btn.text = str(c.get("name", c.get("id")))
 		btn.custom_minimum_size.y = 52
 		var cid := str(c.get("id"))
@@ -505,3 +504,12 @@ func _on_transfer_stock(payload: Dictionary) -> void:
 	else:
 		status_label.text = "Груз отправлен · %d тик." % int(res.get("ticks_left", 0))
 	_render_world()
+
+func _on_zoom_in() -> void:
+	city_map.zoom_center(1.3)
+
+func _on_zoom_out() -> void:
+	city_map.zoom_center(1.0 / 1.3)
+
+func _on_zoom_fit() -> void:
+	city_map.reset_camera()

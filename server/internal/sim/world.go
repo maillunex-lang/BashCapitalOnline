@@ -75,34 +75,58 @@ func (e *Engine) seedCities() {
 			},
 			HousingOcc: 0.75,
 		}
-		// seed some residential with retail slots near center
 		for i := range cs.Parcels {
-			p := &cs.Parcels[i]
-			dist := math.Abs(float64(p.X)) + math.Abs(float64(p.Y))
-			if dist == 0 {
-				p.Zone = "center"
-				p.Traffic = 1.0
-				p.Slots = 4
-			} else if dist <= 2 {
-				p.Zone = "residential"
-				p.Slots = 1
-				p.Traffic = 0.7
-			} else if dist <= float64(def.StartRadius)-1 {
-				if p.X > 0 {
-					p.Zone = "industrial"
-					p.Traffic = 0.3
-				} else {
-					p.Zone = "rural"
-					p.Traffic = 0.2
-				}
-			} else {
-				p.Zone = "empty"
-			}
+			zoneParcel(&cs.Parcels[i], def.StartRadius)
 		}
 		seedCityRoads(cs)
 		e.World.Cities[def.ID] = cs
 	}
 	e.seedResourceDeposits()
+}
+
+func zoneParcel(p *model.Parcel, radius int) {
+	distance := abs(p.X) + abs(p.Y)
+	switch {
+	case distance == 0:
+		p.Zone, p.Traffic, p.Slots = "center", 1, 4
+	case distance <= 2:
+		p.Zone, p.Traffic, p.Slots = "residential", 0.7, 1
+	case distance < radius && p.X > 0:
+		p.Zone, p.Traffic = "industrial", 0.3
+	case distance < radius:
+		p.Zone, p.Traffic = "rural", 0.2
+	}
+}
+
+// ExpandCitiesToCatalog extends saved cities with new parcels while preserving the
+// existing coordinates, deposits, buildings and parcel ownership.
+func (e *Engine) ExpandCitiesToCatalog() bool {
+	expanded := false
+	for _, def := range e.Catalog.Cities {
+		city := e.World.Cities[def.ID]
+		if !def.Enabled || city == nil || city.Radius >= def.StartRadius {
+			continue
+		}
+		type point struct{ X, Y int }
+		existing := make(map[point]bool, len(city.Parcels))
+		for _, parcel := range city.Parcels {
+			existing[point{parcel.X, parcel.Y}] = true
+		}
+		outer := &model.CityState{ID: city.ID}
+		for _, parcel := range generateParcels(def.StartRadius) {
+			if existing[point{parcel.X, parcel.Y}] {
+				continue
+			}
+			zoneParcel(&parcel, def.StartRadius)
+			outer.Parcels = append(outer.Parcels, parcel)
+		}
+		seedCityRoads(outer)
+		city.Parcels = append(city.Parcels, outer.Parcels...)
+		city.Radius = def.StartRadius
+		e.World.MapRevision++
+		expanded = true
+	}
+	return expanded
 }
 
 func generateParcels(radius int) []model.Parcel {

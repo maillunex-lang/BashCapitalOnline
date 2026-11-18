@@ -703,7 +703,7 @@ def main():
     cities = [
         {
             "id": "ufa", "name": "Уфа", "x": 420, "y": 310, "focus": "capital_refining_tech",
-            "start_population": 12000, "start_radius": 4,
+            "start_population": 12000, "start_radius": 7,
             "resources": [
                 "crude_oil", "natural_gas", "sand", "clay",
                 "wheat", "rye", "barley", "oats", "buckwheat", "potato", "sugar_beet", "sunflower", "flax", "vegetables",
@@ -715,7 +715,7 @@ def main():
         },
         {
             "id": "beloretsk", "name": "Белорецк", "x": 620, "y": 380, "focus": "metallurgy",
-            "start_population": 5000, "start_radius": 3,
+            "start_population": 5000, "start_radius": 6,
             "resources": [
                 "iron_ore", "copper_ore", "bauxite", "coal", "limestone", "quartz", "stone", "sand", "clay",
                 "softwood", "hardwood", "wood_chips",
@@ -724,7 +724,7 @@ def main():
         },
         {
             "id": "sterlitamak", "name": "Стерлитамак", "x": 480, "y": 420, "focus": "chemistry_building",
-            "start_population": 7000, "start_radius": 3,
+            "start_population": 7000, "start_radius": 6,
             "resources": ["salt", "limestone", "clay", "sand", "stone", "peat", "quartz"],
             "labor": {"worker": 2800, "engineer": 700, "manager": 180}, "enabled": True,
         },

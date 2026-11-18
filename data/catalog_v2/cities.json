@@ -6,7 +6,7 @@
     "y": 310,
     "focus": "capital_refining_tech",
     "start_population": 12000,
-    "start_radius": 4,
+    "start_radius": 7,
     "resources": [
       "crude_oil",
       "natural_gas",
@@ -54,7 +54,7 @@
     "y": 380,
     "focus": "metallurgy",
     "start_population": 5000,
-    "start_radius": 3,
+    "start_radius": 6,
     "resources": [
       "iron_ore",
       "copper_ore",
@@ -83,7 +83,7 @@
     "y": 420,
     "focus": "chemistry_building",
     "start_population": 7000,
-    "start_radius": 3,
+    "start_radius": 6,
     "resources": [
       "salt",
       "limestone",

@@ -245,3 +245,34 @@ func TestCatalogV2UtilityWaterAndTireSmartphone(t *testing.T) {
 		t.Fatal("missing smartphone recipe")
 	}
 }
+
+func TestExpandSavedCitiesPreservesExistingParcels(t *testing.T) {
+	cat, err := store.LoadCatalog(v2DataDir(t))
+	if err != nil {
+		t.Fatal(err)
+	}
+	oldCatalog := *cat
+	oldCatalog.Cities = append([]model.CityDef(nil), cat.Cities...)
+	for i := range oldCatalog.Cities {
+		oldCatalog.Cities[i].StartRadius = 3
+	}
+	e := NewEngine(&oldCatalog)
+	city := e.World.Cities["ufa"]
+	city.Parcels[0].OwnerID = "existing-owner"
+	original := append([]model.Parcel(nil), city.Parcels...)
+	e.Catalog = cat
+	if !e.ExpandCitiesToCatalog() || city.Radius != cat.CityByID["ufa"].StartRadius {
+		t.Fatal("saved city was not expanded")
+	}
+	if len(city.Parcels) != len(generateParcels(city.Radius)) {
+		t.Fatal("expanded footprint has the wrong number of parcels")
+	}
+	for i, parcel := range original {
+		if city.Parcels[i] != parcel {
+			t.Fatalf("existing parcel changed at (%d,%d)", parcel.X, parcel.Y)
+		}
+	}
+	if e.ExpandCitiesToCatalog() {
+		t.Fatal("expanding the same save twice should leave it unchanged")
+	}
+}

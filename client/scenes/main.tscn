@@ -239,6 +239,30 @@ custom_minimum_size = Vector2(0, 48)
 text = "Тик (dev)"
 [connection signal="pressed" from="SafeArea/UI/CityTabs/TickBtn" to="." method="_on_tick_pressed"]
 
+[node name="ZoomOut" type="Button" parent="SafeArea/UI/CityTabs"]
+layout_mode = 2
+custom_minimum_size = Vector2(52, 52)
+text = "−"
+[connection signal="pressed" from="SafeArea/UI/CityTabs/ZoomOut" to="." method="_on_zoom_out"]
+
+[node name="ZoomIn" type="Button" parent="SafeArea/UI/CityTabs"]
+layout_mode = 2
+custom_minimum_size = Vector2(52, 52)
+text = "+"
+[connection signal="pressed" from="SafeArea/UI/CityTabs/ZoomIn" to="." method="_on_zoom_in"]
+
+[node name="ZoomFit" type="Button" parent="SafeArea/UI/CityTabs"]
+layout_mode = 2
+custom_minimum_size = Vector2(52, 52)
+text = "Вписать"
+[connection signal="pressed" from="SafeArea/UI/CityTabs/ZoomFit" to="." method="_on_zoom_fit"]
+
+[node name="RankToggle" type="Button" parent="SafeArea/UI/CityTabs"]
+layout_mode = 2
+custom_minimum_size = Vector2(52, 52)
+text = "Рейтинг"
+[connection signal="pressed" from="SafeArea/UI/CityTabs/RankToggle" to="." method="_on_rank_toggle"]
+
 [node name="SidePanel" type="PanelContainer" parent="SafeArea/UI"]
 layout_mode = 1
 anchor_left = 1.0
@@ -330,7 +354,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -160.0
+offset_top = -115.0
 grow_horizontal = 2
 grow_vertical = 0
 

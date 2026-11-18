@@ -41,6 +41,30 @@ func _run() -> void:
 			city_id, map._tiles.size(), road_count, map._buildings.size(), map._shops.size(),
 		])
 
+	var center := map._view.get_center()
+	var initial_scale: float = game.city_host.scale.x
+	_touch(0, center - Vector2(50, 0), true)
+	_touch(1, center + Vector2(50, 0), true)
+	var spread := InputEventScreenDrag.new()
+	spread.index = 1
+	spread.position = center + Vector2(100, 0)
+	root.push_input(spread, true)
+	_touch(0, center - Vector2(50, 0), false)
+	_touch(1, spread.position, false)
+	var zoomed_scale: float = game.city_host.scale.x
+	_check(zoomed_scale > initial_scale and map.selected == CityMap.NO_TILE, "pinch zooms without selecting a parcel")
+	game._render_world()
+	_check(is_equal_approx(game.city_host.scale.x, zoomed_scale), "a world refresh preserves the user camera")
+	var position_before: Vector2 = game.city_host.position
+	_touch(0, center, true)
+	var swipe := InputEventScreenDrag.new()
+	swipe.index = 0
+	swipe.position = center + Vector2(45, 30)
+	root.push_input(swipe, true)
+	_touch(0, swipe.position, false)
+	_check(game.city_host.position.distance_to(position_before) > 25.0 and map.selected == CityMap.NO_TILE, "one-finger drag pans without selecting a parcel")
+	map.reset_camera()
+
 	for coord in map._tiles:
 		map._tiles[coord].draw.connect(_record_draw.bind(coord))
 	draws.clear()
@@ -136,3 +160,11 @@ func _check(ok: bool, message: String) -> void:
 	if not ok:
 		failures += 1
 		printerr("FAIL: " + message)
+
+
+func _touch(index: int, position: Vector2, pressed: bool) -> void:
+	var touch := InputEventScreenTouch.new()
+	touch.index = index
+	touch.position = position
+	touch.pressed = pressed
+	root.push_input(touch, true)

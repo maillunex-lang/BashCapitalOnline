@@ -6,6 +6,18 @@ signal tile_clicked(x: int, y: int, parcel: Dictionary)
 const TILE_W := 64.0
 const TILE_H := 32.0
 
+const GRASS := preload("res://assets/city_kenney/grass.png")
+const PAVING := preload("res://assets/city_kenney/paving.png")
+const SPRITES := {
+	"factory": preload("res://assets/city_kenney/factory.png"),
+	"refinery": preload("res://assets/city_kenney/refinery.png"),
+	"logistics": preload("res://assets/city_kenney/warehouse.png"),
+	"extract": preload("res://assets/city_kenney/extract.png"),
+	"farm": preload("res://assets/city_kenney/farm.png"),
+	"shop": preload("res://assets/city_kenney/shop.png"),
+	"tree": preload("res://assets/city_kenney/tree.png"),
+}
+
 const ROAD_DIRECTIONS := [Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT, Vector2i.UP]
 
 const NO_TILE := Vector2i(9999, 9999)
@@ -27,17 +39,17 @@ var _tile_order: Array[Vector2i] = []
 var _shop_radii: Dictionary = {}
 var _catchment := Node2D.new()
 
+var _view := Rect2()
+var _frame := Rect2()
+var _zoom := 1.0
+var _pan := Vector2.ZERO
+var _touches: Dictionary = {}
+var _press_origin := Vector2.ZERO
+var _dragging := false
+var _mouse_down := false
+
 class ParcelTile extends Node2D:
 	var visual: Dictionary = {}
-
-var zone_colors := {
-	"center": Color("2F6F6A"),
-	"residential": Color("4A7C59"),
-	"commercial": Color("C4A35A"),
-	"industrial": Color("6B7280"),
-	"rural": Color("7FAE6E"),
-	"empty": Color("3A4A46"),
-}
 
 var _building_icons: Dictionary = {}
 var _item_icons: Dictionary = {}
@@ -73,6 +85,8 @@ func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: D
 	var switch_city := _city_id != city_id
 	_city_id = city_id
 	if switch_city:
+		_zoom = 1.12
+		_pan = Vector2.ZERO
 		selected = NO_TILE
 		hover = NO_TILE
 
@@ -170,18 +184,25 @@ func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: D
 func visual_bounds() -> Rect2:
 	var bounds := Rect2()
 	for tile in _tiles.values():
-		var footprint := Rect2(tile.position - Vector2(34, 39), Vector2(68, 61))
+		var footprint := Rect2(tile.position - Vector2(34, 49), Vector2(68, 81))
 		bounds = footprint if not bounds.has_area() else bounds.merge(footprint)
 	return bounds
 
 func _draw_parcel(coord: Vector2i, tile: ParcelTile) -> void:
 	var zone: String = tile.visual.zone
-	var col: Color = zone_colors.get(zone, zone_colors["empty"])
+	var highlight := Color.WHITE
 	if coord == selected:
-		col = col.lightened(0.25)
+		highlight = Color(1.22, 1.17, 0.85)
 	elif coord == hover:
-		col = col.lightened(0.12)
-	_draw_tile(tile, Vector2.ZERO, col)
+		highlight = Color(1.12, 1.10, 1.02)
+	var terrain := GRASS if zone in ["rural", "residential", "empty"] else PAVING
+	if zone == "industrial":
+		highlight *= Color("#adb8b8")
+	var terrain_size := terrain.get_size() * (TILE_W / terrain.get_width())
+	tile.draw_texture_rect(terrain, Rect2(Vector2(-TILE_W * 0.5, -TILE_H * 0.5), terrain_size), false, highlight)
+	if coord == selected:
+		var outline := PackedVector2Array([Vector2(0, -16), Vector2(32, 0), Vector2(0, 16), Vector2(-32, 0), Vector2(0, -16)])
+		tile.draw_polyline(outline, Color("#eed481"), 1.5, true)
 	if tile.visual.road:
 		_draw_road(tile, tile.visual.road_links)
 	for deposit in tile.visual.deposits:
@@ -190,60 +211,28 @@ func _draw_parcel(coord: Vector2i, tile: ParcelTile) -> void:
 	var rented: bool = tile.visual.rented
 	if not building_type.is_empty():
 		var entry: Dictionary = _building_icons.get(building_type, {})
-		var roof := Color("#d19068")
-		match entry.get("category", ""):
-			"extract": roof = Color("#91b47b")
-			"logistics": roof = Color("#77b1ba")
-		_draw_building(tile, Vector2.ZERO, zone, roof)
-	elif tile.visual.retail_slot or rented:
-		_draw_shop_marker(tile, Vector2.ZERO, rented)
+		var sprite := str(entry.get("category", "factory"))
+		if sprite == "extract" and zone in ["rural", "residential"]:
+			sprite = "farm"
+		elif "refiner" in building_type:
+			sprite = "refinery"
+		_draw_map_sprite(tile, SPRITES.get(sprite, SPRITES["factory"]), Vector2(5, 8), Vector2(46, 48))
+	elif rented:
+		_draw_map_sprite(tile, SPRITES["shop"], Vector2(5, 8), Vector2(37, 44))
+	elif tile.visual.retail_slot:
+		tile.draw_circle(Vector2(7, -2), 3, Color("#f5e6c8"))
+	elif detail_level > 0 and zone in ["rural", "empty"] and not tile.visual.road and tile.visual.deposits.is_empty() and posmod(coord.x * 13 + coord.y * 7, 5) < 2:
+		_draw_map_sprite(tile, SPRITES["tree"], Vector2(8, 4), Vector2(16, 27))
 	if tile.visual.owned:
 		tile.draw_circle(Vector2(18, -22), 4, Color("E0C575"))
 
 func _iso(coord: Vector2i, elevation: float) -> Vector2:
 	return Vector2((coord.x - coord.y) * TILE_W * 0.5, (coord.x + coord.y) * TILE_H * 0.5 - elevation * 10.0)
 
-func _draw_tile(tile: ParcelTile, center: Vector2, col: Color) -> void:
-	var pts := PackedVector2Array([
-		center + Vector2(0, -TILE_H * 0.5),
-		center + Vector2(TILE_W * 0.5, 0),
-		center + Vector2(0, TILE_H * 0.5),
-		center + Vector2(-TILE_W * 0.5, 0),
-	])
-	if detail_level >= 1:
-		var shadow := PackedVector2Array()
-		for p in pts:
-			shadow.append(p + Vector2(3, 4))
-		tile.draw_colored_polygon(shadow, Color(0, 0, 0, 0.12 if detail_level < 3 else 0.2))
-	tile.draw_colored_polygon(pts, col)
-	if detail_level >= 1:
-		tile.draw_polyline(pts + PackedVector2Array([pts[0]]), Color(1, 1, 1, 0.12), 1.0, true)
-
-func _draw_building(tile: ParcelTile, center: Vector2, zone: String, roof: Color) -> void:
-	var h := 28.0 if zone == "industrial" else 18.0
-	if detail_level >= 3:
-		h += 6.0
-	var top := center + Vector2(0, -h)
-	var base_col := Color("D9C4A0") if zone != "industrial" else Color("9AA3AD")
-	var wall := base_col.darkened(0.15)
-	var b0 := center + Vector2(-14, 0)
-	var b1 := center + Vector2(14, 0)
-	var b2 := center + Vector2(0, 10)
-	var t0 := top + Vector2(-14, 0)
-	var t1 := top + Vector2(14, 0)
-	var t2 := top + Vector2(0, 10)
-	if detail_level >= 1:
-		tile.draw_colored_polygon(PackedVector2Array([b0 + Vector2(4, 6), b2 + Vector2(4, 6), b1 + Vector2(4, 6)]), Color(0, 0, 0, 0.18))
-	tile.draw_colored_polygon(PackedVector2Array([b0, b2, t2, t0]), wall)
-	tile.draw_colored_polygon(PackedVector2Array([b1, b2, t2, t1]), wall.darkened(0.1))
-	tile.draw_colored_polygon(PackedVector2Array([t0, t1, t2]), roof)
-	if detail_level >= 2:
-		tile.draw_rect(Rect2(center + Vector2(-4, -h + 6), Vector2(4, 4)), Color(0.75, 0.9, 1.0, 0.55))
-
-func _draw_shop_marker(tile: ParcelTile, center: Vector2, rented: bool) -> void:
-	var c := Color("E2B14B") if rented else Color("F5E6C8")
-	tile.draw_circle(center + Vector2(0, -6), 5, c)
-	tile.draw_arc(center + Vector2(0, -6), 5, 0, TAU, 16, Color(0, 0, 0, 0.25), 1.0)
+func _draw_map_sprite(tile: ParcelTile, texture: Texture2D, base: Vector2, limit: Vector2) -> void:
+	var original := texture.get_size()
+	var size := original * minf(limit.x / original.x, limit.y / original.y)
+	tile.draw_texture_rect(texture, Rect2(base - Vector2(size.x * 0.5, size.y), size), false)
 
 func _draw_road(tile: ParcelTile, links: PackedVector2Array) -> void:
 	var asphalt := Color("#424951")
@@ -300,25 +289,133 @@ func _redraw_at(coord: Vector2i) -> void:
 	if tile:
 		tile.queue_redraw()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not is_visible_in_tree():
+func frame_map(area: Rect2) -> void:
+	_view = area
+	_frame = visual_bounds()
+	_apply_camera()
+
+func reset_camera() -> void:
+	_zoom = 1.0
+	_pan = Vector2.ZERO
+	_apply_camera()
+
+func zoom_at(factor: float, focus: Vector2) -> void:
+	var previous := _zoom
+	_zoom = clampf(_zoom * factor, 0.7, 4.0)
+	_pan = (focus - _view.get_center()) * (1.0 - _zoom / previous) + _pan * (_zoom / previous)
+	_apply_camera()
+
+func zoom_center(factor: float) -> void:
+	zoom_at(factor, _view.get_center())
+
+func _apply_camera() -> void:
+	if not _view.has_area() or not _frame.has_area():
 		return
-	if event is InputEventMouseMotion:
-		var tile := _pick(get_global_transform_with_canvas().affine_inverse() * event.position)
-		if tile != hover:
-			_redraw_at(hover)
-			hover = tile
-			_redraw_at(hover)
-	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var tile := _pick(get_global_transform_with_canvas().affine_inverse() * event.position)
-		if tile == NO_TILE:
+	var fit := minf(_view.size.x / _frame.size.x, _view.size.y / _frame.size.y)
+	var magnification := fit * _zoom
+	var travel := ((_frame.size * magnification + _view.size) * 0.5 - Vector2(80, 80)).max(Vector2.ZERO)
+	_pan = _pan.clamp(-travel, travel)
+	var host := get_parent() as Node2D
+	host.scale = Vector2.ONE * magnification
+	host.position = _view.get_center() + _pan - _frame.get_center() * magnification
+
+func _pan_by(delta: Vector2) -> void:
+	_pan += delta
+	_apply_camera()
+
+func _drag_from(origin: Vector2, current: Vector2, relative: Vector2) -> void:
+	if _dragging:
+		_pan_by(relative)
+	elif current.distance_to(origin) >= 10.0:
+		_dragging = true
+		_pan_by(current - origin)
+
+func _input(event: InputEvent) -> void:
+	# Complete a map gesture even when the pointer leaves the map over a control.
+	if _mouse_down and (event is InputEventMouseMotion or (event is InputEventMouseButton and not event.pressed)):
+		_unhandled_input(event)
+	elif (event is InputEventScreenDrag or (event is InputEventScreenTouch and not event.pressed)) and _touches.has(event.index):
+		_unhandled_input(event)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_visible_in_tree() or event.device == InputEvent.DEVICE_ID_EMULATION:
+		return
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			if not _view.has_point(event.position):
+				return
+			if _touches.is_empty():
+				_press_origin = event.position
+				_dragging = false
+			else:
+				_dragging = true
+			_touches[event.index] = event.position
+		elif _touches.has(event.index):
+			_touches.erase(event.index)
+			if not _dragging and not event.canceled:
+				_select_at(event.position)
+		else:
 			return
-		_redraw_at(selected)
-		selected = tile
-		_redraw_at(selected)
-		_catchment.queue_redraw()
-		tile_clicked.emit(tile.x, tile.y, parcel_at(tile))
-		get_viewport().set_input_as_handled()
+	elif event is InputEventScreenDrag and _touches.has(event.index):
+		var last: Vector2 = _touches[event.index]
+		_touches[event.index] = event.position
+		if _touches.size() == 1:
+			_drag_from(_press_origin, event.position, event.position - last)
+		elif _touches.size() == 2:
+			var other: Vector2
+			for finger in _touches:
+				if finger != event.index:
+					other = _touches[finger]
+			var distance := other.distance_to(last)
+			if distance >= 8.0:
+				zoom_at(other.distance_to(event.position) / distance, (last + other) * 0.5)
+			_pan_by((event.position - last) * 0.5)
+	elif event is InputEventMagnifyGesture and _view.has_point(event.position):
+		zoom_at(event.factor, event.position)
+	elif event is InputEventMouseButton:
+		if event.pressed and _view.has_point(event.position):
+			match event.button_index:
+				MOUSE_BUTTON_WHEEL_UP: zoom_at(1.18, event.position)
+				MOUSE_BUTTON_WHEEL_DOWN: zoom_at(1.0 / 1.18, event.position)
+				MOUSE_BUTTON_LEFT:
+					_press_origin = event.position
+					_mouse_down = true
+					_dragging = false
+				_: return
+		elif not event.pressed and event.button_index == MOUSE_BUTTON_LEFT and _mouse_down:
+			_mouse_down = false
+			if not _dragging:
+				_select_at(event.position)
+		else:
+			return
+	elif event is InputEventMouseMotion:
+		if _mouse_down:
+			_drag_from(_press_origin, event.position, event.relative)
+		else:
+			var tile := _tile_at(event.position)
+			if tile != hover:
+				_redraw_at(hover)
+				hover = tile
+				_redraw_at(hover)
+			return
+	else:
+		return
+	get_viewport().set_input_as_handled()
+
+func _tile_at(point: Vector2) -> Vector2i:
+	if not _view.has_point(point):
+		return NO_TILE
+	return _pick(get_global_transform_with_canvas().affine_inverse() * point)
+
+func _select_at(point: Vector2) -> void:
+	var tile := _tile_at(point)
+	if tile == NO_TILE:
+		return
+	_redraw_at(selected)
+	selected = tile
+	_redraw_at(selected)
+	_catchment.queue_redraw()
+	tile_clicked.emit(tile.x, tile.y, parcel_at(tile))
 
 func _pick(local: Vector2) -> Vector2i:
 	for index in range(_tile_order.size() - 1, -1, -1):

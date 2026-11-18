@@ -54,9 +54,17 @@ func main() {
 	defer db.Close()
 	engine.Store = db
 	if db.HasWorld() {
-		if w, err := db.LoadWorld(); err == nil && w != nil {
-			engine.World = w
-			log.Printf("Loaded world save (tick=%d)", w.Tick)
+		w, err := db.LoadWorld()
+		if err != nil || w == nil {
+			log.Fatalf("load existing world: %v", err)
+		}
+		engine.World = w
+		log.Printf("Loaded world save (tick=%d)", w.Tick)
+		if engine.ExpandCitiesToCatalog() {
+			if err := db.SaveWorld(w); err != nil {
+				log.Fatalf("save expanded cities: %v", err)
+			}
+			log.Println("Expanded saved city boundaries to the catalog radii")
 		}
 	}
 
