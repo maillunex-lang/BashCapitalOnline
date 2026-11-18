@@ -36,6 +36,10 @@ func OpenDB(path string) (*DB, error) {
 	return d, nil
 }
 
+func (d *DB) Stats() sql.DBStats {
+	return d.sql.Stats()
+}
+
 func (d *DB) Close() error {
 	if d == nil || d.sql == nil {
 		return nil

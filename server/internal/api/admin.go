@@ -41,8 +41,8 @@ func (s *Server) handleAdminTick(w http.ResponseWriter, r *http.Request) {
 	s.Engine.Tick()
 	tick := s.Engine.World.Tick
 	log := s.Engine.World.LastTickLog
-	s.Mu.Unlock()
 	s.broadcast(map[string]any{"type": "tick", "tick": tick})
+	s.Mu.Unlock()
 	writeJSON(w, map[string]any{"tick": tick, "log": log})
 }
 

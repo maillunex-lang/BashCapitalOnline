@@ -18,7 +18,8 @@ type Server struct {
 	DB         *store.DB
 	Mu         sync.RWMutex
 	Upgrader   websocket.Upgrader
-	clients    map[*websocket.Conn]bool
+	wsMu       sync.Mutex
+	clients    map[*websocket.Conn]chan []byte
 	tickEvery  time.Duration
 	manualOnly bool
 	AdminToken string
@@ -27,10 +28,10 @@ type Server struct {
 
 func New(engine *sim.Engine, tickEvery time.Duration, manualOnly bool, adminToken string, db *store.DB) *Server {
 	return &Server{
-		Engine: engine,
-		DB:     db,
-		Upgrader: websocket.Upgrader{CheckOrigin: func(r *http.Request) bool { return true }},
-		clients:    map[*websocket.Conn]bool{},
+		Engine:     engine,
+		DB:         db,
+		Upgrader:   websocket.Upgrader{CheckOrigin: func(r *http.Request) bool { return true }},
+		clients:    map[*websocket.Conn]chan []byte{},
 		tickEvery:  tickEvery,
 		manualOnly: manualOnly,
 		AdminToken: adminToken,
@@ -111,8 +112,8 @@ func (s *Server) StartTicker() {
 				s.Engine.Tick()
 			}
 			tick := s.Engine.World.Tick
-			s.Mu.Unlock()
 			s.broadcast(map[string]any{"type": "tick", "tick": tick})
+			s.Mu.Unlock()
 		}
 	}()
 }
@@ -128,6 +129,7 @@ func (s *Server) handleCatalog(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
+	s.Mu.RLock()
 	ver := 1
 	if s.Engine != nil && s.Engine.Catalog != nil && s.Engine.Catalog.Version > 0 {
 		ver = s.Engine.Catalog.Version
@@ -136,13 +138,20 @@ func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 	if s.Engine != nil && s.Engine.World != nil {
 		tick = s.Engine.World.Tick
 	}
+	s.Mu.RUnlock()
 	writeJSON(w, map[string]any{"ok": true, "tick": tick, "economy_catalog_version": ver})
 }
 
 func (s *Server) handleWorld(w http.ResponseWriter, r *http.Request) {
 	s.Mu.RLock()
-	defer s.Mu.RUnlock()
-	writeJSON(w, s.Engine.World)
+	payload, err := json.Marshal(s.Engine.World)
+	s.Mu.RUnlock()
+	if err != nil {
+		http.Error(w, "world unavailable", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	_, _ = w.Write(payload)
 }
 
 func (s *Server) handleRankings(w http.ResponseWriter, r *http.Request) {
@@ -219,8 +228,8 @@ func (s *Server) handleManualTick(w http.ResponseWriter, r *http.Request) {
 	s.Engine.Tick()
 	tick := s.Engine.World.Tick
 	log := s.Engine.World.LastTickLog
-	s.Mu.Unlock()
 	s.broadcast(map[string]any{"type": "tick", "tick": tick})
+	s.Mu.Unlock()
 	writeJSON(w, map[string]any{"tick": tick, "log": log})
 }
 
@@ -316,15 +325,32 @@ func (s *Server) handleWS(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	s.Mu.Lock()
-	s.clients[conn] = true
-	s.Mu.Unlock()
+	queue := make(chan []byte, 8)
+	s.wsMu.Lock()
+	s.clients[conn] = queue
+	s.wsMu.Unlock()
 	defer func() {
-		s.Mu.Lock()
-		delete(s.clients, conn)
-		s.Mu.Unlock()
-		conn.Close()
+		s.wsMu.Lock()
+		if s.clients[conn] == queue {
+			delete(s.clients, conn)
+			close(queue)
+		}
+		s.wsMu.Unlock()
+		_ = conn.Close()
 	}()
+
+	go func() {
+		defer conn.Close()
+		for message := range queue {
+			if err := conn.SetWriteDeadline(time.Now().Add(time.Second)); err != nil {
+				return
+			}
+			if err := conn.WriteMessage(websocket.TextMessage, message); err != nil {
+				return
+			}
+		}
+	}()
+
 	for {
 		if _, _, err := conn.ReadMessage(); err != nil {
 			return
@@ -333,10 +359,20 @@ func (s *Server) handleWS(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) broadcast(msg any) {
-	s.Mu.Lock()
-	defer s.Mu.Unlock()
-	for c := range s.clients {
-		_ = c.WriteJSON(msg)
+	payload, err := json.Marshal(msg)
+	if err != nil {
+		return
+	}
+	s.wsMu.Lock()
+	defer s.wsMu.Unlock()
+	for conn, queue := range s.clients {
+		select {
+		case queue <- payload:
+		default:
+			// The writer closes the connection. Slow receivers reconnect and fetch world.
+			delete(s.clients, conn)
+			close(queue)
+		}
 	}
 }
 

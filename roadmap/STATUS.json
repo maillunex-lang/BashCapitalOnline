@@ -505,9 +505,11 @@
     {
       "id": "RM-LOAD-TEST",
       "title": "Multiplayer load / soak test",
-      "status": "backlog",
+      "status": "done",
+      "maturity": "mvp",
       "area": "server",
-      "notes": "No concurrent-player load test yet. Measure tick latency, WS fanout, SQLite lock contention.",
+      "notes": "Repeatable local load test for 10/50/100 players and a 30-second run at 100. Checked tick latency, WebSocket delivery, SQLite pool waits, save failures and per-firm balances. Production-size economic worlds and WAN testing remain open.",
+      "files": ["server/internal/api/load_test.go", "server/internal/api/server.go", "roadmap/STAGES.md"],
       "updated": "2026-11-18",
       "stage": "S8"
     },

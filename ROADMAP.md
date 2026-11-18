@@ -3,7 +3,7 @@
 > **Для AI:** сначала [`AGENTS.md`](./AGENTS.md) → подробные этапы [`roadmap/STAGES.md`](./roadmap/STAGES.md) → статус [`roadmap/STATUS.json`](./roadmap/STATUS.json).  
 > `STATUS.json` — источник истины. `STAGES.md` — как выполнять. Этот файл — краткое зеркало.
 
-Обновлено: 2026-11-18 · Ветка: **`main`** · Текущий этап: **Android V2** (доступен тестовый APK)
+Обновлено 2026-11-18 · Ветка **`main`** · Разработка сервера V2
 
 ## Честность статусов
 
@@ -16,7 +16,7 @@
 
 ## Сейчас
 
-[RM-ANDROID-V2-VERTICAL-SLICE](roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md) в работе. Локально проверены хлебная и топливная цепочки, доставка между городами, прибыль от продажи хлеба и восстановление фирмы после перезапуска. В Godot проверены склад, витрина, рецепты и сводка компании. Подписанный тестовым ключом Preview 0.4.0 доступен для Android. Проверка на устройстве и релизная подпись ещё впереди. [Скачать Preview](https://github.com/maillunex-lang/BashCapitalOnline/releases/tag/v0.4.0-preview.1)
+Android Preview 0.4.4 доступен. Полная проверка на устройстве и релизная подпись отложены. На сервере завершён локальный тест с 10, 50 и 100 клиентами. [План Android V2](roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md)
 
 ## Этапы (сводка)
 
@@ -26,12 +26,13 @@
 | S5 Contracts UI | mvp ✅ | Биржа/контракты в web |
 | **S6 Payments live** | 🔓 mvp | ЮKassa create+webhook; mock gated |
 | S7 Android verify | в работе | APK на устройстве |
-| S8 Scale | backlog | Postgres, load-test, geo-map, i18n |
+| S8 Scale | в работе | Нагрузочный тест локально, PostgreSQL по необходимости, geo-map и i18n в бэклоге |
 
 ## Недавно сделано
 
 | ID | maturity | Что |
 |----|----------|-----|
+| RM-LOAD-TEST | mvp | REST, WebSocket и SQLite проверены под локальной нагрузкой в 100 клиентов |
 | Android V2 · интерфейс | mvp | Склад, витрина, грузы и состояние производства проверены в Godot headless |
 | Android V2 · экономика | mvp | Хлеб и АИ‑92 продаются, доставка и фирма сохраняются в SQLite |
 | RM-MAP-INCREMENTAL | mvp | Частичная перерисовка Godot и web, проверена стройка на подходящей залежи |
@@ -46,7 +47,7 @@
 
 ## Backlog
 
-RM-POSTGRES · RM-LOAD-TEST · RM-GEO-MAP · RM-I18N
+RM-POSTGRES · RM-GEO-MAP · RM-I18N
 
 ## Запуск
 
