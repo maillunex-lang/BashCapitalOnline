@@ -99,8 +99,16 @@ func _check_company_layout(game) -> void:
 func _start_game(url: String, register: bool):
 	var game = load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
-	game.url_edit.text = url
-	game.username.text = "godot_economy_smoke"
+	if register:
+		game.url_edit.text = "ftp://invalid"
+		await game._on_connect_pressed()
+		_check(game.login_panel.visible and game.connection_message.visible, "invalid server error appears in the login form")
+		game.url_edit.text = url
+		game.username.text = "godot_economy_smoke"
+	else:
+		_check(game.url_edit.text == url, "reopening the client restores the working server")
+		_check(game.username.text == "godot_economy_smoke", "reopening the client restores the login")
+		_check(game.password.text.is_empty(), "password is not remembered")
 	game.password.text = "test-password"
 	game.name_edit.text = "Фирма Godot"
 	game.industry_option.select(1)

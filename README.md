@@ -68,9 +68,9 @@ cd web && python3 -m http.server 8090 --bind 127.0.0.1
 
 Интерфейс: фон Башкортостана, логотип, изометрическая карта, боковая панель действий, рейтинг капитала, журнал тиков.
 
-## Android 0.4.2 Preview
+## Android 0.4.3 Preview
 
-Тестовая сборка для Android 7.0+ (ARM64 и x86_64) доступна вместе с SHA‑256 и данными о сборке. Для сетевой игры укажите в форме входа адрес доступного сервера с каталогом V2. [Скачать APK](https://github.com/maillunex-lang/BashCapitalOnline/releases/tag/v0.4.2-preview.1)
+Тестовая сборка для Android 7.0+ (ARM64 и x86_64) доступна вместе с SHA‑256 и данными о сборке. Для сетевой игры укажите в форме входа адрес доступного сервера с каталогом V2. [Скачать APK](https://github.com/maillunex-lang/BashCapitalOnline/releases/tag/v0.4.3-preview.1)
 
 Карту можно приближать двумя пальцами или кнопками «−» и «+» и перемещать перетаскиванием. «Вписать» показывает весь город. В каталоге V2 Уфа теперь включает 113 участков, Белорецк и Стерлитамак — по 85. Старые участки и постройки сохраняются при расширении мира. [Источники графики](client/assets/city_kenney/CREDITS.md)
 
@@ -79,7 +79,7 @@ cd web && python3 -m http.server 8090 --bind 127.0.0.1
 Для повторной сборки установите Godot 4.6.3 с Android-шаблонами той же версии, JDK и Android SDK. В Godot откройте **Editor Settings → Export → Android** и настройте пути к SDK и JDK. Скрипт использует `ANDROID_HOME` и Build Tools 35.0.1 по умолчанию. Установленную версию можно выбрать через `ANDROID_BUILD_TOOLS_VERSION`.
 
 ```bash
-scripts/export_android.sh preview /tmp/bashcapital-0.4.2-preview.apk
+scripts/export_android.sh preview /tmp/bashcapital-0.4.3-preview.apk
 ```
 
 Для релизного пакета выберите `release` и передайте авторизованный ключ, его псевдоним и пароль через переменные Godot `GODOT_ANDROID_KEYSTORE_RELEASE_PATH`, `GODOT_ANDROID_KEYSTORE_RELEASE_USER`, `GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD`. Preview имеет отдельный идентификатор приложения и подписывается тестовым ключом Godot.

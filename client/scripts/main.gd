@@ -13,6 +13,11 @@ extends Control
 @onready var password: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/Password
 @onready var name_edit: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/NameEdit
 @onready var industry_option: OptionButton = $SafeArea/UI/LoginPanel/Margin/VBox/Industry
+const CONNECTION_PREFS := "user://connection.cfg"
+
+@onready var connection_message: Label = $SafeArea/UI/LoginPanel/Margin/VBox/ConnectionMessage
+@onready var connect_btn: Button = $SafeArea/UI/LoginPanel/Margin/VBox/ConnectBtn
+@onready var register_btn: Button = $SafeArea/UI/LoginPanel/Margin/VBox/RegisterBtn
 @onready var url_edit: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/UrlEdit
 @onready var city_host: Node2D = $GameLayer/CityHost
 @onready var city_map: CityMap = $GameLayer/CityHost/CityMap
@@ -50,7 +55,8 @@ func _ready() -> void:
 	remote_assets = RemoteAssets.new()
 	add_child(remote_assets)
 	remote_assets.setup(api)
-	remote_assets.progress.connect(func(msg): status_label.text = msg)
+	remote_assets.progress.connect(_show_connection_message)
+	_restore_connection_preferences()
 	remote_assets.packs_ready.connect(CatalogUI.clear_texture_cache)
 	remote_assets.update_available.connect(_on_apk_update)
 	industry_option.clear()
@@ -180,17 +186,60 @@ func _on_deputy_tasks(kinds: PackedStringArray) -> void:
 		status_label.text = "Задания выданы заместителю"
 	await _refresh()
 
+func _restore_connection_preferences() -> void:
+	var prefs := ConfigFile.new()
+	if prefs.load(CONNECTION_PREFS) == OK:
+		url_edit.text = str(prefs.get_value("connection", "server", url_edit.text))
+		username.text = str(prefs.get_value("connection", "username", ""))
+
+func _save_connection_preferences(login: String) -> void:
+	var prefs := ConfigFile.new()
+	prefs.set_value("connection", "server", api.base_url)
+	prefs.set_value("connection", "username", login)
+	var error := prefs.save(CONNECTION_PREFS)
+	if error != OK:
+		push_warning("Could not save connection preferences: %s" % error_string(error))
+
+func _show_connection_message(message: String) -> void:
+	if login_panel.visible:
+		connection_message.text = message
+		connection_message.show()
+	else:
+		status_label.text = message
+
 func _on_connect_pressed(register_account := false) -> void:
 	if connecting:
 		return
 	connecting = true
+	connect_btn.disabled = true
+	register_btn.disabled = true
+	var fields := [url_edit, username, password, name_edit]
+	for field in fields:
+		field.editable = false
+	industry_option.disabled = true
 	await _connect_to_world(register_account)
+	for field in fields:
+		field.editable = true
+	industry_option.disabled = false
+	connect_btn.disabled = false
+	register_btn.disabled = false
 	connecting = false
 
 func _connect_to_world(register_account: bool) -> void:
-	api.configure(url_edit.text.strip_edges())
+	var address := url_edit.text.strip_edges()
+	if address.is_empty():
+		_show_connection_message("Введите адрес игрового сервера.")
+		return
+	if not "://" in address:
+		address = "https://" + address
+	var host := address.get_slice("://", 1).get_slice("/", 0)
+	if not (address.begins_with("http://") or address.begins_with("https://")) or host.is_empty() or "@" in address or "?" in address or "#" in address:
+		_show_connection_message("Укажите адрес игрового сервера с https:// или http://.")
+		return
+	api.configure(address)
+	_show_connection_message("Подключение к серверу…")
 	if not await api.fetch_catalog():
-		status_label.text = "Каталог недоступен. Проверьте адрес игрового сервера."
+		_show_connection_message("Сервер не отдал каталог. Проверьте адрес и подключение к сети.")
 		return
 	city_map.bind_catalog(api.catalog)
 	await remote_assets.check_and_fetch()
@@ -204,21 +253,27 @@ func _connect_to_world(register_account: bool) -> void:
 		else:
 			auth = await api.auth_login(login, password.text)
 		if not auth.has("session_token"):
-			status_label.text = str(auth.get("error", "Не удалось войти в аккаунт"))
+			_show_connection_message(str(auth.get("error", "Не удалось войти в аккаунт")).strip_edges().left(240))
 			return
 	if api.firm_id.is_empty():
 		var firm := await api.register_firm(name_edit.text.strip_edges(), industry)
 		if not firm.has("id"):
-			status_label.text = "Ошибка: %s" % firm.get("error", "сервер недоступен")
+			_show_connection_message("Не удалось открыть фирму: %s" % str(firm.get("error", "сервер недоступен")).strip_edges().left(200))
 			return
 	else:
 		await api.fetch_world()
 		var firm: Dictionary = api.world.get("firms", {}).get(api.firm_id, {})
 		if firm.is_empty():
-			status_label.text = "Фирма аккаунта недоступна"
+			_show_connection_message("Фирма аккаунта недоступна. Попробуйте подключиться снова.")
 			return
 		industry = str(firm.get("industry", industry))
 		api.firm = firm
+	if api.world.is_empty():
+		await api.fetch_world()
+	if api.world.is_empty():
+		_show_connection_message("Сервер не отдал состояние мира. Попробуйте подключиться снова.")
+		return
+	_save_connection_preferences(login)
 	password.clear()
 	status_label.text = "Фирма: %s" % api.firm.get("name", "")
 	login_panel.visible = false

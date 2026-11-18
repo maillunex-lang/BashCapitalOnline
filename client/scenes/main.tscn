@@ -212,6 +212,13 @@ layout_mode = 2
 [node name="UrlEdit" type="LineEdit" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
 layout_mode = 2
 text = "http://127.0.0.1:8080"
+placeholder_text = "Адрес сервера BashCapital"
+
+[node name="ConnectionMessage" type="Label" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.76, 0.48, 1)
+autowrap_mode = 3
 
 [node name="ConnectBtn" type="Button" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
 layout_mode = 2

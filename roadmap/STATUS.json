@@ -467,7 +467,7 @@
       "depends_on": [
         "RM-ASSETS-APK"
       ],
-      "notes": "Preview APK signed and manifest checked. Local V2 smoke verified pack handling and reconnect. A physical Android run and authorized release signing are pending.",
+      "notes": "Preview APK signed and manifest checked. Local V2 smoke verified pack handling and reconnect. The player confirmed Preview 0.4.2 runs on their phone. Full on-device economy and profiling checks, plus authorized release signing, are pending.",
       "updated": "2026-11-18",
       "stage": "S7"
     },
