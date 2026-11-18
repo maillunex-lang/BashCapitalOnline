@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -25,7 +26,8 @@ func (s *Server) handlePaymentCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var body struct {
-		Months int `json:"months"`
+		Months    int    `json:"months"`
+		ReturnURL string `json:"return_url"`
 	}
 	_ = json.NewDecoder(r.Body).Decode(&body)
 	if body.Months <= 0 {
@@ -56,8 +58,43 @@ func (s *Server) handlePaymentCreate(w http.ResponseWriter, r *http.Request) {
 	if base == "" {
 		base = "http://127.0.0.1:8080"
 	}
-	// Stub confirmation URL — in production replace with YooKassa Payment create response.
-	pay.ConfirmationURL = fmt.Sprintf("%s/api/payment/mock-pay?id=%s", base, pay.ID)
+	returnURL := body.ReturnURL
+	if returnURL == "" {
+		returnURL = os.Getenv("PAYMENT_RETURN_URL")
+	}
+	if returnURL == "" {
+		returnURL = base + "/api/payment/status?id=" + pay.ID
+	}
+
+	_, _, live := yooKassaCreds()
+	mode := "mock"
+	if live {
+		api := newYooAPI()
+		meta := map[string]string{
+			"payment_id": pay.ID,
+			"firm_id":    firmID,
+			"months":     strconv.Itoa(body.Months),
+		}
+		yp, err := api.createPayment(pay.ID, pay.Amount, pay.Currency, returnURL,
+			fmt.Sprintf("BashCapital подписка %d мес. · %s", body.Months, firm.Name), meta)
+		if err != nil {
+			http.Error(w, "yookassa: "+err.Error(), 502)
+			return
+		}
+		pay.ConfirmationURL = yp.Confirmation.ConfirmationURL
+		payload, _ := json.Marshal(map[string]any{"yookassa_id": yp.ID, "status": yp.Status})
+		pay.ProviderPayload = string(payload)
+		mode = "live"
+	} else {
+		if !mockPayAllowed(s.Dev) {
+			http.Error(w, "payments require YOOKASSA_SHOP_ID + YOOKASSA_SECRET_KEY (or run -dev / ALLOW_MOCK_PAY=1)", 503)
+			return
+		}
+		pay.ConfirmationURL = fmt.Sprintf("%s/api/payment/mock-pay?id=%s", base, pay.ID)
+		payload, _ := json.Marshal(map[string]any{"mode": "mock"})
+		pay.ProviderPayload = string(payload)
+	}
+
 	if s.DB != nil {
 		if err := s.DB.SavePayment(pay); err != nil {
 			http.Error(w, err.Error(), 500)
@@ -72,7 +109,8 @@ func (s *Server) handlePaymentCreate(w http.ResponseWriter, r *http.Request) {
 		"status":           pay.Status,
 		"confirmation_url": pay.ConfirmationURL,
 		"provider":         "yookassa",
-		"note":             "Webhook: POST /api/payment/webhook/yookassa — set YOOKASSA_SECRET when going live",
+		"mode":             mode,
+		"note":             "Live: webhook POST /api/payment/webhook/yookassa with YOOKASSA_WEBHOOK_SECRET / API secret. Mock only in -dev or ALLOW_MOCK_PAY=1.",
 	})
 }
 
@@ -94,18 +132,25 @@ func (s *Server) handlePaymentGet(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, p)
 }
 
-// handleYooKassaWebhook accepts YooKassa-like notification payloads.
-// Without YOOKASSA_SECRET it accepts stub events for local/dev.
+// handleYooKassaWebhook — YooKassa notification.
+// Non-dev without webhook secret: reject. With live creds: re-fetch payment status from API.
 func (s *Server) handleYooKassaWebhook(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "POST", 405)
 		return
 	}
-	secret := os.Getenv("YOOKASSA_SECRET")
-	if secret != "" && r.Header.Get("X-Yookassa-Signature") != secret && r.Header.Get("Authorization") != "Bearer "+secret {
-		http.Error(w, "invalid signature", 401)
+	secret := yooKassaWebhookSecret()
+	_, _, live := yooKassaCreds()
+	if secret != "" {
+		if !webhookAuthorized(r, secret) {
+			http.Error(w, "invalid signature", 401)
+			return
+		}
+	} else if !s.Dev && !mockPayAllowed(false) {
+		http.Error(w, "webhook secret required (YOOKASSA_WEBHOOK_SECRET or YOOKASSA_SECRET)", 503)
 		return
 	}
+
 	var body struct {
 		Event  string `json:"event"`
 		Object struct {
@@ -117,30 +162,41 @@ func (s *Server) handleYooKassaWebhook(w http.ResponseWriter, r *http.Request) {
 				Months    int    `json:"months"`
 			} `json:"metadata"`
 		} `json:"object"`
-		// Local stub fields
 		PaymentID string `json:"payment_id"`
 		Status    string `json:"status"`
 	}
-	raw, _ := json.Marshal(map[string]any{})
-	dec := json.NewDecoder(r.Body)
-	if err := dec.Decode(&body); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		http.Error(w, err.Error(), 400)
 		return
 	}
-	_ = raw
 	payID := body.Object.Metadata.PaymentID
 	if payID == "" {
 		payID = body.PaymentID
 	}
-	if payID == "" {
-		payID = body.Object.ID
-	}
+	providerID := body.Object.ID
 	status := body.Object.Status
 	if status == "" {
 		status = body.Status
 	}
 	if status == "" && (body.Event == "payment.succeeded" || body.Event == "") {
 		status = "succeeded"
+	}
+
+	// Live path: trust API status over notification body.
+	if live && providerID != "" {
+		yp, err := newYooAPI().getPayment(providerID)
+		if err != nil {
+			http.Error(w, "yookassa verify: "+err.Error(), 502)
+			return
+		}
+		status = yp.Status
+		if payID == "" && yp.Metadata != nil {
+			payID = yp.Metadata["payment_id"]
+		}
+	}
+	if payID == "" {
+		http.Error(w, "payment_id required", 400)
+		return
 	}
 	if s.DB == nil {
 		http.Error(w, "db required", 503)
@@ -151,9 +207,17 @@ func (s *Server) handleYooKassaWebhook(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "payment not found", 404)
 		return
 	}
+	if p.Status == "succeeded" {
+		writeJSON(w, map[string]any{"ok": true, "status": "succeeded", "idempotent": true})
+		return
+	}
 	if status == "succeeded" || status == "waiting_for_capture" {
 		p.Status = "succeeded"
 		p.UpdatedAt = time.Now().Unix()
+		if providerID != "" {
+			payload, _ := json.Marshal(map[string]any{"yookassa_id": providerID, "status": status})
+			p.ProviderPayload = string(payload)
+		}
 		_ = s.DB.SavePayment(*p)
 		s.Mu.Lock()
 		_ = s.Engine.ActivateSubscriptionPaid(p.FirmID, p.Months)
@@ -170,7 +234,12 @@ func (s *Server) handleYooKassaWebhook(w http.ResponseWriter, r *http.Request) {
 }
 
 // Dev helper: GET mock-pay completes pending payment without YooKassa.
+// Gated: only -dev or ALLOW_MOCK_PAY=1.
 func (s *Server) handlePaymentMockPay(w http.ResponseWriter, r *http.Request) {
+	if !mockPayAllowed(s.Dev) {
+		http.Error(w, "mock-pay disabled (set ALLOW_MOCK_PAY=1 or run with -dev)", 403)
+		return
+	}
 	id := r.URL.Query().Get("id")
 	if id == "" || s.DB == nil {
 		http.Error(w, "id required", 400)
@@ -191,5 +260,5 @@ func (s *Server) handlePaymentMockPay(w http.ResponseWriter, r *http.Request) {
 	s.Mu.Lock()
 	_ = s.Engine.ActivateSubscriptionPaid(p.FirmID, p.Months)
 	s.Mu.Unlock()
-	writeJSON(w, map[string]any{"ok": true, "status": "succeeded", "firm_id": p.FirmID})
+	writeJSON(w, map[string]any{"ok": true, "status": "succeeded", "firm_id": p.FirmID, "mode": "mock"})
 }

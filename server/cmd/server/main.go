@@ -80,7 +80,16 @@ func main() {
 	}
 
 	srv := api.New(engine, tickEvery, manual, adminToken, db)
+	srv.Dev = *devFast
 	srv.StartTicker()
+
+	if _, _, live := api.YooKassaLive(); live {
+		log.Println("YooKassa LIVE credentials detected (SHOP_ID + SECRET_KEY)")
+	} else if *devFast {
+		log.Println("YooKassa not configured — mock-pay enabled via -dev")
+	} else {
+		log.Println("YooKassa not configured — set YOOKASSA_SHOP_ID/SECRET_KEY or ALLOW_MOCK_PAY=1")
+	}
 
 	fmt.Printf("BashCapital server on %s (data=%s db=%s)\n", *addr, dir, path)
 	log.Fatal(http.ListenAndServe(*addr, srv.Handler()))

@@ -3,7 +3,7 @@
 > **Для AI:** сначала [`AGENTS.md`](./AGENTS.md) → подробные этапы [`roadmap/STAGES.md`](./roadmap/STAGES.md) → статус [`roadmap/STATUS.json`](./roadmap/STATUS.json).  
 > `STATUS.json` — источник истины. `STAGES.md` — как выполнять. Этот файл — краткое зеркало.
 
-Обновлено: 2026-11-18 · Ветка: **`main`** · Текущий этап: **S5 Contracts UI** (S3–S4 закрыты)
+Обновлено: 2026-11-18 · Ветка: **`main`** · Текущий этап: **S6 Payments** (код live готов; нужны ключи ЮKassa)
 
 ## Честность статусов
 
@@ -14,27 +14,22 @@
 
 Готовое **всегда** сливать в **`main`** (`merge` + `git push origin main`). Feature-ветки `cursor/*-c48e` — только рабочий буфер.
 
-## Сейчас (этап S5 → дальше S6/S7)
+## Сейчас (этап S6 → дальше S7)
 
-S3–S4 и web-contracts закрыты. Дальше по приоритету:
+Платежный код live готов. Дальше по приоритету:
 
-1. **RM-PAYMENT-LIVE** — живая ЮKassa  
-2. **RM-APK-VERIFY** — APK на устройстве  
-3. **RM-MAP-INCREMENTAL** — частичная перерисовка карты  
+1. **RM-APK-VERIFY** — APK на устройстве  
+2. **RM-MAP-INCREMENTAL** — частичная перерисовка карты  
 
-**Поиграть сейчас:** README → кабинет → стройка; вкладка «Опт» — ордера и контракты.
+**Поиграть сейчас:** README → кабинет → стройка; «Опт» — ордера; «Ещё» — ЮKassa / mock подписка.
 
 ## Этапы (сводка)
 
 | Этап | Статус | Суть |
 |------|--------|------|
-| S0 Foundation | mvp ✅ | Go + web + Godot, тики, фирмы |
-| S1 Catalog & art | mvp ✅ | ~1000 товаров, цепочки, иконки, art pack v3 |
-| S2 Three cities | mvp ✅ | Уфа, Белорецк, Стерлитамак |
-| S3 Playable loop | mvp ✅ | Сессия 30–60 мин, кабинет, persist/restock |
-| S4 Demand depth | mvp ✅ | Спрос/качество/бренд |
-| **S5 Contracts UI** | 🔓 current | Биржа/контракты в web (Godot — нет) |
-| S6 Payments live | next | Настоящая ЮKassa |
+| S0–S4 | mvp ✅ | Foundation → demand |
+| S5 Contracts UI | mvp ✅ | Биржа/контракты в web |
+| **S6 Payments live** | 🔓 mvp | ЮKassa create+webhook; mock gated |
 | S7 Android verify | next | APK на устройстве |
 | S8 Scale | backlog | Postgres, load-test, geo-map, i18n |
 
@@ -42,14 +37,12 @@ S3–S4 и web-contracts закрыты. Дальше по приоритету:
 
 | ID | maturity | Что |
 |----|----------|-----|
-| RM-BUGFIX-PLAY | mvp | Persist до тика, snap аренды, автопополнение игрока, atomic configure, тесты |
-| RM-OWNER-DESKTOP | mvp | Кабинет собственника → город → карта размещения |
-| RM-DEMAND | mvp | class shares, quality/brand/corridor, contested budget, тесты |
-| RM-CONTRACTS-UI | mvp | Web ордера + контракты (web-first) |
-| RM-BALANCE-PLAYTEST | mvp | 24-tick AI shops stocked |
-| RM-STERLITAMAK | mvp | 3-й город |
-| RM-PERSIST | mvp | SQLite + Persist() на actions |
-| RM-PAYMENT | scaffold | mock-pay; **не live** |
+| RM-PAYMENT-LIVE | mvp | Live YooKassa create + verify webhook; mock-pay только -dev/ALLOW_MOCK_PAY |
+| RM-CONTRACTS-UI | mvp | Web ордера + контракты |
+| RM-DEMAND | mvp | class shares, quality/brand/corridor |
+| RM-OWNER-DESKTOP | mvp | Кабинет собственника |
+| RM-BUGFIX-PLAY | mvp | Persist/rent/restock/atomic configure |
+| RM-PAYMENT | scaffold | soft-cash subscribe для -dev |
 | RM-ASSETS-APK | unverified | packs в коде; APK на девайсе нет |
 
 ## Backlog

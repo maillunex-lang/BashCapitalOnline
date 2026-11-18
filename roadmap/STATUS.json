@@ -5,7 +5,7 @@
   "branch_default": "main",
   "active_pr": null,
   "honesty_rule": "status=done means code exists and runs in-repo. It does NOT mean production-ready, device-verified, load-tested, or live payments. Use maturity: shipped | mvp | scaffold | unverified. Never mark scaffold as if it were shipped.",
-  "instructions_for_ai": "Read roadmap/STAGES.md for HOW. Read priority_order here for WHAT next. Claim one next item, implement, set honest maturity, update ROADMAP.md, always merge+push main. Current focus after S4/S5 web: RM-PAYMENT-LIVE or RM-APK-VERIFY when asked.",
+  "instructions_for_ai": "Always merge to main. Next: RM-APK-VERIFY (device) or RM-MAP-INCREMENTAL. RM-PAYMENT-LIVE is code-complete (mvp) — real money needs shop credentials in env.",
   "maturity_legend": {
     "shipped": "Used end-to-end in normal play; no known major gaps for the claimed scope",
     "mvp": "Works for local/dev play; balance/UX still need iteration",
@@ -13,7 +13,6 @@
     "unverified": "Code path exists but not proven on real device/env"
   },
   "priority_order": [
-    "RM-PAYMENT-LIVE",
     "RM-APK-VERIFY",
     "RM-MAP-INCREMENTAL",
     "RM-POSTGRES",
@@ -244,7 +243,7 @@
       "status": "done",
       "maturity": "scaffold",
       "area": "monetization",
-      "notes": "Create + webhook shape + mock-pay for local/dev. Real YooKassa money flow NOT live — see RM-PAYMENT-LIVE.",
+      "notes": "Superseded by RM-PAYMENT-LIVE paths; soft-cash subscribe remains for -dev.",
       "files": [
         "server/internal/api/payment.go",
         "server/internal/sim/deputy.go"
@@ -394,14 +393,24 @@
     {
       "id": "RM-PAYMENT-LIVE",
       "title": "Live YooKassa subscription payments",
-      "status": "next",
+      "status": "done",
       "area": "monetization",
       "depends_on": [
         "RM-PAYMENT"
       ],
-      "notes": "Wire real Payment create + signed webhooks with YOOKASSA_SECRET; remove mock-pay from production builds.",
+      "notes": "Live create via YOOKASSA_SHOP_ID+SECRET_KEY; webhook secret required outside -dev; live webhook re-fetches payment from API; mock-pay gated (-dev|ALLOW_MOCK_PAY=1). Real shop credentials not verified in this env — maturity mvp not shipped.",
       "updated": "2026-11-18",
-      "stage": "S6"
+      "stage": "S6",
+      "maturity": "mvp",
+      "files": [
+        "server/internal/api/payment.go",
+        "server/internal/api/yookassa.go",
+        "server/internal/api/payment_test.go",
+        "server/cmd/server/main.go",
+        "web/app.js",
+        "web/index.html",
+        "README.md"
+      ]
     },
     {
       "id": "RM-APK-VERIFY",
@@ -564,6 +573,6 @@
       ]
     }
   ],
-  "current_stage": "S5",
+  "current_stage": "S6",
   "stages_doc": "roadmap/STAGES.md"
 }

@@ -90,9 +90,14 @@ cd web && python3 -m http.server 8090 --bind 127.0.0.1
 
 ## Подписка и ИИ-заместитель
 
-Mock-донат (позже — ЮKassa и т.п.):
+**ЮKassa (live):** задайте `YOOKASSA_SHOP_ID` + `YOOKASSA_SECRET_KEY`, webhook gate `YOOKASSA_WEBHOOK_SECRET` (или `YOOKASSA_SECRET`), опционально `PUBLIC_API_URL` / `PAYMENT_RETURN_URL`.
 
-- `POST /api/action/subscribe` `{ "months": 1 }`
+- `POST /api/payment/create` `{ "months": 1 }` → `confirmation_url` (redirect на ЮKassa)
+- `POST /api/payment/webhook/yookassa` — уведомление; в live статус перепроверяется через API
+- `GET /api/payment/mock-pay?id=…` — **только** `-dev` или `ALLOW_MOCK_PAY=1`
+
+Dev без ключей: кнопка «Списать с кассы» / `POST /api/action/subscribe`.
+
 - `POST /api/action/hire_deputy` `{ "name": "..." }`
 - `POST /api/action/set_deputy_tasks` `{ "tasks": ["procure_inputs","restock","price_retail","sell_excess","research","auto_contracts"] }`
 

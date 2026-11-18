@@ -42,8 +42,8 @@ cd web && python3 -m http.server 8090 --bind 127.0.0.1
 | **S2** Three cities | Уфа/Белорецк/Стерлитамак | ✅ mvp | 3 города, логистика |
 | **S3** Playable loop | Сессия 30–60 мин без поломок | ✅ mvp | «Уже можно поиграть» |
 | **S4** CapLab depth | Спрос/бренд/качество | ✅ mvp | Глубокая экономика |
-| **S5** Contracts & exchange UI | Телефонный UI биржи | 🔓 **ТЕКУЩИЙ** | Торговля руками |
-| **S6** Monetization live | Реальная подписка | ⏳ next | PRO/заместитель за деньги |
+| **S5** Contracts & exchange UI | Телефонный UI биржи | ✅ mvp | Торговля руками |
+| **S6** Monetization live | Реальная подписка | 🔓 **ТЕКУЩИЙ** | PRO/заместитель за деньги |
 | **S7** Android ship | APK на устройстве | ⏳ next | Игра на телефоне |
 | **S8** Scale & polish | Postgres, load-test, geo-map, i18n | 📦 backlog | Прод-масштаб |
 
@@ -138,25 +138,22 @@ python3 scripts/build_art_pack.py
 
 ---
 
-## S5 — Contracts & exchange UI ⭐ ТЕКУЩИЙ ЭТАП
+## S5 — Contracts & exchange UI (готово, mvp web-first)
 
 ### S5.1 — `RM-CONTRACTS-UI` ✅ mvp (web-first)
-**Сделано:** вкладка «Опт» — форма buy/sell, список ордеров с иконками, «В контракт» по чужому sell, список контрактов и доставок.
-
-**Не сделано:** Godot-паритет (явно web-first). Живой match sell↔AI за N тиков зависит от рынка — проверять вручную.
-
-**Приёмка:**
-- [x] UI создания ордера и контракта в web
-- [ ] Godot parity (backlog / notes)
+**Сделано:** вкладка «Опт» — форма buy/sell, ордера, «В контракт», контракты. Godot parity — нет.
 
 ---
 
-## S6 — Live payments
+## S6 — Live payments ⭐ ТЕКУЩИЙ ЭТАП
 
-### S6.1 — `RM-PAYMENT-LIVE`
-**Сделать:** реальный YooKassa Payment create; webhook с проверкой `YOOKASSA_SECRET`; mock-pay только под `-dev`/env `ALLOW_MOCK_PAY=1`.
+### S6.1 — `RM-PAYMENT-LIVE` ✅ mvp
+**Сделано:** `YOOKASSA_SHOP_ID`+`YOOKASSA_SECRET_KEY` → live Payment create; webhook gate + live API re-fetch; mock-pay только `-dev`/`ALLOW_MOCK_PAY=1`; тесты api; web кнопка оплаты.
 
-**Приёмка:** без секрета — безопасный отказ в non-dev; с секретом — подписка активируется только после webhook success.
+**Приёмка:**
+- [x] без секрета вне -dev — webhook 503; mock-pay 403
+- [x] с webhook secret — подписка после succeeded
+- [ ] реальный магазин ЮKassa в проде (нужны ключи владельца) — не unverified device, но money path не прогонялся здесь → maturity **mvp**
 
 ---
 

@@ -22,6 +22,7 @@ type Server struct {
 	tickEvery  time.Duration
 	manualOnly bool
 	AdminToken string
+	Dev        bool // -dev: allows mock-pay without ALLOW_MOCK_PAY
 }
 
 func New(engine *sim.Engine, tickEvery time.Duration, manualOnly bool, adminToken string, db *store.DB) *Server {

@@ -1012,6 +1012,30 @@ $("quality").onchange = () => {
   drawMap();
 };
 $("subscribe").onclick = () => act("subscribe", { months: 1 });
+if ($("subscribePay")) {
+  $("subscribePay").onclick = async () => {
+    if (!state.firmId) return alert("Сначала откройте фирму");
+    try {
+      const pay = await api("/api/payment/create", {
+        method: "POST",
+        body: JSON.stringify({ months: 1, return_url: location.href }),
+      });
+      if (pay.confirmation_url) {
+        if (pay.mode === "mock") {
+          await fetch(pay.confirmation_url);
+          await refresh();
+          alert("Подписка активирована (mock-pay / -dev)");
+        } else {
+          location.href = pay.confirmation_url;
+        }
+      } else {
+        alert("Нет confirmation_url");
+      }
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+}
 $("hireDeputy").onclick = () => act("hire_deputy", { name: $("deputyName").value || "Заместитель" });
 $("applyTasks").onclick = () => {
   const tasks = [...document.querySelectorAll(".task:checked")].map((el) => el.value);
