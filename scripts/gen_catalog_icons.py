@@ -14,7 +14,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
-ROOT = Path("/workspace")
+ROOT = Path(__file__).resolve().parent.parent
 ART = Path("/opt/cursor/artifacts/assets")
 DATA = ROOT / "data"
 CLIENT_ICONS = ROOT / "client/assets/icons"

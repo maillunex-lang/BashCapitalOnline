@@ -6,7 +6,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-ROOT = Path("/workspace/data")
+ROOT = Path(__file__).resolve().parent.parent / "data"
 
 
 def main():
