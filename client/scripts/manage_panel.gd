@@ -8,6 +8,7 @@ signal rent_shop(payload: Dictionary)
 signal stock_shop(shop_id: String, qty: int)
 signal transfer_stock(payload: Dictionary)
 signal asset_chosen(asset_kind: String, asset_id: String)
+signal bread_parcel_requested(step: Dictionary)
 
 @onready var title: Label = $Margin/VBox/Header/Title
 @onready var icon: TextureRect = $Margin/VBox/Header/Icon
@@ -29,6 +30,8 @@ var _price: SpinBox
 var _stock_src: OptionButton
 var _restock: CheckBox
 var _snapshot: Label
+var _bread_rows: Array[Label] = []
+var _bread_buttons: Array[Button] = []
 var _inventory_rows: ItemList
 var _inventory_heading: Label
 var _transfer: Button
@@ -208,14 +211,14 @@ func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	_add_touch_control(stock)
 	visible = true
 
-func open_rental(catalog: Dictionary, parcel: Dictionary) -> void:
+func open_rental(catalog: Dictionary, parcel: Dictionary, initial := {}) -> void:
 	kind = "rental"
 	_clear_body()
 	title.text = "Аренда магазина"
 	icon.texture = CatalogUI.icon({}, "shops")
 	sub.text = "Участок (%s, %s)" % [parcel["x"], parcel["y"]]
 	hint.text = ""
-	_shop_fields(catalog, {})
+	_shop_fields(catalog, initial)
 	var confirm := Button.new()
 	confirm.text = "Арендовать"
 	confirm.disabled = _shop_item.item_count == 0
@@ -267,6 +270,11 @@ func open_company(catalog: Dictionary, world: Dictionary, firm_id: String) -> vo
 	icon.texture = load("res://assets/ui/icon_firm.png")
 	sub.text = "Имущество и грузы"
 	hint.text = ""
+	if BreadGuide.available(catalog):
+		var guide := Button.new()
+		guide.text = "Первая цепочка · хлеб"
+		guide.pressed.connect(func(): open_bread_guide(catalog, _current_world, firm_id))
+		_add_touch_control(guide)
 	_snapshot = _add_summary()
 	for section in [["buildings", "Здания"], ["shops", "Магазины"]]:
 		var label := _add_summary()
@@ -293,11 +301,68 @@ func open_company(catalog: Dictionary, world: Dictionary, firm_id: String) -> vo
 	refresh_snapshot(catalog, world, firm_id)
 	visible = true
 
+func open_bread_guide(catalog: Dictionary, world: Dictionary, firm_id: String) -> void:
+	kind = "bread_guide"
+	_clear_body()
+	title.text = "Первая цепочка"
+	sub.text = "Уфа · пшеница → мука → хлеб → магазин"
+	hint.text = ""
+	icon.texture = CatalogUI.icon(CatalogUI.find(catalog, "items", "wheat_bread"), "items")
+	_snapshot = _add_summary()
+	for step in BreadGuide.STEPS:
+		_bread_rows.append(_add_summary())
+		var action := Button.new()
+		action.pressed.connect(func():
+			var asset := BreadGuide.asset_for(step, _current_world, firm_id)
+			if asset.is_empty():
+				bread_parcel_requested.emit(step)
+			else:
+				asset_chosen.emit("shops" if step.has("item") else "buildings", asset["id"])
+		)
+		_bread_buttons.append(action)
+		_add_touch_control(action)
+	var back := Button.new()
+	back.text = "Назад к компании"
+	back.pressed.connect(func(): open_company(catalog, _current_world, firm_id))
+	_add_touch_control(back)
+	refresh_snapshot(catalog, world, firm_id)
+	show()
+
+func _show_bread_progress(world: Dictionary, firm_id: String) -> void:
+	var ready := 0
+	for i in BreadGuide.STEPS.size():
+		var step: Dictionary = BreadGuide.STEPS[i]
+		var asset := BreadGuide.asset_for(step, world, firm_id)
+		var complete := BreadGuide.matches(step, asset)
+		ready += int(complete)
+		var heading := ("Готово · " if complete else "%d. " % (i + 1)) + str(step["title"])
+		var details := str(step["hint"])
+		if not asset.is_empty():
+			if complete and step.has("item"):
+				details = "На витрине: %d ед. хлеба. Продажи идут по игровым тикам." % int(asset.get("stock", 0))
+			elif complete:
+				var batch: Dictionary = asset.get("production", {})
+				if batch.get("item_id") == step["output"] and int(batch.get("qty", 0)) > 0:
+					details += " Последний выпуск: %d ед." % int(batch["qty"])
+			else:
+				details = "Откройте объект и выберите указанный товар и источник «Со своего склада». Включите автообеспечение."
+		var no_parcel := asset.is_empty() and BreadGuide.suggest_parcel(step, world, firm_id).is_empty()
+		if no_parcel:
+			details += " Сейчас подходящих свободных участков нет."
+		_bread_rows[i].text = heading + "\n" + details
+		_bread_buttons[i].text = "Выбрать участок" if asset.is_empty() else "Открыть объект"
+		_bread_buttons[i].disabled = no_parcel
+	_snapshot.text = "%d из %d объектов готовы" % [ready, BreadGuide.STEPS.size()]
+	if ready == BreadGuide.STEPS.size():
+		_snapshot.text += " · магазин может продавать хлеб по тикам"
+
 func refresh_snapshot(catalog: Dictionary, world: Dictionary, firm_id: String) -> void:
 	if _snapshot == null:
 		return
 	_current_world = world
 	match kind:
+		"bread_guide":
+			_show_bread_progress(world, firm_id)
 		"building":
 			var building: Dictionary = world.get("buildings", {}).get(target_id, {})
 			if not building.is_empty():
@@ -404,6 +469,8 @@ func _clear_body() -> void:
 		body.remove_child(c)
 		c.queue_free()
 	scroll.scroll_vertical = 0
+	_bread_rows.clear()
+	_bread_buttons.clear()
 	_snapshot = null
 	_inventory_rows = null
 	_transfer = null

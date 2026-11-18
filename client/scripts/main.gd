@@ -91,6 +91,7 @@ func _ready() -> void:
 	manage_panel.stock_shop.connect(_on_stock_shop)
 	manage_panel.transfer_stock.connect(_on_transfer_stock)
 	manage_panel.asset_chosen.connect(_on_asset_chosen)
+	manage_panel.bread_parcel_requested.connect(_on_bread_parcel_requested)
 	var refresh_timer := Timer.new()
 	refresh_timer.wait_time = 8.0
 	refresh_timer.autostart = true
@@ -499,6 +500,31 @@ func _city_name(id: String) -> String:
 
 func _money(v) -> String:
 	return str(int(float(v)))
+
+func _on_bread_parcel_requested(step: Dictionary) -> void:
+	if current_city != BreadGuide.CITY:
+		await _on_city_selected(BreadGuide.CITY)
+	var parcel := BreadGuide.suggest_parcel(step, api.world, api.firm_id)
+	if parcel.is_empty():
+		status_label.text = "Подходящего свободного участка нет"
+		return
+	city_map.focus_parcel(Vector2i(int(parcel["x"]), int(parcel["y"])))
+	if step.has("item"):
+		var corridor: Dictionary = api.catalog.get("economy", {}).get("price_corridors", {}).get(step["item"], {})
+		manage_panel.open_rental(api.catalog, {
+			"city_id": current_city, "x": parcel["x"], "y": parcel["y"],
+		}, {"shop_type": step["type"], "item_id": step["item"], "price": floorf(float(corridor.get("max", 55)))})
+	else:
+		_select_catalog_option(build_option, step["type"])
+		_fill_build_recipes()
+		_select_catalog_option(build_recipe, step["recipe"])
+		status_label.text = "Участок выбран. Нажмите «Построить»."
+
+func _select_catalog_option(option: OptionButton, id: String) -> void:
+	for index in option.item_count:
+		if option.get_item_metadata(index) == id:
+			option.select(index)
+			return
 
 func _on_company_pressed() -> void:
 	manage_panel.open_company(api.catalog, api.world, api.firm_id)

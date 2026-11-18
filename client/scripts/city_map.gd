@@ -408,8 +408,16 @@ func _tile_at(point: Vector2) -> Vector2i:
 	return _pick(get_global_transform_with_canvas().affine_inverse() * point)
 
 func _select_at(point: Vector2) -> void:
-	var tile := _tile_at(point)
-	if tile == NO_TILE:
+	select_parcel(_tile_at(point))
+
+func focus_parcel(coord: Vector2i) -> void:
+	if _tiles.has(coord):
+		var point: Vector2 = get_global_transform_with_canvas() * _tiles[coord].position
+		_pan_by(_view.get_center() - point)
+		select_parcel(coord)
+
+func select_parcel(tile: Vector2i) -> void:
+	if not _parcels.has(tile):
 		return
 	_redraw_at(selected)
 	selected = tile
