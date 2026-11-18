@@ -24,7 +24,6 @@ var _tiles: Dictionary = {}
 var _tile_order: Array[Vector2i] = []
 var _shop_radii: Dictionary = {}
 var _catchment := Node2D.new()
-var _sprites: Dictionary = {}
 
 class ParcelTile extends Node2D:
 	var visual: Dictionary = {}
@@ -62,18 +61,8 @@ var zone_tile := {
 func _tex(name: String) -> Texture2D:
 	if name == "":
 		return null
-	if _sprites.has(name):
-		return _sprites[name]
-	for path in [
-		"res://assets/map/%s.png" % name,
-		"res://assets/ui/%s.png" % name,
-	]:
-		if ResourceLoader.exists(path):
-			var t: Texture2D = load(path)
-			_sprites[name] = t
-			return t
-	_sprites[name] = null
-	return null
+	var map_texture := CatalogUI.texture("map/%s.png" % name)
+	return map_texture if map_texture != null else CatalogUI.texture("ui/%s.png" % name)
 
 func _ready() -> void:
 	_catchment.z_index = 1

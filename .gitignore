@@ -7,3 +7,6 @@ __pycache__/
 *.db
 server/world.db
 data/saves/
+*.apk
+*.jks
+*.keystore

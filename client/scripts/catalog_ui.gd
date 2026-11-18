@@ -16,11 +16,21 @@ static func entry_name(catalog: Dictionary, kind: String, id: String) -> String:
 
 static func icon(entry: Dictionary, kind: String) -> Texture2D:
 	var fallback := "ui/%s.png" % FALLBACKS[kind]
-	var path := "res://assets/" + str(ICON_PATHS.get(entry.get("icon", ""), fallback))
+	var path := str(ICON_PATHS.get(entry.get("icon", ""), fallback))
+	var icon_texture := texture(path)
+	return icon_texture if icon_texture != null else texture(fallback)
+
+static func texture(path: String) -> Texture2D:
 	if not _textures.has(path):
-		var texture: Texture2D = load(path) if ResourceLoader.exists(path) else load("res://assets/" + fallback)
-		_textures[path] = texture
+		var loaded := RemoteAssets.texture(path)
+		var bundled := "res://assets/" + path
+		if loaded == null and ResourceLoader.exists(bundled):
+			loaded = load(bundled)
+		_textures[path] = loaded
 	return _textures[path]
+
+static func clear_texture_cache() -> void:
+	_textures.clear()
 
 static func add_option(button: OptionButton, entry: Dictionary, kind: String, selected := "") -> void:
 	var label := str(entry["name"])

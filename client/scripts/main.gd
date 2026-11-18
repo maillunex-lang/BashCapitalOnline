@@ -52,6 +52,7 @@ func _ready() -> void:
 	add_child(remote_assets)
 	remote_assets.setup(api)
 	remote_assets.progress.connect(func(msg): status_label.text = msg)
+	remote_assets.packs_ready.connect(CatalogUI.clear_texture_cache)
 	remote_assets.update_available.connect(_on_apk_update)
 	industry_option.clear()
 	var industries := [

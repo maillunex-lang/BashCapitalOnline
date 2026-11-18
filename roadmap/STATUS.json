@@ -27,7 +27,7 @@
       "status": "in_progress",
       "maturity": "unverified",
       "area": "client/server",
-      "notes": "Phases 1–3 verified locally. A new wheat firm produces, ships and sells bread, then reinvests 5000 ₽; a new fuel firm buys crude, refines it and sells AI-92. Account, stock and active shipments survive reopening SQLite. Godot registration, reconnect and transfer controls passed headless. Phase 4 economy UI is verified in Godot headless, including live production status and landscape layout checks. Next is the signed Android export. Device touch and performance verification remain open.",
+      "notes": "Phases 1–3 verified locally. A new wheat firm produces, ships and sells bread, then reinvests 5000 ₽; a new fuel firm buys crude, refines it and sells AI-92. Account, stock and active shipments survive reopening SQLite. Godot registration, reconnect and transfer controls passed headless. Phase 4 economy UI is verified in Godot headless, including live production status and landscape layout checks. Signed, debug-key Android preview 0.4.0 built for ARM64 and x86_64. Release signing with the owner key and device verification remain open.",
       "files": [
         "roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md",
         "data/catalog_v2/",
@@ -461,12 +461,13 @@
     {
       "id": "RM-APK-VERIFY",
       "title": "Build and verify Android APK on a real device",
-      "status": "next",
+      "status": "in_progress",
+      "maturity": "unverified",
       "area": "client-godot",
       "depends_on": [
         "RM-ASSETS-APK"
       ],
-      "notes": "Export Godot APK, install, confirm remote packs + update prompt + gameplay.",
+      "notes": "Preview APK signed and manifest checked. Local V2 smoke verified pack handling and reconnect. A physical Android run and authorized release signing are pending.",
       "updated": "2026-11-18",
       "stage": "S7"
     },
