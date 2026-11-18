@@ -53,7 +53,7 @@ func _ready() -> void:
 		["Мебель (Уфа)", "furniture"],
 		["Одежда (Уфа)", "apparel"],
 		["Металл (Белорецк)", "steel"],
-		["Нефть (Белорецк)", "oil"],
+		["Нефть / химия (Стерлитамак)", "oil"],
 	]
 	for i in industries.size():
 		industry_option.add_item(str(industries[i][0]), i)
@@ -154,6 +154,7 @@ func _on_connect_pressed() -> void:
 	await remote_assets.check_and_fetch()
 	await api.fetch_catalog()
 	_fill_build_options()
+	_rebuild_city_tabs()
 	var industry: String = str(industry_option.get_item_metadata(industry_option.selected))
 	var firm := await api.register_firm(name_edit.text.strip_edges(), industry)
 	if firm.has("error"):
@@ -166,7 +167,13 @@ func _on_connect_pressed() -> void:
 	rank_panel.visible = true
 	city_tabs.visible = true
 	side.visible = true
-	current_city = "beloretsk" if industry == "steel" or industry == "oil" else "ufa"
+	if industry == "steel":
+		current_city = "beloretsk"
+	elif industry == "oil":
+		current_city = "sterlitamak" if _city_enabled("sterlitamak") else "beloretsk"
+	else:
+		current_city = "ufa"
+	_rebuild_city_tabs()
 	await _refresh()
 
 func _refresh() -> void:
@@ -308,6 +315,37 @@ func _on_city_ufa() -> void:
 
 func _on_city_beloretsk() -> void:
 	current_city = "beloretsk"
+	await _refresh()
+
+func _city_enabled(id: String) -> bool:
+	for c in api.catalog.get("cities", []):
+		if str(c.get("id")) == id:
+			return bool(c.get("enabled", true))
+	return false
+
+func _rebuild_city_tabs() -> void:
+	if city_tabs == null:
+		return
+	for child in city_tabs.get_children():
+		if child.name == "TickBtn":
+			continue
+		child.queue_free()
+	var tick_btn: Node = city_tabs.get_node_or_null("TickBtn")
+	for c in api.catalog.get("cities", []):
+		if not bool(c.get("enabled", false)):
+			continue
+		var btn := Button.new()
+		btn.text = str(c.get("name", c.get("id")))
+		var cid := str(c.get("id"))
+		btn.pressed.connect(_on_city_selected.bind(cid))
+		if tick_btn:
+			city_tabs.add_child(btn)
+			city_tabs.move_child(btn, tick_btn.get_index())
+		else:
+			city_tabs.add_child(btn)
+
+func _on_city_selected(cid: String) -> void:
+	current_city = cid
 	await _refresh()
 
 func _city_name(id: String) -> String:

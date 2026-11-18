@@ -40,7 +40,7 @@ func NewEngine(cat *model.Catalog) *Engine {
 	e.seedCities()
 	e.seedAI()
 	e.initCityMarket()
-	e.World.Events = append(e.World.Events, "Мир Башкортостана инициализирован. Активны Уфа и Белорецк · каталог как в Capitalism Lab.")
+	e.World.Events = append(e.World.Events, "Мир Башкортостана инициализирован. Активны Уфа, Белорецк и Стерлитамак · каталог как в Capitalism Lab.")
 	return e
 }
 
@@ -174,6 +174,17 @@ func (e *Engine) seedAI() {
 				{"refinery", "refine_gasoline", 2, 2},
 				{"refinery", "pack_gasoline", 3, 2},
 			}},
+		{"ai_chem", "СодаСтерлитамак", "oil", "ai_trader", 210000, "sterlitamak", "fuel_can_gasoline", 88,
+			[]struct{ typ, recipe string; x, y int }{
+				{"chem_plant", "extract_chemicals", -3, 0},
+				{"gas_well", "extract_gas", -2, 1},
+				{"oil_well", "extract_oil", -2, -1},
+				{"quarry", "extract_limestone", -1, 2},
+				{"mine", "extract_salt", -1, -2},
+				{"plastics_plant", "make_plastic", 1, 2},
+				{"refinery", "refine_gasoline", 2, 1},
+				{"packaging_plant", "make_packaging", 3, 0},
+			}},
 	}
 
 	for _, p := range profiles {
@@ -190,16 +201,71 @@ func (e *Engine) seedAI() {
 			}
 		}
 		// unlock a few mid-tier recipes so chains aren't stuck
-		for _, rid := range []string{"make_packaging", "make_plastic", "pack_gasoline", "make_clothing", "board_wood", "goods_steel", "furn_wood", "weave_flax"} {
+		for _, rid := range []string{"make_packaging", "make_plastic", "pack_gasoline", "make_clothing", "board_wood", "goods_steel", "furn_wood", "weave_flax", "refine_gasoline", "extract_salt", "extract_limestone"} {
 			f.Researched[rid] = true
 		}
 		e.World.Firms[f.ID] = f
 		for _, b := range p.builds {
-			e.placeBuilding(f.ID, p.city, b.typ, b.recipe, b.x, b.y, true)
+			if _, err := e.placeBuilding(f.ID, p.city, b.typ, b.recipe, b.x, b.y, true); err != nil {
+				if x, y, ok := e.findAIBuildSite(p.city, b.typ, b.recipe); ok {
+					_, _ = e.placeBuilding(f.ID, p.city, b.typ, b.recipe, x, y, true)
+				}
+			}
 		}
 		e.seedAIInventory(f.ID, p.industry)
 		e.openAIShop(f, p.city, p.shopItem, p.shopPrice)
 	}
+}
+
+// findAIBuildSite picks a free parcel for AI seeding (zone-aware, prefers matching deposits).
+func (e *Engine) findAIBuildSite(cityID, buildingType, recipeID string) (int, int, bool) {
+	city := e.World.Cities[cityID]
+	if city == nil {
+		return 0, 0, false
+	}
+	bdef, ok := e.Catalog.BuildingByID[buildingType]
+	if !ok {
+		return 0, 0, false
+	}
+	needRes := e.depositItemForBuild(buildingType, recipeID)
+	var candidates []model.Parcel
+	for _, p := range city.Parcels {
+		if p.Building != "" {
+			continue
+		}
+		zoneOK := false
+		switch bdef.Zone {
+		case "industrial":
+			zoneOK = p.Zone == "industrial" || p.Zone == "empty"
+		case "rural":
+			zoneOK = p.Zone == "rural" || p.Zone == "empty"
+		default:
+			zoneOK = p.Zone != "center"
+		}
+		if !zoneOK {
+			continue
+		}
+		if needRes != "" {
+			d := depositAt(city, p.X, p.Y)
+			if d != nil && d.ItemID != needRes {
+				continue
+			}
+		}
+		candidates = append(candidates, p)
+	}
+	// Prefer exact deposit match when required.
+	if needRes != "" {
+		for _, p := range candidates {
+			if d := depositAt(city, p.X, p.Y); d != nil && d.ItemID == needRes {
+				return p.X, p.Y, true
+			}
+		}
+	}
+	if len(candidates) == 0 {
+		return 0, 0, false
+	}
+	p := candidates[len(candidates)/2]
+	return p.X, p.Y, true
 }
 
 func (e *Engine) seedAIInventory(firmID, industry string) {
@@ -215,18 +281,21 @@ func (e *Engine) seedAIInventory(firmID, industry string) {
 			b.Inventory["milk"] += 30
 			b.Inventory["cherry"] += 15
 			b.Inventory["packaging"] += 10
+			b.Inventory["bottled_milk"] += 40
 		case "food":
 			b.Inventory["wheat"] += 40
 			b.Inventory["flour_wheat"] += 20
 			b.Inventory["plastic"] += 15
 			b.Inventory["paper"] += 15
 			b.Inventory["packaging"] += 20
+			b.Inventory["bread_wheat"] += 40
 		case "furniture":
 			b.Inventory["flax"] += 40
 			b.Inventory["wood"] += 40
 			b.Inventory["chemicals"] += 30
 			b.Inventory["fabric_flax"] += 10
 			b.Inventory["board_wood"] += 10
+			b.Inventory["furniture_wood"] += 25
 		case "apparel":
 			b.Inventory["flax"] += 30
 			b.Inventory["fabric_flax"] += 15
@@ -234,15 +303,21 @@ func (e *Engine) seedAIInventory(firmID, industry string) {
 			b.Inventory["packaging"] += 15
 			b.Inventory["cattle"] += 8
 			b.Inventory["leather"] += 8
+			b.Inventory["clothing"] += 30
 		case "steel":
 			b.Inventory["iron_ore"] += 50
 			b.Inventory["coal"] += 40
 			b.Inventory["steel"] += 15
+			b.Inventory["goods_steel"] += 30
 		case "oil":
 			b.Inventory["oil"] += 40
 			b.Inventory["chemicals"] += 25
 			b.Inventory["plastic"] += 15
 			b.Inventory["gasoline"] += 12
+			b.Inventory["gas"] += 20
+			b.Inventory["salt"] += 15
+			b.Inventory["limestone"] += 15
+			b.Inventory["fuel_can_gasoline"] += 35
 		}
 	}
 }
@@ -251,8 +326,13 @@ func (e *Engine) openAIShop(f *model.Firm, cityID, item string, price float64) {
 	if item == "" {
 		item = "bottled_milk"
 	}
-	if price <= 0 {
-		price = 45
+	// Always snap into current corridor — old hardcoded AI prices break after rebalance.
+	if c, ok := e.Catalog.Economy.PriceCorridors[item]; ok {
+		if price < c.Min || price > c.Max || price <= 0 {
+			price = (c.Min + c.Max) / 2
+		}
+	} else if price <= 0 {
+		price = 100
 	}
 	shopType := e.defaultShopTypeForItem(item)
 	city := e.World.Cities[cityID]
@@ -262,7 +342,7 @@ func (e *Engine) openAIShop(f *model.Firm, cityID, item string, price float64) {
 			id := uuid.NewString()
 			e.World.Shops[id] = &model.ShopLease{
 				ID: id, FirmID: f.ID, CityID: cityID, X: p.X, Y: p.Y,
-				ShopType: shopType, ItemID: item, Price: price, Stock: 20, FixedRent: 500, RevenueShare: 0.08,
+				ShopType: shopType, ItemID: item, Price: price, Stock: 40, FixedRent: 500, RevenueShare: 0.08,
 				Radius: shopRadiusForZone(p.Zone, p.Slots),
 				StockSource: "own", AutoRestock: true,
 			}

@@ -139,6 +139,28 @@ func (e *Engine) RentShop(firmID, cityID string, x, y int, shopType, itemID stri
 }
 
 func (e *Engine) defaultShopTypeForItem(itemID string) string {
+	prefer := []string{}
+	if it, ok := e.Catalog.ItemByID[itemID]; ok {
+		switch it.Category {
+		case "fuel":
+			prefer = []string{"fuel_station"}
+		case "food", "dairy", "grain", "veg", "fruit":
+			prefer = []string{"grocery", "bakery_shop", "dairy_shop"}
+		case "apparel", "textile":
+			prefer = []string{"apparel_shop", "fashion_boutique"}
+		case "home", "timber":
+			prefer = []string{"furniture_shop", "home_decor", "hardware"}
+		case "metal", "mineral", "packaging":
+			prefer = []string{"hardware", "building_market"}
+		case "tech":
+			prefer = []string{"electronics_shop"}
+		}
+	}
+	for _, id := range prefer {
+		if e.ShopAllowsItem(id, itemID) == nil {
+			return id
+		}
+	}
 	for _, s := range e.Catalog.Shops {
 		if e.ShopAllowsItem(s.ID, itemID) == nil {
 			return s.ID

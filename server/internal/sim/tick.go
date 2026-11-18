@@ -401,7 +401,15 @@ func (e *Engine) runRetail(log *[]string) {
 				}
 			}
 			sold := 0
+			// Cap per-tick retail so shelves aren't wiped before AI/player can restock (playable loop).
+			maxSold := 8
+			if shop.Stock < 20 {
+				maxSold = 5
+			}
 			for i := range cells {
+				if sold >= maxSold {
+					break
+				}
 				c := &cells[i]
 				dist := abs(c.x-shop.X) + abs(c.y-shop.Y)
 				if dist > radius {
@@ -418,7 +426,8 @@ func (e *Engine) runRetail(log *[]string) {
 				}
 				distFactor := 1.0 - float64(dist)/float64(radius+1)
 				attract := (quality/5.0)*0.35 + (1.0-clamp(shop.Price/300.0, 0, 1))*0.3 + brand*0.15 + distFactor*0.2
-				take := int(math.Min(float64(shop.Stock-sold), local*attract*0.5))
+				take := int(math.Min(float64(shop.Stock-sold), local*attract*0.35))
+				take = min(take, maxSold-sold)
 				if take <= 0 {
 					continue
 				}
@@ -492,15 +501,25 @@ func (e *Engine) aiAct(log *[]string) {
 		if !f.IsAI {
 			continue
 		}
+		// Items reserved for own shopfronts — don't dump them on the exchange first.
+		shopNeed := map[string]int{}
+		for _, shop := range e.World.Shops {
+			if shop.FirmID != f.ID {
+				continue
+			}
+			if shop.Stock < 25 {
+				shopNeed[shop.ItemID] += 25 - shop.Stock
+			}
+		}
 		// restock shops (respect shop specialization + stock source)
 		for _, shop := range e.World.Shops {
-			if shop.FirmID != f.ID || !shop.AutoRestock || shop.Stock >= 15 {
+			if shop.FirmID != f.ID || !shop.AutoRestock || shop.Stock >= 25 {
 				continue
 			}
 			if e.ShopAllowsItem(shop.ShopType, shop.ItemID) != nil {
 				continue
 			}
-			need := 15 - shop.Stock
+			need := 25 - shop.Stock
 			switch shop.StockSource {
 			case "city":
 				for _, b := range e.World.Buildings {
@@ -515,6 +534,22 @@ func (e *Engine) aiAct(log *[]string) {
 				}
 			default:
 				taken := e.takeInventory(f.ID, shop.CityID, shop.ItemID, need)
+				if taken < need {
+					// Fallback: buy from city wholesale into any firm building, then pull to shop.
+					for _, b := range e.World.Buildings {
+						if b.FirmID != f.ID {
+							continue
+						}
+						n := e.buyCityIntoBuilding(b, shop.ItemID, need-taken, log)
+						if n > 0 {
+							b.Inventory[shop.ItemID] -= n
+							taken += n
+						}
+						if taken >= need {
+							break
+						}
+					}
+				}
 				shop.Stock += taken
 			}
 		}
@@ -527,15 +562,19 @@ func (e *Engine) aiAct(log *[]string) {
 				if idef.Tier != "finished" && idef.Tier != "intermediate" {
 					continue
 				}
-				if qty < 12 {
+				reserve := shopNeed[item]
+				avail := qty - reserve
+				if avail < 18 {
 					continue
 				}
-				sellQty := qty / 3
+				sellQty := avail / 3
 				b.Inventory[item] -= sellQty
 				id := uuid.NewString()
-				price := 30.0
-				if idef.Tier == "finished" {
-					price = 80
+				price := 80.0
+				if c, ok := e.Catalog.Economy.PriceCorridors[item]; ok {
+					price = (c.Min + c.Max) / 2
+				} else if idef.Tier != "finished" {
+					price = 40
 				}
 				e.World.Orders[id] = &model.MarketOrder{
 					ID: id, FirmID: f.ID, CityID: b.CityID, ItemID: item, Side: "sell",

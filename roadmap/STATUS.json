@@ -1,14 +1,25 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project": "BashCapitalOnline",
   "updated": "2026-11-18",
   "branch_default": "main",
   "active_pr": null,
-  "instructions_for_ai": "Pick the highest-priority item with status=next that is not claimed. Set status=in_progress and claim.owner before coding. On finish set status=done, fill notes/files, update ROADMAP.md, commit and push to main (and keep PR branch in sync if open).",
+  "honesty_rule": "status=done means code exists and runs in-repo. It does NOT mean production-ready, device-verified, load-tested, or live payments. Use maturity: shipped | mvp | scaffold | unverified. Never mark scaffold as if it were shipped.",
+  "instructions_for_ai": "Read roadmap/STAGES.md for HOW. Read priority_order here for WHAT next. Claim one next item, implement, set honest maturity, update ROADMAP.md, push main. Current focus: S3 Playable loop so a human can play 30–60 minutes.",
+  "maturity_legend": {
+    "shipped": "Used end-to-end in normal play; no known major gaps for the claimed scope",
+    "mvp": "Works for local/dev play; balance/UX still need iteration",
+    "scaffold": "API/hooks/UI stubs exist; core behavior incomplete",
+    "unverified": "Code path exists but not proven on real device/env"
+  },
   "priority_order": [
-    "RM-STERLITAMAK",
     "RM-DEMAND",
     "RM-CONTRACTS-UI",
+    "RM-PAYMENT-LIVE",
+    "RM-APK-VERIFY",
+    "RM-MAP-INCREMENTAL",
+    "RM-POSTGRES",
+    "RM-LOAD-TEST",
     "RM-I18N"
   ],
   "items": [
@@ -16,8 +27,9 @@
       "id": "RM-MVP-CORE",
       "title": "Core economy server + web/Godot MVP",
       "status": "done",
+      "maturity": "mvp",
       "area": "server",
-      "notes": "Go sim, hourly ticks, Ufa/Beloretsk, roads, deposits",
+      "notes": "Go sim, ticks, firms, buildings, roads, deposits. Local multiplayer-shaped server — not load-tested.",
       "files": [
         "server/",
         "client/",
@@ -29,18 +41,54 @@
       "id": "RM-CATALOG",
       "title": "Capitalism Lab–style diverse catalog",
       "status": "done",
+      "maturity": "mvp",
       "area": "data",
+      "notes": "~1000 items via generators + icon fields. Content scale is real; hand-polish vs CapLab is not claimed.",
       "files": [
         "data/items.json",
         "data/recipes.json",
         "data/buildings.json"
+      ]
+    },
+    {
+      "id": "RM-CATALOG-SCALE",
+      "title": "CapLab-scale Bashkortostan catalog + chain/margin validation",
+      "status": "done",
+      "maturity": "mvp",
+      "area": "content",
+      "notes": "~1008 items / ~1730 recipes / 110 buildings / 26 shops. Chains validated (no resource→recipe→shop holes). Bashkortostan-2026 corridor rebalance scripted — still needs live playtest (see RM-BALANCE-PLAYTEST).",
+      "files": [
+        "scripts/gen_full_catalog.py",
+        "scripts/validate_chains.py",
+        "scripts/rebalance_economy.py",
+        "data/chain_validation.json",
+        "data/balance_report.json"
       ],
-      "notes": "Scaled to ~1000 items with Bashkortostan chains; icon field on every item"
+      "updated": "2026-11-18",
+      "stage": "S1"
+    },
+    {
+      "id": "RM-CATALOG-ICONS",
+      "title": "Full catalog icons for items/buildings/shops",
+      "status": "done",
+      "maturity": "mvp",
+      "area": "art",
+      "notes": "1008 item + 110 building + 26 shop icons; AI archetype sheets + procedural variants; art pack v3. Map still often falls back to older iso tiles when a unique map sprite is missing.",
+      "files": [
+        "scripts/gen_catalog_icons.py",
+        "scripts/build_art_pack.py",
+        "client/assets/icons/",
+        "web/assets/icons/",
+        "data/remote_manifest.json"
+      ],
+      "updated": "2026-11-18",
+      "stage": "S1"
     },
     {
       "id": "RM-SHOP-SPEC",
       "title": "Shop type specialization allowlists",
       "status": "done",
+      "maturity": "shipped",
       "area": "economy",
       "files": [
         "data/shops.json",
@@ -51,6 +99,7 @@
       "id": "RM-FACTORY-SPEC",
       "title": "Factory recipe locked to building type",
       "status": "done",
+      "maturity": "shipped",
       "area": "economy",
       "files": [
         "server/internal/sim/policies.go",
@@ -61,6 +110,7 @@
       "id": "RM-FACTORY-OPS",
       "title": "Factory/shop ops: sources + sell_external",
       "status": "done",
+      "maturity": "mvp",
       "area": "economy",
       "files": [
         "server/internal/sim/actions.go",
@@ -71,6 +121,7 @@
       "id": "RM-CITY-MARKET",
       "title": "City wholesale low-quality + price corridors",
       "status": "done",
+      "maturity": "mvp",
       "area": "economy",
       "files": [
         "data/economy.json",
@@ -81,7 +132,9 @@
       "id": "RM-AI-SEED",
       "title": "Diverse AI production chains",
       "status": "done",
+      "maturity": "mvp",
       "area": "ai",
+      "notes": "AI firms in Ufa/Beloretsk/Sterlitamak. Placement can skip buildings if parcels/deposits conflict.",
       "files": [
         "server/internal/sim/world.go",
         "data/ai_personas.json"
@@ -91,6 +144,7 @@
       "id": "RM-AI-CHAT",
       "title": "AI personas + rate-limited chat",
       "status": "done",
+      "maturity": "mvp",
       "area": "ai",
       "files": [
         "server/internal/sim/chat.go"
@@ -100,7 +154,9 @@
       "id": "RM-MAP-SPRITES",
       "title": "Iso map sprites for buildings/deposits",
       "status": "done",
+      "maturity": "mvp",
       "area": "art",
+      "notes": "Iso tiles + procedural fallbacks + catalog icon fallbacks. Not every building has a unique painted map sprite.",
       "files": [
         "scripts/gen_map_sprites.py",
         "client/assets/map/",
@@ -111,6 +167,7 @@
       "id": "RM-WEB-MOBILE",
       "title": "Mobile web UI + manage sheets",
       "status": "done",
+      "maturity": "mvp",
       "area": "client-web",
       "files": [
         "web/index.html",
@@ -122,12 +179,13 @@
       "id": "RM-ROADMAP-DOCS",
       "title": "In-repo roadmap for AI executors",
       "status": "done",
+      "maturity": "shipped",
       "area": "meta",
+      "notes": "STATUS is source of truth; maturity field required so docs do not overclaim.",
       "files": [
         "ROADMAP.md",
         "AGENTS.md",
         "roadmap/STATUS.json",
-        "scripts/sync_roadmap_to_github.sh",
         ".github/"
       ]
     },
@@ -135,8 +193,9 @@
       "id": "RM-ADMIN",
       "title": "Admin portal: world/prices/recipes/cities",
       "status": "done",
+      "maturity": "mvp",
       "area": "admin",
-      "notes": "Token-gated admin API + web/admin.html; pause/tick/economy/cities/recipe",
+      "notes": "Token-gated admin API + web/admin.html for local/dev ops.",
       "files": [
         "server/internal/api/admin.go",
         "server/internal/sim/admin.go",
@@ -147,8 +206,8 @@
       "id": "RM-GODOT-MOBILE",
       "title": "Godot mobile factory/shop configure panels",
       "status": "done",
+      "maturity": "mvp",
       "area": "client-godot",
-      "notes": "ManagePanel parity with web manage sheet; tap owned tile opens sheet",
       "files": [
         "client/scripts/manage_panel.gd",
         "client/scripts/main.gd",
@@ -157,42 +216,48 @@
     },
     {
       "id": "RM-PERSIST",
-      "title": "Persist world state (SQLite/Postgres)",
+      "title": "Persist world state (SQLite)",
       "status": "done",
+      "maturity": "mvp",
       "area": "server",
-      "notes": "modernc.org/sqlite world blob + accounts/sessions/payments; autosave each tick",
+      "notes": "SQLite only (world blob + accounts/sessions/payments; autosave each tick). PostgreSQL is NOT implemented — see RM-POSTGRES.",
       "files": [
         "server/internal/store/persist.go",
         "server/cmd/server/main.go"
-      ]
+      ],
+      "updated": "2026-11-18"
     },
     {
       "id": "RM-AUTH",
       "title": "Player accounts / sessions",
       "status": "done",
+      "maturity": "mvp",
       "area": "server",
-      "notes": "register/login + X-Session-Token; firm link on /api/register",
+      "notes": "register/login + X-Session-Token; firm link. No OAuth/social login.",
       "files": [
         "server/internal/api/auth.go"
       ]
     },
     {
       "id": "RM-PAYMENT",
-      "title": "Real subscription payment webhook",
+      "title": "Subscription payment stub (YooKassa-shaped)",
       "status": "done",
+      "maturity": "scaffold",
       "area": "monetization",
-      "notes": "YooKassa-shaped create + webhook + mock-pay; YOOKASSA_SECRET when live",
+      "notes": "Create + webhook shape + mock-pay for local/dev. Real YooKassa money flow NOT live — see RM-PAYMENT-LIVE.",
       "files": [
         "server/internal/api/payment.go",
         "server/internal/sim/deputy.go"
-      ]
+      ],
+      "updated": "2026-11-18"
     },
     {
       "id": "RM-LOGISTICS-DIST",
       "title": "Distance-based delivery (min 1 tick)",
       "status": "done",
+      "maturity": "mvp",
       "area": "economy",
-      "notes": "Ticks/cost from city coords; same-city local=1 tick; market fills via shipments",
+      "notes": "Ticks/cost from schematic city coords; same-city local = 1 tick. Coords are game-projection, not GIS.",
       "files": [
         "server/internal/sim/logistics.go",
         "server/internal/sim/tick.go",
@@ -204,8 +269,9 @@
       "id": "RM-BASHKIR-FLAVOR",
       "title": "Bashkir products + season + rnd_tree + map elevation",
       "status": "done",
+      "maturity": "mvp",
       "area": "content",
-      "notes": "koumiss/qurut/chakchak/honey; season bonuses; rnd_tree.json; parcel elevation",
+      "notes": "koumiss/qurut/chakchak/honey; season bonuses; rnd_tree; parcel elevation for preview. City maps are local iso grids, not a geographic Bashkortostan map.",
       "files": [
         "data/items.json",
         "data/recipes.json",
@@ -215,116 +281,239 @@
     },
     {
       "id": "RM-ASSETS-APK",
-      "title": "Remote asset pack + in-app APK update",
+      "title": "Remote asset pack + APK update plumbing",
       "status": "done",
+      "maturity": "unverified",
       "area": "client-godot",
       "acceptance": [
-        "Manifest-driven download of map/ui assets",
-        "Version check + APK download prompt on Android"
+        "Manifest-driven download of map/ui assets (code path)",
+        "Version check + APK download prompt code exists"
       ],
-      "files_hint": [
-        "data/remote_manifest.json",
-        "client/scripts/"
-      ],
-      "notes": "Manifest v3 + zip packs; full item/building/shop icon catalog; Godot RemoteAssets + APK prompt",
+      "notes": "Manifest v3 + zip packs + Godot RemoteAssets + APK prompt code. Device install of current APK NOT verified — see RM-APK-VERIFY.",
       "files": [
         "data/remote_manifest.json",
         "data/packs/",
         "client/scripts/remote_assets.gd",
-        "server/internal/api/admin.go",
         "scripts/build_art_pack.py"
-      ]
+      ],
+      "updated": "2026-11-18"
     },
     {
       "id": "RM-MAP-DIRTY",
-      "title": "Finish dirty-tile incremental map redraw",
+      "title": "Dirty-tile tracking + map_revision plumbing",
       "status": "done",
+      "maturity": "scaffold",
       "area": "client",
-      "files_hint": [
-        "server/internal/sim/dirty.go",
-        "client/scripts/city_map.gd",
-        "web/app.js"
-      ],
-      "notes": "Dirty tiles tracked server-side; client receives map_revision/dirty list (full redraw still, incremental hook ready)",
+      "notes": "Server tracks dirty tiles; client receives map_revision/dirty list but still full-redraws. Real incremental paint is RM-MAP-INCREMENTAL.",
       "files": [
         "server/internal/sim/dirty.go",
         "client/scripts/city_map.gd",
         "client/scripts/main.gd"
-      ]
+      ],
+      "updated": "2026-11-18"
     },
     {
-      "id": "RM-CONTRACTS-UI",
-      "title": "Mobile UI for contracts and exchange",
-      "status": "next",
-      "area": "client-web"
+      "id": "RM-BALANCE",
+      "title": "Scripted economy corridor rebalance",
+      "status": "done",
+      "maturity": "mvp",
+      "area": "economy",
+      "notes": "Bottom-up corridors + recipe ratio script. Not a substitute for multi-hour playtest balance.",
+      "files": [
+        "scripts/rebalance_economy.py",
+        "data/economy.json",
+        "data/chains.json",
+        "data/balance_report.json"
+      ],
+      "updated": "2026-11-18"
     },
     {
       "id": "RM-STERLITAMAK",
       "title": "Enable Sterlitamak as 3rd city",
-      "status": "next",
+      "status": "done",
+      "maturity": "mvp",
       "area": "world",
       "depends_on": [
         "RM-ADMIN"
-      ]
+      ],
+      "notes": "Enabled chemistry city with deposits + AI СодаСтерлитамак + web/Godot city switcher. Other RB cities remain disabled. Map coords schematic.",
+      "files": [
+        "data/cities.json",
+        "server/internal/sim/world.go",
+        "web/app.js",
+        "client/scripts/main.gd"
+      ],
+      "updated": "2026-11-18",
+      "stage": "S2"
+    },
+    {
+      "id": "RM-MAP-INCREMENTAL",
+      "title": "Actual incremental map redraw (not full redraw)",
+      "status": "next",
+      "maturity": "scaffold",
+      "area": "client",
+      "depends_on": [
+        "RM-MAP-DIRTY"
+      ],
+      "notes": "Use dirty tile list to repaint only changed parcels/buildings on web + Godot.",
+      "updated": "2026-11-18",
+      "stage": "S8"
     },
     {
       "id": "RM-DEMAND",
       "title": "Deeper CapLab demand/quality/brand model",
       "status": "next",
-      "area": "economy"
+      "area": "economy",
+      "notes": "Current demandSeg is population×constants. Need quality tiers, brand, class demand like CapLab.",
+      "stage": "S4"
     },
     {
-      "id": "RM-BALANCE",
-      "title": "Economy balance pass for hourly ticks",
+      "id": "RM-CONTRACTS-UI",
+      "title": "Mobile UI for contracts and exchange",
+      "status": "next",
+      "area": "client-web",
+      "notes": "Server contracts/orders exist; phone UI for them is thin/missing.",
+      "stage": "S5"
+    },
+    {
+      "id": "RM-PAYMENT-LIVE",
+      "title": "Live YooKassa subscription payments",
+      "status": "next",
+      "area": "monetization",
+      "depends_on": [
+        "RM-PAYMENT"
+      ],
+      "notes": "Wire real Payment create + signed webhooks with YOOKASSA_SECRET; remove mock-pay from production builds.",
+      "updated": "2026-11-18",
+      "stage": "S6"
+    },
+    {
+      "id": "RM-APK-VERIFY",
+      "title": "Build and verify Android APK on a real device",
+      "status": "next",
+      "area": "client-godot",
+      "depends_on": [
+        "RM-ASSETS-APK"
+      ],
+      "notes": "Export Godot APK, install, confirm remote packs + update prompt + gameplay.",
+      "updated": "2026-11-18",
+      "stage": "S7"
+    },
+    {
+      "id": "RM-BALANCE-PLAYTEST",
+      "title": "Live playtest pass on catalog margins & AI economy",
       "status": "done",
       "area": "economy",
-      "notes": "Bottom-up corridors + recipe ratio fixes; scripts/rebalance_economy.py; data/chains.json; sim reads economy.balance wages/energy",
-      "files": [
-        "scripts/rebalance_economy.py",
-        "data/economy.json",
-        "data/recipes.json",
-        "data/chains.json",
-        "data/balance_report.json",
-        "server/internal/sim/tick.go"
+      "depends_on": [
+        "RM-CATALOG-SCALE",
+        "RM-BALANCE"
       ],
-      "updated": "2026-11-18"
+      "notes": "24-tick playtest: AI shops stay stocked after corridor prices, retail cap, build-site fallback, restock reserve. See data/playtest_notes.md",
+      "updated": "2026-11-18",
+      "stage": "S3",
+      "maturity": "mvp",
+      "files": [
+        "server/internal/sim/tick.go",
+        "server/internal/sim/world.go",
+        "data/playtest_notes.md"
+      ]
+    },
+    {
+      "id": "RM-POSTGRES",
+      "title": "Optional Postgres persistence backend",
+      "status": "backlog",
+      "area": "server",
+      "depends_on": [
+        "RM-PERSIST"
+      ],
+      "notes": "Only SQLite today. Add Postgres if/when multi-instance hosting needs it.",
+      "updated": "2026-11-18",
+      "stage": "S8"
+    },
+    {
+      "id": "RM-LOAD-TEST",
+      "title": "Multiplayer load / soak test",
+      "status": "backlog",
+      "area": "server",
+      "notes": "No concurrent-player load test yet. Measure tick latency, WS fanout, SQLite lock contention.",
+      "updated": "2026-11-18",
+      "stage": "S8"
+    },
+    {
+      "id": "RM-GEO-MAP",
+      "title": "Republic-scale geographic map (optional)",
+      "status": "backlog",
+      "area": "world",
+      "notes": "Today: per-city iso grids + schematic x/y for logistics. Not a geographically accurate Bashkortostan map.",
+      "updated": "2026-11-18",
+      "stage": "S8"
     },
     {
       "id": "RM-I18N",
       "title": "Bashkir / English UI",
       "status": "backlog",
-      "area": "client"
+      "area": "client",
+      "stage": "S8"
     },
     {
-      "id": "RM-CATALOG-ICONS",
-      "title": "Full catalog icons for items/buildings/shops",
+      "id": "RM-FIRST-RUN",
+      "title": "First-run onboarding + 2-minute play README",
       "status": "done",
-      "area": "art",
-      "notes": "1008 item + 110 building + 26 shop icons; AI archetype sheets + procedural variants; art pack v3",
-      "files": [
-        "scripts/gen_catalog_icons.py",
-        "scripts/build_art_pack.py",
-        "client/assets/icons/",
-        "web/assets/icons/",
-        "data/remote_manifest.json"
+      "maturity": "mvp",
+      "area": "client-web",
+      "stage": "S3",
+      "notes": "README 2-min launch; web play-hint; cities Уфа/Белорецк/Стерлитамак documented",
+      "files_hint": [
+        "README.md",
+        "web/app.js",
+        "web/index.html"
       ],
-      "updated": "2026-11-18"
+      "updated": "2026-11-18",
+      "files": [
+        "README.md",
+        "web/index.html",
+        "web/app.js",
+        "web/styles.css",
+        "roadmap/STAGES.md"
+      ]
     },
     {
-      "id": "RM-CATALOG-SCALE",
-      "title": "CapLab-scale Bashkortostan catalog + chain/margin validation",
+      "id": "RM-DEPUTY-UX",
+      "title": "Show deputy tasks + last_note in web More tab",
       "status": "done",
-      "area": "content",
-      "notes": "~1008 items / 1730 recipes / 110 buildings / 26 shops; chains validated; Bashkortostan-2026 margins; icons wired",
-      "files": [
-        "scripts/gen_full_catalog.py",
-        "scripts/validate_chains.py",
-        "scripts/rebalance_economy.py",
-        "data/items.json",
-        "data/recipes.json",
-        "data/chain_validation.json"
+      "area": "client-web",
+      "stage": "S3",
+      "notes": "More tab shows deputy task list + last_note",
+      "files_hint": [
+        "web/app.js",
+        "web/index.html"
       ],
-      "updated": "2026-11-18"
+      "updated": "2026-11-18",
+      "maturity": "mvp",
+      "files": [
+        "web/index.html",
+        "web/app.js"
+      ]
+    },
+    {
+      "id": "RM-MAP-ICONS-PLAY",
+      "title": "Map shows deposit/shop product icons in play",
+      "status": "done",
+      "area": "client-web",
+      "stage": "S3",
+      "notes": "Web map uses item_/bld_/shop icons for deposits, buildings, shopfront products",
+      "files_hint": [
+        "web/app.js",
+        "client/scripts/city_map.gd"
+      ],
+      "updated": "2026-11-18",
+      "maturity": "mvp",
+      "files": [
+        "web/app.js",
+        "client/scripts/city_map.gd"
+      ]
     }
-  ]
+  ],
+  "current_stage": "S3",
+  "stages_doc": "roadmap/STAGES.md"
 }

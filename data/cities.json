@@ -31,9 +31,9 @@
     "focus": "chemistry",
     "start_population": 7000,
     "start_radius": 3,
-    "resources": ["chemicals", "sand", "gas", "oil"],
+    "resources": ["chemicals", "sand", "gas", "oil", "salt", "limestone", "clay"],
     "labor": {"worker": 2800, "engineer": 700, "manager": 180},
-    "enabled": false
+    "enabled": true
   },
   {
     "id": "salavat",

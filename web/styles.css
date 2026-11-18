@@ -64,9 +64,21 @@ body {
   background: rgba(255,255,255,.05); color: var(--text);
   padding: 11px 12px; font: inherit; margin: 0;
 }
+.play-hint {
+  margin: 0 0 10px; padding: 12px 14px; border-radius: 14px;
+  border: 1px solid rgba(210,179,106,.35);
+  background: linear-gradient(135deg, rgba(61,155,132,.18), rgba(12,26,24,.7));
+}
+.play-hint strong { display: block; color: var(--accent-2); margin-bottom: 4px; font-size: 13px; }
+.play-hint p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.play-hint.hidden { display: none; }
+.city-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px;
   background: rgba(61,155,132,.15); border: 1px solid rgba(61,155,132,.35);
+}
+.chip.active {
+  background: rgba(61,155,132,.35); border-color: var(--accent-2); color: #fff;
 }
 .chip img, button img, .tab img, .sheet-head img { width: 18px; height: 18px; }
 button {

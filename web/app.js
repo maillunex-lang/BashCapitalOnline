@@ -1,7 +1,7 @@
 const state = {
   base: "http://127.0.0.1:8080",
   firmId: localStorage.getItem("bc_firm") || "",
-  city: "ufa",
+  city: sessionStorage.getItem("bc_shot_city") || "ufa",
   world: null,
   catalog: null,
   selected: null,
@@ -10,6 +10,7 @@ const state = {
   tab: "map",
   manage: null,
 };
+sessionStorage.removeItem("bc_shot_city");
 
 const $ = (id) => document.getElementById(id);
 
@@ -33,13 +34,33 @@ const SHOP_ITEM_BY_INDUSTRY = {
   apparel: "clothing", steel: "goods_steel", oil: "fuel_can_gasoline",
 };
 
-function img(name) {
+function img(name, folder = "map") {
   if (!name) return null;
-  if (state.imgs[name]) return state.imgs[name];
+  const key = `${folder}:${name}`;
+  if (state.imgs[key]) return state.imgs[key];
   const el = new Image();
-  el.src = `./assets/map/${name}.png`;
-  state.imgs[name] = el;
+  el.src = `./assets/${folder}/${name}.png`;
+  state.imgs[key] = el;
   return el;
+}
+function mapImg(name) {
+  return img(name, "map");
+}
+function iconImg(name) {
+  return img(name, "icons");
+}
+function uiImg(name) {
+  return img(name, "ui");
+}
+function assetImg(...names) {
+  for (const n of names) {
+    if (!n) continue;
+    const folder = n.startsWith("item_") || n.startsWith("bld_") ? "icons"
+      : n.startsWith("shop_") || n.startsWith("icon_") ? "ui" : "map";
+    const el = img(n, folder);
+    if (el) return el;
+  }
+  return null;
 }
 
 function itemDef(id) {
@@ -104,8 +125,31 @@ function fillBuildsFromCatalog() {
     o.textContent = s.name;
     shopSel.appendChild(o);
   });
+  fillCityChips();
   refreshRecipes();
   refreshShopItems();
+}
+
+function enabledCities() {
+  return (state.catalog?.cities || []).filter((c) => c.enabled !== false);
+}
+
+function fillCityChips() {
+  const host = $("cityChips");
+  if (!host) return;
+  host.innerHTML = "";
+  enabledCities().forEach((c) => {
+    const btn = document.createElement("button");
+    btn.className = "chip" + (state.city === c.id ? " active" : "");
+    btn.dataset.city = c.id;
+    btn.innerHTML = `<img src="./assets/ui/icon_map.png" alt="" /> ${c.name}`;
+    btn.onclick = () => {
+      state.city = c.id;
+      fillCityChips();
+      refresh();
+    };
+    host.appendChild(btn);
+  });
 }
 
 function refreshRecipes() {
@@ -151,6 +195,23 @@ async function api(path, opts = {}) {
 
 function money(v) { return Math.round(Number(v || 0)).toLocaleString("ru-RU"); }
 
+function renderDeputyTasks(f) {
+  const host = $("deputyTasks");
+  if (!host) return;
+  if (!f.deputy?.hired) {
+    host.innerHTML = "<div class='row muted'>Заместитель не нанят</div>";
+    return;
+  }
+  const tasks = f.deputy.tasks || [];
+  host.innerHTML = `<h3 style="color:var(--accent-2);font-size:13px">Задания · ${f.deputy.name}</h3>` + (
+    tasks.length
+      ? tasks.map((t) =>
+        `<div class="row"><div><strong>${t.label || t.kind}</strong><br/><span class="muted">${t.active === false ? "выкл" : "активно"}${t.last_note ? " · " + t.last_note : ""}</span></div></div>`
+      ).join("")
+      : "<div class='row muted'>Задания не выданы — отметьте галочки и нажмите «Выдать задания»</div>"
+  );
+}
+
 function setTab(tab) {
   state.tab = tab;
   document.querySelectorAll(".tab").forEach((el) => el.classList.toggle("active", el.dataset.tab === tab));
@@ -171,13 +232,17 @@ async function refresh() {
   const w = state.world;
   $("tick").textContent = w.tick;
   $("date").textContent = `${String(w.month).padStart(2, "0")}.${w.year}`;
+  if ($("playHint")) $("playHint").classList.toggle("hidden", Boolean(state.firmId));
   if (state.firmId && w.firms[state.firmId]) {
     const f = w.firms[state.firmId];
     $("cash").textContent = `${money(f.cash)} ₽`;
     $("topSub").textContent = f.name;
     $("subStatus").textContent = f.subscription_active
       ? `Подписка до тика ${f.subscription_until_tick}${f.deputy?.hired ? " · " + f.deputy.name : ""}`
-      : "Подписка не активна";
+      : "Подписка не активна (нужна для заместителя)";
+    renderDeputyTasks(f);
+  } else if ($("deputyTasks")) {
+    $("deputyTasks").innerHTML = "<div class='row muted'>Откройте фирму и оформите подписку, чтобы нанять заместителя</div>";
   }
   const cityDef = (state.catalog.cities || []).find((c) => c.id === state.city);
   $("cityPill").textContent = cityDef?.name || state.city;
@@ -371,7 +436,7 @@ function drawMap() {
     const [ix, iy] = iso(p.x, p.y);
     const cx = ox + ix, cy = oy + iy;
     const selected = state.selected && state.selected.x === p.x && state.selected.y === p.y;
-    const tile = img(ZONE_TILE[p.zone] || "tile_grass");
+    const tile = mapImg(ZONE_TILE[p.zone] || "tile_grass");
     if (tile?.complete && tile.naturalWidth) {
       const s = 0.55;
       ctx.globalAlpha = selected ? 1 : 0.95;
@@ -382,11 +447,11 @@ function drawMap() {
     }
     const dep = deposits.find((d) => d.x === p.x && d.y === p.y && d.amount > 0);
     if (dep) {
-      const di = img("res_" + dep.item_id);
-      if (di?.complete && di.naturalWidth) ctx.drawImage(di, cx - 14, cy - 4, 28, 28);
+      const di = assetImg("res_" + dep.item_id, "item_" + dep.item_id);
+      if (di?.complete && di.naturalWidth) ctx.drawImage(di, cx - 16, cy - 6, 32, 32);
     }
     if (p.has_road) {
-      const road = img("tile_road");
+      const road = mapImg("tile_road");
       if (road?.complete && road.naturalWidth) {
         ctx.globalAlpha = 0.85;
         ctx.drawImage(road, cx - 18, cy - 14, 36, 28);
@@ -394,17 +459,23 @@ function drawMap() {
       }
     }
     const bld = buildings.find((b) => b.x === p.x && b.y === p.y);
+    const shopHere = shops.find((s) => s.x === p.x && s.y === p.y);
     if (bld) {
-      const bi = img(BUILDING_SPRITE[bld.type] || "");
+      const bi = assetImg(BUILDING_SPRITE[bld.type] || "", "bld_" + bld.type, buildingDef(bld.type)?.icon);
       if (bi?.complete && bi.naturalWidth) {
         const s = 0.48;
         ctx.drawImage(bi, cx - bi.width * s * 0.5, cy - bi.height * s * 0.78, bi.width * s, bi.height * s);
       } else drawBuilding(ctx, cx, cy, p.zone === "industrial");
-      if (selected && bld.firm_id === state.firmId) {
-        // quick open hint
+    } else if (shopHere) {
+      const si = assetImg(shopDef(shopHere.shop_type)?.icon, "shop_" + shopHere.shop_type, "bld_shop");
+      if (si?.complete && si.naturalWidth) {
+        const s = 0.42;
+        ctx.drawImage(si, cx - si.width * s * 0.5, cy - si.height * s * 0.75, si.width * s, si.height * s);
       }
-    } else if ((p.retail_slots || 0) > 0) {
-      const shopImg = img("bld_shop");
+      const pi = assetImg("item_" + shopHere.item_id, itemDef(shopHere.item_id)?.icon);
+      if (pi?.complete && pi.naturalWidth) ctx.drawImage(pi, cx + 6, cy - 6, 22, 22);
+    } else if ((p.retail_slots || p.slots || 0) > 0) {
+      const shopImg = mapImg("bld_shop");
       if (shopImg?.complete && shopImg.naturalWidth) {
         const s = 0.42;
         ctx.drawImage(shopImg, cx - shopImg.width * s * 0.5, cy - shopImg.height * s * 0.75, shopImg.width * s, shopImg.height * s);
@@ -483,7 +554,11 @@ $("register").onclick = async () => {
     });
     state.firmId = firm.id;
     localStorage.setItem("bc_firm", firm.id);
-    state.city = ["steel", "oil"].includes($("industry").value) ? "beloretsk" : "ufa";
+    const ind = $("industry").value;
+    if (ind === "steel") state.city = "beloretsk";
+    else if (ind === "oil") state.city = enabledCities().some((c) => c.id === "sterlitamak") ? "sterlitamak" : "beloretsk";
+    else state.city = "ufa";
+    fillCityChips();
     setTab("map");
     await refresh();
   } catch (err) { alert(err.message); }
@@ -522,8 +597,7 @@ $("tickBtn").onclick = async () => {
   try { await api("/api/tick", { method: "POST", body: "{}" }); await refresh(); }
   catch (e) { alert(e.message); }
 };
-$("ufa").onclick = () => { state.city = "ufa"; refresh(); };
-$("bel").onclick = () => { state.city = "beloretsk"; refresh(); };
+// city chips are built dynamically from catalog.enabled cities
 $("quality").value = String(state.quality);
 $("quality").onchange = () => {
   state.quality = Number($("quality").value);

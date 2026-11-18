@@ -29,12 +29,15 @@
     <main class="stage">
       <section class="map-card" id="mapSection">
         <div class="map-toolbar">
-          <button class="chip" id="ufa"><img src="./assets/ui/icon_map.png" alt="" /> Уфа</button>
-          <button class="chip" id="bel"><img src="./assets/ui/icon_map.png" alt="" /> Белорецк</button>
+          <div class="city-chips" id="cityChips"></div>
           <span class="pill" id="cityPill">Уфа</span>
         </div>
+        <div id="playHint" class="play-hint">
+          <strong>Как начать</strong>
+          <p>1) Вкладка «Фирма» → название и отрасль → «Открыть фирму». 2) На карте найдите залежь (иконка ресурса). 3) Выберите здание/рецепт и нажмите «Завод». 4) «Тик» двигает экономику.</p>
+        </div>
         <canvas id="map" width="900" height="560"></canvas>
-        <div id="tileInfo" class="tile-info">Тапните участок</div>
+        <div id="tileInfo" class="tile-info">Тапните участок · стройка только на залежи нужного ресурса</div>
         <div class="map-actions" id="mapActions">
           <select id="buildType"></select>
           <select id="recipeType"></select>
@@ -80,7 +83,7 @@
         <option value="furniture">Мебель</option>
         <option value="apparel">Одежда</option>
         <option value="steel">Металл</option>
-        <option value="oil">Нефть</option>
+        <option value="oil">Нефть / химия (Стерлитамак)</option>
       </select>
       <button id="register">Открыть фирму</button>
       <button class="secondary" id="refresh">Обновить</button>
@@ -120,8 +123,8 @@
       </select>
       <h2>Подписка · заместитель</h2>
       <div id="subStatus" class="muted">Подписка не активна</div>
-      <button id="subscribe">Оформить подписку</button>
-      <input id="deputyName" value="Заместитель" />
+      <button id="subscribe">Оформить подписку (dev)</button>
+      <input id="deputyName" value="Рустам" />
       <button class="secondary" id="hireDeputy">Нанять</button>
       <label class="check"><input type="checkbox" class="task" value="procure_inputs" checked /> Поставщики</label>
       <label class="check"><input type="checkbox" class="task" value="restock" checked /> Магазины</label>
@@ -130,6 +133,7 @@
       <label class="check"><input type="checkbox" class="task" value="research" /> R&D</label>
       <label class="check"><input type="checkbox" class="task" value="auto_contracts" /> Контракты</label>
       <button class="secondary" id="applyTasks">Выдать задания</button>
+      <div id="deputyTasks" class="list"></div>
       <div class="art">
         <img src="./assets/icons/items_atlas.png" alt="Каталог товаров" />
         <img src="./assets/icons/buildings_atlas.png" alt="Каталог зданий" />

@@ -6,16 +6,26 @@
 - **Сервер:** Go authoritative sim (`server/`)
 - **Данные:** рецепты/города/здания (`data/`)
 - **Время:** 1 игровой месяц = 24 реальных часа, **тик = 1 реальный час = 1/24 месяца**
-- **MVP города:** Уфа и Белорецк, 2.5D расширяемая сетка
+- **Города (сейчас):** Уфа, Белорецк, Стерлитамак · 2.5D сетка на город
+- **Этапы разработки для AI:** [`roadmap/STAGES.md`](./roadmap/STAGES.md)
 
-## Быстрый старт (сервер)
+## Запуск за 2 минуты (поиграть)
 
 ```bash
-cd server
-go run ./cmd/server -data ../data -dev
+# 1) API (автотик каждые 30с в -dev)
+cd server && go run ./cmd/server -data ../data -dev -addr :8080
+
+# 2) Web UI — другой терминал
+cd web && python3 -m http.server 8090 --bind 127.0.0.1
 ```
 
-- `-dev` — автотик каждые 30 секунд (удобно для тестов)
+Откройте **http://127.0.0.1:8090/** → вкладка «Фирма» → название + отрасль → **Открыть фирму** → карта / тики / стройка.
+
+Чистый мир (если старый сейв мешает): `rm -f data/saves/bashcapital.db` и перезапуск сервера.
+
+### Флаги сервера
+
+- `-dev` — автотик каждые 30 секунд
 - без `-dev` — тик раз в 1 час (`-tick-hours 1`)
 - `-tick-hours 0` — только ручной `POST /api/tick`
 
@@ -36,7 +46,7 @@ API: `http://127.0.0.1:8080`
 
 - `GET /api/catalog` — справочники
 - `GET /api/world` — состояние мира
-- `POST /api/register` — `{ "name", "industry": "dairy|furniture|steel" }`
+- `POST /api/register` — `{ "name", "industry": "dairy|food|furniture|apparel|steel|oil" }`
 - `POST /api/action/...` + заголовок `X-Firm-Id`
 - `POST /api/tick` — форс-тик
 - `WS /ws` — события тика
