@@ -19,7 +19,7 @@ def active_users(path):
     target = str(path)
     found = []
     for proc in Path("/proc").iterdir():
-        if not proc.name.isdigit():
+        if not proc.name.isdigit() or int(proc.name) == os.getpid():
             continue
         try:
             cmd = (proc / "cmdline").read_bytes().replace(b"\0", b" ").decode(errors="replace")
