@@ -1,0 +1,408 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/api_client.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/city_map.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/graphics_settings.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/safe_area.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/city_ambience.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/settings_panel.gd" id="7"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="GraphicsSettings" type="Node" parent="."]
+script = ExtResource("4")
+
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+modulate = Color(0.75, 0.82, 0.8, 1)
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.09, 0.1, 0.55)
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5")
+
+[node name="UI" type="Control" parent="SafeArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ApiClient" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="TopBar" type="PanelContainer" parent="SafeArea/UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="TopBG" type="ColorRect" parent="SafeArea/UI/TopBar"]
+layout_mode = 2
+color = Color(0.09, 0.14, 0.15, 0.92)
+
+[node name="Logo" type="TextureRect" parent="SafeArea/UI/TopBar"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 6.0
+offset_right = 160.0
+offset_bottom = 58.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Status" type="Label" parent="SafeArea/UI/TopBar"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 20.0
+offset_right = 480.0
+offset_bottom = 48.0
+text = "BashCapital · Башкортостан"
+
+[node name="TickLabel" type="Label" parent="SafeArea/UI/TopBar"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 20.0
+offset_right = 760.0
+offset_bottom = 48.0
+text = "Тик —"
+
+[node name="CashLabel" type="Label" parent="SafeArea/UI/TopBar"]
+layout_mode = 0
+offset_left = 780.0
+offset_top = 20.0
+offset_right = 1100.0
+offset_bottom = 48.0
+text = "Касса: —"
+
+[node name="SettingsBtn" type="Button" parent="SafeArea/UI/TopBar"]
+layout_mode = 0
+offset_left = 1120.0
+offset_top = 14.0
+offset_right = 1280.0
+offset_bottom = 50.0
+text = "Настройки"
+[connection signal="pressed" from="SafeArea/UI/TopBar/SettingsBtn" to="." method="_on_settings_pressed"]
+
+[node name="LoginPanel" type="PanelContainer" parent="SafeArea/UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -210.0
+offset_right = 240.0
+offset_bottom = 210.0
+
+[node name="LoginBG" type="ColorRect" parent="SafeArea/UI/LoginPanel"]
+layout_mode = 2
+color = Color(0.1, 0.16, 0.17, 0.96)
+
+[node name="Margin" type="MarginContainer" parent="SafeArea/UI/LoginPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/UI/LoginPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Открыть фирму"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+text = "Полный экран · safe-area под камеру · тик = неделя"
+autowrap_mode = 3
+
+[node name="NameEdit" type="LineEdit" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+placeholder_text = "Название фирмы"
+text = "Уфимский Комбинат"
+
+[node name="Industry" type="OptionButton" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="UrlEdit" type="LineEdit" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+text = "http://127.0.0.1:8080"
+
+[node name="ConnectBtn" type="Button" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+text = "Войти в мир"
+[connection signal="pressed" from="SafeArea/UI/LoginPanel/Margin/VBox/ConnectBtn" to="." method="_on_connect_pressed"]
+
+[node name="CityTabs" type="HBoxContainer" parent="SafeArea/UI"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 80.0
+offset_right = 520.0
+offset_bottom = 120.0
+theme_override_constants/separation = 8
+
+[node name="UfaBtn" type="Button" parent="SafeArea/UI/CityTabs"]
+layout_mode = 2
+text = "Уфа"
+[connection signal="pressed" from="SafeArea/UI/CityTabs/UfaBtn" to="." method="_on_city_ufa"]
+
+[node name="BelBtn" type="Button" parent="SafeArea/UI/CityTabs"]
+layout_mode = 2
+text = "Белорецк"
+[connection signal="pressed" from="SafeArea/UI/CityTabs/BelBtn" to="." method="_on_city_beloretsk"]
+
+[node name="TickBtn" type="Button" parent="SafeArea/UI/CityTabs"]
+layout_mode = 2
+text = "Тик (dev)"
+[connection signal="pressed" from="SafeArea/UI/CityTabs/TickBtn" to="." method="_on_tick_pressed"]
+
+[node name="GameLayer" type="Node2D" parent="."]
+
+[node name="CityHost" type="Node2D" parent="GameLayer"]
+position = Vector2(560, 430)
+
+[node name="Ambience" type="Node2D" parent="GameLayer/CityHost"]
+script = ExtResource("6")
+
+[node name="CityMap" type="Node2D" parent="GameLayer/CityHost"]
+script = ExtResource("3")
+
+[node name="SidePanel" type="PanelContainer" parent="SafeArea/UI"]
+layout_mode = 0
+offset_left = 1080.0
+offset_top = 80.0
+offset_right = 1420.0
+offset_bottom = 620.0
+
+[node name="SideBG" type="ColorRect" parent="SafeArea/UI/SidePanel"]
+layout_mode = 2
+color = Color(0.08, 0.12, 0.13, 0.94)
+
+[node name="Margin" type="MarginContainer" parent="SafeArea/UI/SidePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/UI/SidePanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Город"
+
+[node name="Body" type="RichTextLabel" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 120)
+bbcode_enabled = true
+fit_content = true
+text = "Выберите участок на карте"
+
+[node name="BuildType" type="OptionButton" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="BuildBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+text = "Построить"
+[connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/BuildBtn" to="." method="_on_build_pressed"]
+
+[node name="RentBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+text = "Арендовать магазин"
+[connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/RentBtn" to="." method="_on_rent_pressed"]
+
+[node name="BuyParcelBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+text = "Купить участок"
+[connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/BuyParcelBtn" to="." method="_on_buy_parcel_pressed"]
+
+[node name="DevelopBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+text = "Жилой проект (девелопер)"
+[connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/DevelopBtn" to="." method="_on_develop_pressed"]
+
+[node name="TruckBtn" type="Button" parent="SafeArea/UI/SidePanel/Margin/VBox"]
+layout_mode = 2
+text = "Купить фуру"
+[connection signal="pressed" from="SafeArea/UI/SidePanel/Margin/VBox/TruckBtn" to="." method="_on_truck_pressed"]
+
+[node name="BottomPanel" type="PanelContainer" parent="SafeArea/UI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BottomBG" type="ColorRect" parent="SafeArea/UI/BottomPanel"]
+layout_mode = 2
+color = Color(0.07, 0.1, 0.11, 0.95)
+
+[node name="Margin" type="MarginContainer" parent="SafeArea/UI/BottomPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="Log" type="RichTextLabel" parent="SafeArea/UI/BottomPanel/Margin"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Журнал тиков…"
+
+[node name="RankPanel" type="PanelContainer" parent="SafeArea/UI"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 140.0
+offset_right = 300.0
+offset_bottom = 420.0
+
+[node name="RankBG" type="ColorRect" parent="SafeArea/UI/RankPanel"]
+layout_mode = 2
+color = Color(0.08, 0.12, 0.13, 0.92)
+
+[node name="Margin" type="MarginContainer" parent="SafeArea/UI/RankPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/UI/RankPanel/Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="SafeArea/UI/RankPanel/Margin/VBox"]
+layout_mode = 2
+text = "Рейтинг капитала"
+
+[node name="List" type="ItemList" parent="SafeArea/UI/RankPanel/Margin/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 240)
+
+[node name="SettingsPanel" type="PanelContainer" parent="SafeArea/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -320.0
+offset_right = 280.0
+offset_bottom = 320.0
+script = ExtResource("7")
+
+[node name="BG" type="ColorRect" parent="SafeArea/UI/SettingsPanel"]
+layout_mode = 2
+color = Color(0.09, 0.14, 0.15, 0.98)
+
+[node name="Margin" type="MarginContainer" parent="SafeArea/UI/SettingsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/UI/SettingsPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Настройки"
+
+[node name="QualityLabel" type="Label" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Качество графики"
+
+[node name="Quality" type="OptionButton" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+[connection signal="item_selected" from="SafeArea/UI/SettingsPanel/Margin/VBox/Quality" to="SafeArea/UI/SettingsPanel" method="_on_quality_item_selected"]
+
+[node name="Fullscreen" type="CheckButton" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Полный экран"
+[connection signal="toggled" from="SafeArea/UI/SettingsPanel/Margin/VBox/Fullscreen" to="SafeArea/UI/SettingsPanel" method="_on_fullscreen_toggled"]
+
+[node name="SafeHint" type="Label" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "UI учитывает safe-area (вырез камеры / notch)."
+autowrap_mode = 3
+
+[node name="DonateTitle" type="Label" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Подписка · ИИ-заместитель"
+
+[node name="SubStatus" type="Label" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Подписка не активна"
+
+[node name="SubscribeBtn" type="Button" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Оформить подписку (1 мес, mock)"
+[connection signal="pressed" from="SafeArea/UI/SettingsPanel/Margin/VBox/SubscribeBtn" to="SafeArea/UI/SettingsPanel" method="_on_subscribe"]
+
+[node name="DeputyName" type="LineEdit" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Заместитель"
+placeholder_text = "Имя заместителя"
+
+[node name="HireBtn" type="Button" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Нанять заместителя"
+[connection signal="pressed" from="SafeArea/UI/SettingsPanel/Margin/VBox/HireBtn" to="SafeArea/UI/SettingsPanel" method="_on_hire"]
+
+[node name="TasksLabel" type="Label" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Задания заместителю"
+
+[node name="Tasks" type="VBoxContainer" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="ApplyTasksBtn" type="Button" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Выдать задания"
+[connection signal="pressed" from="SafeArea/UI/SettingsPanel/Margin/VBox/ApplyTasksBtn" to="SafeArea/UI/SettingsPanel" method="_on_apply_tasks"]
+
+[node name="CloseBtn" type="Button" parent="SafeArea/UI/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+text = "Закрыть"
+[connection signal="pressed" from="SafeArea/UI/SettingsPanel/Margin/VBox/CloseBtn" to="SafeArea/UI/SettingsPanel" method="_on_close"]

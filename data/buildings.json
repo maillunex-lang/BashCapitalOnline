@@ -1,0 +1,17 @@
+[
+  {"id": "farm", "name": "Ферма", "category": "extract", "build_cost": 12000, "zone": "rural", "footprint": 2},
+  {"id": "orchard", "name": "Сад", "category": "extract", "build_cost": 10000, "zone": "rural", "footprint": 2},
+  {"id": "logging_camp", "name": "Лесозаготовка", "category": "extract", "build_cost": 14000, "zone": "rural", "footprint": 2},
+  {"id": "quarry", "name": "Карьер", "category": "extract", "build_cost": 18000, "zone": "industrial", "footprint": 3},
+  {"id": "mine", "name": "Шахта", "category": "extract", "build_cost": 25000, "zone": "industrial", "footprint": 3},
+  {"id": "oil_well", "name": "Нефтяная скважина", "category": "extract", "build_cost": 45000, "zone": "industrial", "footprint": 3},
+  {"id": "chem_plant", "name": "Химзавод", "category": "factory", "build_cost": 40000, "zone": "industrial", "footprint": 3},
+  {"id": "textile_mill", "name": "Ткацкая", "category": "factory", "build_cost": 28000, "zone": "industrial", "footprint": 2},
+  {"id": "board_plant", "name": "Комбинат плит", "category": "factory", "build_cost": 32000, "zone": "industrial", "footprint": 3},
+  {"id": "furniture_plant", "name": "Мебельный комбинат", "category": "factory", "build_cost": 36000, "zone": "industrial", "footprint": 3},
+  {"id": "glass_plant", "name": "Стекольный завод", "category": "factory", "build_cost": 35000, "zone": "industrial", "footprint": 3},
+  {"id": "dairy_plant", "name": "Молокозавод", "category": "factory", "build_cost": 30000, "zone": "industrial", "footprint": 2},
+  {"id": "steel_mill", "name": "Металлургический завод", "category": "factory", "build_cost": 55000, "zone": "industrial", "footprint": 4},
+  {"id": "warehouse", "name": "Склад", "category": "logistics", "build_cost": 15000, "zone": "industrial", "footprint": 2},
+  {"id": "garage", "name": "Автопарк", "category": "logistics", "build_cost": 20000, "zone": "industrial", "footprint": 2}
+]

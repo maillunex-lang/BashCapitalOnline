@@ -1,0 +1,25 @@
+; Engine configuration file for BashCapital (Godot 4.3+)
+config_version=5
+
+[application]
+
+config/name="BashCapital"
+config/description="Онлайн экономическая стратегия по Башкортостану"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://assets/ui/logo_bashcapital.jpg"
+
+[display]
+
+window/size/viewport_width=1440
+window/size/viewport_height=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.12, 0.16, 0.18, 1)
+
+[gui]
+
+theme/custom="res://themes/bashcapital.tres"

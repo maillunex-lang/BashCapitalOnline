@@ -1,0 +1,8 @@
+server/bin/
+*.exe
+.godot/
+*.import
+.DS_Store
+__pycache__/
+*.db
+server/world.db

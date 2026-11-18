@@ -1,0 +1,19 @@
+[
+  {"id": "flax", "name": "Лён", "tier": "raw", "category": "fiber"},
+  {"id": "wood", "name": "Дерево", "tier": "raw", "category": "timber"},
+  {"id": "chemicals", "name": "Химия", "tier": "raw", "category": "chem"},
+  {"id": "sand", "name": "Песок", "tier": "raw", "category": "mineral"},
+  {"id": "quartz", "name": "Кварц", "tier": "raw", "category": "mineral"},
+  {"id": "milk", "name": "Молоко", "tier": "raw", "category": "dairy"},
+  {"id": "cherry", "name": "Вишня", "tier": "raw", "category": "fruit"},
+  {"id": "iron_ore", "name": "Железная руда", "tier": "raw", "category": "ore"},
+  {"id": "oil", "name": "Нефть", "tier": "raw", "category": "oil"},
+  {"id": "fabric", "name": "Ткань", "tier": "intermediate", "category": "textile"},
+  {"id": "particle_board", "name": "ДСП", "tier": "intermediate", "category": "timber"},
+  {"id": "bottle", "name": "Бутылка", "tier": "intermediate", "category": "packaging"},
+  {"id": "steel", "name": "Сталь", "tier": "intermediate", "category": "metal"},
+  {"id": "bottled_milk", "name": "Молоко в бутылке", "tier": "finished", "category": "food"},
+  {"id": "cherry_milk_drink", "name": "Вишнёво-молочный напиток", "tier": "finished", "category": "food"},
+  {"id": "furniture", "name": "Мебель", "tier": "finished", "category": "home"},
+  {"id": "steel_goods", "name": "Металлоизделия", "tier": "finished", "category": "home"}
+]
