@@ -1,85 +1,339 @@
 {
   "price_corridors": {
-    "wheat": {"min": 2, "max": 30},
-    "potato": {"min": 2, "max": 28},
-    "apple": {"min": 3, "max": 40},
-    "cherry": {"min": 5, "max": 60},
-    "flax": {"min": 3, "max": 40},
-    "cotton": {"min": 4, "max": 50},
-    "wood": {"min": 2, "max": 35},
-    "cattle": {"min": 20, "max": 180},
-    "milk": {"min": 4, "max": 45},
-    "sand": {"min": 1, "max": 20},
-    "quartz": {"min": 4, "max": 55},
-    "iron_ore": {"min": 4, "max": 50},
-    "copper_ore": {"min": 5, "max": 60},
-    "coal": {"min": 3, "max": 40},
-    "oil": {"min": 8, "max": 120},
-    "gas": {"min": 6, "max": 100},
-    "chemicals": {"min": 5, "max": 80},
-
-    "flour": {"min": 5, "max": 50},
-    "sugar": {"min": 6, "max": 55},
-    "fabric": {"min": 10, "max": 90},
-    "cotton_fabric": {"min": 12, "max": 100},
-    "leather": {"min": 15, "max": 120},
-    "beef": {"min": 12, "max": 100},
-    "particle_board": {"min": 8, "max": 85},
-    "planks": {"min": 6, "max": 70},
-    "bottle": {"min": 3, "max": 40},
-    "paper": {"min": 4, "max": 45},
-    "plastic": {"min": 8, "max": 90},
-    "packaging": {"min": 4, "max": 50},
-    "steel": {"min": 12, "max": 140},
-    "copper": {"min": 14, "max": 150},
-    "wire": {"min": 10, "max": 110},
-    "gasoline": {"min": 15, "max": 160},
-    "diesel": {"min": 14, "max": 150},
-    "cheese": {"min": 18, "max": 140},
-    "butter": {"min": 14, "max": 110},
-    "circuit": {"min": 40, "max": 320},
-
-    "bread": {"min": 10, "max": 80},
-    "pastry": {"min": 18, "max": 140},
-    "canned_food": {"min": 20, "max": 160},
-    "snack": {"min": 12, "max": 100},
-    "apple_juice": {"min": 12, "max": 95},
-    "bottled_milk": {"min": 12, "max": 90},
-    "cherry_milk_drink": {"min": 15, "max": 110},
-    "yogurt": {"min": 14, "max": 105},
-    "clothing": {"min": 35, "max": 280},
-    "shoes": {"min": 40, "max": 320},
-    "furniture": {"min": 60, "max": 450},
-    "appliance": {"min": 80, "max": 600},
-    "electronics": {"min": 100, "max": 750},
-    "toy": {"min": 15, "max": 120},
-    "book": {"min": 12, "max": 100},
-    "steel_goods": {"min": 25, "max": 200},
-    "fuel_can": {"min": 30, "max": 220},
-    "honey": {"min": 20, "max": 160},
-    "koumiss": {"min": 25, "max": 180},
-    "qurut": {"min": 18, "max": 140},
-    "chakchak": {"min": 22, "max": 160},
-    "baursak": {"min": 15, "max": 120},
-    "herbal_tea": {"min": 12, "max": 100},
-    "felt": {"min": 20, "max": 150},
-    "bashkir_carpet": {"min": 80, "max": 600}
+    "apple": {
+      "min": 6.3,
+      "max": 21.7
+    },
+    "apple_juice": {
+      "min": 68.7,
+      "max": 166.0
+    },
+    "appliance": {
+      "min": 1036.8,
+      "max": 2505.6
+    },
+    "bashkir_carpet": {
+      "min": 467.8,
+      "max": 1130.4
+    },
+    "baursak": {
+      "min": 62.7,
+      "max": 151.6
+    },
+    "beef": {
+      "min": 33.2,
+      "max": 90.6
+    },
+    "book": {
+      "min": 186.4,
+      "max": 450.4
+    },
+    "bottle": {
+      "min": 28.9,
+      "max": 78.7
+    },
+    "bottled_milk": {
+      "min": 68.5,
+      "max": 165.7
+    },
+    "bread": {
+      "min": 60.6,
+      "max": 146.5
+    },
+    "butter": {
+      "min": 85.1,
+      "max": 232.0
+    },
+    "canned_food": {
+      "min": 135.9,
+      "max": 328.5
+    },
+    "cattle": {
+      "min": 54.0,
+      "max": 186.0
+    },
+    "chakchak": {
+      "min": 115.6,
+      "max": 279.5
+    },
+    "cheese": {
+      "min": 106.5,
+      "max": 290.6
+    },
+    "chemicals": {
+      "min": 18.9,
+      "max": 65.1
+    },
+    "cherry": {
+      "min": 9.0,
+      "max": 31.0
+    },
+    "cherry_milk_drink": {
+      "min": 87.5,
+      "max": 211.5
+    },
+    "circuit": {
+      "min": 284.8,
+      "max": 776.7
+    },
+    "clothing": {
+      "min": 185.9,
+      "max": 449.2
+    },
+    "coal": {
+      "min": 5.9,
+      "max": 20.2
+    },
+    "copper": {
+      "min": 74.5,
+      "max": 203.1
+    },
+    "copper_ore": {
+      "min": 9.9,
+      "max": 34.1
+    },
+    "cotton": {
+      "min": 8.1,
+      "max": 27.9
+    },
+    "cotton_fabric": {
+      "min": 58.4,
+      "max": 159.2
+    },
+    "diesel": {
+      "min": 71.5,
+      "max": 194.9
+    },
+    "electronics": {
+      "min": 1055.7,
+      "max": 2551.2
+    },
+    "fabric": {
+      "min": 55.7,
+      "max": 151.9
+    },
+    "felt": {
+      "min": 66.4,
+      "max": 181.2
+    },
+    "flax": {
+      "min": 7.2,
+      "max": 24.8
+    },
+    "flour": {
+      "min": 19.5,
+      "max": 53.1
+    },
+    "fuel_can": {
+      "min": 161.3,
+      "max": 389.9
+    },
+    "furniture": {
+      "min": 400.8,
+      "max": 968.6
+    },
+    "gas": {
+      "min": 15.3,
+      "max": 52.7
+    },
+    "gasoline": {
+      "min": 71.5,
+      "max": 194.9
+    },
+    "herbal_tea": {
+      "min": 90.1,
+      "max": 217.9
+    },
+    "honey": {
+      "min": 22.5,
+      "max": 77.5
+    },
+    "iron_ore": {
+      "min": 8.1,
+      "max": 27.9
+    },
+    "koumiss": {
+      "min": 76.0,
+      "max": 183.7
+    },
+    "leather": {
+      "min": 62.4,
+      "max": 170.2
+    },
+    "milk": {
+      "min": 6.3,
+      "max": 21.7
+    },
+    "oil": {
+      "min": 18.9,
+      "max": 65.1
+    },
+    "packaging": {
+      "min": 72.4,
+      "max": 197.4
+    },
+    "paper": {
+      "min": 34.6,
+      "max": 94.4
+    },
+    "particle_board": {
+      "min": 60.4,
+      "max": 164.7
+    },
+    "pastry": {
+      "min": 133.2,
+      "max": 321.9
+    },
+    "planks": {
+      "min": 19.1,
+      "max": 52.2
+    },
+    "plastic": {
+      "min": 51.8,
+      "max": 141.4
+    },
+    "potato": {
+      "min": 4.0,
+      "max": 14.0
+    },
+    "quartz": {
+      "min": 12.6,
+      "max": 43.4
+    },
+    "qurut": {
+      "min": 68.5,
+      "max": 165.5
+    },
+    "sand": {
+      "min": 3.6,
+      "max": 12.4
+    },
+    "shoes": {
+      "min": 217.6,
+      "max": 525.9
+    },
+    "snack": {
+      "min": 90.3,
+      "max": 218.2
+    },
+    "steel": {
+      "min": 90.4,
+      "max": 246.4
+    },
+    "steel_goods": {
+      "min": 171.1,
+      "max": 413.5
+    },
+    "sugar": {
+      "min": 33.7,
+      "max": 91.9
+    },
+    "toy": {
+      "min": 126.0,
+      "max": 304.6
+    },
+    "wheat": {
+      "min": 4.5,
+      "max": 15.5
+    },
+    "wire": {
+      "min": 84.9,
+      "max": 231.5
+    },
+    "wood": {
+      "min": 5.4,
+      "max": 18.6
+    },
+    "yogurt": {
+      "min": 92.6,
+      "max": 223.9
+    }
   },
   "city_market": [
-    {"item_id": "wheat", "price": 5, "quality": 1.4, "stock_per_tick": 50},
-    {"item_id": "potato", "price": 4, "quality": 1.3, "stock_per_tick": 50},
-    {"item_id": "milk", "price": 8, "quality": 1.5, "stock_per_tick": 40},
-    {"item_id": "wood", "price": 6, "quality": 1.5, "stock_per_tick": 50},
-    {"item_id": "sand", "price": 3, "quality": 1.2, "stock_per_tick": 60},
-    {"item_id": "flax", "price": 7, "quality": 1.4, "stock_per_tick": 30},
-    {"item_id": "iron_ore", "price": 10, "quality": 1.5, "stock_per_tick": 35},
-    {"item_id": "coal", "price": 7, "quality": 1.4, "stock_per_tick": 40},
-    {"item_id": "bottle", "price": 9, "quality": 1.3, "stock_per_tick": 25},
-    {"item_id": "chemicals", "price": 14, "quality": 1.4, "stock_per_tick": 20},
-    {"item_id": "plastic", "price": 16, "quality": 1.3, "stock_per_tick": 18},
-    {"item_id": "packaging", "price": 8, "quality": 1.2, "stock_per_tick": 30},
-    {"item_id": "flour", "price": 9, "quality": 1.4, "stock_per_tick": 25},
-    {"item_id": "paper", "price": 7, "quality": 1.3, "stock_per_tick": 28}
+    {
+      "item_id": "wheat",
+      "price": 6.2,
+      "quality": 1.4,
+      "stock_per_tick": 50
+    },
+    {
+      "item_id": "potato",
+      "price": 5.6,
+      "quality": 1.3,
+      "stock_per_tick": 50
+    },
+    {
+      "item_id": "milk",
+      "price": 8.7,
+      "quality": 1.5,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "wood",
+      "price": 7.4,
+      "quality": 1.5,
+      "stock_per_tick": 50
+    },
+    {
+      "item_id": "sand",
+      "price": 5.0,
+      "quality": 1.2,
+      "stock_per_tick": 60
+    },
+    {
+      "item_id": "flax",
+      "price": 9.9,
+      "quality": 1.4,
+      "stock_per_tick": 30
+    },
+    {
+      "item_id": "iron_ore",
+      "price": 11.2,
+      "quality": 1.5,
+      "stock_per_tick": 35
+    },
+    {
+      "item_id": "coal",
+      "price": 8.1,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "bottle",
+      "price": 32.5,
+      "quality": 1.3,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "chemicals",
+      "price": 26.0,
+      "quality": 1.4,
+      "stock_per_tick": 20
+    },
+    {
+      "item_id": "plastic",
+      "price": 58.4,
+      "quality": 1.3,
+      "stock_per_tick": 18
+    },
+    {
+      "item_id": "packaging",
+      "price": 81.6,
+      "quality": 1.2,
+      "stock_per_tick": 30
+    },
+    {
+      "item_id": "flour",
+      "price": 21.9,
+      "quality": 1.4,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "paper",
+      "price": 39.0,
+      "quality": 1.3,
+      "stock_per_tick": 28
+    }
   ],
   "chat": {
     "max_messages": 120,
@@ -91,5 +345,21 @@
     "cost_per_unit_dist": 0.012,
     "local_cost_per_unit": 0.8,
     "base_cost_per_unit": 1.2
+  },
+  "balance": {
+    "version": 2,
+    "wage_per_tick": {
+      "worker": 12.0,
+      "engineer": 24.0,
+      "manager": 36.0
+    },
+    "energy_cost_extract": 8.0,
+    "energy_cost_factory": 15.0,
+    "target_margin": {
+      "raw": 0.0,
+      "intermediate": 0.22,
+      "finished": 0.28
+    },
+    "notes": "Corridors derived bottom-up from recipe costs; re-run scripts/rebalance_economy.py after recipe edits."
   }
 }

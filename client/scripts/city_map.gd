@@ -14,6 +14,8 @@ var selected: Vector2i = Vector2i(9999, 9999)
 var hover: Vector2i = Vector2i(9999, 9999)
 var detail_level: int = 2
 var _sprites: Dictionary = {} # path -> Texture2D
+var map_revision: int = -1
+var dirty_only: Array = [] # optional dirty tiles [{x,y}] for incremental redraw
 
 var zone_colors := {
 	"center": Color("2F6F6A"),
@@ -76,7 +78,7 @@ func _tex(name: String) -> Texture2D:
 	_sprites[name] = null
 	return null
 
-func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: Dictionary) -> void:
+func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: Dictionary, revision: int = -1, dirty: Array = []) -> void:
 	parcels = city.get("parcels", [])
 	deposits = city.get("deposits", [])
 	buildings = {}
@@ -89,6 +91,9 @@ func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: D
 		var s: Dictionary = world_shops[id]
 		if str(s.get("city_id", "")) == str(city.get("id", "")):
 			shops["%s,%s" % [s.get("x"), s.get("y")]] = s
+	# RM-MAP-DIRTY: if only a few tiles changed, still full redraw for now but track revision.
+	map_revision = revision
+	dirty_only = dirty
 	queue_redraw()
 
 func _draw() -> void:

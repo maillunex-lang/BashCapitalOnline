@@ -30,12 +30,22 @@ extends Control
 var current_city: String = "ufa"
 var selected_parcel: Dictionary = {}
 var grade_material: ShaderMaterial
+var remote_assets: RemoteAssets
 var season_names := ["", "Ҡыш", "Ҡыш", "Яҙ", "Яҙ", "Яҙ", "Йәй", "Йәй", "Йәй", "Көҙ", "Көҙ", "Көҙ", "Ҡыш"]
 
 func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	backdrop.texture = load("res://assets/bg/city_backdrop.jpg")
-	logo.texture = load("res://assets/ui/logo_bashcapital.jpg")
+	if ResourceLoader.exists("res://assets/bg/city_backdrop.jpg"):
+		backdrop.texture = load("res://assets/bg/city_backdrop.jpg")
+	if ResourceLoader.exists("res://assets/ui/logo_bashcapital.png"):
+		logo.texture = load("res://assets/ui/logo_bashcapital.png")
+	elif ResourceLoader.exists("res://assets/ui/logo_bashcapital.jpg"):
+		logo.texture = load("res://assets/ui/logo_bashcapital.jpg")
+	remote_assets = RemoteAssets.new()
+	add_child(remote_assets)
+	remote_assets.setup(api)
+	remote_assets.progress.connect(func(msg): status_label.text = msg)
+	remote_assets.update_available.connect(_on_apk_update)
 	industry_option.clear()
 	var industries := [
 		["Молочка (Уфа)", "dairy"],
@@ -141,6 +151,7 @@ func _on_deputy_tasks(kinds: PackedStringArray) -> void:
 
 func _on_connect_pressed() -> void:
 	api.configure(url_edit.text.strip_edges())
+	await remote_assets.check_and_fetch()
 	await api.fetch_catalog()
 	_fill_build_options()
 	var industry: String = str(industry_option.get_item_metadata(industry_option.selected))
@@ -174,7 +185,11 @@ func _render_world() -> void:
 		cash_label.text = "Касса: %s ₽ · Фуры: %s%s" % [_money(f.get("cash", 0)), f.get("trucks", 0), sub]
 	var cities: Dictionary = w.get("cities", {})
 	if cities.has(current_city):
-		city_map.set_city_data(cities[current_city], w.get("buildings", {}), w.get("shops", {}))
+		var dirty: Array = []
+		for t in w.get("dirty_tiles", []):
+			if str(t.get("city_id", "")) == current_city:
+				dirty.append(t)
+		city_map.set_city_data(cities[current_city], w.get("buildings", {}), w.get("shops", {}), int(w.get("map_revision", -1)), dirty)
 		side_title.text = _city_name(current_city)
 	var logs: Array = w.get("last_tick_log", [])
 	log_box.clear()
@@ -329,3 +344,12 @@ func _on_stock_shop(shop_id: String, qty: int) -> void:
 	if res.has("error"):
 		status_label.text = str(res["error"])
 	await _refresh()
+
+func _on_apk_update(info: Dictionary) -> void:
+	status_label.text = "Доступно обновление APK %s" % str(info.get("version_name", ""))
+	# Android: open confirmation_url / apk.url via OS.shell_open when exported.
+	var url := str(info.get("url", ""))
+	if url.begins_with("http"):
+		OS.shell_open(url)
+	elif url != "" and api != null:
+		OS.shell_open(api.base_url + url)

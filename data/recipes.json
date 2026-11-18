@@ -1,74 +1,1481 @@
 [
-  {"id": "grow_wheat", "name": "Пшеница", "building_type": "farm", "inputs": [], "output": {"item_id": "wheat", "qty": 10}, "labor": {"worker": 3}, "energy": 1, "research_cost": 0, "season_bonus_months": [7, 8, 9]},
-  {"id": "grow_potato", "name": "Картофель", "building_type": "farm", "inputs": [], "output": {"item_id": "potato", "qty": 10}, "labor": {"worker": 3}, "energy": 1, "research_cost": 0, "season_bonus_months": [8, 9]},
-  {"id": "grow_flax", "name": "Лён", "building_type": "farm", "inputs": [], "output": {"item_id": "flax", "qty": 6}, "labor": {"worker": 3}, "energy": 1, "research_cost": 0, "season_bonus_months": [7, 8]},
-  {"id": "grow_cotton", "name": "Хлопок", "building_type": "farm", "inputs": [], "output": {"item_id": "cotton", "qty": 6}, "labor": {"worker": 3}, "energy": 1, "research_cost": 200},
-  {"id": "farm_milk", "name": "Надой молока", "building_type": "livestock_farm", "inputs": [], "output": {"item_id": "milk", "qty": 8}, "labor": {"worker": 3}, "energy": 1, "research_cost": 0},
-  {"id": "raise_cattle", "name": "Выращивание КРС", "building_type": "livestock_farm", "inputs": [], "output": {"item_id": "cattle", "qty": 2}, "labor": {"worker": 4, "engineer": 1}, "energy": 2, "research_cost": 0},
-  {"id": "farm_cherry", "name": "Сбор вишни", "building_type": "orchard", "inputs": [], "output": {"item_id": "cherry", "qty": 6}, "labor": {"worker": 3}, "energy": 1, "research_cost": 0, "season_bonus_months": [6, 7, 8]},
-  {"id": "farm_apple", "name": "Сбор яблок", "building_type": "orchard", "inputs": [], "output": {"item_id": "apple", "qty": 8}, "labor": {"worker": 3}, "energy": 1, "research_cost": 0, "season_bonus_months": [8, 9]},
-  {"id": "harvest_honey", "name": "Сбор бурзянского мёда", "building_type": "orchard", "inputs": [], "output": {"item_id": "honey", "qty": 4}, "labor": {"worker": 3}, "energy": 1, "research_cost": 250, "season_bonus_months": [6, 7, 8]},
-  {"id": "extract_wood", "name": "Заготовка дерева", "building_type": "logging_camp", "inputs": [], "output": {"item_id": "wood", "qty": 8}, "labor": {"worker": 4}, "energy": 1, "research_cost": 0, "season_bonus_months": [9, 10]},
-  {"id": "extract_sand", "name": "Добыча песка", "building_type": "quarry", "inputs": [], "output": {"item_id": "sand", "qty": 10}, "labor": {"worker": 3}, "energy": 2, "research_cost": 0},
-  {"id": "extract_quartz", "name": "Добыча кварца", "building_type": "quarry", "inputs": [], "output": {"item_id": "quartz", "qty": 4}, "labor": {"worker": 4, "engineer": 1}, "energy": 3, "research_cost": 0},
-  {"id": "mine_iron", "name": "Добыча руды", "building_type": "mine", "inputs": [], "output": {"item_id": "iron_ore", "qty": 10}, "labor": {"worker": 6, "engineer": 2}, "energy": 4, "research_cost": 0},
-  {"id": "mine_copper", "name": "Добыча меди", "building_type": "mine", "inputs": [], "output": {"item_id": "copper_ore", "qty": 8}, "labor": {"worker": 6, "engineer": 2}, "energy": 4, "research_cost": 400},
-  {"id": "mine_coal", "name": "Добыча угля", "building_type": "mine", "inputs": [], "output": {"item_id": "coal", "qty": 12}, "labor": {"worker": 5, "engineer": 1}, "energy": 3, "research_cost": 0},
-  {"id": "extract_oil", "name": "Добыча нефти", "building_type": "oil_well", "inputs": [], "output": {"item_id": "oil", "qty": 8}, "labor": {"worker": 5, "engineer": 3}, "energy": 5, "research_cost": 0},
-  {"id": "extract_gas", "name": "Добыча газа", "building_type": "gas_well", "inputs": [], "output": {"item_id": "gas", "qty": 8}, "labor": {"worker": 4, "engineer": 3}, "energy": 4, "research_cost": 500},
-  {"id": "extract_chemicals", "name": "Базовая химия", "building_type": "chem_plant", "inputs": [], "output": {"item_id": "chemicals", "qty": 5}, "labor": {"worker": 5, "engineer": 3}, "energy": 6, "research_cost": 0},
-
-  {"id": "mill_flour", "name": "Мука", "building_type": "mill", "inputs": [{"item_id": "wheat", "qty": 5}], "output": {"item_id": "flour", "qty": 4}, "labor": {"worker": 3}, "energy": 2, "research_cost": 0},
-  {"id": "make_sugar", "name": "Сахар", "building_type": "food_plant", "inputs": [{"item_id": "apple", "qty": 4}, {"item_id": "chemicals", "qty": 1}], "output": {"item_id": "sugar", "qty": 3}, "labor": {"worker": 4, "engineer": 1}, "energy": 3, "research_cost": 300},
-  {"id": "bake_bread", "name": "Хлеб", "building_type": "bakery", "inputs": [{"item_id": "flour", "qty": 3}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "bread", "qty": 4}, "labor": {"worker": 4}, "energy": 2, "research_cost": 0},
-  {"id": "bake_pastry", "name": "Выпечка", "building_type": "bakery", "inputs": [{"item_id": "flour", "qty": 2}, {"item_id": "sugar", "qty": 1}, {"item_id": "butter", "qty": 1}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "pastry", "qty": 3}, "labor": {"worker": 4, "engineer": 1}, "energy": 2, "research_cost": 600},
-  {"id": "make_snacks", "name": "Снеки", "building_type": "food_plant", "inputs": [{"item_id": "potato", "qty": 4}, {"item_id": "oil", "qty": 1}, {"item_id": "packaging", "qty": 2}], "output": {"item_id": "snack", "qty": 4}, "labor": {"worker": 5, "engineer": 1}, "energy": 3, "research_cost": 400},
-  {"id": "can_food", "name": "Консервы", "building_type": "food_plant", "inputs": [{"item_id": "beef", "qty": 2}, {"item_id": "potato", "qty": 2}, {"item_id": "packaging", "qty": 2}], "output": {"item_id": "canned_food", "qty": 3}, "labor": {"worker": 5, "engineer": 1}, "energy": 3, "research_cost": 500},
-  {"id": "apple_juice", "name": "Яблочный сок", "building_type": "food_plant", "inputs": [{"item_id": "apple", "qty": 5}, {"item_id": "bottle", "qty": 4}], "output": {"item_id": "apple_juice", "qty": 4}, "labor": {"worker": 4}, "energy": 2, "research_cost": 200},
-
-  {"id": "slaughter_beef", "name": "Говядина", "building_type": "food_plant", "inputs": [{"item_id": "cattle", "qty": 1}], "output": {"item_id": "beef", "qty": 4}, "labor": {"worker": 4}, "energy": 2, "research_cost": 0},
-  {"id": "make_leather", "name": "Кожа", "building_type": "apparel_factory", "inputs": [{"item_id": "cattle", "qty": 1}, {"item_id": "chemicals", "qty": 1}], "output": {"item_id": "leather", "qty": 3}, "labor": {"worker": 4, "engineer": 1}, "energy": 3, "research_cost": 400},
-
-  {"id": "bottle_milk", "name": "Молоко в бутылке", "building_type": "dairy_plant", "inputs": [{"item_id": "milk", "qty": 5}, {"item_id": "bottle", "qty": 5}], "output": {"item_id": "bottled_milk", "qty": 5}, "labor": {"worker": 5, "engineer": 1}, "energy": 2, "research_cost": 0},
-  {"id": "cherry_milk_drink", "name": "Вишнёво-молочный напиток", "building_type": "dairy_plant", "inputs": [{"item_id": "milk", "qty": 4}, {"item_id": "cherry", "qty": 2}, {"item_id": "bottle", "qty": 4}], "output": {"item_id": "cherry_milk_drink", "qty": 4}, "labor": {"worker": 5, "engineer": 1, "manager": 1}, "energy": 2, "research_cost": 800},
-  {"id": "make_cheese", "name": "Сыр", "building_type": "dairy_plant", "inputs": [{"item_id": "milk", "qty": 6}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "cheese", "qty": 2}, "labor": {"worker": 4, "engineer": 1}, "energy": 2, "research_cost": 500},
-  {"id": "make_butter", "name": "Масло", "building_type": "dairy_plant", "inputs": [{"item_id": "milk", "qty": 5}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "butter", "qty": 2}, "labor": {"worker": 3}, "energy": 2, "research_cost": 300},
-  {"id": "make_yogurt", "name": "Йогурт", "building_type": "dairy_plant", "inputs": [{"item_id": "milk", "qty": 4}, {"item_id": "sugar", "qty": 1}, {"item_id": "packaging", "qty": 2}], "output": {"item_id": "yogurt", "qty": 4}, "labor": {"worker": 4, "engineer": 1}, "energy": 2, "research_cost": 700},
-
-  {"id": "weave_fabric", "name": "Ткань из льна", "building_type": "textile_mill", "inputs": [{"item_id": "flax", "qty": 4}], "output": {"item_id": "fabric", "qty": 2}, "labor": {"worker": 4, "engineer": 1}, "energy": 2, "research_cost": 0},
-  {"id": "weave_cotton", "name": "Хлопковая ткань", "building_type": "textile_mill", "inputs": [{"item_id": "cotton", "qty": 4}], "output": {"item_id": "cotton_fabric", "qty": 2}, "labor": {"worker": 4, "engineer": 1}, "energy": 2, "research_cost": 300},
-  {"id": "make_clothing", "name": "Одежда", "building_type": "apparel_factory", "inputs": [{"item_id": "fabric", "qty": 2}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "clothing", "qty": 2}, "labor": {"worker": 5, "engineer": 1, "manager": 1}, "energy": 2, "research_cost": 400},
-  {"id": "make_clothing_cotton", "name": "Хлопковая одежда", "building_type": "apparel_factory", "inputs": [{"item_id": "fabric", "qty": 1}, {"item_id": "cotton_fabric", "qty": 2}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "clothing", "qty": 3}, "labor": {"worker": 5, "engineer": 1, "manager": 1}, "energy": 2, "research_cost": 700},
-  {"id": "make_shoes", "name": "Обувь", "building_type": "apparel_factory", "inputs": [{"item_id": "leather", "qty": 2}, {"item_id": "plastic", "qty": 1}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "shoes", "qty": 2}, "labor": {"worker": 5, "engineer": 1}, "energy": 2, "research_cost": 600},
-
-  {"id": "saw_planks", "name": "Доски", "building_type": "sawmill", "inputs": [{"item_id": "wood", "qty": 4}], "output": {"item_id": "planks", "qty": 4}, "labor": {"worker": 3}, "energy": 2, "research_cost": 0},
-  {"id": "make_particle_board", "name": "ДСП", "building_type": "board_plant", "inputs": [{"item_id": "wood", "qty": 5}, {"item_id": "chemicals", "qty": 1}], "output": {"item_id": "particle_board", "qty": 3}, "labor": {"worker": 5, "engineer": 2}, "energy": 4, "research_cost": 0},
-  {"id": "make_paper", "name": "Бумага", "building_type": "paper_mill", "inputs": [{"item_id": "wood", "qty": 4}, {"item_id": "chemicals", "qty": 1}], "output": {"item_id": "paper", "qty": 5}, "labor": {"worker": 5, "engineer": 2}, "energy": 4, "research_cost": 0},
-  {"id": "make_packaging", "name": "Упаковка", "building_type": "plastics_plant", "inputs": [{"item_id": "plastic", "qty": 2}, {"item_id": "paper", "qty": 2}], "output": {"item_id": "packaging", "qty": 4}, "labor": {"worker": 4, "engineer": 1}, "energy": 3, "research_cost": 0},
-  {"id": "make_furniture", "name": "Мебель", "building_type": "furniture_plant", "inputs": [{"item_id": "fabric", "qty": 2}, {"item_id": "particle_board", "qty": 3}], "output": {"item_id": "furniture", "qty": 1}, "labor": {"worker": 6, "engineer": 2, "manager": 1}, "energy": 3, "research_cost": 0},
-  {"id": "make_furniture_wood", "name": "Деревянная мебель", "building_type": "furniture_plant", "inputs": [{"item_id": "planks", "qty": 4}, {"item_id": "fabric", "qty": 1}], "output": {"item_id": "furniture", "qty": 1}, "labor": {"worker": 5, "engineer": 1}, "energy": 3, "research_cost": 350},
-  {"id": "make_book", "name": "Книги", "building_type": "paper_mill", "inputs": [{"item_id": "paper", "qty": 4}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "book", "qty": 2}, "labor": {"worker": 3, "manager": 1}, "energy": 2, "research_cost": 400},
-  {"id": "make_toy", "name": "Игрушки", "building_type": "plastics_plant", "inputs": [{"item_id": "plastic", "qty": 3}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "toy", "qty": 3}, "labor": {"worker": 4}, "energy": 2, "research_cost": 300},
-
-  {"id": "make_bottle", "name": "Стеклянная бутылка", "building_type": "glass_plant", "inputs": [{"item_id": "sand", "qty": 3}, {"item_id": "quartz", "qty": 1}], "output": {"item_id": "bottle", "qty": 4}, "labor": {"worker": 4, "engineer": 2}, "energy": 5, "research_cost": 0},
-  {"id": "make_plastic", "name": "Пластик", "building_type": "plastics_plant", "inputs": [{"item_id": "oil", "qty": 3}, {"item_id": "chemicals", "qty": 1}], "output": {"item_id": "plastic", "qty": 4}, "labor": {"worker": 5, "engineer": 2}, "energy": 5, "research_cost": 0},
-  {"id": "refine_gasoline", "name": "Бензин", "building_type": "refinery", "inputs": [{"item_id": "oil", "qty": 5}], "output": {"item_id": "gasoline", "qty": 3}, "labor": {"worker": 6, "engineer": 4}, "energy": 6, "research_cost": 0},
-  {"id": "refine_diesel", "name": "Дизель", "building_type": "refinery", "inputs": [{"item_id": "oil", "qty": 5}], "output": {"item_id": "diesel", "qty": 3}, "labor": {"worker": 6, "engineer": 4}, "energy": 6, "research_cost": 200},
-  {"id": "pack_fuel", "name": "Канистра топлива", "building_type": "refinery", "inputs": [{"item_id": "gasoline", "qty": 2}, {"item_id": "plastic", "qty": 1}], "output": {"item_id": "fuel_can", "qty": 2}, "labor": {"worker": 3}, "energy": 2, "research_cost": 300},
-
-  {"id": "smelt_steel", "name": "Сталь", "building_type": "steel_mill", "inputs": [{"item_id": "iron_ore", "qty": 5}, {"item_id": "coal", "qty": 2}], "output": {"item_id": "steel", "qty": 3}, "labor": {"worker": 8, "engineer": 3}, "energy": 8, "research_cost": 0},
-  {"id": "smelt_copper", "name": "Медь", "building_type": "steel_mill", "inputs": [{"item_id": "copper_ore", "qty": 5}, {"item_id": "coal", "qty": 1}], "output": {"item_id": "copper", "qty": 3}, "labor": {"worker": 6, "engineer": 2}, "energy": 6, "research_cost": 400},
-  {"id": "make_wire", "name": "Провод", "building_type": "electronics_plant", "inputs": [{"item_id": "copper", "qty": 2}, {"item_id": "plastic", "qty": 1}], "output": {"item_id": "wire", "qty": 4}, "labor": {"worker": 4, "engineer": 2}, "energy": 3, "research_cost": 300},
-  {"id": "make_circuit", "name": "Микросхема", "building_type": "electronics_plant", "inputs": [{"item_id": "copper", "qty": 1}, {"item_id": "quartz", "qty": 1}, {"item_id": "chemicals", "qty": 1}], "output": {"item_id": "circuit", "qty": 2}, "labor": {"worker": 4, "engineer": 4}, "energy": 5, "research_cost": 900},
-  {"id": "make_electronics", "name": "Электроника", "building_type": "electronics_plant", "inputs": [{"item_id": "circuit", "qty": 2}, {"item_id": "plastic", "qty": 2}, {"item_id": "wire", "qty": 2}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "electronics", "qty": 1}, "labor": {"worker": 5, "engineer": 3, "manager": 1}, "energy": 4, "research_cost": 1000},
-  {"id": "make_appliance", "name": "Бытовая техника", "building_type": "appliance_plant", "inputs": [{"item_id": "steel", "qty": 2}, {"item_id": "circuit", "qty": 1}, {"item_id": "plastic", "qty": 2}], "output": {"item_id": "appliance", "qty": 1}, "labor": {"worker": 6, "engineer": 3, "manager": 1}, "energy": 5, "research_cost": 800},
-  {"id": "steel_goods", "name": "Металлоизделия", "building_type": "steel_mill", "inputs": [{"item_id": "steel", "qty": 2}], "output": {"item_id": "steel_goods", "qty": 2}, "labor": {"worker": 4, "engineer": 1}, "energy": 3, "research_cost": 500},
-
-  {"id": "make_koumiss", "name": "Ҡымыҙ", "building_type": "dairy_plant", "inputs": [{"item_id": "milk", "qty": 6}, {"item_id": "bottle", "qty": 4}], "output": {"item_id": "koumiss", "qty": 4}, "labor": {"worker": 4, "engineer": 1}, "energy": 2, "research_cost": 400},
-  {"id": "make_qurut", "name": "Ҡорот", "building_type": "dairy_plant", "inputs": [{"item_id": "milk", "qty": 5}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "qurut", "qty": 3}, "labor": {"worker": 3}, "energy": 2, "research_cost": 350},
-  {"id": "make_chakchak", "name": "Сәк-сәк", "building_type": "bakery", "inputs": [{"item_id": "flour", "qty": 3}, {"item_id": "honey", "qty": 2}, {"item_id": "packaging", "qty": 1}], "output": {"item_id": "chakchak", "qty": 3}, "labor": {"worker": 4, "manager": 1}, "energy": 2, "research_cost": 500},
-  {"id": "make_baursak", "name": "Баурһаҡ", "building_type": "bakery", "inputs": [{"item_id": "flour", "qty": 3}, {"item_id": "butter", "qty": 1}], "output": {"item_id": "baursak", "qty": 4}, "labor": {"worker": 3}, "energy": 2, "research_cost": 300},
-  {"id": "make_herbal_tea", "name": "Травяной чай", "building_type": "food_plant", "inputs": [{"item_id": "honey", "qty": 1}, {"item_id": "packaging", "qty": 2}], "output": {"item_id": "herbal_tea", "qty": 3}, "labor": {"worker": 2}, "energy": 1, "research_cost": 200, "season_bonus_months": [5, 6, 7]},
-  {"id": "make_felt", "name": "Войлок", "building_type": "textile_mill", "inputs": [{"item_id": "cattle", "qty": 1}], "output": {"item_id": "felt", "qty": 2}, "labor": {"worker": 4}, "energy": 2, "research_cost": 450},
-  {"id": "make_bashkir_carpet", "name": "Башкирский ковёр", "building_type": "furniture_plant", "inputs": [{"item_id": "felt", "qty": 2}, {"item_id": "fabric", "qty": 2}], "output": {"item_id": "bashkir_carpet", "qty": 1}, "labor": {"worker": 5, "engineer": 1, "manager": 1}, "energy": 3, "research_cost": 700}
+  {
+    "id": "make_clothing",
+    "name": "Одежда",
+    "building_type": "apparel_factory",
+    "inputs": [
+      {
+        "item_id": "fabric",
+        "qty": 2
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "clothing",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1,
+      "manager": 1
+    },
+    "energy": 2,
+    "research_cost": 400
+  },
+  {
+    "id": "make_clothing_cotton",
+    "name": "Хлопковая одежда",
+    "building_type": "apparel_factory",
+    "inputs": [
+      {
+        "item_id": "fabric",
+        "qty": 1
+      },
+      {
+        "item_id": "cotton_fabric",
+        "qty": 2
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "clothing",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1,
+      "manager": 1
+    },
+    "energy": 2,
+    "research_cost": 700
+  },
+  {
+    "id": "make_leather",
+    "name": "Кожа",
+    "building_type": "apparel_factory",
+    "inputs": [
+      {
+        "item_id": "cattle",
+        "qty": 1
+      },
+      {
+        "item_id": "chemicals",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "leather",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 400
+  },
+  {
+    "id": "make_shoes",
+    "name": "Обувь",
+    "building_type": "apparel_factory",
+    "inputs": [
+      {
+        "item_id": "leather",
+        "qty": 2
+      },
+      {
+        "item_id": "plastic",
+        "qty": 1
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "shoes",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 600
+  },
+  {
+    "id": "make_appliance",
+    "name": "Бытовая техника",
+    "building_type": "appliance_plant",
+    "inputs": [
+      {
+        "item_id": "steel",
+        "qty": 2
+      },
+      {
+        "item_id": "circuit",
+        "qty": 1
+      },
+      {
+        "item_id": "plastic",
+        "qty": 1
+      },
+      {
+        "item_id": "wire",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "appliance",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 6,
+      "engineer": 3,
+      "manager": 1
+    },
+    "energy": 5,
+    "research_cost": 800
+  },
+  {
+    "id": "bake_bread",
+    "name": "Хлеб",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "flour",
+        "qty": 3
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "bread",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4
+    },
+    "energy": 2,
+    "research_cost": 0
+  },
+  {
+    "id": "bake_pastry",
+    "name": "Выпечка",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "flour",
+        "qty": 2
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      },
+      {
+        "item_id": "butter",
+        "qty": 1
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "pastry",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 600
+  },
+  {
+    "id": "make_baursak",
+    "name": "Баурһаҡ",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "flour",
+        "qty": 3
+      },
+      {
+        "item_id": "butter",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "baursak",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 2,
+    "research_cost": 300
+  },
+  {
+    "id": "make_chakchak",
+    "name": "Сәк-сәк",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "flour",
+        "qty": 3
+      },
+      {
+        "item_id": "honey",
+        "qty": 2
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "chakchak",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "manager": 1
+    },
+    "energy": 2,
+    "research_cost": 500
+  },
+  {
+    "id": "make_particle_board",
+    "name": "ДСП",
+    "building_type": "board_plant",
+    "inputs": [
+      {
+        "item_id": "wood",
+        "qty": 5
+      },
+      {
+        "item_id": "chemicals",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "particle_board",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0
+  },
+  {
+    "id": "extract_chemicals",
+    "name": "Базовая химия",
+    "building_type": "chem_plant",
+    "inputs": [],
+    "output": {
+      "item_id": "chemicals",
+      "qty": 6
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0
+  },
+  {
+    "id": "bottle_milk",
+    "name": "Молоко в бутылке",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 5
+      },
+      {
+        "item_id": "bottle",
+        "qty": 5
+      }
+    ],
+    "output": {
+      "item_id": "bottled_milk",
+      "qty": 5
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 0
+  },
+  {
+    "id": "cherry_milk_drink",
+    "name": "Вишнёво-молочный напиток",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      },
+      {
+        "item_id": "cherry",
+        "qty": 2
+      },
+      {
+        "item_id": "bottle",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "cherry_milk_drink",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1,
+      "manager": 1
+    },
+    "energy": 2,
+    "research_cost": 800
+  },
+  {
+    "id": "make_butter",
+    "name": "Масло",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "butter",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 2,
+    "research_cost": 300
+  },
+  {
+    "id": "make_cheese",
+    "name": "Сыр",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 6
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cheese",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 500
+  },
+  {
+    "id": "make_koumiss",
+    "name": "Ҡымыҙ",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 6
+      },
+      {
+        "item_id": "bottle",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "koumiss",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 400
+  },
+  {
+    "id": "make_qurut",
+    "name": "Ҡорот",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 5
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "qurut",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 2,
+    "research_cost": 350
+  },
+  {
+    "id": "make_yogurt",
+    "name": "Йогурт",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      },
+      {
+        "item_id": "packaging",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "yogurt",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 700
+  },
+  {
+    "id": "make_circuit",
+    "name": "Микросхема",
+    "building_type": "electronics_plant",
+    "inputs": [
+      {
+        "item_id": "copper",
+        "qty": 1
+      },
+      {
+        "item_id": "quartz",
+        "qty": 1
+      },
+      {
+        "item_id": "chemicals",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "circuit",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 4
+    },
+    "energy": 5,
+    "research_cost": 900
+  },
+  {
+    "id": "make_electronics",
+    "name": "Электроника",
+    "building_type": "electronics_plant",
+    "inputs": [
+      {
+        "item_id": "circuit",
+        "qty": 1
+      },
+      {
+        "item_id": "plastic",
+        "qty": 2
+      },
+      {
+        "item_id": "wire",
+        "qty": 2
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "electronics",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 3,
+      "manager": 1
+    },
+    "energy": 4,
+    "research_cost": 1000
+  },
+  {
+    "id": "make_wire",
+    "name": "Провод",
+    "building_type": "electronics_plant",
+    "inputs": [
+      {
+        "item_id": "copper",
+        "qty": 2
+      },
+      {
+        "item_id": "plastic",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "wire",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 3,
+    "research_cost": 300
+  },
+  {
+    "id": "grow_cotton",
+    "name": "Хлопок",
+    "building_type": "farm",
+    "inputs": [],
+    "output": {
+      "item_id": "cotton",
+      "qty": 6
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 200
+  },
+  {
+    "id": "grow_flax",
+    "name": "Лён",
+    "building_type": "farm",
+    "inputs": [],
+    "output": {
+      "item_id": "flax",
+      "qty": 6
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "season_bonus_months": [
+      7,
+      8
+    ]
+  },
+  {
+    "id": "grow_potato",
+    "name": "Картофель",
+    "building_type": "farm",
+    "inputs": [],
+    "output": {
+      "item_id": "potato",
+      "qty": 10
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "season_bonus_months": [
+      8,
+      9
+    ]
+  },
+  {
+    "id": "grow_wheat",
+    "name": "Пшеница",
+    "building_type": "farm",
+    "inputs": [],
+    "output": {
+      "item_id": "wheat",
+      "qty": 10
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "season_bonus_months": [
+      7,
+      8,
+      9
+    ]
+  },
+  {
+    "id": "apple_juice",
+    "name": "Яблочный сок",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "apple",
+        "qty": 5
+      },
+      {
+        "item_id": "bottle",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "apple_juice",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4
+    },
+    "energy": 2,
+    "research_cost": 200
+  },
+  {
+    "id": "can_food",
+    "name": "Консервы",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "beef",
+        "qty": 2
+      },
+      {
+        "item_id": "potato",
+        "qty": 2
+      },
+      {
+        "item_id": "packaging",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "canned_food",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 500
+  },
+  {
+    "id": "make_herbal_tea",
+    "name": "Травяной чай",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "honey",
+        "qty": 1
+      },
+      {
+        "item_id": "packaging",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "herbal_tea",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 1,
+    "research_cost": 200,
+    "season_bonus_months": [
+      5,
+      6,
+      7
+    ]
+  },
+  {
+    "id": "make_snacks",
+    "name": "Снеки",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "potato",
+        "qty": 4
+      },
+      {
+        "item_id": "oil",
+        "qty": 1
+      },
+      {
+        "item_id": "packaging",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "snack",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 400
+  },
+  {
+    "id": "make_sugar",
+    "name": "Сахар",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "apple",
+        "qty": 3
+      },
+      {
+        "item_id": "chemicals",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "sugar",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 300
+  },
+  {
+    "id": "slaughter_beef",
+    "name": "Говядина",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "cattle",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "beef",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4
+    },
+    "energy": 2,
+    "research_cost": 0
+  },
+  {
+    "id": "make_bashkir_carpet",
+    "name": "Башкирский ковёр",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "felt",
+        "qty": 2
+      },
+      {
+        "item_id": "fabric",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "bashkir_carpet",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1,
+      "manager": 1
+    },
+    "energy": 3,
+    "research_cost": 700
+  },
+  {
+    "id": "make_furniture",
+    "name": "Мебель",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "fabric",
+        "qty": 1
+      },
+      {
+        "item_id": "particle_board",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "furniture",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 6,
+      "engineer": 2,
+      "manager": 1
+    },
+    "energy": 3,
+    "research_cost": 0
+  },
+  {
+    "id": "make_furniture_wood",
+    "name": "Деревянная мебель",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "planks",
+        "qty": 3
+      },
+      {
+        "item_id": "fabric",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "furniture",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 350
+  },
+  {
+    "id": "extract_gas",
+    "name": "Добыча газа",
+    "building_type": "gas_well",
+    "inputs": [],
+    "output": {
+      "item_id": "gas",
+      "qty": 6
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 3
+    },
+    "energy": 4,
+    "research_cost": 500
+  },
+  {
+    "id": "make_bottle",
+    "name": "Стеклянная бутылка",
+    "building_type": "glass_plant",
+    "inputs": [
+      {
+        "item_id": "sand",
+        "qty": 2
+      },
+      {
+        "item_id": "quartz",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "bottle",
+      "qty": 5
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0
+  },
+  {
+    "id": "farm_milk",
+    "name": "Надой молока",
+    "building_type": "livestock_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "milk",
+      "qty": 8
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0
+  },
+  {
+    "id": "raise_cattle",
+    "name": "Выращивание КРС",
+    "building_type": "livestock_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "cattle",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 0
+  },
+  {
+    "id": "extract_wood",
+    "name": "Заготовка дерева",
+    "building_type": "logging_camp",
+    "inputs": [],
+    "output": {
+      "item_id": "wood",
+      "qty": 8
+    },
+    "labor": {
+      "worker": 4
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "season_bonus_months": [
+      9,
+      10
+    ]
+  },
+  {
+    "id": "mill_flour",
+    "name": "Мука",
+    "building_type": "mill",
+    "inputs": [
+      {
+        "item_id": "wheat",
+        "qty": 5
+      }
+    ],
+    "output": {
+      "item_id": "flour",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 2,
+    "research_cost": 0
+  },
+  {
+    "id": "mine_coal",
+    "name": "Добыча угля",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "coal",
+      "qty": 12
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0
+  },
+  {
+    "id": "mine_copper",
+    "name": "Добыча меди",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "copper_ore",
+      "qty": 8
+    },
+    "labor": {
+      "worker": 6,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 400
+  },
+  {
+    "id": "mine_iron",
+    "name": "Добыча руды",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "iron_ore",
+      "qty": 10
+    },
+    "labor": {
+      "worker": 6,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0
+  },
+  {
+    "id": "extract_oil",
+    "name": "Добыча нефти",
+    "building_type": "oil_well",
+    "inputs": [],
+    "output": {
+      "item_id": "oil",
+      "qty": 6
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 3
+    },
+    "energy": 5,
+    "research_cost": 0
+  },
+  {
+    "id": "farm_apple",
+    "name": "Сбор яблок",
+    "building_type": "orchard",
+    "inputs": [],
+    "output": {
+      "item_id": "apple",
+      "qty": 8
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "season_bonus_months": [
+      8,
+      9
+    ]
+  },
+  {
+    "id": "farm_cherry",
+    "name": "Сбор вишни",
+    "building_type": "orchard",
+    "inputs": [],
+    "output": {
+      "item_id": "cherry",
+      "qty": 6
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ]
+  },
+  {
+    "id": "harvest_honey",
+    "name": "Сбор бурзянского мёда",
+    "building_type": "orchard",
+    "inputs": [],
+    "output": {
+      "item_id": "honey",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 250,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ]
+  },
+  {
+    "id": "make_book",
+    "name": "Книги",
+    "building_type": "paper_mill",
+    "inputs": [
+      {
+        "item_id": "paper",
+        "qty": 4
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "book",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "manager": 1
+    },
+    "energy": 2,
+    "research_cost": 400
+  },
+  {
+    "id": "make_paper",
+    "name": "Бумага",
+    "building_type": "paper_mill",
+    "inputs": [
+      {
+        "item_id": "wood",
+        "qty": 4
+      },
+      {
+        "item_id": "chemicals",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "paper",
+      "qty": 5
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0
+  },
+  {
+    "id": "make_packaging",
+    "name": "Упаковка",
+    "building_type": "plastics_plant",
+    "inputs": [
+      {
+        "item_id": "plastic",
+        "qty": 2
+      },
+      {
+        "item_id": "paper",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "packaging",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0
+  },
+  {
+    "id": "make_plastic",
+    "name": "Пластик",
+    "building_type": "plastics_plant",
+    "inputs": [
+      {
+        "item_id": "oil",
+        "qty": 2
+      },
+      {
+        "item_id": "chemicals",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "plastic",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 5,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0
+  },
+  {
+    "id": "make_toy",
+    "name": "Игрушки",
+    "building_type": "plastics_plant",
+    "inputs": [
+      {
+        "item_id": "plastic",
+        "qty": 3
+      },
+      {
+        "item_id": "packaging",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "toy",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4
+    },
+    "energy": 2,
+    "research_cost": 300
+  },
+  {
+    "id": "extract_quartz",
+    "name": "Добыча кварца",
+    "building_type": "quarry",
+    "inputs": [],
+    "output": {
+      "item_id": "quartz",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0
+  },
+  {
+    "id": "extract_sand",
+    "name": "Добыча песка",
+    "building_type": "quarry",
+    "inputs": [],
+    "output": {
+      "item_id": "sand",
+      "qty": 10
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 2,
+    "research_cost": 0
+  },
+  {
+    "id": "pack_fuel",
+    "name": "Канистра топлива",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "gasoline",
+        "qty": 2
+      },
+      {
+        "item_id": "plastic",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "fuel_can",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 2,
+    "research_cost": 300
+  },
+  {
+    "id": "refine_diesel",
+    "name": "Дизель",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "oil",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "diesel",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 6,
+      "engineer": 4
+    },
+    "energy": 6,
+    "research_cost": 200
+  },
+  {
+    "id": "refine_gasoline",
+    "name": "Бензин",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "oil",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "gasoline",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 6,
+      "engineer": 4
+    },
+    "energy": 6,
+    "research_cost": 0
+  },
+  {
+    "id": "saw_planks",
+    "name": "Доски",
+    "building_type": "sawmill",
+    "inputs": [
+      {
+        "item_id": "wood",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "planks",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 2,
+    "research_cost": 0
+  },
+  {
+    "id": "smelt_copper",
+    "name": "Медь",
+    "building_type": "steel_mill",
+    "inputs": [
+      {
+        "item_id": "copper_ore",
+        "qty": 5
+      },
+      {
+        "item_id": "coal",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "copper",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 6,
+      "engineer": 2
+    },
+    "energy": 6,
+    "research_cost": 400
+  },
+  {
+    "id": "smelt_steel",
+    "name": "Сталь",
+    "building_type": "steel_mill",
+    "inputs": [
+      {
+        "item_id": "iron_ore",
+        "qty": 5
+      },
+      {
+        "item_id": "coal",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "steel",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 8,
+      "engineer": 3
+    },
+    "energy": 8,
+    "research_cost": 0
+  },
+  {
+    "id": "steel_goods",
+    "name": "Металлоизделия",
+    "building_type": "steel_mill",
+    "inputs": [
+      {
+        "item_id": "steel",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "steel_goods",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 500
+  },
+  {
+    "id": "make_felt",
+    "name": "Войлок",
+    "building_type": "textile_mill",
+    "inputs": [
+      {
+        "item_id": "cattle",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "felt",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 4
+    },
+    "energy": 2,
+    "research_cost": 450
+  },
+  {
+    "id": "weave_cotton",
+    "name": "Хлопковая ткань",
+    "building_type": "textile_mill",
+    "inputs": [
+      {
+        "item_id": "cotton",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "cotton_fabric",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 300
+  },
+  {
+    "id": "weave_fabric",
+    "name": "Ткань из льна",
+    "building_type": "textile_mill",
+    "inputs": [
+      {
+        "item_id": "flax",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "fabric",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 2,
+    "research_cost": 0
+  }
 ]

@@ -105,11 +105,22 @@ type LogisticsConfig struct {
 	BaseCostPerUnit  float64 `json:"base_cost_per_unit"`  // fixed loading fee
 }
 
+// BalanceConfig — ставки из scripts/rebalance_economy.py (единый источник с коридорами).
+type BalanceConfig struct {
+	Version            int                `json:"version"`
+	WagePerTick        map[string]float64 `json:"wage_per_tick"`
+	EnergyCostExtract  float64            `json:"energy_cost_extract"`
+	EnergyCostFactory  float64            `json:"energy_cost_factory"`
+	TargetMargin       map[string]float64 `json:"target_margin"`
+	Notes              string             `json:"notes"`
+}
+
 type EconomyConfig struct {
 	PriceCorridors map[string]PriceCorridor `json:"price_corridors"`
 	CityMarket     []CityMarketOffer        `json:"city_market"`
 	Chat           ChatConfig               `json:"chat"`
 	Logistics      LogisticsConfig          `json:"logistics"`
+	Balance        BalanceConfig            `json:"balance"`
 }
 
 type AIPersona struct {

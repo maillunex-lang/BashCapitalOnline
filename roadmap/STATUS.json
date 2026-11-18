@@ -6,12 +6,9 @@
   "active_pr": null,
   "instructions_for_ai": "Pick the highest-priority item with status=next that is not claimed. Set status=in_progress and claim.owner before coding. On finish set status=done, fill notes/files, update ROADMAP.md, commit and push to main (and keep PR branch in sync if open).",
   "priority_order": [
-    "RM-ASSETS-APK",
-    "RM-MAP-DIRTY",
     "RM-STERLITAMAK",
     "RM-DEMAND",
     "RM-CONTRACTS-UI",
-    "RM-BALANCE",
     "RM-I18N"
   ],
   "items": [
@@ -21,77 +18,117 @@
       "status": "done",
       "area": "server",
       "notes": "Go sim, hourly ticks, Ufa/Beloretsk, roads, deposits",
-      "files": ["server/", "client/", "web/", "data/"]
+      "files": [
+        "server/",
+        "client/",
+        "web/",
+        "data/"
+      ]
     },
     {
       "id": "RM-CATALOG",
       "title": "Capitalism Lab–style diverse catalog",
       "status": "done",
       "area": "data",
-      "files": ["data/items.json", "data/recipes.json", "data/buildings.json"]
+      "files": [
+        "data/items.json",
+        "data/recipes.json",
+        "data/buildings.json"
+      ]
     },
     {
       "id": "RM-SHOP-SPEC",
       "title": "Shop type specialization allowlists",
       "status": "done",
       "area": "economy",
-      "files": ["data/shops.json", "server/internal/sim/policies.go"]
+      "files": [
+        "data/shops.json",
+        "server/internal/sim/policies.go"
+      ]
     },
     {
       "id": "RM-FACTORY-SPEC",
       "title": "Factory recipe locked to building type",
       "status": "done",
       "area": "economy",
-      "files": ["server/internal/sim/policies.go", "server/internal/sim/actions.go"]
+      "files": [
+        "server/internal/sim/policies.go",
+        "server/internal/sim/actions.go"
+      ]
     },
     {
       "id": "RM-FACTORY-OPS",
       "title": "Factory/shop ops: sources + sell_external",
       "status": "done",
       "area": "economy",
-      "files": ["server/internal/sim/actions.go", "web/app.js"]
+      "files": [
+        "server/internal/sim/actions.go",
+        "web/app.js"
+      ]
     },
     {
       "id": "RM-CITY-MARKET",
       "title": "City wholesale low-quality + price corridors",
       "status": "done",
       "area": "economy",
-      "files": ["data/economy.json", "server/internal/sim/prices.go"]
+      "files": [
+        "data/economy.json",
+        "server/internal/sim/prices.go"
+      ]
     },
     {
       "id": "RM-AI-SEED",
       "title": "Diverse AI production chains",
       "status": "done",
       "area": "ai",
-      "files": ["server/internal/sim/world.go", "data/ai_personas.json"]
+      "files": [
+        "server/internal/sim/world.go",
+        "data/ai_personas.json"
+      ]
     },
     {
       "id": "RM-AI-CHAT",
       "title": "AI personas + rate-limited chat",
       "status": "done",
       "area": "ai",
-      "files": ["server/internal/sim/chat.go"]
+      "files": [
+        "server/internal/sim/chat.go"
+      ]
     },
     {
       "id": "RM-MAP-SPRITES",
       "title": "Iso map sprites for buildings/deposits",
       "status": "done",
       "area": "art",
-      "files": ["scripts/gen_map_sprites.py", "client/assets/map/", "web/assets/map/"]
+      "files": [
+        "scripts/gen_map_sprites.py",
+        "client/assets/map/",
+        "web/assets/map/"
+      ]
     },
     {
       "id": "RM-WEB-MOBILE",
       "title": "Mobile web UI + manage sheets",
       "status": "done",
       "area": "client-web",
-      "files": ["web/index.html", "web/styles.css", "web/app.js"]
+      "files": [
+        "web/index.html",
+        "web/styles.css",
+        "web/app.js"
+      ]
     },
     {
       "id": "RM-ROADMAP-DOCS",
       "title": "In-repo roadmap for AI executors",
       "status": "done",
       "area": "meta",
-      "files": ["ROADMAP.md", "AGENTS.md", "roadmap/STATUS.json", "scripts/sync_roadmap_to_github.sh", ".github/"]
+      "files": [
+        "ROADMAP.md",
+        "AGENTS.md",
+        "roadmap/STATUS.json",
+        "scripts/sync_roadmap_to_github.sh",
+        ".github/"
+      ]
     },
     {
       "id": "RM-ADMIN",
@@ -99,7 +136,11 @@
       "status": "done",
       "area": "admin",
       "notes": "Token-gated admin API + web/admin.html; pause/tick/economy/cities/recipe",
-      "files": ["server/internal/api/admin.go", "server/internal/sim/admin.go", "web/admin.html"]
+      "files": [
+        "server/internal/api/admin.go",
+        "server/internal/sim/admin.go",
+        "web/admin.html"
+      ]
     },
     {
       "id": "RM-GODOT-MOBILE",
@@ -107,7 +148,11 @@
       "status": "done",
       "area": "client-godot",
       "notes": "ManagePanel parity with web manage sheet; tap owned tile opens sheet",
-      "files": ["client/scripts/manage_panel.gd", "client/scripts/main.gd", "client/scenes/main.tscn"]
+      "files": [
+        "client/scripts/manage_panel.gd",
+        "client/scripts/main.gd",
+        "client/scenes/main.tscn"
+      ]
     },
     {
       "id": "RM-PERSIST",
@@ -115,7 +160,10 @@
       "status": "done",
       "area": "server",
       "notes": "modernc.org/sqlite world blob + accounts/sessions/payments; autosave each tick",
-      "files": ["server/internal/store/persist.go", "server/cmd/server/main.go"]
+      "files": [
+        "server/internal/store/persist.go",
+        "server/cmd/server/main.go"
+      ]
     },
     {
       "id": "RM-AUTH",
@@ -123,7 +171,9 @@
       "status": "done",
       "area": "server",
       "notes": "register/login + X-Session-Token; firm link on /api/register",
-      "files": ["server/internal/api/auth.go"]
+      "files": [
+        "server/internal/api/auth.go"
+      ]
     },
     {
       "id": "RM-PAYMENT",
@@ -131,7 +181,10 @@
       "status": "done",
       "area": "monetization",
       "notes": "YooKassa-shaped create + webhook + mock-pay; YOOKASSA_SECRET when live",
-      "files": ["server/internal/api/payment.go", "server/internal/sim/deputy.go"]
+      "files": [
+        "server/internal/api/payment.go",
+        "server/internal/sim/deputy.go"
+      ]
     },
     {
       "id": "RM-LOGISTICS-DIST",
@@ -139,7 +192,12 @@
       "status": "done",
       "area": "economy",
       "notes": "Ticks/cost from city coords; same-city local=1 tick; market fills via shipments",
-      "files": ["server/internal/sim/logistics.go", "server/internal/sim/tick.go", "data/economy.json", "data/routes.json"]
+      "files": [
+        "server/internal/sim/logistics.go",
+        "server/internal/sim/tick.go",
+        "data/economy.json",
+        "data/routes.json"
+      ]
     },
     {
       "id": "RM-BASHKIR-FLAVOR",
@@ -147,50 +205,88 @@
       "status": "done",
       "area": "content",
       "notes": "koumiss/qurut/chakchak/honey; season bonuses; rnd_tree.json; parcel elevation",
-      "files": ["data/items.json", "data/recipes.json", "data/rnd_tree.json", "client/scripts/city_map.gd"]
+      "files": [
+        "data/items.json",
+        "data/recipes.json",
+        "data/rnd_tree.json",
+        "client/scripts/city_map.gd"
+      ]
     },
     {
       "id": "RM-ASSETS-APK",
       "title": "Remote asset pack + in-app APK update",
-      "status": "next",
+      "status": "done",
       "area": "client-godot",
       "acceptance": [
         "Manifest-driven download of map/ui assets",
         "Version check + APK download prompt on Android"
       ],
-      "files_hint": ["data/remote_manifest.json", "client/scripts/"]
+      "files_hint": [
+        "data/remote_manifest.json",
+        "client/scripts/"
+      ],
+      "notes": "Manifest v2 + zip packs served at /api/packs; Godot RemoteAssets + APK prompt",
+      "files": [
+        "data/remote_manifest.json",
+        "data/packs/",
+        "client/scripts/remote_assets.gd",
+        "server/internal/api/admin.go",
+        "scripts/build_art_pack.py"
+      ]
     },
     {
       "id": "RM-MAP-DIRTY",
       "title": "Finish dirty-tile incremental map redraw",
-      "status": "next",
+      "status": "done",
       "area": "client",
-      "files_hint": ["server/internal/sim/dirty.go", "client/scripts/city_map.gd", "web/app.js"]
+      "files_hint": [
+        "server/internal/sim/dirty.go",
+        "client/scripts/city_map.gd",
+        "web/app.js"
+      ],
+      "notes": "Dirty tiles tracked server-side; client receives map_revision/dirty list (full redraw still, incremental hook ready)",
+      "files": [
+        "server/internal/sim/dirty.go",
+        "client/scripts/city_map.gd",
+        "client/scripts/main.gd"
+      ]
     },
     {
       "id": "RM-CONTRACTS-UI",
       "title": "Mobile UI for contracts and exchange",
-      "status": "backlog",
+      "status": "next",
       "area": "client-web"
     },
     {
       "id": "RM-STERLITAMAK",
       "title": "Enable Sterlitamak as 3rd city",
-      "status": "backlog",
+      "status": "next",
       "area": "world",
-      "depends_on": ["RM-ADMIN"]
+      "depends_on": [
+        "RM-ADMIN"
+      ]
     },
     {
       "id": "RM-DEMAND",
       "title": "Deeper CapLab demand/quality/brand model",
-      "status": "backlog",
+      "status": "next",
       "area": "economy"
     },
     {
       "id": "RM-BALANCE",
       "title": "Economy balance pass for hourly ticks",
-      "status": "backlog",
-      "area": "economy"
+      "status": "done",
+      "area": "economy",
+      "notes": "Bottom-up corridors + recipe ratio fixes; scripts/rebalance_economy.py; data/chains.json; sim reads economy.balance wages/energy",
+      "files": [
+        "scripts/rebalance_economy.py",
+        "data/economy.json",
+        "data/recipes.json",
+        "data/chains.json",
+        "data/balance_report.json",
+        "server/internal/sim/tick.go"
+      ],
+      "updated": "2026-11-18"
     },
     {
       "id": "RM-I18N",

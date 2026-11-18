@@ -47,6 +47,10 @@ func create_payment(months: int = 1) -> Dictionary:
 	var res = await _post("/api/payment/create", {"months": months})
 	return res if res is Dictionary else {}
 
+func fetch_manifest() -> Dictionary:
+	var res = await _get("/api/updates/manifest")
+	return res if res is Dictionary else {}
+
 func fetch_catalog() -> void:
 	var res = await _get("/api/catalog")
 	if res is Dictionary:

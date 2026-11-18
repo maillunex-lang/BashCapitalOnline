@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"strings"
 
 	"bashcapital/server/internal/model"
 )
@@ -166,6 +167,29 @@ func (s *Server) handleUpdatesManifest(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "no-cache")
+	_, _ = w.Write(b)
+}
+
+func (s *Server) handlePackDownload(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Path[len("/api/packs/"):]
+	if name == "" || strings.Contains(name, "..") || strings.Contains(name, "/") {
+		http.Error(w, "bad pack name", 400)
+		return
+	}
+	path := name
+	if s.Engine.DataDir != "" {
+		path = s.Engine.DataDir + "/packs/" + name
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		b, err = os.ReadFile("../data/packs/" + name)
+		if err != nil {
+			http.Error(w, "pack missing", 404)
+			return
+		}
+	}
+	w.Header().Set("Content-Type", "application/zip")
+	w.Header().Set("Content-Disposition", "attachment; filename="+name)
 	_, _ = w.Write(b)
 }
 

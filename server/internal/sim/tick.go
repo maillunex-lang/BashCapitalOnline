@@ -196,7 +196,7 @@ func (e *Engine) runProduction(log *[]string) {
 			if !ok {
 				continue // залежь иссякла / нет ресурса
 			}
-			energyCost := float64(recipe.Energy) * 8
+			energyCost := float64(recipe.Energy) * e.energyRate(true)
 			firm.Cash -= energyCost
 			b.Inventory[recipe.Output.ItemID] += outQty
 			b.Quality = clamp((depQ*0.7)+(b.Quality*0.3), 1, 5)
@@ -218,7 +218,7 @@ func (e *Engine) runProduction(log *[]string) {
 		for _, in := range recipe.Inputs {
 			b.Inventory[in.ItemID] -= in.Qty
 		}
-		energyCost := float64(recipe.Energy) * 15
+		energyCost := float64(recipe.Energy) * e.energyRate(false)
 		firm.Cash -= energyCost
 		b.Inventory[recipe.Output.ItemID] += outQty
 		b.Quality = clamp((inputQ*0.7)+2.0*0.3, 1, 5)
@@ -452,8 +452,9 @@ func (e *Engine) payRentsAndWages(log *[]string) {
 		firm.Cash -= shop.FixedRent / 24 // почасовая доля месячной/суточной аренды
 	}
 	for _, city := range e.World.Cities {
-		// ставки за тик-час (~1/24 месячного фонда)
-		wage := float64(city.LaborUsed.Worker)*12 + float64(city.LaborUsed.Engineer)*24 + float64(city.LaborUsed.Manager)*36
+		// ставки за тик-час из economy.balance (синхрон с rebalance_economy.py)
+		ww, we, wm := e.wageRates()
+		wage := float64(city.LaborUsed.Worker)*ww + float64(city.LaborUsed.Engineer)*we + float64(city.LaborUsed.Manager)*wm
 		// split wage across firms with buildings in city proportional to buildings
 		counts := map[string]int{}
 		total := 0
@@ -657,6 +658,38 @@ func (e *Engine) firmBuildingsInCity(firmID, cityID string) []*model.BuildingIns
 		}
 	}
 	return out
+}
+
+func (e *Engine) energyRate(extract bool) float64 {
+	b := e.Catalog.Economy.Balance
+	if extract {
+		if b.EnergyCostExtract > 0 {
+			return b.EnergyCostExtract
+		}
+		return 8
+	}
+	if b.EnergyCostFactory > 0 {
+		return b.EnergyCostFactory
+	}
+	return 15
+}
+
+func (e *Engine) wageRates() (worker, engineer, manager float64) {
+	w := e.Catalog.Economy.Balance.WagePerTick
+	worker, engineer, manager = 12, 24, 36
+	if w == nil {
+		return
+	}
+	if v, ok := w["worker"]; ok && v > 0 {
+		worker = v
+	}
+	if v, ok := w["engineer"]; ok && v > 0 {
+		engineer = v
+	}
+	if v, ok := w["manager"]; ok && v > 0 {
+		manager = v
+	}
+	return
 }
 
 func min(a, b int) int {

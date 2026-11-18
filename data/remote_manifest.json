@@ -1,29 +1,38 @@
 {
-  "app_version": "0.1.0",
+  "app_version": "0.2.0",
   "min_client_version": "0.1.0",
   "apk": {
-    "version_code": 1,
-    "version_name": "0.1.0",
-    "url": "https://cdn.example.local/bashcapital/app-0.1.0.apk",
-    "sha256": "replace-on-release",
-    "changelog": "Первый MVP: экономика, залежи, дороги, админка"
+    "version_code": 2,
+    "version_name": "0.2.0",
+    "url": "/api/updates/apk/bashcapital-0.2.0.apk",
+    "sha256": "pending-release",
+    "changelog": "Art pack v2 · remote assets · distance logistics · manage panels"
   },
   "packs": [
     {
       "id": "base_art",
-      "version": 1,
-      "url": "https://cdn.example.local/bashcapital/packs/base_art_v1.zip",
-      "sha256": "replace-on-release",
+      "version": 2,
+      "url": "/api/packs/base_art_v2.zip",
+      "sha256": "b54f2f564d71db7b6f9e362a2ee85c21e7f1941493449301fe68690f1d9c6e19",
       "required": true,
-      "size_bytes": 0
+      "size_bytes": 2153230
     },
     {
       "id": "city_tiles",
-      "version": 1,
-      "url": "https://cdn.example.local/bashcapital/packs/city_tiles_v1.zip",
-      "sha256": "replace-on-release",
+      "version": 2,
+      "url": "/api/packs/city_tiles_v2.zip",
+      "sha256": "92e1776aadc78cb6e048062ab6e60cf738a0725456ef50a8aa348e92be314c11",
       "required": true,
-      "size_bytes": 0
+      "size_bytes": 1286999
     }
-  ]
+  ],
+  "style": {
+    "palette": {
+      "bg": "#0c1a18",
+      "accent": "#3d9b84",
+      "gold": "#d2b36a",
+      "text": "#e8f2ee"
+    },
+    "map": "isometric teal-roof Bashkortostan industry"
+  }
 }

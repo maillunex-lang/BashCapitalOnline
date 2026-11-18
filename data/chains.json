@@ -1,0 +1,73 @@
+{
+  "version": 2,
+  "notes": "Canonical production chains for BashCapital. Prices from scripts/rebalance_economy.py (economy.balance).",
+  "chains": [
+    {
+      "id": "dairy",
+      "title": "Молочка (Уфа)",
+      "steps": [
+        "livestock_farm:farm_milk → milk",
+        "quarry/glass: sand+quartz → bottle",
+        "dairy_plant: milk+bottle → bottled_milk | koumiss | cheese | butter | yogurt | qurut",
+        "shop: grocery / bakery_shop"
+      ]
+    },
+    {
+      "id": "bakery",
+      "title": "Хлеб и выпечка",
+      "steps": [
+        "farm: wheat → mill: flour",
+        "bakery: flour+packaging → bread | baursak | chakchak",
+        "food_plant: apple+chemicals → sugar (для pastry/yogurt)"
+      ]
+    },
+    {
+      "id": "furniture",
+      "title": "Мебель",
+      "steps": [
+        "logging_camp → wood → sawmill:planks | board_plant:particle_board",
+        "textile_mill: flax → fabric",
+        "furniture_plant: board/planks+fabric → furniture | bashkir_carpet"
+      ]
+    },
+    {
+      "id": "apparel",
+      "title": "Одежда",
+      "steps": [
+        "farm:flax/cotton → textile_mill → fabric/cotton_fabric",
+        "livestock → leather / felt",
+        "apparel_factory → clothing | shoes"
+      ]
+    },
+    {
+      "id": "steel",
+      "title": "Металл (Белорецк)",
+      "steps": [
+        "mine: iron_ore + coal → steel_mill:steel → steel_goods",
+        "mine: copper_ore → copper → wire/circuit → electronics/appliance"
+      ]
+    },
+    {
+      "id": "oil",
+      "title": "Нефть",
+      "steps": [
+        "oil_well → oil → refinery:gasoline/diesel | plastics_plant:plastic",
+        "plastic+paper → packaging; gasoline+plastic → fuel_can"
+      ]
+    },
+    {
+      "id": "bashkir",
+      "title": "Башкирский вкус",
+      "steps": [
+        "orchard: honey (season 6–8)",
+        "dairy: koumiss/qurut; bakery: chakchak/baursak; food_plant: herbal_tea"
+      ]
+    }
+  ],
+  "targets": {
+    "extract_margin_pct": "15–35 after labor/energy",
+    "intermediate_margin_pct": "~22",
+    "finished_margin_pct": "~28",
+    "delivery": "distance ticks, min 1"
+  }
+}

@@ -61,6 +61,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("/api/admin/cities", s.handleAdminCities)
 	mux.HandleFunc("/api/admin/recipe", s.handleAdminRecipe)
 	mux.HandleFunc("/api/updates/manifest", s.handleUpdatesManifest)
+	mux.HandleFunc("/api/packs/", s.handlePackDownload)
 	mux.HandleFunc("/api/map/ack", s.handleMapAck)
 	mux.HandleFunc("/ws", s.handleWS)
 	return withCORS(mux)
