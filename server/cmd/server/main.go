@@ -83,7 +83,7 @@ func main() {
 	srv.Dev = *devFast
 	srv.StartTicker()
 
-	if _, _, live := api.YooKassaLive(); live {
+	if _, live := api.YooKassaLive(); live {
 		log.Println("YooKassa LIVE credentials detected (SHOP_ID + SECRET_KEY)")
 	} else if *devFast {
 		log.Println("YooKassa not configured — mock-pay enabled via -dev")
