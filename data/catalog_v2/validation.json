@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "counts": {
+    "items": 170,
+    "raw": 40,
+    "intermediate": 55,
+    "finished": 75,
+    "recipes": 200,
+    "buildings": 92,
+    "shops": 14
+  },
+  "errors": [],
+  "error_count": 0
+}

@@ -1,0 +1,4186 @@
+{
+  "price_corridors": {
+    "aluminum": {
+      "min": 132.8,
+      "max": 309.8
+    },
+    "aluminum_prem": {
+      "min": 132.8,
+      "max": 309.8
+    },
+    "aluminum_std": {
+      "min": 144.2,
+      "max": 336.6
+    },
+    "animal_feed": {
+      "min": 27.3,
+      "max": 63.7
+    },
+    "apple": {
+      "min": 12.1,
+      "max": 31.9
+    },
+    "apple_prem": {
+      "min": 15.1,
+      "max": 39.9
+    },
+    "apple_std": {
+      "min": 13.9,
+      "max": 36.7
+    },
+    "appliance": {
+      "min": 1375.4,
+      "max": 2962.4
+    },
+    "appliance_prem": {
+      "min": 1375.4,
+      "max": 2962.4
+    },
+    "appliance_std": {
+      "min": 1375.4,
+      "max": 2962.4
+    },
+    "barley": {
+      "min": 6.6,
+      "max": 17.4
+    },
+    "barley_prem": {
+      "min": 8.2,
+      "max": 21.8
+    },
+    "barley_std": {
+      "min": 7.6,
+      "max": 20.0
+    },
+    "bashkir_carpet": {
+      "min": 454.6,
+      "max": 979.2
+    },
+    "bashkir_carpet_prem": {
+      "min": 454.6,
+      "max": 979.2
+    },
+    "bashkir_carpet_std": {
+      "min": 454.6,
+      "max": 979.2
+    },
+    "bauxite": {
+      "min": 19.7,
+      "max": 52.0
+    },
+    "bauxite_std": {
+      "min": 25.2,
+      "max": 66.4
+    },
+    "beam_steel_prem": {
+      "min": 208.3,
+      "max": 486.0
+    },
+    "beam_steel_std": {
+      "min": 216.6,
+      "max": 505.4
+    },
+    "bee": {
+      "min": 55.0,
+      "max": 145.0
+    },
+    "bee_prem": {
+      "min": 68.8,
+      "max": 181.2
+    },
+    "bee_std": {
+      "min": 63.3,
+      "max": 166.8
+    },
+    "beef": {
+      "min": 43.2,
+      "max": 100.7
+    },
+    "beef_prem": {
+      "min": 49.2,
+      "max": 114.9
+    },
+    "beef_std": {
+      "min": 46.8,
+      "max": 109.2
+    },
+    "birch": {
+      "min": 9.4,
+      "max": 24.6
+    },
+    "birch_prem": {
+      "min": 11.7,
+      "max": 30.8
+    },
+    "birch_std": {
+      "min": 10.8,
+      "max": 28.3
+    },
+    "board_birch": {
+      "min": 83.3,
+      "max": 194.3
+    },
+    "board_birch_prem": {
+      "min": 88.2,
+      "max": 205.8
+    },
+    "board_birch_std": {
+      "min": 86.2,
+      "max": 201.2
+    },
+    "board_firewood": {
+      "min": 77.6,
+      "max": 181.0
+    },
+    "board_firewood_prem": {
+      "min": 78.1,
+      "max": 182.2
+    },
+    "board_firewood_std": {
+      "min": 77.6,
+      "max": 181.0
+    },
+    "board_linden": {
+      "min": 85.6,
+      "max": 199.8
+    },
+    "board_linden_prem": {
+      "min": 91.1,
+      "max": 212.6
+    },
+    "board_linden_std": {
+      "min": 88.9,
+      "max": 207.5
+    },
+    "board_pine": {
+      "min": 82.1,
+      "max": 191.6
+    },
+    "board_pine_prem": {
+      "min": 86.8,
+      "max": 202.5
+    },
+    "board_pine_std": {
+      "min": 84.9,
+      "max": 198.1
+    },
+    "board_wood": {
+      "min": 84.5,
+      "max": 197.0
+    },
+    "board_wood_prem": {
+      "min": 89.7,
+      "max": 209.2
+    },
+    "board_wood_std": {
+      "min": 87.6,
+      "max": 204.4
+    },
+    "book": {
+      "min": 258.1,
+      "max": 555.9
+    },
+    "book_prem": {
+      "min": 258.1,
+      "max": 555.9
+    },
+    "book_std": {
+      "min": 258.1,
+      "max": 555.9
+    },
+    "boots": {
+      "min": 296.0,
+      "max": 637.5
+    },
+    "boots_prem": {
+      "min": 296.0,
+      "max": 637.5
+    },
+    "boots_std": {
+      "min": 296.0,
+      "max": 637.5
+    },
+    "bottle": {
+      "min": 39.4,
+      "max": 91.9
+    },
+    "bottled_egg": {
+      "min": 86.6,
+      "max": 186.6
+    },
+    "bottled_egg_prem": {
+      "min": 89.0,
+      "max": 191.7
+    },
+    "bottled_egg_std": {
+      "min": 88.1,
+      "max": 189.7
+    },
+    "bottled_goat_milk": {
+      "min": 108.8,
+      "max": 234.4
+    },
+    "bottled_goat_milk_prem": {
+      "min": 116.8,
+      "max": 251.5
+    },
+    "bottled_goat_milk_std": {
+      "min": 113.6,
+      "max": 244.7
+    },
+    "bottled_koumiss_base": {
+      "min": 100.9,
+      "max": 217.3
+    },
+    "bottled_koumiss_base_prem": {
+      "min": 106.9,
+      "max": 230.2
+    },
+    "bottled_koumiss_base_std": {
+      "min": 104.5,
+      "max": 225.0
+    },
+    "bottled_milk": {
+      "min": 99.3,
+      "max": 213.9
+    },
+    "bottled_milk_beloretsk": {
+      "min": 328.8,
+      "max": 708.2
+    },
+    "bottled_milk_prem": {
+      "min": 104.9,
+      "max": 225.9
+    },
+    "bottled_milk_std": {
+      "min": 102.7,
+      "max": 221.1
+    },
+    "bottled_milk_sterli": {
+      "min": 325.6,
+      "max": 701.4
+    },
+    "bottled_milk_ufa": {
+      "min": 332.0,
+      "max": 715.0
+    },
+    "bottled_sheep_milk": {
+      "min": 105.7,
+      "max": 227.6
+    },
+    "bottled_sheep_milk_prem": {
+      "min": 112.8,
+      "max": 243.0
+    },
+    "bottled_sheep_milk_std": {
+      "min": 109.9,
+      "max": 236.8
+    },
+    "bottled_veg_oil_rapeseed": {
+      "min": 176.1,
+      "max": 379.2
+    },
+    "bottled_veg_oil_rapeseed_beloretsk": {
+      "min": 426.1,
+      "max": 917.9
+    },
+    "bottled_veg_oil_rapeseed_prem": {
+      "min": 186.0,
+      "max": 400.7
+    },
+    "bottled_veg_oil_rapeseed_prem_beloretsk": {
+      "min": 438.8,
+      "max": 945.1
+    },
+    "bottled_veg_oil_rapeseed_prem_sterli": {
+      "min": 434.6,
+      "max": 936.0
+    },
+    "bottled_veg_oil_rapeseed_prem_ufa": {
+      "min": 443.0,
+      "max": 954.2
+    },
+    "bottled_veg_oil_rapeseed_std": {
+      "min": 182.0,
+      "max": 392.1
+    },
+    "bottled_veg_oil_rapeseed_std_beloretsk": {
+      "min": 433.7,
+      "max": 934.2
+    },
+    "bottled_veg_oil_rapeseed_std_sterli": {
+      "min": 429.6,
+      "max": 925.2
+    },
+    "bottled_veg_oil_rapeseed_std_ufa": {
+      "min": 437.9,
+      "max": 943.2
+    },
+    "bottled_veg_oil_rapeseed_sterli": {
+      "min": 422.1,
+      "max": 909.0
+    },
+    "bottled_veg_oil_rapeseed_ufa": {
+      "min": 430.2,
+      "max": 926.7
+    },
+    "bottled_veg_oil_sunflower": {
+      "min": 179.1,
+      "max": 385.8
+    },
+    "bottled_veg_oil_sunflower_beloretsk": {
+      "min": 430.0,
+      "max": 926.2
+    },
+    "bottled_veg_oil_sunflower_prem": {
+      "min": 189.9,
+      "max": 408.9
+    },
+    "bottled_veg_oil_sunflower_prem_beloretsk": {
+      "min": 443.7,
+      "max": 955.6
+    },
+    "bottled_veg_oil_sunflower_prem_sterli": {
+      "min": 439.4,
+      "max": 946.4
+    },
+    "bottled_veg_oil_sunflower_prem_ufa": {
+      "min": 447.9,
+      "max": 964.8
+    },
+    "bottled_veg_oil_sunflower_std": {
+      "min": 185.6,
+      "max": 399.7
+    },
+    "bottled_veg_oil_sunflower_std_beloretsk": {
+      "min": 438.2,
+      "max": 943.9
+    },
+    "bottled_veg_oil_sunflower_std_sterli": {
+      "min": 434.0,
+      "max": 934.8
+    },
+    "bottled_veg_oil_sunflower_std_ufa": {
+      "min": 442.4,
+      "max": 952.9
+    },
+    "bottled_veg_oil_sunflower_sterli": {
+      "min": 425.9,
+      "max": 917.3
+    },
+    "bottled_veg_oil_sunflower_ufa": {
+      "min": 434.2,
+      "max": 935.1
+    },
+    "bread_barley": {
+      "min": 85.3,
+      "max": 183.8
+    },
+    "bread_barley_beloretsk": {
+      "min": 311.0,
+      "max": 669.9
+    },
+    "bread_barley_prem": {
+      "min": 87.9,
+      "max": 189.3
+    },
+    "bread_barley_prem_beloretsk": {
+      "min": 314.3,
+      "max": 677.0
+    },
+    "bread_barley_prem_sterli": {
+      "min": 311.3,
+      "max": 670.5
+    },
+    "bread_barley_prem_ufa": {
+      "min": 317.3,
+      "max": 683.5
+    },
+    "bread_barley_std": {
+      "min": 86.9,
+      "max": 187.1
+    },
+    "bread_barley_std_beloretsk": {
+      "min": 313.0,
+      "max": 674.1
+    },
+    "bread_barley_std_sterli": {
+      "min": 310.0,
+      "max": 667.7
+    },
+    "bread_barley_std_ufa": {
+      "min": 316.0,
+      "max": 680.6
+    },
+    "bread_barley_sterli": {
+      "min": 308.0,
+      "max": 663.5
+    },
+    "bread_barley_ufa": {
+      "min": 314.0,
+      "max": 676.3
+    },
+    "bread_buckwheat": {
+      "min": 93.9,
+      "max": 202.3
+    },
+    "bread_buckwheat_beloretsk": {
+      "min": 322.0,
+      "max": 693.5
+    },
+    "bread_buckwheat_prem": {
+      "min": 98.7,
+      "max": 212.5
+    },
+    "bread_buckwheat_prem_beloretsk": {
+      "min": 328.0,
+      "max": 706.4
+    },
+    "bread_buckwheat_prem_sterli": {
+      "min": 324.8,
+      "max": 699.6
+    },
+    "bread_buckwheat_prem_ufa": {
+      "min": 331.1,
+      "max": 713.2
+    },
+    "bread_buckwheat_std": {
+      "min": 96.8,
+      "max": 208.5
+    },
+    "bread_buckwheat_std_beloretsk": {
+      "min": 325.6,
+      "max": 701.2
+    },
+    "bread_buckwheat_std_sterli": {
+      "min": 322.4,
+      "max": 694.5
+    },
+    "bread_buckwheat_std_ufa": {
+      "min": 328.7,
+      "max": 708.0
+    },
+    "bread_buckwheat_sterli": {
+      "min": 318.9,
+      "max": 686.8
+    },
+    "bread_buckwheat_ufa": {
+      "min": 325.1,
+      "max": 700.1
+    },
+    "bread_oats": {
+      "min": 84.5,
+      "max": 181.9
+    },
+    "bread_oats_beloretsk": {
+      "min": 309.9,
+      "max": 667.6
+    },
+    "bread_oats_prem": {
+      "min": 87.2,
+      "max": 187.8
+    },
+    "bread_oats_prem_beloretsk": {
+      "min": 313.4,
+      "max": 675.0
+    },
+    "bread_oats_prem_sterli": {
+      "min": 310.4,
+      "max": 668.5
+    },
+    "bread_oats_prem_ufa": {
+      "min": 316.4,
+      "max": 681.5
+    },
+    "bread_oats_std": {
+      "min": 85.9,
+      "max": 185.0
+    },
+    "bread_oats_std_beloretsk": {
+      "min": 311.7,
+      "max": 671.4
+    },
+    "bread_oats_std_sterli": {
+      "min": 308.7,
+      "max": 665.0
+    },
+    "bread_oats_std_ufa": {
+      "min": 314.7,
+      "max": 677.9
+    },
+    "bread_oats_sterli": {
+      "min": 307.0,
+      "max": 661.1
+    },
+    "bread_oats_ufa": {
+      "min": 312.9,
+      "max": 674.0
+    },
+    "bread_rye": {
+      "min": 86.2,
+      "max": 185.6
+    },
+    "bread_rye_beloretsk": {
+      "min": 312.1,
+      "max": 672.3
+    },
+    "bread_rye_prem": {
+      "min": 89.0,
+      "max": 191.7
+    },
+    "bread_rye_prem_beloretsk": {
+      "min": 315.7,
+      "max": 679.9
+    },
+    "bread_rye_prem_sterli": {
+      "min": 312.6,
+      "max": 673.4
+    },
+    "bread_rye_prem_ufa": {
+      "min": 318.7,
+      "max": 686.5
+    },
+    "bread_rye_std": {
+      "min": 87.9,
+      "max": 189.3
+    },
+    "bread_rye_std_beloretsk": {
+      "min": 314.3,
+      "max": 676.9
+    },
+    "bread_rye_std_sterli": {
+      "min": 311.2,
+      "max": 670.4
+    },
+    "bread_rye_std_ufa": {
+      "min": 317.3,
+      "max": 683.4
+    },
+    "bread_rye_sterli": {
+      "min": 309.1,
+      "max": 665.8
+    },
+    "bread_rye_ufa": {
+      "min": 315.1,
+      "max": 678.7
+    },
+    "bread_wheat": {
+      "min": 87.0,
+      "max": 187.5
+    },
+    "bread_wheat_beloretsk": {
+      "min": 313.2,
+      "max": 674.6
+    },
+    "bread_wheat_prem": {
+      "min": 90.1,
+      "max": 194.0
+    },
+    "bread_wheat_prem_beloretsk": {
+      "min": 317.0,
+      "max": 682.9
+    },
+    "bread_wheat_prem_sterli": {
+      "min": 314.0,
+      "max": 676.3
+    },
+    "bread_wheat_prem_ufa": {
+      "min": 320.1,
+      "max": 689.4
+    },
+    "bread_wheat_std": {
+      "min": 88.9,
+      "max": 191.4
+    },
+    "bread_wheat_std_beloretsk": {
+      "min": 315.5,
+      "max": 679.6
+    },
+    "bread_wheat_std_sterli": {
+      "min": 312.5,
+      "max": 673.0
+    },
+    "bread_wheat_std_ufa": {
+      "min": 318.5,
+      "max": 686.1
+    },
+    "bread_wheat_sterli": {
+      "min": 310.2,
+      "max": 668.1
+    },
+    "bread_wheat_ufa": {
+      "min": 316.2,
+      "max": 681.1
+    },
+    "brick": {
+      "min": 40.4,
+      "max": 86.9
+    },
+    "buckwheat": {
+      "min": 12.1,
+      "max": 31.9
+    },
+    "buckwheat_prem": {
+      "min": 15.1,
+      "max": 39.9
+    },
+    "buckwheat_std": {
+      "min": 13.9,
+      "max": 36.7
+    },
+    "cabbage": {
+      "min": 6.6,
+      "max": 17.4
+    },
+    "cabbage_prem": {
+      "min": 8.2,
+      "max": 21.8
+    },
+    "cabbage_std": {
+      "min": 7.6,
+      "max": 20.0
+    },
+    "canned_cabbage": {
+      "min": 147.4,
+      "max": 317.5
+    },
+    "canned_cabbage_beloretsk": {
+      "min": 389.8,
+      "max": 839.6
+    },
+    "canned_cabbage_prem": {
+      "min": 150.6,
+      "max": 324.4
+    },
+    "canned_cabbage_prem_beloretsk": {
+      "min": 393.9,
+      "max": 848.3
+    },
+    "canned_cabbage_prem_sterli": {
+      "min": 390.1,
+      "max": 840.1
+    },
+    "canned_cabbage_prem_ufa": {
+      "min": 397.6,
+      "max": 856.4
+    },
+    "canned_cabbage_std": {
+      "min": 149.3,
+      "max": 321.6
+    },
+    "canned_cabbage_std_beloretsk": {
+      "min": 392.2,
+      "max": 844.8
+    },
+    "canned_cabbage_std_sterli": {
+      "min": 388.5,
+      "max": 836.7
+    },
+    "canned_cabbage_std_ufa": {
+      "min": 396.0,
+      "max": 853.0
+    },
+    "canned_cabbage_sterli": {
+      "min": 386.1,
+      "max": 831.6
+    },
+    "canned_cabbage_ufa": {
+      "min": 393.6,
+      "max": 847.7
+    },
+    "canned_carrot": {
+      "min": 150.6,
+      "max": 324.4
+    },
+    "canned_carrot_beloretsk": {
+      "min": 393.9,
+      "max": 848.3
+    },
+    "canned_carrot_prem": {
+      "min": 154.6,
+      "max": 332.9
+    },
+    "canned_carrot_prem_beloretsk": {
+      "min": 398.9,
+      "max": 859.1
+    },
+    "canned_carrot_prem_sterli": {
+      "min": 395.1,
+      "max": 850.9
+    },
+    "canned_carrot_prem_ufa": {
+      "min": 402.7,
+      "max": 867.4
+    },
+    "canned_carrot_std": {
+      "min": 153.0,
+      "max": 329.5
+    },
+    "canned_carrot_std_beloretsk": {
+      "min": 396.9,
+      "max": 854.8
+    },
+    "canned_carrot_std_sterli": {
+      "min": 393.1,
+      "max": 846.6
+    },
+    "canned_carrot_std_ufa": {
+      "min": 400.7,
+      "max": 863.0
+    },
+    "canned_carrot_sterli": {
+      "min": 390.1,
+      "max": 840.1
+    },
+    "canned_carrot_ufa": {
+      "min": 397.6,
+      "max": 856.4
+    },
+    "canned_cucumber": {
+      "min": 155.9,
+      "max": 335.8
+    },
+    "canned_cucumber_beloretsk": {
+      "min": 400.6,
+      "max": 862.8
+    },
+    "canned_cucumber_prem": {
+      "min": 161.2,
+      "max": 347.1
+    },
+    "canned_cucumber_prem_beloretsk": {
+      "min": 407.3,
+      "max": 877.2
+    },
+    "canned_cucumber_prem_sterli": {
+      "min": 403.4,
+      "max": 868.8
+    },
+    "canned_cucumber_prem_ufa": {
+      "min": 411.2,
+      "max": 885.6
+    },
+    "canned_cucumber_std": {
+      "min": 159.1,
+      "max": 342.6
+    },
+    "canned_cucumber_std_beloretsk": {
+      "min": 404.6,
+      "max": 871.4
+    },
+    "canned_cucumber_std_sterli": {
+      "min": 400.7,
+      "max": 863.0
+    },
+    "canned_cucumber_std_ufa": {
+      "min": 408.5,
+      "max": 879.8
+    },
+    "canned_cucumber_sterli": {
+      "min": 396.7,
+      "max": 854.5
+    },
+    "canned_cucumber_ufa": {
+      "min": 404.4,
+      "max": 871.1
+    },
+    "canned_onion": {
+      "min": 149.5,
+      "max": 322.1
+    },
+    "canned_onion_beloretsk": {
+      "min": 392.5,
+      "max": 845.4
+    },
+    "canned_onion_prem": {
+      "min": 153.2,
+      "max": 330.1
+    },
+    "canned_onion_prem_beloretsk": {
+      "min": 397.2,
+      "max": 855.5
+    },
+    "canned_onion_prem_sterli": {
+      "min": 393.4,
+      "max": 847.3
+    },
+    "canned_onion_prem_ufa": {
+      "min": 401.0,
+      "max": 863.8
+    },
+    "canned_onion_std": {
+      "min": 151.8,
+      "max": 326.9
+    },
+    "canned_onion_std_beloretsk": {
+      "min": 395.3,
+      "max": 851.5
+    },
+    "canned_onion_std_sterli": {
+      "min": 391.5,
+      "max": 843.3
+    },
+    "canned_onion_std_ufa": {
+      "min": 399.1,
+      "max": 859.7
+    },
+    "canned_onion_sterli": {
+      "min": 388.7,
+      "max": 837.3
+    },
+    "canned_onion_ufa": {
+      "min": 396.3,
+      "max": 853.6
+    },
+    "canned_pepper": {
+      "min": 162.2,
+      "max": 349.4
+    },
+    "canned_pepper_beloretsk": {
+      "min": 408.6,
+      "max": 880.1
+    },
+    "canned_pepper_prem": {
+      "min": 169.1,
+      "max": 364.2
+    },
+    "canned_pepper_prem_beloretsk": {
+      "min": 417.3,
+      "max": 898.9
+    },
+    "canned_pepper_prem_sterli": {
+      "min": 413.3,
+      "max": 890.2
+    },
+    "canned_pepper_prem_ufa": {
+      "min": 421.3,
+      "max": 907.5
+    },
+    "canned_pepper_std": {
+      "min": 166.4,
+      "max": 358.3
+    },
+    "canned_pepper_std_beloretsk": {
+      "min": 413.8,
+      "max": 891.4
+    },
+    "canned_pepper_std_sterli": {
+      "min": 409.9,
+      "max": 882.8
+    },
+    "canned_pepper_std_ufa": {
+      "min": 417.8,
+      "max": 899.9
+    },
+    "canned_pepper_sterli": {
+      "min": 404.7,
+      "max": 871.6
+    },
+    "canned_pepper_ufa": {
+      "min": 412.5,
+      "max": 888.6
+    },
+    "canned_potato": {
+      "min": 151.7,
+      "max": 326.6
+    },
+    "canned_potato_beloretsk": {
+      "min": 395.2,
+      "max": 851.2
+    },
+    "canned_potato_prem": {
+      "min": 155.9,
+      "max": 335.8
+    },
+    "canned_potato_prem_beloretsk": {
+      "min": 400.6,
+      "max": 862.8
+    },
+    "canned_potato_prem_sterli": {
+      "min": 396.7,
+      "max": 854.5
+    },
+    "canned_potato_prem_ufa": {
+      "min": 404.4,
+      "max": 871.1
+    },
+    "canned_potato_std": {
+      "min": 154.2,
+      "max": 332.1
+    },
+    "canned_potato_std_beloretsk": {
+      "min": 398.4,
+      "max": 858.1
+    },
+    "canned_potato_std_sterli": {
+      "min": 394.6,
+      "max": 849.9
+    },
+    "canned_potato_std_ufa": {
+      "min": 402.2,
+      "max": 866.4
+    },
+    "canned_potato_sterli": {
+      "min": 391.4,
+      "max": 843.0
+    },
+    "canned_potato_ufa": {
+      "min": 399.0,
+      "max": 859.4
+    },
+    "canned_sugar_beet": {
+      "min": 144.3,
+      "max": 310.7
+    },
+    "canned_sugar_beet_beloretsk": {
+      "min": 385.8,
+      "max": 831.0
+    },
+    "canned_sugar_beet_prem": {
+      "min": 149.7,
+      "max": 322.5
+    },
+    "canned_sugar_beet_prem_beloretsk": {
+      "min": 392.7,
+      "max": 845.9
+    },
+    "canned_sugar_beet_prem_sterli": {
+      "min": 389.0,
+      "max": 837.7
+    },
+    "canned_sugar_beet_prem_ufa": {
+      "min": 396.5,
+      "max": 854.0
+    },
+    "canned_sugar_beet_std": {
+      "min": 146.2,
+      "max": 314.9
+    },
+    "canned_sugar_beet_std_beloretsk": {
+      "min": 388.3,
+      "max": 836.3
+    },
+    "canned_sugar_beet_std_sterli": {
+      "min": 384.6,
+      "max": 828.3
+    },
+    "canned_sugar_beet_std_ufa": {
+      "min": 392.0,
+      "max": 844.4
+    },
+    "canned_sugar_beet_sterli": {
+      "min": 382.1,
+      "max": 823.0
+    },
+    "canned_sugar_beet_ufa": {
+      "min": 389.5,
+      "max": 838.9
+    },
+    "canned_tomato": {
+      "min": 160.1,
+      "max": 344.9
+    },
+    "canned_tomato_beloretsk": {
+      "min": 405.9,
+      "max": 874.3
+    },
+    "canned_tomato_prem": {
+      "min": 166.5,
+      "max": 358.5
+    },
+    "canned_tomato_prem_beloretsk": {
+      "min": 414.0,
+      "max": 891.6
+    },
+    "canned_tomato_prem_sterli": {
+      "min": 410.0,
+      "max": 883.1
+    },
+    "canned_tomato_prem_ufa": {
+      "min": 418.0,
+      "max": 900.2
+    },
+    "canned_tomato_std": {
+      "min": 163.9,
+      "max": 353.1
+    },
+    "canned_tomato_std_beloretsk": {
+      "min": 410.8,
+      "max": 884.7
+    },
+    "canned_tomato_std_sterli": {
+      "min": 406.8,
+      "max": 876.2
+    },
+    "canned_tomato_std_ufa": {
+      "min": 414.7,
+      "max": 893.2
+    },
+    "canned_tomato_sterli": {
+      "min": 402.0,
+      "max": 865.9
+    },
+    "canned_tomato_ufa": {
+      "min": 409.8,
+      "max": 882.7
+    },
+    "carrot": {
+      "min": 8.2,
+      "max": 21.8
+    },
+    "carrot_prem": {
+      "min": 10.3,
+      "max": 27.2
+    },
+    "carrot_std": {
+      "min": 9.5,
+      "max": 25.0
+    },
+    "cattle": {
+      "min": 77.0,
+      "max": 203.0
+    },
+    "cattle_prem": {
+      "min": 96.3,
+      "max": 253.8
+    },
+    "cattle_std": {
+      "min": 88.6,
+      "max": 233.4
+    },
+    "cement": {
+      "min": 77.6,
+      "max": 181.0
+    },
+    "chakchak_honey": {
+      "min": 154.0,
+      "max": 331.7
+    },
+    "chakchak_honey_beloretsk": {
+      "min": 398.2,
+      "max": 857.6
+    },
+    "chakchak_honey_prem": {
+      "min": 166.6,
+      "max": 358.8
+    },
+    "chakchak_honey_prem_beloretsk": {
+      "min": 414.1,
+      "max": 892.0
+    },
+    "chakchak_honey_prem_sterli": {
+      "min": 410.1,
+      "max": 883.4
+    },
+    "chakchak_honey_prem_ufa": {
+      "min": 418.1,
+      "max": 900.5
+    },
+    "chakchak_honey_std": {
+      "min": 161.6,
+      "max": 348.0
+    },
+    "chakchak_honey_std_beloretsk": {
+      "min": 407.8,
+      "max": 878.2
+    },
+    "chakchak_honey_std_sterli": {
+      "min": 403.8,
+      "max": 869.8
+    },
+    "chakchak_honey_std_ufa": {
+      "min": 411.7,
+      "max": 886.7
+    },
+    "chakchak_honey_sterli": {
+      "min": 394.4,
+      "max": 849.4
+    },
+    "chakchak_honey_ufa": {
+      "min": 402.0,
+      "max": 865.9
+    },
+    "cheese_egg": {
+      "min": 160.1,
+      "max": 344.9
+    },
+    "cheese_egg_prem": {
+      "min": 167.3,
+      "max": 360.3
+    },
+    "cheese_egg_std": {
+      "min": 164.4,
+      "max": 354.1
+    },
+    "cheese_goat_milk": {
+      "min": 226.7,
+      "max": 488.4
+    },
+    "cheese_goat_milk_prem": {
+      "min": 250.5,
+      "max": 539.6
+    },
+    "cheese_goat_milk_std": {
+      "min": 241.0,
+      "max": 519.1
+    },
+    "cheese_koumiss_base": {
+      "min": 203.0,
+      "max": 437.1
+    },
+    "cheese_koumiss_base_prem": {
+      "min": 220.8,
+      "max": 475.6
+    },
+    "cheese_koumiss_base_std": {
+      "min": 213.7,
+      "max": 460.2
+    },
+    "cheese_milk": {
+      "min": 198.2,
+      "max": 426.9
+    },
+    "cheese_milk_beloretsk": {
+      "min": 454.2,
+      "max": 978.4
+    },
+    "cheese_milk_prem": {
+      "min": 214.9,
+      "max": 462.8
+    },
+    "cheese_milk_std": {
+      "min": 208.2,
+      "max": 448.4
+    },
+    "cheese_milk_sterli": {
+      "min": 449.9,
+      "max": 969.0
+    },
+    "cheese_milk_ufa": {
+      "min": 458.6,
+      "max": 987.8
+    },
+    "cheese_sheep_milk": {
+      "min": 217.2,
+      "max": 467.9
+    },
+    "cheese_sheep_milk_prem": {
+      "min": 238.6,
+      "max": 514.0
+    },
+    "cheese_sheep_milk_std": {
+      "min": 230.1,
+      "max": 495.5
+    },
+    "chemicals": {
+      "min": 26.4,
+      "max": 69.6
+    },
+    "chemicals_std": {
+      "min": 30.4,
+      "max": 80.0
+    },
+    "cherry": {
+      "min": 19.2,
+      "max": 50.8
+    },
+    "cherry_prem": {
+      "min": 24.1,
+      "max": 63.4
+    },
+    "cherry_std": {
+      "min": 22.1,
+      "max": 58.4
+    },
+    "chicken": {
+      "min": 29.7,
+      "max": 69.2
+    },
+    "chicken_prem": {
+      "min": 33.4,
+      "max": 77.9
+    },
+    "chicken_std": {
+      "min": 31.5,
+      "max": 73.6
+    },
+    "circuit": {
+      "min": 406.2,
+      "max": 947.7
+    },
+    "circuit_prem": {
+      "min": 406.2,
+      "max": 947.7
+    },
+    "circuit_std": {
+      "min": 406.2,
+      "max": 947.7
+    },
+    "clay": {
+      "min": 19.7,
+      "max": 52.0
+    },
+    "clay_std": {
+      "min": 25.2,
+      "max": 66.4
+    },
+    "clothing": {
+      "min": 239.9,
+      "max": 516.7
+    },
+    "clothing_prem": {
+      "min": 239.9,
+      "max": 516.7
+    },
+    "clothing_std": {
+      "min": 239.9,
+      "max": 516.7
+    },
+    "clothing_winter": {
+      "min": 249.1,
+      "max": 536.5
+    },
+    "clothing_winter_prem": {
+      "min": 249.1,
+      "max": 536.5
+    },
+    "clothing_winter_std": {
+      "min": 249.1,
+      "max": 536.5
+    },
+    "clothing_work": {
+      "min": 245.4,
+      "max": 528.6
+    },
+    "clothing_work_prem": {
+      "min": 245.4,
+      "max": 528.6
+    },
+    "clothing_work_std": {
+      "min": 245.4,
+      "max": 528.6
+    },
+    "coal": {
+      "min": 12.3,
+      "max": 32.5
+    },
+    "coal_std": {
+      "min": 15.7,
+      "max": 41.5
+    },
+    "copper": {
+      "min": 123.6,
+      "max": 288.4
+    },
+    "copper_ore": {
+      "min": 15.4,
+      "max": 40.6
+    },
+    "copper_ore_std": {
+      "min": 17.7,
+      "max": 46.7
+    },
+    "copper_prem": {
+      "min": 123.6,
+      "max": 288.4
+    },
+    "copper_std": {
+      "min": 128.5,
+      "max": 299.8
+    },
+    "cotton": {
+      "min": 13.2,
+      "max": 34.8
+    },
+    "cotton_prem": {
+      "min": 16.5,
+      "max": 43.5
+    },
+    "cotton_std": {
+      "min": 15.2,
+      "max": 40.0
+    },
+    "cucumber": {
+      "min": 11.0,
+      "max": 29.0
+    },
+    "cucumber_prem": {
+      "min": 13.8,
+      "max": 36.2
+    },
+    "cucumber_std": {
+      "min": 12.7,
+      "max": 33.4
+    },
+    "currant": {
+      "min": 17.6,
+      "max": 46.4
+    },
+    "currant_prem": {
+      "min": 22.0,
+      "max": 58.0
+    },
+    "currant_std": {
+      "min": 20.2,
+      "max": 53.4
+    },
+    "diesel": {
+      "min": 98.1,
+      "max": 229.0
+    },
+    "diesel_prem": {
+      "min": 98.1,
+      "max": 229.0
+    },
+    "diesel_std": {
+      "min": 98.1,
+      "max": 229.0
+    },
+    "egg": {
+      "min": 6.6,
+      "max": 17.4
+    },
+    "egg_prem": {
+      "min": 8.2,
+      "max": 21.8
+    },
+    "egg_std": {
+      "min": 7.6,
+      "max": 20.0
+    },
+    "electronics": {
+      "min": 1447.0,
+      "max": 3116.7
+    },
+    "electronics_prem": {
+      "min": 1447.0,
+      "max": 3116.7
+    },
+    "electronics_std": {
+      "min": 1447.0,
+      "max": 3116.7
+    },
+    "fabric_cotton": {
+      "min": 82.1,
+      "max": 191.6
+    },
+    "fabric_cotton_prem": {
+      "min": 90.5,
+      "max": 211.1
+    },
+    "fabric_cotton_std": {
+      "min": 87.1,
+      "max": 203.3
+    },
+    "fabric_flax": {
+      "min": 76.6,
+      "max": 178.6
+    },
+    "fabric_flax_prem": {
+      "min": 83.5,
+      "max": 194.9
+    },
+    "fabric_flax_std": {
+      "min": 80.7,
+      "max": 188.4
+    },
+    "fabric_hemp": {
+      "min": 73.8,
+      "max": 172.1
+    },
+    "fabric_hemp_prem": {
+      "min": 81.6,
+      "max": 190.3
+    },
+    "fabric_hemp_std": {
+      "min": 77.5,
+      "max": 180.9
+    },
+    "feather": {
+      "min": 40.6,
+      "max": 94.6
+    },
+    "feather_prem": {
+      "min": 47.9,
+      "max": 111.9
+    },
+    "feather_std": {
+      "min": 44.2,
+      "max": 103.2
+    },
+    "felt_base": {
+      "min": 86.3,
+      "max": 201.4
+    },
+    "felt_boots": {
+      "min": 227.3,
+      "max": 489.6
+    },
+    "felt_boots_prem": {
+      "min": 227.3,
+      "max": 489.6
+    },
+    "felt_boots_std": {
+      "min": 227.3,
+      "max": 489.6
+    },
+    "fertilizer": {
+      "min": 71.3,
+      "max": 166.5
+    },
+    "firewood": {
+      "min": 6.6,
+      "max": 17.5
+    },
+    "firewood_prem": {
+      "min": 6.9,
+      "max": 18.1
+    },
+    "firewood_std": {
+      "min": 6.6,
+      "max": 17.5
+    },
+    "flax": {
+      "min": 11.0,
+      "max": 29.0
+    },
+    "flax_prem": {
+      "min": 13.8,
+      "max": 36.2
+    },
+    "flax_std": {
+      "min": 12.7,
+      "max": 33.4
+    },
+    "flour_barley": {
+      "min": 26.1,
+      "max": 60.9
+    },
+    "flour_barley_prem": {
+      "min": 28.7,
+      "max": 67.0
+    },
+    "flour_barley_std": {
+      "min": 27.7,
+      "max": 64.6
+    },
+    "flour_buckwheat": {
+      "min": 34.8,
+      "max": 81.2
+    },
+    "flour_buckwheat_prem": {
+      "min": 39.6,
+      "max": 92.4
+    },
+    "flour_buckwheat_std": {
+      "min": 37.7,
+      "max": 87.9
+    },
+    "flour_oats": {
+      "min": 25.2,
+      "max": 58.9
+    },
+    "flour_oats_prem": {
+      "min": 28.0,
+      "max": 65.3
+    },
+    "flour_oats_std": {
+      "min": 26.7,
+      "max": 62.2
+    },
+    "flour_rye": {
+      "min": 27.0,
+      "max": 62.9
+    },
+    "flour_rye_prem": {
+      "min": 29.8,
+      "max": 69.5
+    },
+    "flour_rye_std": {
+      "min": 28.7,
+      "max": 66.9
+    },
+    "flour_wheat": {
+      "min": 27.8,
+      "max": 65.0
+    },
+    "flour_wheat_prem": {
+      "min": 30.9,
+      "max": 72.1
+    },
+    "flour_wheat_std": {
+      "min": 29.7,
+      "max": 69.2
+    },
+    "fuel_can_diesel": {
+      "min": 211.6,
+      "max": 455.8
+    },
+    "fuel_can_diesel_prem": {
+      "min": 211.6,
+      "max": 455.8
+    },
+    "fuel_can_diesel_std": {
+      "min": 211.6,
+      "max": 455.8
+    },
+    "fuel_can_fuel_oil": {
+      "min": 254.8,
+      "max": 548.9
+    },
+    "fuel_can_fuel_oil_prem": {
+      "min": 254.8,
+      "max": 548.9
+    },
+    "fuel_can_fuel_oil_std": {
+      "min": 254.8,
+      "max": 548.9
+    },
+    "fuel_can_gasoline": {
+      "min": 211.6,
+      "max": 455.8
+    },
+    "fuel_can_gasoline_prem": {
+      "min": 211.6,
+      "max": 455.8
+    },
+    "fuel_can_gasoline_std": {
+      "min": 211.6,
+      "max": 455.8
+    },
+    "fuel_can_kerosene": {
+      "min": 254.8,
+      "max": 548.9
+    },
+    "fuel_can_kerosene_prem": {
+      "min": 254.8,
+      "max": 548.9
+    },
+    "fuel_can_kerosene_std": {
+      "min": 254.8,
+      "max": 548.9
+    },
+    "fuel_oil": {
+      "min": 130.8,
+      "max": 305.3
+    },
+    "fuel_oil_prem": {
+      "min": 130.8,
+      "max": 305.3
+    },
+    "fuel_oil_std": {
+      "min": 130.8,
+      "max": 305.3
+    },
+    "furniture_birch": {
+      "min": 349.8,
+      "max": 753.3
+    },
+    "furniture_birch_prem": {
+      "min": 361.5,
+      "max": 778.6
+    },
+    "furniture_birch_std": {
+      "min": 356.8,
+      "max": 768.5
+    },
+    "furniture_firewood": {
+      "min": 336.2,
+      "max": 724.1
+    },
+    "furniture_firewood_prem": {
+      "min": 337.3,
+      "max": 726.6
+    },
+    "furniture_firewood_std": {
+      "min": 336.2,
+      "max": 724.1
+    },
+    "furniture_linden": {
+      "min": 355.3,
+      "max": 765.2
+    },
+    "furniture_linden_prem": {
+      "min": 368.4,
+      "max": 793.4
+    },
+    "furniture_linden_std": {
+      "min": 363.2,
+      "max": 782.2
+    },
+    "furniture_pine": {
+      "min": 347.0,
+      "max": 747.4
+    },
+    "furniture_pine_prem": {
+      "min": 358.0,
+      "max": 771.2
+    },
+    "furniture_pine_std": {
+      "min": 353.6,
+      "max": 761.6
+    },
+    "furniture_wood": {
+      "min": 352.5,
+      "max": 759.3
+    },
+    "furniture_wood_prem": {
+      "min": 364.9,
+      "max": 786.0
+    },
+    "furniture_wood_std": {
+      "min": 360.0,
+      "max": 775.3
+    },
+    "gas": {
+      "min": 22.0,
+      "max": 58.0
+    },
+    "gas_std": {
+      "min": 25.3,
+      "max": 66.7
+    },
+    "gasoline": {
+      "min": 98.1,
+      "max": 229.0
+    },
+    "gasoline_prem": {
+      "min": 98.1,
+      "max": 229.0
+    },
+    "gasoline_std": {
+      "min": 98.1,
+      "max": 229.0
+    },
+    "goat": {
+      "min": 46.8,
+      "max": 123.2
+    },
+    "goat_cheese_base": {
+      "min": 48.4,
+      "max": 112.9
+    },
+    "goat_cheese_base_prem": {
+      "min": 55.8,
+      "max": 130.1
+    },
+    "goat_cheese_base_std": {
+      "min": 52.8,
+      "max": 123.2
+    },
+    "goat_meat": {
+      "min": 33.6,
+      "max": 78.4
+    },
+    "goat_meat_prem": {
+      "min": 37.3,
+      "max": 87.0
+    },
+    "goat_meat_std": {
+      "min": 35.8,
+      "max": 83.5
+    },
+    "goat_milk": {
+      "min": 22.0,
+      "max": 58.0
+    },
+    "goat_milk_prem": {
+      "min": 27.5,
+      "max": 72.5
+    },
+    "goat_milk_std": {
+      "min": 25.3,
+      "max": 66.7
+    },
+    "goat_prem": {
+      "min": 58.4,
+      "max": 154.1
+    },
+    "goat_std": {
+      "min": 53.8,
+      "max": 141.7
+    },
+    "gold": {
+      "min": 299.9,
+      "max": 699.9
+    },
+    "gold_ore": {
+      "min": 99.0,
+      "max": 261.0
+    },
+    "gold_ore_std": {
+      "min": 113.9,
+      "max": 300.1
+    },
+    "gold_prem": {
+      "min": 299.9,
+      "max": 699.9
+    },
+    "gold_std": {
+      "min": 331.3,
+      "max": 772.9
+    },
+    "goods_aluminum": {
+      "min": 238.1,
+      "max": 512.8
+    },
+    "goods_aluminum_prem": {
+      "min": 238.1,
+      "max": 512.8
+    },
+    "goods_aluminum_std": {
+      "min": 253.3,
+      "max": 545.6
+    },
+    "goods_copper": {
+      "min": 226.0,
+      "max": 486.8
+    },
+    "goods_copper_prem": {
+      "min": 226.0,
+      "max": 486.8
+    },
+    "goods_copper_std": {
+      "min": 232.5,
+      "max": 500.7
+    },
+    "goods_gold": {
+      "min": 459.1,
+      "max": 988.8
+    },
+    "goods_gold_prem": {
+      "min": 459.1,
+      "max": 988.8
+    },
+    "goods_gold_std": {
+      "min": 500.5,
+      "max": 1077.9
+    },
+    "goods_zinc": {
+      "min": 223.0,
+      "max": 480.2
+    },
+    "goods_zinc_prem": {
+      "min": 223.0,
+      "max": 480.2
+    },
+    "goods_zinc_std": {
+      "min": 228.9,
+      "max": 493.1
+    },
+    "gravel": {
+      "min": 12.3,
+      "max": 32.5
+    },
+    "gravel_std": {
+      "min": 15.7,
+      "max": 41.5
+    },
+    "hat": {
+      "min": 239.9,
+      "max": 516.7
+    },
+    "hat_prem": {
+      "min": 239.9,
+      "max": 516.7
+    },
+    "hat_std": {
+      "min": 239.9,
+      "max": 516.7
+    },
+    "hemp": {
+      "min": 9.9,
+      "max": 26.1
+    },
+    "hemp_prem": {
+      "min": 13.0,
+      "max": 34.2
+    },
+    "hemp_std": {
+      "min": 11.4,
+      "max": 30.0
+    },
+    "herbal_tea_honey": {
+      "min": 129.5,
+      "max": 278.9
+    },
+    "herbal_tea_honey_beloretsk": {
+      "min": 367.1,
+      "max": 790.6
+    },
+    "herbal_tea_honey_prem": {
+      "min": 142.0,
+      "max": 305.9
+    },
+    "herbal_tea_honey_prem_beloretsk": {
+      "min": 383.0,
+      "max": 824.9
+    },
+    "herbal_tea_honey_prem_sterli": {
+      "min": 379.3,
+      "max": 817.0
+    },
+    "herbal_tea_honey_prem_ufa": {
+      "min": 386.7,
+      "max": 832.9
+    },
+    "herbal_tea_honey_std": {
+      "min": 137.0,
+      "max": 295.1
+    },
+    "herbal_tea_honey_std_beloretsk": {
+      "min": 376.6,
+      "max": 811.2
+    },
+    "herbal_tea_honey_std_sterli": {
+      "min": 373.0,
+      "max": 803.4
+    },
+    "herbal_tea_honey_std_ufa": {
+      "min": 380.2,
+      "max": 819.0
+    },
+    "herbal_tea_honey_sterli": {
+      "min": 363.5,
+      "max": 783.0
+    },
+    "herbal_tea_honey_ufa": {
+      "min": 370.6,
+      "max": 798.2
+    },
+    "honey": {
+      "min": 52.3,
+      "max": 137.8
+    },
+    "honey_candy_honey": {
+      "min": 129.5,
+      "max": 278.9
+    },
+    "honey_candy_honey_beloretsk": {
+      "min": 367.1,
+      "max": 790.6
+    },
+    "honey_candy_honey_prem": {
+      "min": 142.0,
+      "max": 305.9
+    },
+    "honey_candy_honey_prem_beloretsk": {
+      "min": 383.0,
+      "max": 824.9
+    },
+    "honey_candy_honey_prem_sterli": {
+      "min": 379.3,
+      "max": 817.0
+    },
+    "honey_candy_honey_prem_ufa": {
+      "min": 386.7,
+      "max": 832.9
+    },
+    "honey_candy_honey_std": {
+      "min": 137.0,
+      "max": 295.1
+    },
+    "honey_candy_honey_std_beloretsk": {
+      "min": 376.6,
+      "max": 811.2
+    },
+    "honey_candy_honey_std_sterli": {
+      "min": 373.0,
+      "max": 803.4
+    },
+    "honey_candy_honey_std_ufa": {
+      "min": 380.2,
+      "max": 819.0
+    },
+    "honey_candy_honey_sterli": {
+      "min": 363.5,
+      "max": 783.0
+    },
+    "honey_candy_honey_ufa": {
+      "min": 370.6,
+      "max": 798.2
+    },
+    "honey_prem": {
+      "min": 65.3,
+      "max": 172.2
+    },
+    "honey_std": {
+      "min": 60.1,
+      "max": 158.4
+    },
+    "horse": {
+      "min": 88.0,
+      "max": 232.0
+    },
+    "horse_meat": {
+      "min": 46.6,
+      "max": 108.8
+    },
+    "horse_meat_prem": {
+      "min": 53.6,
+      "max": 125.0
+    },
+    "horse_meat_std": {
+      "min": 50.8,
+      "max": 118.6
+    },
+    "horse_prem": {
+      "min": 110.0,
+      "max": 290.0
+    },
+    "horse_std": {
+      "min": 101.2,
+      "max": 266.8
+    },
+    "horsehair": {
+      "min": 74.5,
+      "max": 173.8
+    },
+    "horsehair_prem": {
+      "min": 88.4,
+      "max": 206.2
+    },
+    "horsehair_std": {
+      "min": 82.8,
+      "max": 193.3
+    },
+    "ice_cream": {
+      "min": 129.6,
+      "max": 279.1
+    },
+    "iron_ore": {
+      "min": 12.3,
+      "max": 32.5
+    },
+    "iron_ore_std": {
+      "min": 15.7,
+      "max": 41.5
+    },
+    "jam_apple": {
+      "min": 153.2,
+      "max": 330.1
+    },
+    "jam_apple_beloretsk": {
+      "min": 397.2,
+      "max": 855.5
+    },
+    "jam_apple_prem": {
+      "min": 159.1,
+      "max": 342.6
+    },
+    "jam_apple_prem_beloretsk": {
+      "min": 404.6,
+      "max": 871.4
+    },
+    "jam_apple_prem_sterli": {
+      "min": 400.7,
+      "max": 863.0
+    },
+    "jam_apple_prem_ufa": {
+      "min": 408.5,
+      "max": 879.8
+    },
+    "jam_apple_std": {
+      "min": 156.7,
+      "max": 337.6
+    },
+    "jam_apple_std_beloretsk": {
+      "min": 401.6,
+      "max": 865.1
+    },
+    "jam_apple_std_sterli": {
+      "min": 397.8,
+      "max": 856.7
+    },
+    "jam_apple_std_ufa": {
+      "min": 405.5,
+      "max": 873.4
+    },
+    "jam_apple_sterli": {
+      "min": 393.4,
+      "max": 847.3
+    },
+    "jam_apple_ufa": {
+      "min": 401.0,
+      "max": 863.8
+    },
+    "jam_cherry": {
+      "min": 167.0,
+      "max": 359.7
+    },
+    "jam_cherry_beloretsk": {
+      "min": 414.7,
+      "max": 893.1
+    },
+    "jam_cherry_prem": {
+      "min": 176.2,
+      "max": 379.6
+    },
+    "jam_cherry_prem_beloretsk": {
+      "min": 426.4,
+      "max": 918.4
+    },
+    "jam_cherry_prem_sterli": {
+      "min": 422.3,
+      "max": 909.5
+    },
+    "jam_cherry_prem_ufa": {
+      "min": 430.5,
+      "max": 927.2
+    },
+    "jam_cherry_std": {
+      "min": 172.5,
+      "max": 371.6
+    },
+    "jam_cherry_std_beloretsk": {
+      "min": 421.7,
+      "max": 908.3
+    },
+    "jam_cherry_std_sterli": {
+      "min": 417.6,
+      "max": 899.5
+    },
+    "jam_cherry_std_ufa": {
+      "min": 425.8,
+      "max": 917.0
+    },
+    "jam_cherry_sterli": {
+      "min": 410.7,
+      "max": 884.5
+    },
+    "jam_cherry_ufa": {
+      "min": 418.6,
+      "max": 901.7
+    },
+    "jam_currant": {
+      "min": 163.8,
+      "max": 352.8
+    },
+    "jam_currant_beloretsk": {
+      "min": 410.6,
+      "max": 884.4
+    },
+    "jam_currant_prem": {
+      "min": 172.3,
+      "max": 371.1
+    },
+    "jam_currant_prem_beloretsk": {
+      "min": 421.4,
+      "max": 907.5
+    },
+    "jam_currant_prem_sterli": {
+      "min": 417.3,
+      "max": 898.8
+    },
+    "jam_currant_prem_ufa": {
+      "min": 425.4,
+      "max": 916.3
+    },
+    "jam_currant_std": {
+      "min": 168.9,
+      "max": 363.8
+    },
+    "jam_currant_std_beloretsk": {
+      "min": 417.1,
+      "max": 898.3
+    },
+    "jam_currant_std_sterli": {
+      "min": 413.1,
+      "max": 889.7
+    },
+    "jam_currant_std_ufa": {
+      "min": 421.1,
+      "max": 906.9
+    },
+    "jam_currant_sterli": {
+      "min": 406.7,
+      "max": 875.9
+    },
+    "jam_currant_ufa": {
+      "min": 414.6,
+      "max": 892.9
+    },
+    "jam_pear": {
+      "min": 155.4,
+      "max": 334.6
+    },
+    "jam_pear_beloretsk": {
+      "min": 399.9,
+      "max": 861.3
+    },
+    "jam_pear_prem": {
+      "min": 161.7,
+      "max": 348.3
+    },
+    "jam_pear_prem_beloretsk": {
+      "min": 407.9,
+      "max": 878.6
+    },
+    "jam_pear_prem_sterli": {
+      "min": 404.0,
+      "max": 870.2
+    },
+    "jam_pear_prem_ufa": {
+      "min": 411.9,
+      "max": 887.1
+    },
+    "jam_pear_std": {
+      "min": 159.2,
+      "max": 342.8
+    },
+    "jam_pear_std_beloretsk": {
+      "min": 404.7,
+      "max": 871.7
+    },
+    "jam_pear_std_sterli": {
+      "min": 400.8,
+      "max": 863.3
+    },
+    "jam_pear_std_ufa": {
+      "min": 408.6,
+      "max": 880.1
+    },
+    "jam_pear_sterli": {
+      "min": 396.0,
+      "max": 853.0
+    },
+    "jam_pear_ufa": {
+      "min": 403.7,
+      "max": 869.6
+    },
+    "jam_plum": {
+      "min": 154.3,
+      "max": 332.3
+    },
+    "jam_plum_beloretsk": {
+      "min": 398.6,
+      "max": 858.4
+    },
+    "jam_plum_prem": {
+      "min": 160.4,
+      "max": 345.4
+    },
+    "jam_plum_prem_beloretsk": {
+      "min": 406.3,
+      "max": 875.0
+    },
+    "jam_plum_prem_sterli": {
+      "min": 402.4,
+      "max": 866.6
+    },
+    "jam_plum_prem_ufa": {
+      "min": 410.2,
+      "max": 883.4
+    },
+    "jam_plum_std": {
+      "min": 158.0,
+      "max": 340.2
+    },
+    "jam_plum_std_beloretsk": {
+      "min": 403.2,
+      "max": 868.4
+    },
+    "jam_plum_std_sterli": {
+      "min": 399.3,
+      "max": 860.0
+    },
+    "jam_plum_std_ufa": {
+      "min": 407.1,
+      "max": 876.7
+    },
+    "jam_plum_sterli": {
+      "min": 394.7,
+      "max": 850.2
+    },
+    "jam_plum_ufa": {
+      "min": 402.4,
+      "max": 866.7
+    },
+    "jam_raspberry": {
+      "min": 182.9,
+      "max": 393.8
+    },
+    "jam_raspberry_beloretsk": {
+      "min": 434.8,
+      "max": 936.4
+    },
+    "jam_raspberry_prem": {
+      "min": 196.1,
+      "max": 422.3
+    },
+    "jam_raspberry_prem_beloretsk": {
+      "min": 451.5,
+      "max": 972.6
+    },
+    "jam_raspberry_prem_sterli": {
+      "min": 447.2,
+      "max": 963.2
+    },
+    "jam_raspberry_prem_ufa": {
+      "min": 455.9,
+      "max": 981.9
+    },
+    "jam_raspberry_std": {
+      "min": 190.8,
+      "max": 410.9
+    },
+    "jam_raspberry_std_beloretsk": {
+      "min": 444.8,
+      "max": 958.1
+    },
+    "jam_raspberry_std_sterli": {
+      "min": 440.6,
+      "max": 948.9
+    },
+    "jam_raspberry_std_ufa": {
+      "min": 449.1,
+      "max": 967.3
+    },
+    "jam_raspberry_sterli": {
+      "min": 430.6,
+      "max": 927.4
+    },
+    "jam_raspberry_ufa": {
+      "min": 439.0,
+      "max": 945.4
+    },
+    "jam_strawberry": {
+      "min": 177.6,
+      "max": 382.4
+    },
+    "jam_strawberry_beloretsk": {
+      "min": 428.1,
+      "max": 922.0
+    },
+    "jam_strawberry_prem": {
+      "min": 189.5,
+      "max": 408.1
+    },
+    "jam_strawberry_prem_beloretsk": {
+      "min": 443.2,
+      "max": 954.5
+    },
+    "jam_strawberry_prem_sterli": {
+      "min": 438.9,
+      "max": 945.3
+    },
+    "jam_strawberry_prem_ufa": {
+      "min": 447.4,
+      "max": 963.7
+    },
+    "jam_strawberry_std": {
+      "min": 184.7,
+      "max": 397.8
+    },
+    "jam_strawberry_std_beloretsk": {
+      "min": 437.1,
+      "max": 941.5
+    },
+    "jam_strawberry_std_sterli": {
+      "min": 432.9,
+      "max": 932.4
+    },
+    "jam_strawberry_std_ufa": {
+      "min": 441.3,
+      "max": 950.5
+    },
+    "jam_strawberry_sterli": {
+      "min": 423.9,
+      "max": 913.1
+    },
+    "jam_strawberry_ufa": {
+      "min": 432.2,
+      "max": 930.8
+    },
+    "juice_apple": {
+      "min": 95.3,
+      "max": 205.2
+    },
+    "juice_apple_beloretsk": {
+      "min": 323.7,
+      "max": 697.1
+    },
+    "juice_apple_prem": {
+      "min": 100.7,
+      "max": 217.0
+    },
+    "juice_apple_prem_beloretsk": {
+      "min": 330.6,
+      "max": 712.0
+    },
+    "juice_apple_prem_sterli": {
+      "min": 327.4,
+      "max": 705.2
+    },
+    "juice_apple_prem_ufa": {
+      "min": 333.8,
+      "max": 718.9
+    },
+    "juice_apple_std": {
+      "min": 98.6,
+      "max": 212.3
+    },
+    "juice_apple_std_beloretsk": {
+      "min": 327.8,
+      "max": 706.1
+    },
+    "juice_apple_std_sterli": {
+      "min": 324.7,
+      "max": 699.3
+    },
+    "juice_apple_std_ufa": {
+      "min": 331.0,
+      "max": 712.9
+    },
+    "juice_apple_sterli": {
+      "min": 320.5,
+      "max": 690.4
+    },
+    "juice_apple_ufa": {
+      "min": 326.8,
+      "max": 703.8
+    },
+    "juice_cherry": {
+      "min": 108.2,
+      "max": 233.0
+    },
+    "juice_cherry_beloretsk": {
+      "min": 340.0,
+      "max": 732.3
+    },
+    "juice_cherry_prem": {
+      "min": 116.8,
+      "max": 251.6
+    },
+    "juice_cherry_prem_beloretsk": {
+      "min": 351.0,
+      "max": 756.0
+    },
+    "juice_cherry_prem_sterli": {
+      "min": 347.6,
+      "max": 748.8
+    },
+    "juice_cherry_prem_ufa": {
+      "min": 354.4,
+      "max": 763.3
+    },
+    "juice_cherry_std": {
+      "min": 113.4,
+      "max": 244.2
+    },
+    "juice_cherry_std_beloretsk": {
+      "min": 346.6,
+      "max": 746.5
+    },
+    "juice_cherry_std_sterli": {
+      "min": 343.3,
+      "max": 739.4
+    },
+    "juice_cherry_std_ufa": {
+      "min": 349.9,
+      "max": 753.7
+    },
+    "juice_cherry_sterli": {
+      "min": 336.7,
+      "max": 725.3
+    },
+    "juice_cherry_ufa": {
+      "min": 343.3,
+      "max": 739.4
+    },
+    "juice_currant": {
+      "min": 105.2,
+      "max": 226.6
+    },
+    "juice_currant_beloretsk": {
+      "min": 336.2,
+      "max": 724.2
+    },
+    "juice_currant_prem": {
+      "min": 113.1,
+      "max": 243.6
+    },
+    "juice_currant_prem_beloretsk": {
+      "min": 346.3,
+      "max": 745.9
+    },
+    "juice_currant_prem_sterli": {
+      "min": 343.0,
+      "max": 738.7
+    },
+    "juice_currant_prem_ufa": {
+      "min": 349.6,
+      "max": 753.0
+    },
+    "juice_currant_std": {
+      "min": 109.9,
+      "max": 236.8
+    },
+    "juice_currant_std_beloretsk": {
+      "min": 342.3,
+      "max": 737.2
+    },
+    "juice_currant_std_sterli": {
+      "min": 339.0,
+      "max": 730.1
+    },
+    "juice_currant_std_ufa": {
+      "min": 345.6,
+      "max": 744.3
+    },
+    "juice_currant_sterli": {
+      "min": 333.0,
+      "max": 717.2
+    },
+    "juice_currant_ufa": {
+      "min": 339.5,
+      "max": 731.2
+    },
+    "juice_pear": {
+      "min": 97.3,
+      "max": 209.5
+    },
+    "juice_pear_beloretsk": {
+      "min": 326.2,
+      "max": 702.5
+    },
+    "juice_pear_prem": {
+      "min": 103.2,
+      "max": 222.3
+    },
+    "juice_pear_prem_beloretsk": {
+      "min": 333.7,
+      "max": 718.8
+    },
+    "juice_pear_prem_sterli": {
+      "min": 330.5,
+      "max": 711.9
+    },
+    "juice_pear_prem_ufa": {
+      "min": 336.9,
+      "max": 725.7
+    },
+    "juice_pear_std": {
+      "min": 100.8,
+      "max": 217.2
+    },
+    "juice_pear_std_beloretsk": {
+      "min": 330.7,
+      "max": 712.3
+    },
+    "juice_pear_std_sterli": {
+      "min": 327.5,
+      "max": 705.4
+    },
+    "juice_pear_std_ufa": {
+      "min": 333.9,
+      "max": 719.1
+    },
+    "juice_pear_sterli": {
+      "min": 323.0,
+      "max": 695.8
+    },
+    "juice_pear_ufa": {
+      "min": 329.3,
+      "max": 709.3
+    },
+    "juice_plum": {
+      "min": 96.3,
+      "max": 207.4
+    },
+    "juice_plum_beloretsk": {
+      "min": 324.9,
+      "max": 699.8
+    },
+    "juice_plum_prem": {
+      "min": 102.0,
+      "max": 219.6
+    },
+    "juice_plum_prem_beloretsk": {
+      "min": 332.2,
+      "max": 715.4
+    },
+    "juice_plum_prem_sterli": {
+      "min": 329.0,
+      "max": 708.5
+    },
+    "juice_plum_prem_ufa": {
+      "min": 335.3,
+      "max": 722.3
+    },
+    "juice_plum_std": {
+      "min": 99.7,
+      "max": 214.7
+    },
+    "juice_plum_std_beloretsk": {
+      "min": 329.3,
+      "max": 709.2
+    },
+    "juice_plum_std_sterli": {
+      "min": 326.1,
+      "max": 702.4
+    },
+    "juice_plum_std_ufa": {
+      "min": 332.4,
+      "max": 716.0
+    },
+    "juice_plum_sterli": {
+      "min": 321.8,
+      "max": 693.1
+    },
+    "juice_plum_ufa": {
+      "min": 328.0,
+      "max": 706.6
+    },
+    "juice_raspberry": {
+      "min": 123.0,
+      "max": 265.0
+    },
+    "juice_raspberry_beloretsk": {
+      "min": 358.9,
+      "max": 773.0
+    },
+    "juice_raspberry_prem": {
+      "min": 135.4,
+      "max": 291.7
+    },
+    "juice_raspberry_prem_beloretsk": {
+      "min": 374.6,
+      "max": 806.8
+    },
+    "juice_raspberry_prem_sterli": {
+      "min": 371.0,
+      "max": 799.1
+    },
+    "juice_raspberry_prem_ufa": {
+      "min": 378.2,
+      "max": 814.6
+    },
+    "juice_raspberry_std": {
+      "min": 130.5,
+      "max": 281.0
+    },
+    "juice_raspberry_std_beloretsk": {
+      "min": 368.3,
+      "max": 793.3
+    },
+    "juice_raspberry_std_sterli": {
+      "min": 364.8,
+      "max": 785.7
+    },
+    "juice_raspberry_std_ufa": {
+      "min": 371.9,
+      "max": 800.9
+    },
+    "juice_raspberry_sterli": {
+      "min": 355.4,
+      "max": 765.5
+    },
+    "juice_raspberry_ufa": {
+      "min": 362.3,
+      "max": 780.4
+    },
+    "juice_strawberry": {
+      "min": 118.1,
+      "max": 254.3
+    },
+    "juice_strawberry_beloretsk": {
+      "min": 352.6,
+      "max": 759.4
+    },
+    "juice_strawberry_prem": {
+      "min": 129.2,
+      "max": 278.3
+    },
+    "juice_strawberry_prem_beloretsk": {
+      "min": 366.7,
+      "max": 789.9
+    },
+    "juice_strawberry_prem_sterli": {
+      "min": 363.2,
+      "max": 782.3
+    },
+    "juice_strawberry_prem_ufa": {
+      "min": 370.3,
+      "max": 797.5
+    },
+    "juice_strawberry_std": {
+      "min": 124.8,
+      "max": 268.7
+    },
+    "juice_strawberry_std_beloretsk": {
+      "min": 361.1,
+      "max": 777.7
+    },
+    "juice_strawberry_std_sterli": {
+      "min": 357.6,
+      "max": 770.2
+    },
+    "juice_strawberry_std_ufa": {
+      "min": 364.6,
+      "max": 785.2
+    },
+    "juice_strawberry_sterli": {
+      "min": 349.2,
+      "max": 752.1
+    },
+    "juice_strawberry_ufa": {
+      "min": 356.0,
+      "max": 766.7
+    },
+    "kerosene": {
+      "min": 130.8,
+      "max": 305.3
+    },
+    "kerosene_prem": {
+      "min": 130.8,
+      "max": 305.3
+    },
+    "kerosene_std": {
+      "min": 130.8,
+      "max": 305.3
+    },
+    "koumiss_base": {
+      "min": 16.5,
+      "max": 43.5
+    },
+    "koumiss_base_prem": {
+      "min": 20.6,
+      "max": 54.4
+    },
+    "koumiss_base_std": {
+      "min": 19.0,
+      "max": 50.0
+    },
+    "koumiss_koumiss_base": {
+      "min": 115.5,
+      "max": 248.8
+    },
+    "koumiss_koumiss_base_prem": {
+      "min": 124.4,
+      "max": 268.0
+    },
+    "koumiss_koumiss_base_std": {
+      "min": 120.9,
+      "max": 260.3
+    },
+    "koumiss_milk": {
+      "min": 113.1,
+      "max": 243.6
+    },
+    "koumiss_milk_beloretsk": {
+      "min": 346.3,
+      "max": 745.9
+    },
+    "koumiss_milk_prem": {
+      "min": 121.4,
+      "max": 261.6
+    },
+    "koumiss_milk_std": {
+      "min": 118.1,
+      "max": 254.4
+    },
+    "koumiss_milk_sterli": {
+      "min": 343.0,
+      "max": 738.7
+    },
+    "koumiss_milk_ufa": {
+      "min": 349.6,
+      "max": 753.0
+    },
+    "kvass": {
+      "min": 98.2,
+      "max": 211.5
+    },
+    "leather": {
+      "min": 67.5,
+      "max": 157.5
+    },
+    "leather_prem": {
+      "min": 79.7,
+      "max": 185.9
+    },
+    "leather_std": {
+      "min": 74.8,
+      "max": 174.6
+    },
+    "limestone": {
+      "min": 19.7,
+      "max": 52.0
+    },
+    "limestone_std": {
+      "min": 25.2,
+      "max": 66.4
+    },
+    "linden": {
+      "min": 10.5,
+      "max": 27.6
+    },
+    "linden_prem": {
+      "min": 13.1,
+      "max": 34.4
+    },
+    "linden_std": {
+      "min": 12.0,
+      "max": 31.7
+    },
+    "milk": {
+      "min": 15.4,
+      "max": 40.6
+    },
+    "milk_prem": {
+      "min": 19.2,
+      "max": 50.8
+    },
+    "milk_std": {
+      "min": 17.7,
+      "max": 46.7
+    },
+    "mineral_water": {
+      "min": 64.0,
+      "max": 137.7
+    },
+    "mutton": {
+      "min": 34.5,
+      "max": 80.4
+    },
+    "mutton_prem": {
+      "min": 38.4,
+      "max": 89.5
+    },
+    "mutton_std": {
+      "min": 36.8,
+      "max": 85.9
+    },
+    "oats": {
+      "min": 6.1,
+      "max": 15.9
+    },
+    "oats_prem": {
+      "min": 7.8,
+      "max": 20.5
+    },
+    "oats_std": {
+      "min": 7.0,
+      "max": 18.3
+    },
+    "oil": {
+      "min": 30.3,
+      "max": 79.8
+    },
+    "oil_std": {
+      "min": 34.8,
+      "max": 91.7
+    },
+    "onion": {
+      "min": 7.7,
+      "max": 20.3
+    },
+    "onion_prem": {
+      "min": 9.6,
+      "max": 25.4
+    },
+    "onion_std": {
+      "min": 8.9,
+      "max": 23.3
+    },
+    "packaging": {
+      "min": 115.1,
+      "max": 268.6
+    },
+    "paint": {
+      "min": 132.4,
+      "max": 285.2
+    },
+    "paper": {
+      "min": 48.2,
+      "max": 112.4
+    },
+    "pasta": {
+      "min": 96.2,
+      "max": 207.3
+    },
+    "pastry_barley_prem": {
+      "min": 113.0,
+      "max": 243.4
+    },
+    "pastry_barley_prem_beloretsk": {
+      "min": 346.2,
+      "max": 745.6
+    },
+    "pastry_barley_prem_sterli": {
+      "min": 342.8,
+      "max": 738.4
+    },
+    "pastry_barley_prem_ufa": {
+      "min": 349.5,
+      "max": 752.8
+    },
+    "pastry_barley_std": {
+      "min": 112.1,
+      "max": 241.4
+    },
+    "pastry_barley_std_beloretsk": {
+      "min": 345.0,
+      "max": 743.1
+    },
+    "pastry_barley_std_sterli": {
+      "min": 341.7,
+      "max": 735.9
+    },
+    "pastry_barley_std_ufa": {
+      "min": 348.3,
+      "max": 750.2
+    },
+    "pastry_buckwheat_prem": {
+      "min": 122.6,
+      "max": 264.1
+    },
+    "pastry_buckwheat_prem_beloretsk": {
+      "min": 358.3,
+      "max": 771.8
+    },
+    "pastry_buckwheat_prem_sterli": {
+      "min": 354.9,
+      "max": 764.4
+    },
+    "pastry_buckwheat_prem_ufa": {
+      "min": 361.8,
+      "max": 779.2
+    },
+    "pastry_buckwheat_std": {
+      "min": 120.9,
+      "max": 260.4
+    },
+    "pastry_buckwheat_std_beloretsk": {
+      "min": 356.2,
+      "max": 767.2
+    },
+    "pastry_buckwheat_std_sterli": {
+      "min": 352.8,
+      "max": 759.8
+    },
+    "pastry_buckwheat_std_ufa": {
+      "min": 359.6,
+      "max": 774.5
+    },
+    "pastry_oats_prem": {
+      "min": 112.4,
+      "max": 242.0
+    },
+    "pastry_oats_prem_beloretsk": {
+      "min": 345.4,
+      "max": 743.8
+    },
+    "pastry_oats_prem_sterli": {
+      "min": 342.0,
+      "max": 736.7
+    },
+    "pastry_oats_prem_ufa": {
+      "min": 348.7,
+      "max": 751.0
+    },
+    "pastry_oats_std": {
+      "min": 111.2,
+      "max": 239.5
+    },
+    "pastry_oats_std_beloretsk": {
+      "min": 343.9,
+      "max": 740.7
+    },
+    "pastry_oats_std_sterli": {
+      "min": 340.6,
+      "max": 733.5
+    },
+    "pastry_oats_std_ufa": {
+      "min": 347.2,
+      "max": 747.8
+    },
+    "pastry_rye_prem": {
+      "min": 114.0,
+      "max": 245.5
+    },
+    "pastry_rye_prem_beloretsk": {
+      "min": 347.4,
+      "max": 748.2
+    },
+    "pastry_rye_prem_sterli": {
+      "min": 344.1,
+      "max": 741.0
+    },
+    "pastry_rye_prem_ufa": {
+      "min": 350.7,
+      "max": 755.4
+    },
+    "pastry_rye_std": {
+      "min": 113.0,
+      "max": 243.3
+    },
+    "pastry_rye_std_beloretsk": {
+      "min": 346.1,
+      "max": 745.5
+    },
+    "pastry_rye_std_sterli": {
+      "min": 342.8,
+      "max": 738.3
+    },
+    "pastry_rye_std_ufa": {
+      "min": 349.5,
+      "max": 752.7
+    },
+    "pastry_wheat_prem": {
+      "min": 114.9,
+      "max": 247.5
+    },
+    "pastry_wheat_prem_beloretsk": {
+      "min": 348.6,
+      "max": 750.8
+    },
+    "pastry_wheat_prem_sterli": {
+      "min": 345.2,
+      "max": 743.6
+    },
+    "pastry_wheat_prem_ufa": {
+      "min": 352.0,
+      "max": 758.1
+    },
+    "pastry_wheat_std": {
+      "min": 113.9,
+      "max": 245.2
+    },
+    "pastry_wheat_std_beloretsk": {
+      "min": 347.2,
+      "max": 747.9
+    },
+    "pastry_wheat_std_sterli": {
+      "min": 343.9,
+      "max": 740.7
+    },
+    "pastry_wheat_std_ufa": {
+      "min": 350.6,
+      "max": 755.1
+    },
+    "pear": {
+      "min": 13.2,
+      "max": 34.8
+    },
+    "pear_prem": {
+      "min": 16.5,
+      "max": 43.5
+    },
+    "pear_std": {
+      "min": 15.2,
+      "max": 40.0
+    },
+    "pepper": {
+      "min": 14.3,
+      "max": 37.7
+    },
+    "pepper_prem": {
+      "min": 17.9,
+      "max": 47.1
+    },
+    "pepper_std": {
+      "min": 16.4,
+      "max": 43.4
+    },
+    "pig": {
+      "min": 60.5,
+      "max": 159.5
+    },
+    "pig_prem": {
+      "min": 75.6,
+      "max": 199.4
+    },
+    "pig_std": {
+      "min": 69.6,
+      "max": 183.4
+    },
+    "pine": {
+      "min": 8.8,
+      "max": 23.2
+    },
+    "pine_prem": {
+      "min": 11.0,
+      "max": 29.0
+    },
+    "pine_std": {
+      "min": 10.1,
+      "max": 26.7
+    },
+    "planks_birch": {
+      "min": 27.5,
+      "max": 64.1
+    },
+    "planks_birch_prem": {
+      "min": 30.4,
+      "max": 71.0
+    },
+    "planks_birch_std": {
+      "min": 29.3,
+      "max": 68.3
+    },
+    "planks_firewood": {
+      "min": 24.1,
+      "max": 56.2
+    },
+    "planks_firewood_prem": {
+      "min": 24.4,
+      "max": 56.8
+    },
+    "planks_firewood_std": {
+      "min": 24.1,
+      "max": 56.2
+    },
+    "planks_linden": {
+      "min": 28.9,
+      "max": 67.4
+    },
+    "planks_linden_prem": {
+      "min": 32.2,
+      "max": 75.1
+    },
+    "planks_linden_std": {
+      "min": 30.9,
+      "max": 72.0
+    },
+    "planks_pine": {
+      "min": 26.8,
+      "max": 62.5
+    },
+    "planks_pine_prem": {
+      "min": 29.6,
+      "max": 69.0
+    },
+    "planks_pine_std": {
+      "min": 28.5,
+      "max": 66.4
+    },
+    "planks_wood": {
+      "min": 28.2,
+      "max": 65.8
+    },
+    "planks_wood_prem": {
+      "min": 31.3,
+      "max": 73.1
+    },
+    "planks_wood_std": {
+      "min": 30.1,
+      "max": 70.2
+    },
+    "plastic": {
+      "min": 69.9,
+      "max": 163.2
+    },
+    "plum": {
+      "min": 12.7,
+      "max": 33.4
+    },
+    "plum_prem": {
+      "min": 15.8,
+      "max": 41.7
+    },
+    "plum_std": {
+      "min": 14.5,
+      "max": 38.4
+    },
+    "pork": {
+      "min": 37.9,
+      "max": 88.5
+    },
+    "pork_prem": {
+      "min": 42.7,
+      "max": 99.7
+    },
+    "pork_std": {
+      "min": 40.8,
+      "max": 95.2
+    },
+    "potato": {
+      "min": 8.8,
+      "max": 23.2
+    },
+    "potato_prem": {
+      "min": 11.0,
+      "max": 29.0
+    },
+    "potato_std": {
+      "min": 10.1,
+      "max": 26.7
+    },
+    "poultry": {
+      "min": 34.4,
+      "max": 90.7
+    },
+    "poultry_prem": {
+      "min": 46.1,
+      "max": 121.5
+    },
+    "poultry_std": {
+      "min": 40.2,
+      "max": 106.1
+    },
+    "quartz": {
+      "min": 21.7,
+      "max": 57.3
+    },
+    "quartz_std": {
+      "min": 25.2,
+      "max": 66.4
+    },
+    "qurut_koumiss_base": {
+      "min": 114.2,
+      "max": 245.9
+    },
+    "qurut_koumiss_base_prem": {
+      "min": 124.1,
+      "max": 267.2
+    },
+    "qurut_koumiss_base_std": {
+      "min": 120.1,
+      "max": 258.7
+    },
+    "qurut_milk": {
+      "min": 111.5,
+      "max": 240.2
+    },
+    "qurut_milk_beloretsk": {
+      "min": 344.3,
+      "max": 741.5
+    },
+    "qurut_milk_prem": {
+      "min": 120.8,
+      "max": 260.1
+    },
+    "qurut_milk_std": {
+      "min": 117.1,
+      "max": 252.1
+    },
+    "qurut_milk_sterli": {
+      "min": 341.0,
+      "max": 734.4
+    },
+    "qurut_milk_ufa": {
+      "min": 347.6,
+      "max": 748.6
+    },
+    "rapeseed": {
+      "min": 14.3,
+      "max": 37.7
+    },
+    "rapeseed_prem": {
+      "min": 17.9,
+      "max": 47.1
+    },
+    "rapeseed_std": {
+      "min": 16.4,
+      "max": 43.4
+    },
+    "raspberry": {
+      "min": 27.5,
+      "max": 72.5
+    },
+    "raspberry_prem": {
+      "min": 34.4,
+      "max": 90.6
+    },
+    "raspberry_std": {
+      "min": 31.6,
+      "max": 83.4
+    },
+    "research_notes": {
+      "min": 171.1,
+      "max": 399.3
+    },
+    "rye": {
+      "min": 7.2,
+      "max": 18.8
+    },
+    "rye_prem": {
+      "min": 8.9,
+      "max": 23.6
+    },
+    "rye_std": {
+      "min": 8.2,
+      "max": 21.7
+    },
+    "salt": {
+      "min": 19.7,
+      "max": 52.0
+    },
+    "salt_std": {
+      "min": 25.2,
+      "max": 66.4
+    },
+    "sand": {
+      "min": 4.8,
+      "max": 12.7
+    },
+    "sand_std": {
+      "min": 15.7,
+      "max": 41.5
+    },
+    "sausage_beef": {
+      "min": 154.3,
+      "max": 332.3
+    },
+    "sausage_beef_beloretsk": {
+      "min": 398.5,
+      "max": 858.3
+    },
+    "sausage_beef_prem": {
+      "min": 162.3,
+      "max": 349.6
+    },
+    "sausage_beef_std": {
+      "min": 159.1,
+      "max": 342.7
+    },
+    "sausage_beef_sterli": {
+      "min": 394.7,
+      "max": 850.1
+    },
+    "sausage_beef_ufa": {
+      "min": 402.3,
+      "max": 866.6
+    },
+    "sausage_chicken": {
+      "min": 136.5,
+      "max": 293.9
+    },
+    "sausage_chicken_prem": {
+      "min": 141.3,
+      "max": 304.4
+    },
+    "sausage_chicken_std": {
+      "min": 138.9,
+      "max": 299.2
+    },
+    "sausage_goat_meat": {
+      "min": 141.6,
+      "max": 305.0
+    },
+    "sausage_goat_meat_prem": {
+      "min": 146.5,
+      "max": 315.6
+    },
+    "sausage_goat_meat_std": {
+      "min": 144.6,
+      "max": 311.4
+    },
+    "sausage_horse_meat": {
+      "min": 158.9,
+      "max": 342.2
+    },
+    "sausage_horse_meat_prem": {
+      "min": 168.1,
+      "max": 362.0
+    },
+    "sausage_horse_meat_std": {
+      "min": 164.4,
+      "max": 354.1
+    },
+    "sausage_mutton": {
+      "min": 142.8,
+      "max": 307.5
+    },
+    "sausage_mutton_prem": {
+      "min": 147.9,
+      "max": 318.7
+    },
+    "sausage_mutton_std": {
+      "min": 145.9,
+      "max": 314.2
+    },
+    "sausage_pork": {
+      "min": 147.4,
+      "max": 317.4
+    },
+    "sausage_pork_prem": {
+      "min": 153.7,
+      "max": 331.0
+    },
+    "sausage_pork_std": {
+      "min": 151.2,
+      "max": 325.6
+    },
+    "sheep": {
+      "min": 49.5,
+      "max": 130.5
+    },
+    "sheep_milk": {
+      "min": 19.8,
+      "max": 52.2
+    },
+    "sheep_milk_prem": {
+      "min": 24.8,
+      "max": 65.2
+    },
+    "sheep_milk_std": {
+      "min": 22.8,
+      "max": 60.0
+    },
+    "sheep_prem": {
+      "min": 61.9,
+      "max": 163.1
+    },
+    "sheep_std": {
+      "min": 56.9,
+      "max": 150.1
+    },
+    "shoes": {
+      "min": 296.0,
+      "max": 637.5
+    },
+    "shoes_prem": {
+      "min": 296.0,
+      "max": 637.5
+    },
+    "shoes_std": {
+      "min": 296.0,
+      "max": 637.5
+    },
+    "snack_cabbage": {
+      "min": 120.5,
+      "max": 259.5
+    },
+    "snack_cabbage_beloretsk": {
+      "min": 355.6,
+      "max": 766.0
+    },
+    "snack_cabbage_prem": {
+      "min": 122.9,
+      "max": 264.6
+    },
+    "snack_cabbage_prem_beloretsk": {
+      "min": 358.7,
+      "max": 772.5
+    },
+    "snack_cabbage_prem_sterli": {
+      "min": 355.2,
+      "max": 765.1
+    },
+    "snack_cabbage_prem_ufa": {
+      "min": 362.1,
+      "max": 779.9
+    },
+    "snack_cabbage_std": {
+      "min": 121.9,
+      "max": 262.6
+    },
+    "snack_cabbage_std_beloretsk": {
+      "min": 357.5,
+      "max": 769.9
+    },
+    "snack_cabbage_std_sterli": {
+      "min": 354.0,
+      "max": 762.5
+    },
+    "snack_cabbage_std_ufa": {
+      "min": 360.9,
+      "max": 777.3
+    },
+    "snack_cabbage_sterli": {
+      "min": 352.2,
+      "max": 758.6
+    },
+    "snack_cabbage_ufa": {
+      "min": 359.1,
+      "max": 773.4
+    },
+    "snack_carrot": {
+      "min": 122.9,
+      "max": 264.6
+    },
+    "snack_carrot_beloretsk": {
+      "min": 358.7,
+      "max": 772.5
+    },
+    "snack_carrot_prem": {
+      "min": 125.8,
+      "max": 271.0
+    },
+    "snack_carrot_prem_beloretsk": {
+      "min": 362.4,
+      "max": 780.6
+    },
+    "snack_carrot_prem_sterli": {
+      "min": 359.0,
+      "max": 773.1
+    },
+    "snack_carrot_prem_ufa": {
+      "min": 365.9,
+      "max": 788.1
+    },
+    "snack_carrot_std": {
+      "min": 124.7,
+      "max": 268.5
+    },
+    "snack_carrot_std_beloretsk": {
+      "min": 360.9,
+      "max": 777.4
+    },
+    "snack_carrot_std_sterli": {
+      "min": 357.5,
+      "max": 769.9
+    },
+    "snack_carrot_std_ufa": {
+      "min": 364.4,
+      "max": 784.9
+    },
+    "snack_carrot_sterli": {
+      "min": 355.2,
+      "max": 765.1
+    },
+    "snack_carrot_ufa": {
+      "min": 362.1,
+      "max": 779.9
+    },
+    "snack_cucumber": {
+      "min": 126.8,
+      "max": 273.2
+    },
+    "snack_cucumber_beloretsk": {
+      "min": 363.7,
+      "max": 783.3
+    },
+    "snack_cucumber_prem": {
+      "min": 130.8,
+      "max": 281.7
+    },
+    "snack_cucumber_prem_beloretsk": {
+      "min": 368.7,
+      "max": 794.2
+    },
+    "snack_cucumber_prem_sterli": {
+      "min": 365.2,
+      "max": 786.5
+    },
+    "snack_cucumber_prem_ufa": {
+      "min": 372.3,
+      "max": 801.8
+    },
+    "snack_cucumber_std": {
+      "min": 129.2,
+      "max": 278.3
+    },
+    "snack_cucumber_std_beloretsk": {
+      "min": 366.7,
+      "max": 789.8
+    },
+    "snack_cucumber_std_sterli": {
+      "min": 363.2,
+      "max": 782.2
+    },
+    "snack_cucumber_std_ufa": {
+      "min": 370.2,
+      "max": 797.4
+    },
+    "snack_cucumber_sterli": {
+      "min": 360.2,
+      "max": 775.8
+    },
+    "snack_cucumber_ufa": {
+      "min": 367.2,
+      "max": 790.9
+    },
+    "snack_onion": {
+      "min": 122.1,
+      "max": 262.9
+    },
+    "snack_onion_beloretsk": {
+      "min": 357.7,
+      "max": 770.3
+    },
+    "snack_onion_prem": {
+      "min": 124.8,
+      "max": 268.9
+    },
+    "snack_onion_prem_beloretsk": {
+      "min": 361.2,
+      "max": 777.9
+    },
+    "snack_onion_prem_sterli": {
+      "min": 357.7,
+      "max": 770.4
+    },
+    "snack_onion_prem_ufa": {
+      "min": 364.7,
+      "max": 785.4
+    },
+    "snack_onion_std": {
+      "min": 123.7,
+      "max": 266.5
+    },
+    "snack_onion_std_beloretsk": {
+      "min": 359.8,
+      "max": 774.9
+    },
+    "snack_onion_std_sterli": {
+      "min": 356.3,
+      "max": 767.4
+    },
+    "snack_onion_std_ufa": {
+      "min": 363.2,
+      "max": 782.3
+    },
+    "snack_onion_sterli": {
+      "min": 354.2,
+      "max": 762.9
+    },
+    "snack_onion_ufa": {
+      "min": 361.1,
+      "max": 777.7
+    },
+    "snack_pepper": {
+      "min": 131.6,
+      "max": 283.4
+    },
+    "snack_pepper_beloretsk": {
+      "min": 369.7,
+      "max": 796.3
+    },
+    "snack_pepper_prem": {
+      "min": 136.7,
+      "max": 294.5
+    },
+    "snack_pepper_prem_beloretsk": {
+      "min": 376.3,
+      "max": 810.4
+    },
+    "snack_pepper_prem_sterli": {
+      "min": 372.7,
+      "max": 802.6
+    },
+    "snack_pepper_prem_ufa": {
+      "min": 379.9,
+      "max": 818.2
+    },
+    "snack_pepper_std": {
+      "min": 134.7,
+      "max": 290.1
+    },
+    "snack_pepper_std_beloretsk": {
+      "min": 373.7,
+      "max": 804.8
+    },
+    "snack_pepper_std_sterli": {
+      "min": 370.1,
+      "max": 797.1
+    },
+    "snack_pepper_std_ufa": {
+      "min": 377.2,
+      "max": 812.5
+    },
+    "snack_pepper_sterli": {
+      "min": 366.2,
+      "max": 788.7
+    },
+    "snack_pepper_ufa": {
+      "min": 373.3,
+      "max": 804.0
+    },
+    "snack_potato": {
+      "min": 123.7,
+      "max": 266.3
+    },
+    "snack_potato_beloretsk": {
+      "min": 359.7,
+      "max": 774.7
+    },
+    "snack_potato_prem": {
+      "min": 126.8,
+      "max": 273.2
+    },
+    "snack_potato_prem_beloretsk": {
+      "min": 363.7,
+      "max": 783.3
+    },
+    "snack_potato_prem_sterli": {
+      "min": 360.2,
+      "max": 775.8
+    },
+    "snack_potato_prem_ufa": {
+      "min": 367.2,
+      "max": 790.9
+    },
+    "snack_potato_std": {
+      "min": 125.6,
+      "max": 270.4
+    },
+    "snack_potato_std_beloretsk": {
+      "min": 362.1,
+      "max": 779.9
+    },
+    "snack_potato_std_sterli": {
+      "min": 358.6,
+      "max": 772.4
+    },
+    "snack_potato_std_ufa": {
+      "min": 365.6,
+      "max": 787.4
+    },
+    "snack_potato_sterli": {
+      "min": 356.2,
+      "max": 767.2
+    },
+    "snack_potato_ufa": {
+      "min": 363.1,
+      "max": 782.1
+    },
+    "snack_sugar_beet": {
+      "min": 118.1,
+      "max": 254.4
+    },
+    "snack_sugar_beet_beloretsk": {
+      "min": 352.6,
+      "max": 759.5
+    },
+    "snack_sugar_beet_prem": {
+      "min": 122.2,
+      "max": 263.2
+    },
+    "snack_sugar_beet_prem_beloretsk": {
+      "min": 357.8,
+      "max": 770.7
+    },
+    "snack_sugar_beet_prem_sterli": {
+      "min": 354.4,
+      "max": 763.3
+    },
+    "snack_sugar_beet_prem_ufa": {
+      "min": 361.3,
+      "max": 778.1
+    },
+    "snack_sugar_beet_std": {
+      "min": 119.6,
+      "max": 257.6
+    },
+    "snack_sugar_beet_std_beloretsk": {
+      "min": 354.5,
+      "max": 763.5
+    },
+    "snack_sugar_beet_std_sterli": {
+      "min": 351.1,
+      "max": 756.2
+    },
+    "snack_sugar_beet_std_ufa": {
+      "min": 357.9,
+      "max": 770.9
+    },
+    "snack_sugar_beet_sterli": {
+      "min": 349.2,
+      "max": 752.2
+    },
+    "snack_sugar_beet_ufa": {
+      "min": 356.0,
+      "max": 766.8
+    },
+    "snack_tomato": {
+      "min": 130.0,
+      "max": 280.0
+    },
+    "snack_tomato_beloretsk": {
+      "min": 367.7,
+      "max": 792.0
+    },
+    "snack_tomato_prem": {
+      "min": 134.8,
+      "max": 290.2
+    },
+    "snack_tomato_prem_beloretsk": {
+      "min": 373.8,
+      "max": 805.0
+    },
+    "snack_tomato_prem_sterli": {
+      "min": 370.2,
+      "max": 797.3
+    },
+    "snack_tomato_prem_ufa": {
+      "min": 377.4,
+      "max": 812.8
+    },
+    "snack_tomato_std": {
+      "min": 132.9,
+      "max": 286.1
+    },
+    "snack_tomato_std_beloretsk": {
+      "min": 371.3,
+      "max": 799.8
+    },
+    "snack_tomato_std_sterli": {
+      "min": 367.8,
+      "max": 792.1
+    },
+    "snack_tomato_std_ufa": {
+      "min": 374.9,
+      "max": 807.5
+    },
+    "snack_tomato_sterli": {
+      "min": 364.2,
+      "max": 784.4
+    },
+    "snack_tomato_ufa": {
+      "min": 371.3,
+      "max": 799.6
+    },
+    "steel": {
+      "min": 117.1,
+      "max": 273.3
+    },
+    "steel_goods_steel": {
+      "min": 217.5,
+      "max": 468.4
+    },
+    "steel_goods_steel_prem": {
+      "min": 217.5,
+      "max": 468.4
+    },
+    "steel_goods_steel_std": {
+      "min": 227.0,
+      "max": 488.9
+    },
+    "steel_prem": {
+      "min": 117.1,
+      "max": 273.3
+    },
+    "steel_std": {
+      "min": 124.3,
+      "max": 290.1
+    },
+    "strawberry": {
+      "min": 24.8,
+      "max": 65.2
+    },
+    "strawberry_prem": {
+      "min": 30.9,
+      "max": 81.6
+    },
+    "strawberry_std": {
+      "min": 28.5,
+      "max": 75.0
+    },
+    "sugar_beet": {
+      "min": 5.0,
+      "max": 13.0
+    },
+    "sugar_beet_prem": {
+      "min": 7.8,
+      "max": 20.5
+    },
+    "sugar_beet_std": {
+      "min": 6.0,
+      "max": 15.7
+    },
+    "sugar_sugar_beet": {
+      "min": 57.1,
+      "max": 133.2
+    },
+    "sugar_sugar_beet_prem": {
+      "min": 62.5,
+      "max": 145.7
+    },
+    "sugar_sugar_beet_std": {
+      "min": 59.0,
+      "max": 137.7
+    },
+    "sunflower": {
+      "min": 15.4,
+      "max": 40.6
+    },
+    "sunflower_prem": {
+      "min": 19.2,
+      "max": 50.8
+    },
+    "sunflower_std": {
+      "min": 17.7,
+      "max": 46.7
+    },
+    "tomato": {
+      "min": 13.2,
+      "max": 34.8
+    },
+    "tomato_prem": {
+      "min": 16.5,
+      "max": 43.5
+    },
+    "tomato_std": {
+      "min": 15.2,
+      "max": 40.0
+    },
+    "toy_birch": {
+      "min": 103.5,
+      "max": 222.9
+    },
+    "toy_birch_prem": {
+      "min": 106.1,
+      "max": 228.5
+    },
+    "toy_birch_std": {
+      "min": 105.1,
+      "max": 226.3
+    },
+    "toy_firewood": {
+      "min": 100.5,
+      "max": 216.4
+    },
+    "toy_firewood_prem": {
+      "min": 100.7,
+      "max": 217.0
+    },
+    "toy_firewood_std": {
+      "min": 100.5,
+      "max": 216.4
+    },
+    "toy_linden": {
+      "min": 104.7,
+      "max": 225.5
+    },
+    "toy_linden_prem": {
+      "min": 107.6,
+      "max": 231.8
+    },
+    "toy_linden_std": {
+      "min": 106.5,
+      "max": 229.3
+    },
+    "toy_pine": {
+      "min": 102.9,
+      "max": 221.6
+    },
+    "toy_pine_prem": {
+      "min": 105.3,
+      "max": 226.9
+    },
+    "toy_pine_std": {
+      "min": 104.3,
+      "max": 224.7
+    },
+    "toy_wood": {
+      "min": 104.1,
+      "max": 224.2
+    },
+    "toy_wood_prem": {
+      "min": 106.9,
+      "max": 230.2
+    },
+    "toy_wood_std": {
+      "min": 105.8,
+      "max": 227.8
+    },
+    "veg_oil_rapeseed": {
+      "min": 66.8,
+      "max": 155.9
+    },
+    "veg_oil_rapeseed_prem": {
+      "min": 74.4,
+      "max": 173.5
+    },
+    "veg_oil_rapeseed_std": {
+      "min": 71.3,
+      "max": 166.5
+    },
+    "veg_oil_sunflower": {
+      "min": 69.1,
+      "max": 161.3
+    },
+    "veg_oil_sunflower_prem": {
+      "min": 77.3,
+      "max": 180.3
+    },
+    "veg_oil_sunflower_std": {
+      "min": 74.0,
+      "max": 172.7
+    },
+    "wheat": {
+      "min": 7.7,
+      "max": 20.3
+    },
+    "wheat_prem": {
+      "min": 9.6,
+      "max": 25.4
+    },
+    "wheat_std": {
+      "min": 8.9,
+      "max": 23.3
+    },
+    "wire": {
+      "min": 125.0,
+      "max": 291.8
+    },
+    "wire_prem": {
+      "min": 125.0,
+      "max": 291.8
+    },
+    "wire_std": {
+      "min": 125.0,
+      "max": 291.8
+    },
+    "wood": {
+      "min": 9.9,
+      "max": 26.1
+    },
+    "wood_prem": {
+      "min": 12.4,
+      "max": 32.6
+    },
+    "wood_std": {
+      "min": 11.4,
+      "max": 30.0
+    },
+    "wool": {
+      "min": 50.1,
+      "max": 116.9
+    },
+    "wool_prem": {
+      "min": 57.9,
+      "max": 135.2
+    },
+    "wool_std": {
+      "min": 54.8,
+      "max": 127.9
+    },
+    "yogurt_egg": {
+      "min": 107.0,
+      "max": 230.5
+    },
+    "yogurt_egg_prem": {
+      "min": 109.4,
+      "max": 235.6
+    },
+    "yogurt_egg_std": {
+      "min": 108.4,
+      "max": 233.5
+    },
+    "yogurt_goat_milk": {
+      "min": 129.2,
+      "max": 278.3
+    },
+    "yogurt_goat_milk_prem": {
+      "min": 137.1,
+      "max": 295.4
+    },
+    "yogurt_goat_milk_std": {
+      "min": 134.0,
+      "max": 288.5
+    },
+    "yogurt_koumiss_base": {
+      "min": 121.3,
+      "max": 261.2
+    },
+    "yogurt_koumiss_base_prem": {
+      "min": 127.2,
+      "max": 274.0
+    },
+    "yogurt_koumiss_base_std": {
+      "min": 124.8,
+      "max": 268.9
+    },
+    "yogurt_milk": {
+      "min": 119.7,
+      "max": 257.8
+    },
+    "yogurt_milk_beloretsk": {
+      "min": 354.6,
+      "max": 763.8
+    },
+    "yogurt_milk_prem": {
+      "min": 125.2,
+      "max": 269.8
+    },
+    "yogurt_milk_std": {
+      "min": 123.0,
+      "max": 265.0
+    },
+    "yogurt_milk_sterli": {
+      "min": 351.2,
+      "max": 756.5
+    },
+    "yogurt_milk_ufa": {
+      "min": 358.0,
+      "max": 771.2
+    },
+    "yogurt_sheep_milk": {
+      "min": 126.0,
+      "max": 271.5
+    },
+    "yogurt_sheep_milk_prem": {
+      "min": 133.2,
+      "max": 286.8
+    },
+    "yogurt_sheep_milk_std": {
+      "min": 130.3,
+      "max": 280.7
+    },
+    "zinc": {
+      "min": 121.3,
+      "max": 283.0
+    },
+    "zinc_ore": {
+      "min": 14.3,
+      "max": 37.7
+    },
+    "zinc_ore_std": {
+      "min": 16.4,
+      "max": 43.4
+    },
+    "zinc_prem": {
+      "min": 121.3,
+      "max": 283.0
+    },
+    "zinc_std": {
+      "min": 125.8,
+      "max": 293.6
+    }
+  },
+  "city_market": [
+    {
+      "item_id": "wheat",
+      "price": 8.1,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "potato",
+      "price": 9.3,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "milk",
+      "price": 16.2,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "wood",
+      "price": 10.4,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "sand",
+      "price": 5.1,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "flax",
+      "price": 11.6,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "iron_ore",
+      "price": 13.0,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "coal",
+      "price": 13.0,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "bottle",
+      "price": 38.1,
+      "quality": 1.4,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "chemicals",
+      "price": 27.8,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "plastic",
+      "price": 67.6,
+      "quality": 1.4,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "packaging",
+      "price": 111.3,
+      "quality": 1.4,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "flour_wheat",
+      "price": 26.9,
+      "quality": 1.4,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "paper",
+      "price": 46.6,
+      "quality": 1.4,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "oil",
+      "price": 31.9,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "gas",
+      "price": 23.2,
+      "quality": 1.4,
+      "stock_per_tick": 40
+    }
+  ],
+  "chat": {
+    "max_messages": 120,
+    "ai_messages_per_tick_cap": 2,
+    "min_ticks_between_ai_msg": 2
+  },
+  "logistics": {
+    "units_per_tick": 80,
+    "cost_per_unit_dist": 0.012,
+    "local_cost_per_unit": 0.8,
+    "base_cost_per_unit": 1.2
+  },
+  "balance": {
+    "version": 3,
+    "region": "Bashkortostan",
+    "year": 2026,
+    "wage_per_tick": {
+      "worker": 18.0,
+      "engineer": 32.0,
+      "manager": 48.0
+    },
+    "energy_cost_extract": 10.0,
+    "energy_cost_factory": 18.0,
+    "target_margin": {
+      "raw": 0.18,
+      "intermediate": 0.16,
+      "finished": 0.22
+    },
+    "notes": "Corridors from Bashkortostan-2026-ish raw anchors + recipe costs. Re-run after catalog edits."
+  },
+  "demand": {
+    "class_shares": {
+      "budget": 0.45,
+      "mid": 0.4,
+      "premium": 0.15
+    },
+    "quality_weight": 0.38,
+    "brand_weight": 0.18,
+    "price_weight": 0.28,
+    "distance_weight": 0.16,
+    "brand_decay": 0.002,
+    "brand_floor": 0.03,
+    "brand_gain_on_sale": 0.006,
+    "pop_demand_per_day": {
+      "food": 0.08,
+      "home": 0.02,
+      "apparel": 0.015,
+      "fuel": 0.01,
+      "tech": 0.008,
+      "textile": 0.01
+    },
+    "too_expensive_at": 1.35
+  }
+}

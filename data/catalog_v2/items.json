@@ -1,0 +1,1702 @@
+[
+  {
+    "id": "iron_ore",
+    "name": "Железная руда",
+    "tier": "raw",
+    "category": "ore",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_iron_ore",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "copper_ore",
+    "name": "Медная руда",
+    "tier": "raw",
+    "category": "ore",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_copper_ore",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "bauxite",
+    "name": "Бокситы",
+    "tier": "raw",
+    "category": "ore",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_bauxite",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "limestone",
+    "name": "Известняк",
+    "tier": "raw",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_limestone",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sand",
+    "name": "Песок",
+    "tier": "raw",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_sand",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "clay",
+    "name": "Глина",
+    "tier": "raw",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_clay",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "quartz",
+    "name": "Кварц",
+    "tier": "raw",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_quartz",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "stone",
+    "name": "Камень",
+    "tier": "raw",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_stone",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "salt",
+    "name": "Соль",
+    "tier": "raw",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_salt",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "crude_oil",
+    "name": "Нефть",
+    "tier": "raw",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_crude_oil",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "natural_gas",
+    "name": "Природный газ",
+    "tier": "raw",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_natural_gas",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "coal",
+    "name": "Уголь",
+    "tier": "raw",
+    "category": "fuel",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_coal",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "peat",
+    "name": "Торф",
+    "tier": "raw",
+    "category": "fuel",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_peat",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "wheat",
+    "name": "Пшеница",
+    "tier": "raw",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_wheat",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "rye",
+    "name": "Рожь",
+    "tier": "raw",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_rye",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "barley",
+    "name": "Ячмень",
+    "tier": "raw",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_barley",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "oats",
+    "name": "Овёс",
+    "tier": "raw",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_oats",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "buckwheat",
+    "name": "Гречиха",
+    "tier": "raw",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_buckwheat",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "potato",
+    "name": "Картофель",
+    "tier": "raw",
+    "category": "veg",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_potato",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sugar_beet",
+    "name": "Сахарная свёкла",
+    "tier": "raw",
+    "category": "veg",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_sugar_beet",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sunflower",
+    "name": "Подсолнечник",
+    "tier": "raw",
+    "category": "oilseed",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_sunflower",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "flax",
+    "name": "Лён",
+    "tier": "raw",
+    "category": "fiber",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_flax",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "vegetables",
+    "name": "Овощи",
+    "tier": "raw",
+    "category": "veg",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_vegetables",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "milk",
+    "name": "Сырое молоко",
+    "tier": "raw",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_milk",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "beef",
+    "name": "Говядина",
+    "tier": "raw",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_beef",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "pork",
+    "name": "Свинина",
+    "tier": "raw",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_pork",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "poultry",
+    "name": "Мясо птицы",
+    "tier": "raw",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_poultry",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "eggs",
+    "name": "Яйца",
+    "tier": "raw",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_eggs",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "wool",
+    "name": "Шерсть",
+    "tier": "raw",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_wool",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "raw_hide",
+    "name": "Кожа-сырец",
+    "tier": "raw",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_raw_hide",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "softwood",
+    "name": "Хвойная древесина",
+    "tier": "raw",
+    "category": "timber",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_softwood",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "hardwood",
+    "name": "Лиственная древесина",
+    "tier": "raw",
+    "category": "timber",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_hardwood",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "wood_chips",
+    "name": "Древесная щепа",
+    "tier": "raw",
+    "category": "timber",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_wood_chips",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "forest_berries",
+    "name": "Лесные ягоды",
+    "tier": "raw",
+    "category": "fruit",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_forest_berries",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "mushrooms",
+    "name": "Грибы",
+    "tier": "raw",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_mushrooms",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "honey",
+    "name": "Мёд",
+    "tier": "raw",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_honey",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "apples",
+    "name": "Яблоки",
+    "tier": "raw",
+    "category": "fruit",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_apples",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cherries",
+    "name": "Вишня",
+    "tier": "raw",
+    "category": "fruit",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_cherries",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "horse_meat",
+    "name": "Конина",
+    "tier": "raw",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_horse_meat",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "mare_milk",
+    "name": "Кобылье молоко",
+    "tier": "raw",
+    "category": "dairy",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_mare_milk",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "pig_iron",
+    "name": "Чугун",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_pig_iron",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "steel",
+    "name": "Сталь",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_steel",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "copper",
+    "name": "Медь",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_copper",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "aluminum",
+    "name": "Алюминий",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_aluminum",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "steel_sheet",
+    "name": "Стальной лист",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_steel_sheet",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "steel_pipe",
+    "name": "Стальная труба",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_steel_pipe",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "copper_wire",
+    "name": "Медный провод",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_copper_wire",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "aluminum_profile",
+    "name": "Алюминиевый профиль",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_aluminum_profile",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "metal_parts",
+    "name": "Металлические детали",
+    "tier": "intermediate",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_metal_parts",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "gasoline_base",
+    "name": "Бензиновая фракция",
+    "tier": "intermediate",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_gasoline_base",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "diesel_base",
+    "name": "Дизельная фракция",
+    "tier": "intermediate",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_diesel_base",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "fuel_oil",
+    "name": "Мазут",
+    "tier": "intermediate",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_fuel_oil",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "bitumen",
+    "name": "Битум",
+    "tier": "intermediate",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_bitumen",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "polymer_granules",
+    "name": "Полимерные гранулы",
+    "tier": "intermediate",
+    "category": "chem",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_polymer_granules",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "synthetic_rubber",
+    "name": "Синтетический каучук",
+    "tier": "intermediate",
+    "category": "chem",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_synthetic_rubber",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "industrial_solvent",
+    "name": "Растворитель",
+    "tier": "intermediate",
+    "category": "chem",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_industrial_solvent",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "chemical_reagent",
+    "name": "Химический реагент",
+    "tier": "intermediate",
+    "category": "chem",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_chemical_reagent",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cement",
+    "name": "Цемент",
+    "tier": "intermediate",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_cement",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "concrete",
+    "name": "Бетон",
+    "tier": "intermediate",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_concrete",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "brick",
+    "name": "Кирпич",
+    "tier": "intermediate",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_brick",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "glass_sheet",
+    "name": "Листовое стекло",
+    "tier": "intermediate",
+    "category": "mineral",
+    "branch": "packaging",
+    "tier_unlock": 0,
+    "icon": "item_glass_sheet",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "insulation",
+    "name": "Утеплитель",
+    "tier": "intermediate",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_insulation",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "ceramic_tile",
+    "name": "Керамическая плитка",
+    "tier": "intermediate",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_ceramic_tile",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "paint_base",
+    "name": "Основа краски",
+    "tier": "intermediate",
+    "category": "chem",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_paint_base",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "dry_mix",
+    "name": "Сухая строительная смесь",
+    "tier": "intermediate",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_dry_mix",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "wheat_flour",
+    "name": "Пшеничная мука",
+    "tier": "intermediate",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_wheat_flour",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "rye_flour",
+    "name": "Ржаная мука",
+    "tier": "intermediate",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_rye_flour",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "groats",
+    "name": "Крупа",
+    "tier": "intermediate",
+    "category": "grain",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_groats",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sugar",
+    "name": "Сахар",
+    "tier": "intermediate",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_sugar",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sunflower_oil",
+    "name": "Растительное масло",
+    "tier": "intermediate",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_sunflower_oil",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cream",
+    "name": "Сливки",
+    "tier": "intermediate",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_cream",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "butter_base",
+    "name": "Масляная основа",
+    "tier": "intermediate",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_butter_base",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "minced_meat",
+    "name": "Фарш",
+    "tier": "intermediate",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_minced_meat",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "fruit_puree",
+    "name": "Фруктовое пюре",
+    "tier": "intermediate",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_fruit_puree",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "fermented_milk",
+    "name": "Кисломолочная основа",
+    "tier": "intermediate",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_fermented_milk",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "flax_fiber",
+    "name": "Льняное волокно",
+    "tier": "intermediate",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_flax_fiber",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "yarn",
+    "name": "Пряжа",
+    "tier": "intermediate",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_yarn",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "woven_fabric",
+    "name": "Ткань",
+    "tier": "intermediate",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_woven_fabric",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "knitted_fabric",
+    "name": "Трикотажное полотно",
+    "tier": "intermediate",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_knitted_fabric",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "tanned_leather",
+    "name": "Выделанная кожа",
+    "tier": "intermediate",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_tanned_leather",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "textile_filling",
+    "name": "Текстильный наполнитель",
+    "tier": "intermediate",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_textile_filling",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "dyed_fabric",
+    "name": "Окрашенная ткань",
+    "tier": "intermediate",
+    "category": "textile",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_dyed_fabric",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "lumber",
+    "name": "Доски",
+    "tier": "intermediate",
+    "category": "timber",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_lumber",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "plywood",
+    "name": "Фанера",
+    "tier": "intermediate",
+    "category": "timber",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_plywood",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "particle_board",
+    "name": "ДСП",
+    "tier": "intermediate",
+    "category": "timber",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_particle_board",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "paper",
+    "name": "Бумага",
+    "tier": "intermediate",
+    "category": "packaging",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_paper",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cardboard",
+    "name": "Картон",
+    "tier": "intermediate",
+    "category": "packaging",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_cardboard",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "furniture_parts",
+    "name": "Мебельные детали",
+    "tier": "intermediate",
+    "category": "timber",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_furniture_parts",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "engine",
+    "name": "Двигатель",
+    "tier": "intermediate",
+    "category": "tech",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_engine",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "wiring_harness",
+    "name": "Жгут проводки",
+    "tier": "intermediate",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_wiring_harness",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "circuit_board",
+    "name": "Печатная плата",
+    "tier": "intermediate",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_circuit_board",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "electronic_module",
+    "name": "Электронный модуль",
+    "tier": "intermediate",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_electronic_module",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "battery_cell",
+    "name": "Аккумуляторная ячейка",
+    "tier": "intermediate",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_battery_cell",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "plastic_parts",
+    "name": "Пластиковые детали",
+    "tier": "intermediate",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_plastic_parts",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "mechanical_assembly",
+    "name": "Механический узел",
+    "tier": "intermediate",
+    "category": "tech",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_mechanical_assembly",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "wheat_bread",
+    "name": "Хлеб пшеничный",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_wheat_bread",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "rye_bread",
+    "name": "Хлеб ржаной",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_rye_bread",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "bun",
+    "name": "Булочки",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_bun",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cookies",
+    "name": "Печенье",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_cookies",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "pasta",
+    "name": "Макароны",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_pasta",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "buckwheat_pack",
+    "name": "Гречка фасованная",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_buckwheat_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "horse_meat_pack",
+    "name": "Конина фасованная",
+    "tier": "finished",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_horse_meat_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "potato_pack",
+    "name": "Картофель фасованный",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_potato_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "vegetable_mix",
+    "name": "Овощная смесь",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_vegetable_mix",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sunflower_oil_bottle",
+    "name": "Масло бутылочное",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_sunflower_oil_bottle",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sugar_pack",
+    "name": "Сахар фасованный",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_sugar_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "milk_bottle",
+    "name": "Молоко питьевое",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_milk_bottle",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cream_pack",
+    "name": "Сливки фасованные",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_cream_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "butter",
+    "name": "Масло сливочное",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_butter",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cheese",
+    "name": "Сыр",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_cheese",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "yogurt",
+    "name": "Йогурт",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_yogurt",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "beef_pack",
+    "name": "Говядина фасованная",
+    "tier": "finished",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_beef_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "pork_pack",
+    "name": "Свинина фасованная",
+    "tier": "finished",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_pork_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "chicken_pack",
+    "name": "Курица фасованная",
+    "tier": "finished",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_chicken_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "eggs_pack",
+    "name": "Яйца фасованные",
+    "tier": "finished",
+    "category": "food",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_eggs_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "bottled_water",
+    "name": "Вода питьевая",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_bottled_water",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "apple_juice",
+    "name": "Яблочный сок",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_apple_juice",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cherry_juice",
+    "name": "Вишнёвый сок",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_cherry_juice",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "berry_drink",
+    "name": "Ягодный морс",
+    "tier": "finished",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_berry_drink",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "kvass",
+    "name": "Квас",
+    "tier": "finished",
+    "category": "food",
+    "branch": "agro",
+    "tier_unlock": 0,
+    "icon": "item_kvass",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "koumiss",
+    "name": "Кумыс",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_koumiss",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "dairy_drink",
+    "name": "Кисломолочный напиток",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "icon": "item_dairy_drink",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "tshirt",
+    "name": "Футболка",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_tshirt",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "shirt",
+    "name": "Рубашка",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_shirt",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "trousers",
+    "name": "Брюки",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_trousers",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "jacket",
+    "name": "Куртка",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_jacket",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "knit_sweater",
+    "name": "Свитер",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_knit_sweater",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "workwear",
+    "name": "Спецодежда",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_workwear",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "leather_shoes",
+    "name": "Кожаная обувь",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_leather_shoes",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "textile_shoes",
+    "name": "Текстильная обувь",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_textile_shoes",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "winter_hat",
+    "name": "Зимняя шапка",
+    "tier": "finished",
+    "category": "apparel",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_winter_hat",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "table",
+    "name": "Стол",
+    "tier": "finished",
+    "category": "home",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_table",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "chair",
+    "name": "Стул",
+    "tier": "finished",
+    "category": "home",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_chair",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "wardrobe",
+    "name": "Шкаф",
+    "tier": "finished",
+    "category": "home",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_wardrobe",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "bed",
+    "name": "Кровать",
+    "tier": "finished",
+    "category": "home",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_bed",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "sofa",
+    "name": "Диван",
+    "tier": "finished",
+    "category": "home",
+    "branch": "timber",
+    "tier_unlock": 0,
+    "icon": "item_sofa",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "detergent",
+    "name": "Моющее средство",
+    "tier": "finished",
+    "category": "home",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_detergent",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "dishware",
+    "name": "Посуда",
+    "tier": "finished",
+    "category": "home",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_dishware",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "pillow",
+    "name": "Подушка",
+    "tier": "finished",
+    "category": "home",
+    "branch": "textile",
+    "tier_unlock": 0,
+    "icon": "item_pillow",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "cement_bag",
+    "name": "Цемент мешковой",
+    "tier": "finished",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_cement_bag",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "brick_pack",
+    "name": "Кирпич упаковка",
+    "tier": "finished",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_brick_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "concrete_mix",
+    "name": "Бетон товарный",
+    "tier": "finished",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_concrete_mix",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "window_unit",
+    "name": "Оконный блок",
+    "tier": "finished",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_window_unit",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "paint_can",
+    "name": "Краска",
+    "tier": "finished",
+    "category": "mineral",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_paint_can",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "tile_pack",
+    "name": "Плитка упаковка",
+    "tier": "finished",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_tile_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "insulation_pack",
+    "name": "Утеплитель упаковка",
+    "tier": "finished",
+    "category": "mineral",
+    "branch": "mining",
+    "tier_unlock": 0,
+    "icon": "item_insulation_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "pipe_set",
+    "name": "Комплект труб",
+    "tier": "finished",
+    "category": "metal",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_pipe_set",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "tire",
+    "name": "Шина",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_tire",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "car_battery",
+    "name": "Автомобильный аккумулятор",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_car_battery",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "engine_oil",
+    "name": "Моторное масло",
+    "tier": "finished",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_engine_oil",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "brake_parts",
+    "name": "Тормозные детали",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_brake_parts",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "filter_set",
+    "name": "Фильтры",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_filter_set",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "car_body_parts",
+    "name": "Кузовные детали",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_car_body_parts",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "car_spare_kit",
+    "name": "Комплект запчастей",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "metal",
+    "tier_unlock": 0,
+    "icon": "item_car_spare_kit",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "smartphone",
+    "name": "Смартфон",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_smartphone",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "television",
+    "name": "Телевизор",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_television",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "refrigerator",
+    "name": "Холодильник",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_refrigerator",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "washing_machine",
+    "name": "Стиральная машина",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_washing_machine",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "electric_kettle",
+    "name": "Электрочайник",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_electric_kettle",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "home_router",
+    "name": "Домашний роутер",
+    "tier": "finished",
+    "category": "tech",
+    "branch": "tech",
+    "tier_unlock": 0,
+    "icon": "item_home_router",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "bashkir_honey_pack",
+    "name": "Башкирский мёд фасованный",
+    "tier": "finished",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_bashkir_honey_pack",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "qurut",
+    "name": "Ҡорот",
+    "tier": "finished",
+    "category": "dairy",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_qurut",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "chak_chak",
+    "name": "Чак-чак",
+    "tier": "finished",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_chak_chak",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "honey_gift_set",
+    "name": "Подарочный набор мёда",
+    "tier": "finished",
+    "category": "food",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_honey_gift_set",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "bashkir_souvenir",
+    "name": "Сувенир Башкортостана",
+    "tier": "finished",
+    "category": "home",
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "icon": "item_bashkir_souvenir",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "ai92",
+    "name": "Бензин АИ-92",
+    "tier": "finished",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_ai92",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "ai95",
+    "name": "Бензин АИ-95",
+    "tier": "finished",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_ai95",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "diesel_fuel",
+    "name": "Дизельное топливо",
+    "tier": "finished",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_diesel_fuel",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "lpg",
+    "name": "Автогаз",
+    "tier": "finished",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_lpg",
+    "quality_model": "batch_1_5"
+  },
+  {
+    "id": "heating_fuel",
+    "name": "Печное топливо",
+    "tier": "finished",
+    "category": "fuel",
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "icon": "item_heating_fuel",
+    "quality_model": "batch_1_5"
+  }
+]

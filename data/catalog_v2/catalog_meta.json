@@ -1,0 +1,11 @@
+{
+  "economy_catalog_version": 2,
+  "items": 170,
+  "raw": 40,
+  "intermediate": 55,
+  "finished": 75,
+  "recipes": 200,
+  "buildings": 92,
+  "shops": 14,
+  "notes": "oatmeal replaced by horse_meat_pack (ALT-06). ALT-12/13 normalized. Target ~200 recipes. minced_meat → pasta alt + butcher B2B."
+}

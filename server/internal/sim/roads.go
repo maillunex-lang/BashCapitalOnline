@@ -53,11 +53,45 @@ func (e *Engine) ensureRoadAccess(firm *model.Firm, city *model.CityState, x, y 
 		}
 	}
 	cost := float64(newTiles) * roadCostPerTile
+	// Catalog V2: bitumen is a real material cost for new road tiles when available.
+	bitumenNeed := 0
+	if e.Catalog != nil && e.Catalog.Version >= 2 && newTiles > 0 {
+		bitumenNeed = newTiles // 1 bitumen per new tile
+		if !free {
+			have := 0
+			for _, b := range e.World.Buildings {
+				if b.FirmID == firm.ID && b.CityID == city.ID {
+					have += b.Inventory["bitumen"]
+				}
+			}
+			if have < bitumenNeed {
+				// Allow cash surcharge instead of hard-block so early game stays playable;
+				// still charge a materials premium when bitumen is missing.
+				cost += float64(bitumenNeed-have) * 45
+				bitumenNeed = have
+			}
+		}
+	}
 	if !free {
 		if firm.Cash < cost {
 			return 0, 0, fmt.Errorf("не хватает средств на дорогу (%.0f ₽ за %d кл.)", cost, newTiles)
 		}
 		firm.Cash -= cost
+		left := bitumenNeed
+		for _, b := range e.World.Buildings {
+			if left <= 0 {
+				break
+			}
+			if b.FirmID != firm.ID || b.CityID != city.ID {
+				continue
+			}
+			take := b.Inventory["bitumen"]
+			if take > left {
+				take = left
+			}
+			b.Inventory["bitumen"] -= take
+			left -= take
+		}
 	}
 	for _, pt := range path {
 		p := parcelAt(city, pt[0], pt[1])

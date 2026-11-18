@@ -54,7 +54,17 @@ func fetch_manifest() -> Dictionary:
 func fetch_catalog() -> void:
 	var res = await _http_get("/api/catalog")
 	if res is Dictionary:
+		# Soft-compat: V2 catalog is dynamic (170 SKU). Missing icon files are OK —
+		# UI must not assume legacy _std/_prem IDs or fixed item counts.
 		catalog = res
+		if not catalog.has("items"):
+			catalog["items"] = []
+		if not catalog.has("recipes"):
+			catalog["recipes"] = []
+		if not catalog.has("buildings"):
+			catalog["buildings"] = []
+		if not catalog.has("shops"):
+			catalog["shops"] = []
 
 func fetch_world() -> void:
 	var res = await _http_get("/api/world")

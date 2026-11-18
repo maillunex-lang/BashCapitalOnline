@@ -3,37 +3,56 @@ package sim
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 
 	"github.com/google/uuid"
 
 	"bashcapital/server/internal/model"
 )
 
-// extractBuildingResources — здания добычи/сбора (могут требовать залежь).
+// extractBuildingResources — здания добычи/сбора (каталог V1+V2).
 var extractBuildingResources = map[string]bool{
-	"farm":           true,
-	"livestock_farm": true,
-	"orchard":        true,
-	"logging_camp":   true,
-	"quarry":         true,
-	"mine":           true,
-	"oil_well":       true,
-	"gas_well":       true,
-	"chem_plant":     true, // базовая химия как «залежь»
+	"mine": true, "quarry": true, "oil_well": true, "gas_well": true, "peat_field": true,
+	"grain_farm": true, "crop_farm": true, "oilseed_farm": true, "fiber_farm": true, "vegetable_farm": true,
+	"dairy_farm": true, "livestock_farm": true, "poultry_farm": true, "sheep_farm": true, "horse_farm": true,
+	"logging_camp": true, "forest_gathering": true, "apiary": true, "orchard": true,
+	"farm": true, "greenhouse": true, "chem_plant": true,
 }
 
 var ruralDepositItems = map[string]bool{
-	"wheat": true, "potato": true, "flax": true, "cotton": true,
-	"milk": true, "cattle": true, "cherry": true, "apple": true,
+	"wheat": true, "rye": true, "barley": true, "oats": true, "buckwheat": true,
+	"potato": true, "sugar_beet": true, "sunflower": true, "flax": true, "vegetables": true,
+	"milk": true, "beef": true, "pork": true, "poultry": true, "eggs": true, "wool": true, "raw_hide": true,
+	"softwood": true, "hardwood": true, "wood_chips": true, "forest_berries": true, "mushrooms": true,
+	"honey": true, "apples": true, "cherries": true, "horse_meat": true, "mare_milk": true,
+	"cotton": true, "cattle": true, "cherry": true, "apple": true, "wood": true,
 }
 
-func resourceForRecipe(buildingType, recipeID string) string {
-	if recipeID != "" {
-		// Prefer recipe output for extract recipes (Capitalism Lab style: many raws per building).
-		return ""
+func resourceBaseID(id string) string {
+	cur := id
+	for {
+		trimmed := false
+		for _, s := range []string{"_export", "_prem", "_eco", "_std", "_ufa", "_sterli", "_beloretsk"} {
+			if strings.HasSuffix(cur, s) {
+				cur = strings.TrimSuffix(cur, s)
+				trimmed = true
+				break
+			}
+		}
+		if !trimmed {
+			return cur
+		}
 	}
-	_ = buildingType
-	return ""
+}
+
+func depositMatchesNeed(depositItemID, needItemID string) bool {
+	if needItemID == "" {
+		return true
+	}
+	if depositItemID == needItemID {
+		return true
+	}
+	return resourceBaseID(depositItemID) == resourceBaseID(needItemID)
 }
 
 func (e *Engine) depositItemForBuild(buildingType, recipeID string) string {
@@ -42,28 +61,40 @@ func (e *Engine) depositItemForBuild(buildingType, recipeID string) string {
 			return r.Output.ItemID
 		}
 	}
-	// fallback defaults by building
 	switch buildingType {
 	case "orchard":
-		return "cherry"
+		return "apples"
 	case "logging_camp":
-		return "wood"
+		return "softwood"
 	case "mine":
 		return "iron_ore"
 	case "oil_well":
-		return "oil"
+		return "crude_oil"
 	case "gas_well":
-		return "gas"
-	case "chem_plant":
-		return "chemicals"
-	case "livestock_farm":
+		return "natural_gas"
+	case "peat_field":
+		return "peat"
+	case "dairy_farm":
 		return "milk"
+	case "livestock_farm":
+		return "beef"
+	case "apiary":
+		return "honey"
+	case "grain_farm", "farm":
+		return "wheat"
 	}
 	return ""
 }
 
 func isExtractRecipe(recipe model.RecipeDef) bool {
-	return len(recipe.Inputs) == 0 && recipe.Output.ItemID != ""
+	if recipe.ExtractMode == "depleting" || recipe.ExtractMode == "renewable" {
+		return true
+	}
+	return len(recipe.Inputs) == 0 && recipe.Output.ItemID != "" && recipe.WaterCost == 0
+}
+
+func isUtilityExtract(recipe model.RecipeDef) bool {
+	return len(recipe.Inputs) == 0 && recipe.WaterCost > 0 && recipe.ExtractMode != "depleting" && recipe.ExtractMode != "renewable"
 }
 
 func (e *Engine) seedResourceDeposits() {
@@ -71,13 +102,12 @@ func (e *Engine) seedResourceDeposits() {
 		def := e.Catalog.CityByID[city.ID]
 		city.Deposits = nil
 		for _, res := range def.Resources {
-			// skip non-raw catalog items accidentally listed
 			if it, ok := e.Catalog.ItemByID[res]; ok && it.Tier != "raw" {
 				continue
 			}
 			n := 2
 			switch res {
-			case "iron_ore", "oil", "coal", "wheat", "milk":
+			case "iron_ore", "crude_oil", "coal", "wheat", "milk", "oil", "gas":
 				n = 3
 			}
 			for i := 0; i < n; i++ {
@@ -85,28 +115,49 @@ func (e *Engine) seedResourceDeposits() {
 			}
 		}
 		if len(city.Deposits) == 0 {
-			e.spawnDeposit(city, "wood", true)
+			e.spawnDeposit(city, "softwood", true)
 			e.spawnDeposit(city, "sand", true)
 		}
 	}
 }
 
 func (e *Engine) spawnDeposit(city *model.CityState, itemID string, initial bool) *model.ResourceDeposit {
-	candidates := []model.Parcel{}
-	for _, p := range city.Parcels {
-		if p.Building != "" {
-			continue
+	renewableHint := ruralDepositItems[itemID]
+	switch itemID {
+	case "iron_ore", "crude_oil", "coal", "copper_ore", "natural_gas", "oil", "gas", "bauxite":
+		renewableHint = false
+	case "softwood", "hardwood", "wood", "flax", "wheat", "potato", "milk", "honey", "apples", "cherries":
+		renewableHint = true
+	case "sand", "quartz", "stone", "clay", "limestone", "peat", "salt":
+		renewableHint = itemID == "peat"
+	}
+	pick := func(preferZones map[string]bool) []model.Parcel {
+		out := []model.Parcel{}
+		for _, p := range city.Parcels {
+			if p.Building != "" || depositAt(city, p.X, p.Y) != nil {
+				continue
+			}
+			if p.Zone == "center" {
+				continue
+			}
+			if p.Zone == "residential" && !renewableHint {
+				continue
+			}
+			if preferZones != nil && !preferZones[p.Zone] {
+				continue
+			}
+			out = append(out, p)
 		}
-		if depositAt(city, p.X, p.Y) != nil {
-			continue
-		}
-		if p.Zone == "center" {
-			continue
-		}
-		if p.Zone == "residential" && !ruralDepositItems[itemID] {
-			continue
-		}
-		candidates = append(candidates, p)
+		return out
+	}
+	var candidates []model.Parcel
+	if renewableHint {
+		candidates = pick(map[string]bool{"rural": true, "empty": true})
+	} else {
+		candidates = pick(map[string]bool{"industrial": true, "empty": true})
+	}
+	if len(candidates) == 0 {
+		candidates = pick(nil)
 	}
 	if len(candidates) == 0 {
 		for _, p := range city.Parcels {
@@ -120,22 +171,21 @@ func (e *Engine) spawnDeposit(city *model.CityState, itemID string, initial bool
 	}
 	p := candidates[rand.Intn(len(candidates))]
 	base := 80 + rand.Intn(120)
+	renewable := renewableHint
 	switch itemID {
-	case "iron_ore", "oil", "coal", "copper_ore", "gas":
+	case "iron_ore", "crude_oil", "coal", "copper_ore", "natural_gas", "oil", "gas", "bauxite":
 		base = 150 + rand.Intn(200)
-	case "wood", "flax", "cherry", "milk", "wheat", "potato", "apple", "cattle", "cotton":
-		base = 60 + rand.Intn(80)
-	case "sand", "quartz":
+		renewable = false
+	case "softwood", "hardwood", "wood", "flax", "wheat", "potato", "milk", "honey", "apples", "cherries":
+		base = 100 + rand.Intn(80)
+		renewable = true
+	case "sand", "quartz", "stone", "clay", "limestone", "peat", "salt":
 		base = 100 + rand.Intn(100)
+		renewable = itemID == "peat"
 	}
 	d := model.ResourceDeposit{
-		ID:        uuid.NewString(),
-		ItemID:    itemID,
-		X:         p.X,
-		Y:         p.Y,
-		Amount:    base,
-		MaxAmount: base,
-		Quality:   2.5 + rand.Float64()*2.0,
+		ID: uuid.NewString(), ItemID: itemID, X: p.X, Y: p.Y,
+		Amount: base, MaxAmount: base, Quality: 2.5 + rand.Float64()*2.0, Renewable: renewable,
 	}
 	city.Deposits = append(city.Deposits, d)
 	if !initial {
@@ -162,22 +212,62 @@ func depositAtAny(city *model.CityState, x, y int) *model.ResourceDeposit {
 	return nil
 }
 
+// ensureOpenExtractDeposits spawns one free deposit per city resource when AI
+// seeding occupied every matching tile — players must still be able to extract.
+func (e *Engine) ensureOpenExtractDeposits() {
+	for _, city := range e.World.Cities {
+		def := e.Catalog.CityByID[city.ID]
+		for _, res := range def.Resources {
+			if it, ok := e.Catalog.ItemByID[res]; ok && it.Tier != "raw" {
+				continue
+			}
+			hasFree := false
+			for _, d := range city.Deposits {
+				if resourceBaseID(d.ItemID) != resourceBaseID(res) {
+					continue
+				}
+				occ := false
+				for _, p := range city.Parcels {
+					if p.X == d.X && p.Y == d.Y && p.Building != "" {
+						occ = true
+						break
+					}
+				}
+				if !occ {
+					hasFree = true
+					break
+				}
+			}
+			if !hasFree {
+				e.spawnDeposit(city, res, true)
+			}
+		}
+	}
+}
+
 func (e *Engine) requireDepositForBuild(city *model.CityState, buildingType, recipeID string, x, y int) error {
 	if !extractBuildingResources[buildingType] {
 		return nil
+	}
+	if recipeID != "" {
+		if r, ok := e.Catalog.RecipeByID[recipeID]; ok && isUtilityExtract(r) {
+			return nil
+		}
 	}
 	need := e.depositItemForBuild(buildingType, recipeID)
 	if need == "" {
 		d := depositAt(city, x, y)
 		if d == nil {
-			return fmt.Errorf("нужна залежь ресурса на этой клетке")
+			return fmt.Errorf("нужна залежь/участок ресурса на этой клетке")
 		}
 		return nil
 	}
 	d := depositAt(city, x, y)
-	if d == nil || d.ItemID != need {
-		name := need
-		if it, ok := e.Catalog.ItemByID[need]; ok {
+	if d == nil || !depositMatchesNeed(d.ItemID, need) {
+		name := resourceBaseID(need)
+		if it, ok := e.Catalog.ItemByID[name]; ok {
+			name = it.Name
+		} else if it, ok := e.Catalog.ItemByID[need]; ok {
 			name = it.Name
 		}
 		return fmt.Errorf("нужна залежь «%s» на клетке (сгенерированы на окраине)", name)
@@ -187,7 +277,7 @@ func (e *Engine) requireDepositForBuild(city *model.CityState, buildingType, rec
 
 func (e *Engine) consumeDeposit(city *model.CityState, x, y, qty int, itemID string, log *[]string) (float64, bool) {
 	d := depositAt(city, x, y)
-	if d == nil || d.ItemID != itemID {
+	if d == nil || !depositMatchesNeed(d.ItemID, itemID) {
 		return 0, false
 	}
 	if d.Amount < qty {
@@ -198,12 +288,24 @@ func (e *Engine) consumeDeposit(city *model.CityState, x, y, qty int, itemID str
 	}
 	d.Amount -= qty
 	q := d.Quality
+	spawnID := resourceBaseID(d.ItemID)
+	if d.Renewable {
+		regen := d.MaxAmount / 8
+		if regen < 1 {
+			regen = 1
+		}
+		d.Amount += regen
+		if d.Amount > d.MaxAmount {
+			d.Amount = d.MaxAmount
+		}
+		return q, true
+	}
 	if d.Amount <= 0 {
 		d.Amount = 0
-		*log = append(*log, fmt.Sprintf("Залежь %s в %s (%d,%d) исчерпана", itemID, city.ID, x, y))
+		*log = append(*log, fmt.Sprintf("Залежь %s в %s (%d,%d) исчерпана", spawnID, city.ID, x, y))
 		e.removeEmptyDeposits(city)
-		if nd := e.spawnDeposit(city, itemID, false); nd != nil {
-			*log = append(*log, fmt.Sprintf("Ресурс %s появился в другом месте (%d,%d)", itemID, nd.X, nd.Y))
+		if nd := e.spawnDeposit(city, spawnID, false); nd != nil {
+			*log = append(*log, fmt.Sprintf("Ресурс %s появился в другом месте (%d,%d)", spawnID, nd.X, nd.Y))
 		}
 	}
 	return q, true
@@ -233,4 +335,17 @@ func (e *Engine) discoverResources(log *[]string) {
 			*log = append(*log, fmt.Sprintf("Геологи нашли %s у %s", res, city.ID))
 		}
 	}
+}
+
+func (e *Engine) opsCost(recipe model.RecipeDef, extract bool) float64 {
+	energyCost := float64(recipe.Energy) * e.energyRate(extract)
+	waterUnit := e.Catalog.Economy.Balance.WaterCostPerUnit
+	if waterUnit <= 0 {
+		waterUnit = 2.5
+	}
+	scale := e.Catalog.Economy.Balance.UtilityCostScale
+	if scale <= 0 {
+		scale = 1
+	}
+	return energyCost + recipe.WaterCost*waterUnit + recipe.UtilityCost*scale
 }

@@ -1,0 +1,337 @@
+[
+  {
+    "id": "grocery",
+    "name": "Продуктовый",
+    "rent_mult": 1.0,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "wheat_bread",
+      "rye_bread",
+      "bun",
+      "cookies",
+      "pasta",
+      "buckwheat_pack",
+      "horse_meat_pack",
+      "potato_pack",
+      "vegetable_mix",
+      "sunflower_oil_bottle",
+      "sugar_pack",
+      "milk_bottle",
+      "cream_pack",
+      "butter",
+      "cheese",
+      "yogurt",
+      "beef_pack",
+      "pork_pack",
+      "chicken_pack",
+      "eggs_pack",
+      "bottled_water",
+      "kvass",
+      "apple_juice"
+    ],
+    "icon": "shop_grocery",
+    "markup": 1.25,
+    "capacity": 80
+  },
+  {
+    "id": "bakery_shop",
+    "name": "Булочная",
+    "rent_mult": 0.9,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "wheat_bread",
+      "rye_bread",
+      "bun",
+      "cookies",
+      "chak_chak"
+    ],
+    "icon": "shop_bakery",
+    "markup": 1.35,
+    "capacity": 40
+  },
+  {
+    "id": "dairy_shop",
+    "name": "Молочный",
+    "rent_mult": 1.05,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "milk_bottle",
+      "cream_pack",
+      "butter",
+      "cheese",
+      "yogurt",
+      "dairy_drink",
+      "koumiss",
+      "qurut"
+    ],
+    "icon": "shop_dairy",
+    "markup": 1.3,
+    "capacity": 50
+  },
+  {
+    "id": "butcher",
+    "name": "Мясной",
+    "rent_mult": 1.1,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "allowed_items": [
+      "beef_pack",
+      "pork_pack",
+      "chicken_pack",
+      "eggs_pack",
+      "horse_meat_pack",
+      "minced_meat"
+    ],
+    "icon": "shop_butcher",
+    "markup": 1.28,
+    "capacity": 45
+  },
+  {
+    "id": "beverage_shop",
+    "name": "Напитки",
+    "rent_mult": 1.0,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "bottled_water",
+      "apple_juice",
+      "cherry_juice",
+      "berry_drink",
+      "kvass",
+      "koumiss",
+      "dairy_drink"
+    ],
+    "icon": "shop_beverage",
+    "markup": 1.4,
+    "capacity": 55
+  },
+  {
+    "id": "clothing_shop",
+    "name": "Одежда и обувь",
+    "rent_mult": 1.2,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "tshirt",
+      "shirt",
+      "trousers",
+      "jacket",
+      "knit_sweater",
+      "workwear",
+      "leather_shoes",
+      "textile_shoes",
+      "winter_hat"
+    ],
+    "icon": "shop_clothing",
+    "markup": 1.55,
+    "capacity": 60
+  },
+  {
+    "id": "furniture_home",
+    "name": "Дом и мебель",
+    "rent_mult": 1.15,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "table",
+      "chair",
+      "wardrobe",
+      "bed",
+      "sofa",
+      "detergent",
+      "dishware",
+      "pillow"
+    ],
+    "icon": "shop_furniture",
+    "markup": 1.45,
+    "capacity": 35
+  },
+  {
+    "id": "building_market",
+    "name": "Строймаркет",
+    "rent_mult": 1.1,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "allowed_items": [
+      "cement_bag",
+      "brick_pack",
+      "concrete_mix",
+      "window_unit",
+      "paint_can",
+      "tile_pack",
+      "insulation_pack",
+      "pipe_set",
+      "cement",
+      "brick",
+      "dry_mix",
+      "concrete",
+      "bitumen"
+    ],
+    "icon": "shop_building",
+    "markup": 1.22,
+    "capacity": 100
+  },
+  {
+    "id": "auto_parts_shop",
+    "name": "Автотовары",
+    "rent_mult": 1.15,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "tire",
+      "car_battery",
+      "engine_oil",
+      "brake_parts",
+      "filter_set",
+      "car_body_parts",
+      "car_spare_kit"
+    ],
+    "icon": "shop_auto",
+    "markup": 1.35,
+    "capacity": 50
+  },
+  {
+    "id": "electronics_shop",
+    "name": "Электроника",
+    "rent_mult": 1.35,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "smartphone",
+      "television",
+      "refrigerator",
+      "washing_machine",
+      "electric_kettle",
+      "home_router"
+    ],
+    "icon": "shop_electronics",
+    "markup": 1.5,
+    "capacity": 40
+  },
+  {
+    "id": "bashkir_shop",
+    "name": "Башкирские товары",
+    "rent_mult": 0.95,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "bashkir_honey_pack",
+      "qurut",
+      "chak_chak",
+      "honey_gift_set",
+      "bashkir_souvenir"
+    ],
+    "icon": "shop_bashkir",
+    "markup": 1.6,
+    "capacity": 30
+  },
+  {
+    "id": "fuel_station",
+    "name": "АЗС",
+    "rent_mult": 1.4,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "ai92",
+      "ai95",
+      "diesel_fuel",
+      "lpg"
+    ],
+    "icon": "shop_fuel",
+    "markup": 1.18,
+    "capacity": 120
+  },
+  {
+    "id": "fuel_depot",
+    "name": "Топливный склад",
+    "rent_mult": 1.0,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished",
+      "intermediate"
+    ],
+    "allowed_items": [
+      "heating_fuel",
+      "ai92",
+      "ai95",
+      "diesel_fuel",
+      "lpg",
+      "fuel_oil",
+      "gasoline_base",
+      "diesel_base"
+    ],
+    "icon": "shop_fuel_depot",
+    "markup": 1.12,
+    "capacity": 200
+  },
+  {
+    "id": "hypermarket",
+    "name": "Гипермаркет",
+    "rent_mult": 1.5,
+    "allowed_categories": [],
+    "allowed_tiers": [
+      "finished"
+    ],
+    "allowed_items": [
+      "wheat_bread",
+      "rye_bread",
+      "bun",
+      "cookies",
+      "pasta",
+      "buckwheat_pack",
+      "horse_meat_pack",
+      "potato_pack",
+      "vegetable_mix",
+      "sunflower_oil_bottle",
+      "sugar_pack",
+      "milk_bottle",
+      "bottled_water",
+      "apple_juice",
+      "cherry_juice",
+      "berry_drink",
+      "tshirt",
+      "shirt",
+      "trousers",
+      "jacket",
+      "table",
+      "chair",
+      "wardrobe",
+      "bed",
+      "smartphone",
+      "television",
+      "refrigerator"
+    ],
+    "icon": "shop_hyper",
+    "markup": 1.2,
+    "capacity": 150
+  }
+]

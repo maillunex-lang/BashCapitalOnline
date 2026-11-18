@@ -164,17 +164,17 @@ func (e *Engine) defaultShopTypeForItem(itemID string) string {
 	if it, ok := e.Catalog.ItemByID[itemID]; ok {
 		switch it.Category {
 		case "fuel":
-			prefer = []string{"fuel_station"}
+			prefer = []string{"fuel_station", "fuel_depot"}
 		case "food", "dairy", "grain", "veg", "fruit":
-			prefer = []string{"grocery", "bakery_shop", "dairy_shop"}
+			prefer = []string{"grocery", "bakery_shop", "dairy_shop", "butcher", "beverage_shop", "bashkir_shop"}
 		case "apparel", "textile":
-			prefer = []string{"apparel_shop", "fashion_boutique"}
+			prefer = []string{"clothing_shop", "apparel_shop", "fashion_boutique"}
 		case "home", "timber":
-			prefer = []string{"furniture_shop", "home_decor", "hardware"}
+			prefer = []string{"furniture_home", "furniture_shop", "home_decor", "hardware"}
 		case "metal", "mineral", "packaging":
-			prefer = []string{"hardware", "building_market"}
+			prefer = []string{"building_market", "hardware"}
 		case "tech":
-			prefer = []string{"electronics_shop"}
+			prefer = []string{"electronics_shop", "auto_parts_shop"}
 		}
 	}
 	for _, id := range prefer {
@@ -186,6 +186,9 @@ func (e *Engine) defaultShopTypeForItem(itemID string) string {
 		if e.ShopAllowsItem(s.ID, itemID) == nil {
 			return s.ID
 		}
+	}
+	if e.Catalog.Version >= 2 {
+		return "grocery"
 	}
 	return "department"
 }

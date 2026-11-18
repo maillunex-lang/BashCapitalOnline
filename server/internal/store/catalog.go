@@ -9,7 +9,25 @@ import (
 	"bashcapital/server/internal/model"
 )
 
+// ResolveCatalogDir prefers data/catalog_v2 when present and complete; else dataDir root.
+func ResolveCatalogDir(dataDir string) string {
+	v2 := filepath.Join(dataDir, "catalog_v2")
+	need := []string{"items.json", "recipes.json", "buildings.json", "shops.json", "cities.json", "economy.json"}
+	ok := true
+	for _, n := range need {
+		if _, err := os.Stat(filepath.Join(v2, n)); err != nil {
+			ok = false
+			break
+		}
+	}
+	if ok {
+		return v2
+	}
+	return dataDir
+}
+
 func LoadCatalog(dataDir string) (*model.Catalog, error) {
+	dir := ResolveCatalogDir(dataDir)
 	c := &model.Catalog{
 		ItemByID:     map[string]model.ItemDef{},
 		RecipeByID:   map[string]model.RecipeDef{},
@@ -22,27 +40,46 @@ func LoadCatalog(dataDir string) (*model.Catalog, error) {
 			Chat:           model.ChatConfig{MaxMessages: 120, AIMessagesPerTickCap: 2, MinTicksBetweenAIMsg: 2},
 		},
 	}
-	if err := readJSON(filepath.Join(dataDir, "items.json"), &c.Items); err != nil {
+	if err := readJSON(filepath.Join(dir, "items.json"), &c.Items); err != nil {
 		return nil, err
 	}
-	if err := readJSON(filepath.Join(dataDir, "recipes.json"), &c.Recipes); err != nil {
+	if err := readJSON(filepath.Join(dir, "recipes.json"), &c.Recipes); err != nil {
 		return nil, err
 	}
-	if err := readJSON(filepath.Join(dataDir, "buildings.json"), &c.Buildings); err != nil {
+	if err := readJSON(filepath.Join(dir, "buildings.json"), &c.Buildings); err != nil {
 		return nil, err
 	}
-	if err := readJSON(filepath.Join(dataDir, "shops.json"), &c.Shops); err != nil {
+	if err := readJSON(filepath.Join(dir, "shops.json"), &c.Shops); err != nil {
 		return nil, err
 	}
-	if err := readJSON(filepath.Join(dataDir, "cities.json"), &c.Cities); err != nil {
+	if err := readJSON(filepath.Join(dir, "cities.json"), &c.Cities); err != nil {
 		return nil, err
 	}
-	if err := readJSON(filepath.Join(dataDir, "routes.json"), &c.Routes); err != nil {
+	routesPath := filepath.Join(dir, "routes.json")
+	if _, err := os.Stat(routesPath); err != nil {
+		routesPath = filepath.Join(dataDir, "routes.json")
+	}
+	if err := readJSON(routesPath, &c.Routes); err != nil {
 		return nil, err
 	}
-	_ = readJSON(filepath.Join(dataDir, "economy.json"), &c.Economy)
+	_ = readJSON(filepath.Join(dir, "economy.json"), &c.Economy)
+	// Optional legacy sidecars from data root
 	_ = readJSON(filepath.Join(dataDir, "ai_personas.json"), &c.AIPersonas)
 	_ = readJSON(filepath.Join(dataDir, "rnd_tree.json"), &c.RnDTree)
+	if c.Economy.Balance.Version >= 2 || c.Economy.PriceCorridors != nil {
+		// economy.json may embed version
+	}
+	if metaVer := readMetaVersion(dir); metaVer > 0 {
+		c.Version = metaVer
+	} else if c.Economy.Balance.Version >= 2 {
+		c.Version = c.Economy.Balance.Version
+	} else {
+		c.Version = 1
+	}
+	// Prefer explicit economy_catalog_version field if present in economy.json via raw peek
+	if v := peekCatalogVersion(filepath.Join(dir, "economy.json")); v > 0 {
+		c.Version = v
+	}
 	for _, it := range c.Items {
 		c.ItemByID[it.ID] = it
 	}
@@ -62,6 +99,34 @@ func LoadCatalog(dataDir string) (*model.Catalog, error) {
 		c.PersonaByID[p.ID] = p
 	}
 	return c, nil
+}
+
+func readMetaVersion(dir string) int {
+	var meta struct {
+		EconomyCatalogVersion int `json:"economy_catalog_version"`
+	}
+	if err := readJSON(filepath.Join(dir, "catalog_meta.json"), &meta); err != nil {
+		return 0
+	}
+	return meta.EconomyCatalogVersion
+}
+
+func peekCatalogVersion(path string) int {
+	var raw map[string]json.RawMessage
+	b, err := os.ReadFile(path)
+	if err != nil {
+		return 0
+	}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return 0
+	}
+	if v, ok := raw["economy_catalog_version"]; ok {
+		var n int
+		if json.Unmarshal(v, &n) == nil {
+			return n
+		}
+	}
+	return 0
 }
 
 func SaveJSON(path string, v any) error {

@@ -25,8 +25,12 @@ type WorldStore interface {
 }
 
 func NewEngine(cat *model.Catalog) *Engine {
+	ver := cat.Version
+	if ver == 0 {
+		ver = 1
+	}
 	e := &Engine{Catalog: cat, World: &model.World{
-		Tick: 0, Month: 1, Year: 2026,
+		Tick: 0, Month: 1, Year: 2026, CatalogVersion: ver,
 		Cities:    map[string]*model.CityState{},
 		Firms:     map[string]*model.Firm{},
 		Buildings: map[string]*model.BuildingInst{},
@@ -39,8 +43,13 @@ func NewEngine(cat *model.Catalog) *Engine {
 	}}
 	e.seedCities()
 	e.seedAI()
+	e.ensureOpenExtractDeposits()
 	e.initCityMarket()
-	e.World.Events = append(e.World.Events, "Мир Башкортостана инициализирован. Активны Уфа, Белорецк и Стерлитамак · каталог как в Capitalism Lab.")
+	msg := "Мир Башкортостана инициализирован. Активны Уфа, Белорецк и Стерлитамак."
+	if ver >= 2 {
+		msg += " Каталог экономики V2."
+	}
+	e.World.Events = append(e.World.Events, msg)
 	return e
 }
 
@@ -119,72 +128,45 @@ func abs(v int) int {
 }
 
 func (e *Engine) seedAI() {
-	profiles := []struct {
+	type buildSpec struct {
+		typ, recipe string
+		x, y        int
+	}
+	type profile struct {
 		id, name, industry, persona string
 		cash                        float64
 		city                        string
 		shopItem                    string
 		shopPrice                   float64
-		builds                      []struct{ typ, recipe string; x, y int }
-	}{
-		{"ai_dairy", "Агидель Молоко", "dairy", "ai_dairy", 180000, "ufa", "bottled_milk", 45,
-			[]struct{ typ, recipe string; x, y int }{
-				{"livestock_farm", "milk_cattle", -2, 0},
-				{"orchard", "farm_cherry", -3, 0},
-				{"quarry", "extract_sand", 3, 1},
-				{"glass_plant", "make_bottle", 2, 1},
-				{"dairy_plant", "bottle_milk", 2, 0},
-			}},
-		{"ai_bakery", "Хлебный Урал", "food", "ai_rookie", 150000, "ufa", "bread_wheat", 35,
-			[]struct{ typ, recipe string; x, y int }{
-				{"farm", "grow_wheat", -4, 1},
-				{"farm", "grow_potato", -4, 0},
-				{"mill", "mill_wheat", 1, -1},
-				{"packaging_plant", "make_packaging", 2, -1},
-				{"bakery", "bake_bread_wheat", 1, 0},
-			}},
-		{"ai_furniture", "УралМебель", "furniture", "ai_furniture", 160000, "ufa", "furniture_wood", 220,
-			[]struct{ typ, recipe string; x, y int }{
-				{"farm", "grow_flax", -3, 1},
-				{"logging_camp", "extract_wood", -4, 2},
-				{"textile_mill", "weave_flax", 1, 2},
-				{"board_plant", "board_wood", 2, 2},
-				{"furniture_plant", "furn_wood", 3, 2},
-			}},
-		{"ai_apparel", "БашТекстиль", "apparel", "ai_trader", 140000, "ufa", "clothing", 95,
-			[]struct{ typ, recipe string; x, y int }{
-				{"farm", "grow_flax", -1, 3},
-				{"livestock_farm", "raise_cattle", -2, 3},
-				{"textile_mill", "weave_flax", 0, 3},
-				{"apparel_factory", "make_clothing", 1, 3},
-			}},
-		{"ai_steel", "БелорецкСталь", "steel", "ai_steel", 200000, "beloretsk", "goods_steel", 90,
-			[]struct{ typ, recipe string; x, y int }{
-				{"mine", "extract_iron_ore", 2, 0},
-				{"mine", "extract_coal", 3, -1},
-				{"logging_camp", "extract_wood", -2, 1},
-				{"steel_mill", "smelt_steel", 2, 1},
-				{"steel_mill", "goods_steel", 3, 1},
-			}},
-		{"ai_oil", "УралНефть", "oil", "ai_trader", 220000, "beloretsk", "fuel_can_gasoline", 85,
-			[]struct{ typ, recipe string; x, y int }{
-				{"oil_well", "extract_oil", -1, 2},
-				{"chem_plant", "extract_chemicals", 0, 2},
-				{"plastics_plant", "make_plastic", 1, 2},
-				{"refinery", "refine_gasoline", 2, 2},
-				{"refinery", "pack_gasoline", 3, 2},
-			}},
-		{"ai_chem", "СодаСтерлитамак", "oil", "ai_trader", 210000, "sterlitamak", "fuel_can_gasoline", 88,
-			[]struct{ typ, recipe string; x, y int }{
-				{"chem_plant", "extract_chemicals", -3, 0},
-				{"gas_well", "extract_gas", -2, 1},
-				{"oil_well", "extract_oil", -2, -1},
-				{"quarry", "extract_limestone", -1, 2},
-				{"mine", "extract_salt", -1, -2},
-				{"plastics_plant", "make_plastic", 1, 2},
-				{"refinery", "refine_gasoline", 2, 1},
-				{"packaging_plant", "make_packaging", 3, 0},
-			}},
+		builds                      []buildSpec
+	}
+	var profiles []profile
+	if e.Catalog != nil && e.Catalog.Version >= 2 {
+		profiles = []profile{
+			{"ai_dairy", "Агидель Молоко", "dairy", "ai_dairy", 180000, "ufa", "milk_bottle", 55,
+				[]buildSpec{{"dairy_farm", "extract_milk", -2, 0}, {"dairy_plant", "food_22", 2, 0}}},
+			{"ai_bakery", "Хлебный Урал", "food", "ai_rookie", 150000, "ufa", "wheat_bread", 48,
+				[]buildSpec{{"grain_farm", "extract_wheat", -4, 1}, {"flour_mill", "food_01", 1, -1}, {"bakery", "food_11", 1, 0}}},
+			{"ai_furniture", "УралМебель", "furniture", "ai_furniture", 160000, "ufa", "table", 280,
+				[]buildSpec{{"logging_camp", "extract_softwood", -4, 2}, {"sawmill", "wood_01", 1, 2}, {"furniture_plant", "wood_06", 2, 2}, {"furniture_plant", "home_01", 3, 2}}},
+			{"ai_apparel", "БашТекстиль", "apparel", "ai_trader", 140000, "ufa", "tshirt", 120,
+				[]buildSpec{{"fiber_farm", "extract_flax", -1, 3}, {"sheep_farm", "extract_wool", -2, 3}, {"fiber_plant", "tex_01", 0, 3}, {"spinning_mill", "tex_02", 1, 3}, {"knitwear", "tex_04", 2, 3}, {"garment_factory", "app_01", 3, 3}}},
+			{"ai_steel", "БелорецкСталь", "steel", "ai_steel", 200000, "beloretsk", "pipe_set", 160,
+				[]buildSpec{{"mine", "extract_iron_ore", 2, 0}, {"mine", "extract_coal", 3, -1}, {"blast_furnace", "met_01", 2, 1}, {"steel_plant", "met_02", 3, 1}, {"pipe_plant", "met_06", 3, 2}}},
+			{"ai_oil", "УфаНефть", "oil", "ai_trader", 220000, "ufa", "ai92", 55,
+				[]buildSpec{{"oil_well", "extract_crude_oil", -1, 2}, {"refinery", "oil_01", 2, 2}, {"refinery", "fuel_01", 3, 2}}},
+			{"ai_chem", "СодаСтерлитамак", "oil", "ai_trader", 210000, "sterlitamak", "detergent", 70,
+				[]buildSpec{{"mine", "extract_salt", -1, -2}, {"quarry", "extract_limestone", -1, 2}, {"chemical_plant", "oil_08", 1, 2}, {"chemical_plant", "home_06", 2, 1}}},
+		}
+	} else {
+		profiles = []profile{
+			{"ai_dairy", "Агидель Молоко", "dairy", "ai_dairy", 180000, "ufa", "bottled_milk", 45,
+				[]buildSpec{{"livestock_farm", "milk_cattle", -2, 0}, {"dairy_plant", "bottle_milk", 2, 0}}},
+			{"ai_bakery", "Хлебный Урал", "food", "ai_rookie", 150000, "ufa", "bread_wheat", 35,
+				[]buildSpec{{"farm", "grow_wheat", -4, 1}, {"bakery", "bake_bread_wheat", 1, 0}}},
+			{"ai_steel", "БелорецкСталь", "steel", "ai_steel", 200000, "beloretsk", "goods_steel", 90,
+				[]buildSpec{{"mine", "extract_iron_ore", 2, 0}, {"mine", "extract_coal", 3, -1}}},
+		}
 	}
 
 	for _, p := range profiles {
@@ -247,16 +229,16 @@ func (e *Engine) findAIBuildSite(cityID, buildingType, recipeID string) (int, in
 		}
 		if needRes != "" {
 			d := depositAt(city, p.X, p.Y)
-			if d != nil && d.ItemID != needRes {
+			if d != nil && !depositMatchesNeed(d.ItemID, needRes) {
 				continue
 			}
 		}
 		candidates = append(candidates, p)
 	}
-	// Prefer exact deposit match when required.
+	// Prefer deposit match (base id) when required.
 	if needRes != "" {
 		for _, p := range candidates {
-			if d := depositAt(city, p.X, p.Y); d != nil && d.ItemID == needRes {
+			if d := depositAt(city, p.X, p.Y); d != nil && depositMatchesNeed(d.ItemID, needRes) {
 				return p.X, p.Y, true
 			}
 		}
@@ -269,54 +251,59 @@ func (e *Engine) findAIBuildSite(cityID, buildingType, recipeID string) (int, in
 }
 
 func (e *Engine) seedAIInventory(firmID, industry string) {
+	v2 := e.Catalog != nil && e.Catalog.Version >= 2
 	for _, b := range e.World.Buildings {
 		if b.FirmID != firmID {
 			continue
 		}
+		if v2 {
+			switch industry {
+			case "dairy":
+				b.Inventory["milk"] += 40
+				b.Inventory["milk_bottle"] += 30
+			case "food":
+				b.Inventory["wheat"] += 50
+				b.Inventory["wheat_flour"] += 25
+				b.Inventory["wheat_bread"] += 40
+			case "furniture":
+				b.Inventory["softwood"] += 40
+				b.Inventory["lumber"] += 20
+				b.Inventory["furniture_parts"] += 10
+				b.Inventory["table"] += 8
+			case "apparel":
+				b.Inventory["flax"] += 30
+				b.Inventory["yarn"] += 15
+				b.Inventory["knitted_fabric"] += 10
+				b.Inventory["tshirt"] += 20
+			case "steel":
+				b.Inventory["iron_ore"] += 50
+				b.Inventory["coal"] += 40
+				b.Inventory["pig_iron"] += 20
+				b.Inventory["steel"] += 15
+				b.Inventory["steel_pipe"] += 10
+			case "oil":
+				b.Inventory["crude_oil"] += 40
+				b.Inventory["natural_gas"] += 20
+				b.Inventory["gasoline_base"] += 15
+				b.Inventory["ai92"] += 25
+				b.Inventory["salt"] += 15
+				b.Inventory["chemical_reagent"] += 15
+				b.Inventory["detergent"] += 20
+			}
+			continue
+		}
 		switch industry {
 		case "dairy":
-			b.Inventory["sand"] += 40
-			b.Inventory["quartz"] += 20
-			b.Inventory["bottle"] += 20
 			b.Inventory["milk"] += 30
-			b.Inventory["cherry"] += 15
-			b.Inventory["packaging"] += 10
 			b.Inventory["bottled_milk"] += 40
 		case "food":
-			b.Inventory["wheat"] += 40
-			b.Inventory["flour_wheat"] += 20
-			b.Inventory["plastic"] += 15
-			b.Inventory["paper"] += 15
-			b.Inventory["packaging"] += 20
+			b.Inventory["wheat"] += 50
 			b.Inventory["bread_wheat"] += 40
-		case "furniture":
-			b.Inventory["flax"] += 40
-			b.Inventory["wood"] += 40
-			b.Inventory["chemicals"] += 30
-			b.Inventory["fabric_flax"] += 10
-			b.Inventory["board_wood"] += 10
-			b.Inventory["furniture_wood"] += 25
-		case "apparel":
-			b.Inventory["flax"] += 30
-			b.Inventory["fabric_flax"] += 15
-			b.Inventory["fabric_cotton"] += 10
-			b.Inventory["packaging"] += 15
-			b.Inventory["cattle"] += 8
-			b.Inventory["leather"] += 8
-			b.Inventory["clothing"] += 30
 		case "steel":
 			b.Inventory["iron_ore"] += 50
 			b.Inventory["coal"] += 40
-			b.Inventory["steel"] += 15
-			b.Inventory["goods_steel"] += 30
 		case "oil":
 			b.Inventory["oil"] += 40
-			b.Inventory["chemicals"] += 25
-			b.Inventory["plastic"] += 15
-			b.Inventory["gasoline"] += 12
-			b.Inventory["gas"] += 20
-			b.Inventory["salt"] += 15
-			b.Inventory["limestone"] += 15
 			b.Inventory["fuel_can_gasoline"] += 35
 		}
 	}
@@ -324,7 +311,14 @@ func (e *Engine) seedAIInventory(firmID, industry string) {
 
 func (e *Engine) openAIShop(f *model.Firm, cityID, item string, price float64) {
 	if item == "" {
-		item = "bottled_milk"
+		if e.Catalog != nil && e.Catalog.Version >= 2 {
+			item = "milk_bottle"
+		} else {
+			item = "bottled_milk"
+		}
+	}
+	if _, ok := e.Catalog.ItemByID[item]; !ok {
+		return
 	}
 	// Always snap into current corridor — old hardcoded AI prices break after rebalance.
 	if c, ok := e.Catalog.Economy.PriceCorridors[item]; ok {
@@ -382,13 +376,6 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 	if parcel.Building != "" {
 		return "", fmt.Errorf("участок занят")
 	}
-	needZone := bdef.Zone
-	if needZone == "industrial" && parcel.Zone != "industrial" && parcel.Zone != "empty" {
-		return "", fmt.Errorf("промка только в промзоне/пустых окраинах")
-	}
-	if needZone == "rural" && parcel.Zone != "rural" && parcel.Zone != "empty" {
-		return "", fmt.Errorf("фермы только в сельской зоне")
-	}
 	if recipeID == "" {
 		recipeID = e.defaultRecipeForBuilding(firm, typ)
 	}
@@ -397,21 +384,44 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 			return "", err
 		}
 	}
+	needZone := bdef.Zone
 	needRes := e.depositItemForBuild(typ, recipeID)
+	depositOK := false
 	if extractBuildingResources[typ] || needRes != "" {
 		if err := e.requireDepositForBuild(city, typ, recipeID, x, y); err != nil {
 			if free && needRes != "" {
 				if depositAt(city, x, y) == nil {
+					base := resourceBaseID(needRes)
+					renew := ruralDepositItems[base]
 					city.Deposits = append(city.Deposits, model.ResourceDeposit{
-						ID: uuid.NewString(), ItemID: needRes, X: x, Y: y,
-						Amount: 200, MaxAmount: 200, Quality: 3.5,
+						ID: uuid.NewString(), ItemID: base, X: x, Y: y,
+						Amount: 200, MaxAmount: 200, Quality: 3.5, Renewable: renew,
 					})
+					depositOK = true
 				}
 			} else {
 				return "", err
 			}
+		} else {
+			depositOK = true
 		}
 	}
+	// Extractors may sit on a matching deposit even if the parcel zone drifted
+	// (e.g. oil on rural edge); convert the tile to the building zone on place.
+	zoneOK := true
+	if needZone == "industrial" && parcel.Zone != "industrial" && parcel.Zone != "empty" {
+		zoneOK = depositOK && extractBuildingResources[typ]
+		if !zoneOK {
+			return "", fmt.Errorf("промка только в промзоне/пустых окраинах")
+		}
+	}
+	if needZone == "rural" && parcel.Zone != "rural" && parcel.Zone != "empty" {
+		zoneOK = depositOK && extractBuildingResources[typ]
+		if !zoneOK {
+			return "", fmt.Errorf("фермы только в сельской зоне")
+		}
+	}
+	_ = zoneOK
 	// Сначала дорога до сети (за счёт строителя), потом здание
 	roadTiles, roadCost, err := e.ensureRoadAccess(firm, city, x, y, free)
 	if err != nil {
@@ -437,7 +447,7 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 	parcel.Building = id
 	parcel.OwnerID = firmID
 	parcel.HasRoad = true
-	if parcel.Zone == "empty" {
+	if parcel.Zone == "empty" || (extractBuildingResources[typ] && depositOK && parcel.Zone != needZone && needZone != "") {
 		parcel.Zone = needZone
 	}
 	if !free {
