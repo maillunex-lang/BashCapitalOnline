@@ -123,12 +123,31 @@ type BalanceConfig struct {
 	Notes              string             `json:"notes"`
 }
 
+// DemandConfig — CapLab-ish retail demand (class mix, quality, brand, corridor price).
+type DemandConfig struct {
+	ClassShares struct {
+		Budget  float64 `json:"budget"`
+		Mid     float64 `json:"mid"`
+		Premium float64 `json:"premium"`
+	} `json:"class_shares"`
+	QualityWeight   float64            `json:"quality_weight"`
+	BrandWeight     float64            `json:"brand_weight"`
+	PriceWeight     float64            `json:"price_weight"`
+	DistanceWeight  float64            `json:"distance_weight"`
+	BrandDecay      float64            `json:"brand_decay"`      // per tick multiplicative decay toward floor
+	BrandFloor      float64            `json:"brand_floor"`
+	BrandGainOnSale float64            `json:"brand_gain_on_sale"`
+	PopDemandPerDay map[string]float64 `json:"pop_demand_per_day"` // category → units per pop per 24 ticks
+	TooExpensiveAt  float64            `json:"too_expensive_at"`   // price/mid ratio above which buyers refuse
+}
+
 type EconomyConfig struct {
 	PriceCorridors map[string]PriceCorridor `json:"price_corridors"`
 	CityMarket     []CityMarketOffer        `json:"city_market"`
 	Chat           ChatConfig               `json:"chat"`
 	Logistics      LogisticsConfig          `json:"logistics"`
 	Balance        BalanceConfig            `json:"balance"`
+	Demand         DemandConfig             `json:"demand"`
 }
 
 type AIPersona struct {
@@ -227,6 +246,8 @@ type ShopLease struct {
 	// StockSource — откуда пополнять витрину: own|city|market
 	StockSource string `json:"stock_source"`
 	AutoRestock bool   `json:"auto_restock"`
+	// Quality — витринное качество (1–5). 0 = взять с завода фирмы.
+	Quality float64 `json:"quality,omitempty"`
 }
 
 // DeputyTask — задание для ИИ-заместителя (доступно по подписке).

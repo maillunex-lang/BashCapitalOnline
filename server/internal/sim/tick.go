@@ -354,11 +354,14 @@ func (e *Engine) putInventory(firmID, cityID, itemID string, qty int) {
 }
 
 func (e *Engine) runRetail(log *[]string) {
-	// Спрос привязан к жилым клеткам; магазин берёт только зону охвата (Radius).
+	// CapLab-ish demand: residential cells + class mix + quality/brand/corridor price.
+	e.decayBrands()
+	cfg := e.demandCfg()
+
 	for _, city := range e.World.Cities {
 		type demandCell struct {
 			x, y int
-			food, home float64
+			pool map[string]float64
 		}
 		var cells []demandCell
 		resCount := 0
@@ -367,16 +370,20 @@ func (e *Engine) runRetail(log *[]string) {
 				continue
 			}
 			resCount++
-			cells = append(cells, demandCell{p.X, p.Y, 0, 0})
+			cells = append(cells, demandCell{p.X, p.Y, map[string]float64{}})
 		}
 		if resCount == 0 {
 			continue
 		}
-		foodShare := (city.DemandSeg["food"] + float64(city.Population)*0.02/24) / float64(resCount)
-		homeShare := (city.DemandSeg["home"] + float64(city.Population)*0.005/24) / float64(resCount)
-		for i := range cells {
-			cells[i].food = foodShare
-			cells[i].home = homeShare
+		cats := []string{"food", "home", "apparel", "fuel", "tech", "textile"}
+		cityBudget := map[string]float64{}
+		for _, cat := range cats {
+			pool := e.categoryDemandPool(city, cat)
+			cityBudget[cat] = pool
+			share := pool / float64(resCount)
+			for i := range cells {
+				cells[i].pool[cat] = share
+			}
 		}
 
 		var cityShops []*model.ShopLease
@@ -385,75 +392,101 @@ func (e *Engine) runRetail(log *[]string) {
 				cityShops = append(cityShops, s)
 			}
 		}
-		for _, shop := range cityShops {
-			if shop.Stock <= 0 {
-				continue
+		// Higher quality first so premium shelves capture class demand before junk.
+		sort.SliceStable(cityShops, func(i, j int) bool {
+			qi := e.shopShelfQuality(cityShops[i])
+			qj := e.shopShelfQuality(cityShops[j])
+			if qi != qj {
+				return qi > qj
 			}
+			return cityShops[i].ID < cityShops[j].ID
+		})
+
+		for _, shop := range cityShops {
 			item, ok := e.Catalog.ItemByID[shop.ItemID]
 			if !ok {
 				continue
 			}
 			firm := e.World.Firms[shop.FirmID]
+			if firm == nil {
+				continue
+			}
+			if shop.Stock <= 0 {
+				*log = append(*log, fmt.Sprintf("Розница %s: stockout %s", firm.Name, shop.ItemID))
+				continue
+			}
 			radius := shop.Radius
 			if radius <= 0 {
 				radius = 2
 			}
-			brand := firm.BrandAwareness[item.Category]
-			quality := 3.0
-			for _, b := range e.World.Buildings {
-				if b.FirmID == shop.FirmID {
-					quality = b.Quality
-					break
-				}
+			brand := 0.0
+			if firm.BrandAwareness != nil {
+				brand = firm.BrandAwareness[item.Category]
 			}
+			quality := e.shopShelfQuality(shop)
+			mid := e.corridorMid(shop.ItemID)
 			sold := 0
-			// Cap per-tick retail so shelves aren't wiped before AI/player can restock (playable loop).
+			tooExpensiveHits := 0
 			maxSold := 8
 			if shop.Stock < 20 {
 				maxSold = 5
 			}
+			cat := item.Category
+			if cat == "" {
+				cat = "food"
+			}
 			for i := range cells {
-				if sold >= maxSold {
+				if sold >= maxSold || cityBudget[cat] <= 0 {
 					break
 				}
 				c := &cells[i]
 				dist := abs(c.x-shop.X) + abs(c.y-shop.Y)
 				if dist > radius {
-					continue // дальняя часть города просто не едет
+					continue
 				}
-				local := c.food
-				if item.Category == "home" {
-					local = c.home
-				} else if item.Category != "food" {
-					local = (c.food + c.home) * 0.25
+				local := c.pool[cat]
+				if local <= 0 {
+					local = (c.pool["food"] + c.pool["home"]) * 0.2
 				}
 				if local <= 0 {
 					continue
 				}
+				// Contested city budget: better shops (sorted earlier) drain demand first.
+				local = math.Min(local, cityBudget[cat])
 				distFactor := 1.0 - float64(dist)/float64(radius+1)
-				attract := (quality/5.0)*0.35 + (1.0-clamp(shop.Price/300.0, 0, 1))*0.3 + brand*0.15 + distFactor*0.2
-				take := int(math.Min(float64(shop.Stock-sold), local*attract*0.35))
-				take = min(take, maxSold-sold)
+				attract, tooExp := e.retailAttract(quality, brand, shop.Price, mid, distFactor)
+				if tooExp {
+					tooExpensiveHits++
+					continue
+				}
+				take := softTake(local, attract, shop.Stock-sold, maxSold-sold)
 				if take <= 0 {
 					continue
 				}
-				if item.Category == "home" {
-					c.home = maxf(0, c.home-float64(take))
-				} else {
-					c.food = maxf(0, c.food-float64(take))
-				}
+				c.pool[cat] = maxf(0, c.pool[cat]-float64(take))
+				cityBudget[cat] = maxf(0, cityBudget[cat]-float64(take))
 				sold += take
 			}
 			if sold <= 0 {
+				if tooExpensiveHits > 0 {
+					*log = append(*log, fmt.Sprintf("Розница %s: too_expensive %s @%.0f (mid %.0f)", firm.Name, shop.ItemID, shop.Price, mid))
+				}
 				continue
 			}
 			revenue := float64(sold) * shop.Price
 			rentShare := revenue * shop.RevenueShare
 			firm.Cash += revenue - rentShare
 			shop.Stock -= sold
-			city.DemandSeg[item.Category] = maxf(0, city.DemandSeg[item.Category]-float64(sold))
-			firm.BrandAwareness[item.Category] = clamp(brand+0.005, 0, 1)
-			*log = append(*log, fmt.Sprintf("Розница %s r=%d: −%d %s, +%.0f₽", firm.Name, radius, sold, shop.ItemID, revenue-rentShare))
+			city.DemandSeg[cat] = maxf(0, city.DemandSeg[cat]-float64(sold))
+			if firm.BrandAwareness == nil {
+				firm.BrandAwareness = map[string]float64{}
+			}
+			firm.BrandAwareness[cat] = clamp(brand+cfg.BrandGainOnSale, 0, 1)
+			note := fmt.Sprintf("Розница %s q=%.1f: sold %d %s, +%.0f₽", firm.Name, quality, sold, shop.ItemID, revenue-rentShare)
+			if shop.Stock == 0 {
+				note += " · stockout"
+			}
+			*log = append(*log, note)
 		}
 	}
 }

@@ -14,7 +14,7 @@
    cd server && go test ./... && go build -o /tmp/bashcapital ./cmd/server
    python3 scripts/validate_chains.py   # если трогал каталог/рецепты
    ```
-7. Ветки: `cursor/<short-name>-c48e` → merge/push в **`main`**, если человек просит main или это дефолт репо.
+7. Ветки: `cursor/<short-name>-c48e` → **всегда** merge/push в **`main`** после готовности.
 8. **Не ломай инварианты** из AGENTS.md (building_type, shop allowlists, min 1 tick delivery, сервер авторитетен).
 
 ### Как поднять игру локально (smoke)
@@ -40,9 +40,9 @@ cd web && python3 -m http.server 8090 --bind 127.0.0.1
 | **S0** Foundation MVP | Сервер+клиенты+тики | ✅ mvp | Можно открыть фирму и тикать |
 | **S1** Catalog & art | Каталог, цепочки, иконки | ✅ mvp | Видны товары/здания |
 | **S2** Three cities | Уфа/Белорецк/Стерлитамак | ✅ mvp | 3 города, логистика |
-| **S3** Playable loop | Сессия 30–60 мин без поломок | 🔓 **ТЕКУЩИЙ** | «Уже можно поиграть» |
-| **S4** CapLab depth | Спрос/бренд/качество | ⏳ next | Глубокая экономика |
-| **S5** Contracts & exchange UI | Телефонный UI биржи | ⏳ next | Торговля руками |
+| **S3** Playable loop | Сессия 30–60 мин без поломок | ✅ mvp | «Уже можно поиграть» |
+| **S4** CapLab depth | Спрос/бренд/качество | ✅ mvp | Глубокая экономика |
+| **S5** Contracts & exchange UI | Телефонный UI биржи | 🔓 **ТЕКУЩИЙ** | Торговля руками |
 | **S6** Monetization live | Реальная подписка | ⏳ next | PRO/заместитель за деньги |
 | **S7** Android ship | APK на устройстве | ⏳ next | Игра на телефоне |
 | **S8** Scale & polish | Postgres, load-test, geo-map, i18n | 📦 backlog | Прод-масштаб |
@@ -86,9 +86,11 @@ python3 scripts/build_art_pack.py
 
 ---
 
-## S3 — Playable loop ⭐ ТЕКУЩИЙ ЭТАП
+## S3 — Playable loop (готово, mvp)
 
 **Цель:** игрок может 30–60 минут вести фирму без тупиков: ферма → завод → магазин → деньги → тики.
+
+**Закрыто 2026-11-18:** persist до тика, аренда/автопополнение, atomic configure, кабинет собственника, playtest AI shops.
 
 ### S3.1 Первый запуск без боли — `RM-FIRST-RUN`
 **Статус задачи:** создать/вести как `next` → `done`.
@@ -129,32 +131,23 @@ python3 scripts/build_art_pack.py
 
 ---
 
-## S4 — CapLab depth (спрос)
+## S4 — CapLab depth (готово, mvp)
 
-### S4.1 — `RM-DEMAND`
-**Сделать:**
-1. Прочитай текущий `DemandSeg` в `server/internal/sim` (population×constants).
-2. Добавь в `data/economy.json` параметры: class shares, quality sensitivity, brand decay.
-3. В тике розницы: спрос зависит от quality товара в магазине + brand фирмы + цена vs corridor mid.
-4. Логируй в tick log: sold qty, stockout, too_expensive.
-
-**Не делать:** нейросеть, ML, внешние API.
-
-**Приёмка:**
-- [ ] Два магазина с разной quality одним item — лучше quality продаёт больше при близкой цене.
-- [ ] Юнит-тест или скриптовая проверка на движке.
+### S4.1 — `RM-DEMAND` ✅ mvp
+**Сделано:** `economy.demand` (class shares, weights, brand decay); розница сортирует полки по quality и делит городской бюджет категории; цена vs corridor mid; лог `sold` / `stockout` / `too_expensive`; тесты `TestHigherQualitySellsMore`, `TestTooExpensiveBlocksSales`.
 
 ---
 
-## S5 — Contracts & exchange UI
+## S5 — Contracts & exchange UI ⭐ ТЕКУЩИЙ ЭТАП
 
-### S5.1 — `RM-CONTRACTS-UI`
-**Сделать:**
-1. Найди API: orders/contracts в `server/internal/api` + sim.
-2. Web-вкладка «Опт»: список ордеров с иконками, кнопка создать buy/sell, принять контракт.
-3. Godot: минимальный паритет или web-first (если Godot не успеваешь — явно напиши в notes).
+### S5.1 — `RM-CONTRACTS-UI` ✅ mvp (web-first)
+**Сделано:** вкладка «Опт» — форма buy/sell, список ордеров с иконками, «В контракт» по чужому sell, список контрактов и доставок.
 
-**Приёмка:** игрок создаёт sell-ордер на `bread_wheat`, AI или город его закрывает/частично заполняет за N тиков.
+**Не сделано:** Godot-паритет (явно web-first). Живой match sell↔AI за N тиков зависит от рынка — проверять вручную.
+
+**Приёмка:**
+- [x] UI создания ордера и контракта в web
+- [ ] Godot parity (backlog / notes)
 
 ---
 

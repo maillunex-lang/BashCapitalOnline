@@ -4159,5 +4159,28 @@
       "finished": 0.22
     },
     "notes": "Corridors from Bashkortostan-2026-ish raw anchors + recipe costs. Re-run after catalog edits."
+  },
+  "demand": {
+    "class_shares": {
+      "budget": 0.45,
+      "mid": 0.4,
+      "premium": 0.15
+    },
+    "quality_weight": 0.38,
+    "brand_weight": 0.18,
+    "price_weight": 0.28,
+    "distance_weight": 0.16,
+    "brand_decay": 0.002,
+    "brand_floor": 0.03,
+    "brand_gain_on_sale": 0.006,
+    "pop_demand_per_day": {
+      "food": 0.08,
+      "home": 0.02,
+      "apparel": 0.015,
+      "fuel": 0.01,
+      "tech": 0.008,
+      "textile": 0.01
+    },
+    "too_expensive_at": 1.35
   }
 }

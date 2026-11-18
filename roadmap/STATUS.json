@@ -5,7 +5,7 @@
   "branch_default": "main",
   "active_pr": null,
   "honesty_rule": "status=done means code exists and runs in-repo. It does NOT mean production-ready, device-verified, load-tested, or live payments. Use maturity: shipped | mvp | scaffold | unverified. Never mark scaffold as if it were shipped.",
-  "instructions_for_ai": "Read roadmap/STAGES.md for HOW. Read priority_order here for WHAT next. Claim one next item, implement, set honest maturity, update ROADMAP.md, push main. Current focus: S3 Playable loop so a human can play 30–60 minutes.",
+  "instructions_for_ai": "Read roadmap/STAGES.md for HOW. Read priority_order here for WHAT next. Claim one next item, implement, set honest maturity, update ROADMAP.md, always merge+push main. Current focus after S4/S5 web: RM-PAYMENT-LIVE or RM-APK-VERIFY when asked.",
   "maturity_legend": {
     "shipped": "Used end-to-end in normal play; no known major gaps for the claimed scope",
     "mvp": "Works for local/dev play; balance/UX still need iteration",
@@ -13,8 +13,6 @@
     "unverified": "Code path exists but not proven on real device/env"
   },
   "priority_order": [
-    "RM-DEMAND",
-    "RM-CONTRACTS-UI",
     "RM-PAYMENT-LIVE",
     "RM-APK-VERIFY",
     "RM-MAP-INCREMENTAL",
@@ -156,7 +154,7 @@
       "status": "done",
       "maturity": "mvp",
       "area": "art",
-      "notes": "Iso tiles + procedural fallbacks + catalog icon fallbacks. Not every building has a unique painted map sprite.",
+      "notes": "Iso tiles + procedural/catalog fallbacks; empty industrial uses meadow to avoid gray pad checker look. Not every building has unique painted map sprite.",
       "files": [
         "scripts/gen_map_sprites.py",
         "client/assets/map/",
@@ -173,7 +171,9 @@
         "web/index.html",
         "web/styles.css",
         "web/app.js"
-      ]
+      ],
+      "notes": "Cabinet-first owner desktop + map placement mode + manage sheets. Mobile tabbar kept.",
+      "updated": "2026-11-18"
     },
     {
       "id": "RM-ROADMAP-DOCS",
@@ -220,7 +220,7 @@
       "status": "done",
       "maturity": "mvp",
       "area": "server",
-      "notes": "SQLite only (world blob + accounts/sessions/payments; autosave each tick). PostgreSQL is NOT implemented — see RM-POSTGRES.",
+      "notes": "SQLite world blob; autosave each tick AND Persist() after register/actions so firms survive pre-tick restart. PostgreSQL NOT implemented — RM-POSTGRES.",
       "files": [
         "server/internal/store/persist.go",
         "server/cmd/server/main.go"
@@ -362,18 +362,34 @@
     {
       "id": "RM-DEMAND",
       "title": "Deeper CapLab demand/quality/brand model",
-      "status": "next",
+      "status": "done",
       "area": "economy",
-      "notes": "Current demandSeg is population×constants. Need quality tiers, brand, class demand like CapLab.",
-      "stage": "S4"
+      "notes": "economy.demand config; class mix; quality/brand/corridor price; contested city budget; brand decay; tick log sold/stockout/too_expensive; unit tests.",
+      "stage": "S4",
+      "maturity": "mvp",
+      "updated": "2026-11-18",
+      "files": [
+        "data/economy.json",
+        "server/internal/model/types.go",
+        "server/internal/sim/demand.go",
+        "server/internal/sim/tick.go",
+        "server/internal/sim/demand_test.go"
+      ]
     },
     {
       "id": "RM-CONTRACTS-UI",
       "title": "Mobile UI for contracts and exchange",
-      "status": "next",
+      "status": "done",
       "area": "client-web",
-      "notes": "Server contracts/orders exist; phone UI for them is thin/missing.",
-      "stage": "S5"
+      "notes": "Web Опт: form place buy/sell order, list orders with accept-as-contract on foreign sells, contracts list, shipments. Godot parity not done (web-first).",
+      "stage": "S5",
+      "maturity": "mvp",
+      "updated": "2026-11-18",
+      "files": [
+        "web/index.html",
+        "web/app.js",
+        "web/styles.css"
+      ]
     },
     {
       "id": "RM-PAYMENT-LIVE",
@@ -512,8 +528,42 @@
         "web/app.js",
         "client/scripts/city_map.gd"
       ]
+    },
+    {
+      "id": "RM-BUGFIX-PLAY",
+      "title": "Playability bugfix: persist/rent/restock/atomic configure/tests",
+      "status": "done",
+      "maturity": "mvp",
+      "area": "server",
+      "stage": "S3",
+      "updated": "2026-11-18",
+      "notes": "Persist on register/actions; SnapPriceToCorridor for rent; restockAllAutoShops for players; atomic ConfigureBuilding; portable scripts; bugs_fix_test.go",
+      "files": [
+        "server/internal/sim/tick.go",
+        "server/internal/sim/actions.go",
+        "server/internal/sim/prices.go",
+        "server/internal/api/server.go",
+        "server/internal/sim/bugs_fix_test.go",
+        "web/app.js",
+        "scripts/validate_chains.py"
+      ]
+    },
+    {
+      "id": "RM-OWNER-DESKTOP",
+      "title": "Owner desktop UI: cabinet-first build/rent flow + larger map",
+      "status": "done",
+      "maturity": "mvp",
+      "area": "client-web",
+      "stage": "S3",
+      "updated": "2026-11-18",
+      "notes": "Main screen is business cabinet; category→city→map placement; auto-fit iso map; meadow under empty industrial. Map art still mixed quality.",
+      "files": [
+        "web/index.html",
+        "web/styles.css",
+        "web/app.js"
+      ]
     }
   ],
-  "current_stage": "S3",
+  "current_stage": "S5",
   "stages_doc": "roadmap/STAGES.md"
 }

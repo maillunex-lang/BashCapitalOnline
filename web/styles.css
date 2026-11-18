@@ -240,6 +240,17 @@ body {
 .assets-split { display: grid; gap: 12px; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .btn-row button { flex: 1 1 140px; }
+.trade-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.trade-form #ordSubmit { grid-column: 1 / -1; }
+@media (min-width: 700px) {
+  .trade-form { grid-template-columns: repeat(3, 1fr); }
+  .trade-form #ordSubmit { grid-column: auto; }
+}
 
 /* Map */
 .map-card, .panel, .sheet {

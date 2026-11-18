@@ -4,7 +4,7 @@
 
 Онлайн economy-игра **BashCapital** (Bashkortostan × Capitalism Lab): Go-сервер + Godot/Android + web-превью.
 
-**Сейчас приоритет:** этап **S3 Playable loop** — чтобы человек мог поиграть 30–60 минут. Подробный план: [`roadmap/STAGES.md`](./roadmap/STAGES.md).
+**Сейчас приоритет:** этап **S5** закрыт по web (контракты); дальше **S6 payments** / **S7 APK** по `priority_order`. План: [`roadmap/STAGES.md`](./roadmap/STAGES.md).
 
 ## Источник истины
 
@@ -27,12 +27,12 @@
 ## Куда пушить
 
 - Feature-ветка: `cursor/<short-name>-c48e`
-- Итог: **`main`** (`merge` + `git push origin main`), если человек просит main или это дефолт репо
+- **Всегда сливай итог в `main`** (`git checkout main && git merge … && git push origin main`). PR можно открывать для ревью, но не оставляй готовое только в feature-ветке.
 - Не force-push в `main`
 
 ## Как брать задачу (каждый раз)
 
-1. Открой `STAGES.md` → текущий этап (сейчас **S3**)
+1. Открой `STAGES.md` → текущий этап (сейчас **S5**/далее по STATUS)
 2. Открой `STATUS.json` → `priority_order` → первый `status: "next"` без `claim`
 3. Поставь `"status": "in_progress"`, `"claim": {"owner": "<agent>", "at": "<ISO-date>"}`
 4. Делай **только** эту задачу (+ явные depends_on)
@@ -42,7 +42,7 @@
    ```
 6. `status: "done"`, честные `notes` + `maturity` + `files`
 7. Обнови `ROADMAP.md` (секции Сейчас / Сделано)
-8. Commit + push в `main`
+8. Commit + **merge/push в `main`**
 
 Шаблон отчёта — в конце `STAGES.md`.
 

@@ -201,8 +201,28 @@
       <h2>Городской опт</h2>
       <p class="muted">Низкое качество · коридор цен · как city wholesaler в CapLab</p>
       <div id="market" class="list"></div>
+
+      <h2>Выставить ордер</h2>
+      <p class="muted">Sell держит товар на складе в выбранном городе · buy ищет предложения</p>
+      <div class="trade-form">
+        <select id="ordSide">
+          <option value="sell">Продать</option>
+          <option value="buy">Купить</option>
+        </select>
+        <select id="ordCity"></select>
+        <select id="ordItem"></select>
+        <input id="ordQty" type="number" min="1" value="10" placeholder="Кол-во" />
+        <input id="ordPrice" type="number" min="1" value="120" placeholder="Цена ₽" />
+        <button type="button" id="ordSubmit">На биржу</button>
+      </div>
+
       <h2>Биржа (ордера)</h2>
       <div id="orders" class="list"></div>
+
+      <h2>Контракты</h2>
+      <p class="muted">«В контракт» по чужому sell — поставка каждый тик до конца срока</p>
+      <div id="contracts" class="list"></div>
+
       <div id="shipments" class="list"></div>
       <p class="muted">Доставка по расстоянию между городами · минимум 1 тик</p>
     </section>

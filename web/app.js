@@ -432,6 +432,47 @@ function retailPriceForItem(itemId) {
   return 0;
 }
 
+function cityLabel(id) {
+  return (state.catalog?.cities || []).find((c) => c.id === id)?.name || id;
+}
+
+function fillTradeForm() {
+  const citySel = $("ordCity");
+  const itemSel = $("ordItem");
+  if (!citySel || !itemSel || !state.catalog) return;
+  const curCity = citySel.value || state.city;
+  const curItem = itemSel.value;
+  citySel.innerHTML = enabledCities().map((c) =>
+    `<option value="${c.id}" ${c.id === curCity ? "selected" : ""}>${c.name}</option>`
+  ).join("");
+  const finished = (state.catalog.items || []).filter((it) => it.tier === "finished" || it.tier === "intermediate");
+  const list = finished.length ? finished : (state.catalog.items || []);
+  itemSel.innerHTML = list.slice(0, 200).map((it) =>
+    `<option value="${it.id}" ${it.id === curItem ? "selected" : ""}>${it.name}</option>`
+  ).join("");
+  if (!itemSel.value && list.length) itemSel.value = list[0].id;
+  const mid = retailPriceForItem(itemSel.value);
+  if (mid > 0 && (!$("ordPrice").dataset.touched || !$("ordPrice").value)) {
+    $("ordPrice").value = String(mid);
+  }
+}
+
+async function acceptSellAsContract(orderId) {
+  const o = state.world?.orders?.[orderId];
+  if (!o || !state.firmId) return;
+  const to = state.city || o.city_id;
+  await act("contract", {
+    seller_id: o.firm_id,
+    item_id: o.item_id,
+    city_from: o.city_id,
+    city_to: to,
+    qty: Math.min(10, o.qty - o.filled),
+    price: o.price,
+    ticks: 12,
+    use_own_fleet: true,
+  });
+}
+
 async function confirmPlace() {
   if (!state.place || !state.selected) return alert("Сначала выберите участок на карте");
   const p = state.selected;
@@ -536,17 +577,34 @@ async function refresh() {
     });
   }
 
+  fillTradeForm();
   const orders = Object.values(w.orders || {}).filter((o) => o.qty > o.filled);
   if ($("orders")) {
-    $("orders").innerHTML = orders.slice(0, 40).map((o) => {
+    $("orders").innerHTML = orders.slice(0, 50).map((o) => {
       const firm = w.firms[o.firm_id];
-      return `<div class="row">${rowWithIcon(itemIconSrc(o.item_id), `<strong>${o.side === "sell" ? "Продажа" : "Покупка"}</strong> ${itemName(o.item_id)} ×${o.qty - o.filled}<br/>${firm?.name || o.firm_id} · ${money(o.price)} ₽`)}</div>`;
+      const left = o.qty - o.filled;
+      const mine = o.firm_id === state.firmId;
+      const canContract = !mine && o.side === "sell" && state.firmId;
+      return `<div class="row">${rowWithIcon(itemIconSrc(o.item_id), `<strong>${o.side === "sell" ? "Продажа" : "Покупка"}</strong> ${itemName(o.item_id)} ×${left}<br/>${firm?.name || o.firm_id} · ${cityLabel(o.city_id)} · ${money(o.price)} ₽`)}
+        ${canContract ? `<button data-contract="${o.id}">В контракт</button>` : (mine ? `<span class="pill">ваш</span>` : "")}</div>`;
     }).join("") || "<div class='row'>Биржа пуста</div>";
+    $("orders").querySelectorAll("button[data-contract]").forEach((btn) => {
+      btn.onclick = () => acceptSellAsContract(btn.dataset.contract);
+    });
+  }
+  if ($("contracts")) {
+    const contracts = Object.values(w.contracts || {}).filter((c) => c.ticks_left > 0);
+    $("contracts").innerHTML = contracts.slice(0, 40).map((c) => {
+      const seller = w.firms[c.seller_id]?.name || c.seller_id;
+      const buyer = w.firms[c.buyer_id]?.name || c.buyer_id;
+      const mine = c.seller_id === state.firmId || c.buyer_id === state.firmId;
+      return `<div class="row">${rowWithIcon(itemIconSrc(c.item_id), `<strong>${itemName(c.item_id)}</strong> ×${c.qty_per_tick}/тик · ${money(c.price)} ₽<br/>${seller} → ${buyer}<br/><span class="muted">${cityLabel(c.city_from)} → ${cityLabel(c.city_to)} · ещё ${c.ticks_left} тик${mine ? " · ваш" : ""}</span>`)}</div>`;
+    }).join("") || "<div class='row'>Нет активных контрактов</div>";
   }
   const ships = Object.values(w.shipments || {});
   if ($("shipments")) {
     $("shipments").innerHTML = "<h3 style='color:var(--accent-2);font-size:13px'>В пути</h3>" + (ships.map((s) =>
-      `<div class="row">${rowWithIcon(itemIconSrc(s.item_id), `<strong>${itemName(s.item_id)}</strong> ×${s.qty}<br/>${s.from_city} → ${s.to_city} · ${s.ticks_left} тик`)}</div>`
+      `<div class="row">${rowWithIcon(itemIconSrc(s.item_id), `<strong>${itemName(s.item_id)}</strong> ×${s.qty}<br/>${cityLabel(s.from_city)} → ${cityLabel(s.to_city)} · ${s.ticks_left} тик`)}</div>`
     ).join("") || "<div class='row'>Нет доставок</div>");
   }
 
@@ -959,6 +1017,29 @@ $("applyTasks").onclick = () => {
   const tasks = [...document.querySelectorAll(".task:checked")].map((el) => el.value);
   act("set_deputy_tasks", { tasks });
 };
+if ($("ordPrice")) {
+  $("ordPrice").addEventListener("input", () => { $("ordPrice").dataset.touched = "1"; });
+}
+if ($("ordItem")) {
+  $("ordItem").onchange = () => {
+    const mid = retailPriceForItem($("ordItem").value);
+    if (mid > 0 && !$("ordPrice").dataset.touched) $("ordPrice").value = String(mid);
+  };
+}
+if ($("ordSubmit")) {
+  $("ordSubmit").onclick = () => {
+    if (!state.firmId) return alert("Сначала откройте фирму");
+    const qty = Number($("ordQty").value);
+    const price = Number($("ordPrice").value);
+    if (!qty || !price) return alert("Укажите количество и цену");
+    act("order", {
+      side: $("ordSide").value,
+      city_id: $("ordCity").value || state.city,
+      item_id: $("ordItem").value,
+      qty, price,
+    });
+  };
+}
 
 // Deep-link helpers for demos / screenshots: ?tab=map&city=ufa&place=1
 (function applyBootQuery() {
