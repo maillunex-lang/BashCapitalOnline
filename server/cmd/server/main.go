@@ -19,6 +19,7 @@ func main() {
 	dataDir := flag.String("data", "", "path to data/ JSON")
 	tickHours := flag.Float64("tick-hours", 1, "real hours per tick; 1 tick = 1/24 game month (0 = manual only)")
 	devFast := flag.Bool("dev", false, "dev mode: tick every 30s")
+	dbPath := flag.String("db", "", "SQLite path (default data/saves/bashcapital.db)")
 	flag.Parse()
 
 	dir := *dataDir
@@ -40,6 +41,24 @@ func main() {
 		log.Fatal(err)
 	}
 	engine := sim.NewEngine(cat)
+	engine.DataDir = dir
+
+	path := *dbPath
+	if path == "" {
+		path = store.DefaultDBPath(dir)
+	}
+	db, err := store.OpenDB(path)
+	if err != nil {
+		log.Fatalf("sqlite: %v", err)
+	}
+	defer db.Close()
+	engine.Store = db
+	if db.HasWorld() {
+		if w, err := db.LoadWorld(); err == nil && w != nil {
+			engine.World = w
+			log.Printf("Loaded world save (tick=%d)", w.Tick)
+		}
+	}
 
 	tickEvery := time.Duration(*tickHours * float64(time.Hour))
 	manual := false
@@ -54,9 +73,15 @@ func main() {
 		log.Println("Manual tick mode (POST /api/tick)")
 	}
 
-	srv := api.New(engine, tickEvery, manual)
+	adminToken := os.Getenv("ADMIN_TOKEN")
+	if adminToken == "" {
+		adminToken = "bashcapital-dev"
+		log.Println("ADMIN_TOKEN unset — using default bashcapital-dev")
+	}
+
+	srv := api.New(engine, tickEvery, manual, adminToken, db)
 	srv.StartTicker()
 
-	fmt.Printf("BashCapital server on %s (data=%s)\n", *addr, dir)
+	fmt.Printf("BashCapital server on %s (data=%s db=%s)\n", *addr, dir, path)
 	log.Fatal(http.ListenAndServe(*addr, srv.Handler()))
 }

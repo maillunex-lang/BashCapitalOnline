@@ -6,3 +6,4 @@ server/bin/
 __pycache__/
 *.db
 server/world.db
+data/saves/

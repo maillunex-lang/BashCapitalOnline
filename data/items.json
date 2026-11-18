@@ -54,5 +54,14 @@
   {"id": "toy", "name": "Игрушки", "tier": "finished", "category": "home"},
   {"id": "book", "name": "Книги", "tier": "finished", "category": "home"},
   {"id": "steel_goods", "name": "Металлоизделия", "tier": "finished", "category": "home"},
-  {"id": "fuel_can", "name": "Канистра топлива", "tier": "finished", "category": "fuel"}
+  {"id": "fuel_can", "name": "Канистра топлива", "tier": "finished", "category": "fuel"},
+
+  {"id": "honey", "name": "Бурзянский мёд", "tier": "raw", "category": "food"},
+  {"id": "koumiss", "name": "Ҡымыҙ (кумыс)", "tier": "finished", "category": "dairy"},
+  {"id": "qurut", "name": "Ҡорот", "tier": "finished", "category": "dairy"},
+  {"id": "chakchak", "name": "Сәк-сәк", "tier": "finished", "category": "food"},
+  {"id": "baursak", "name": "Баурһаҡ", "tier": "finished", "category": "food"},
+  {"id": "herbal_tea", "name": "Травяной чай Урала", "tier": "finished", "category": "food"},
+  {"id": "felt", "name": "Войлок", "tier": "intermediate", "category": "fiber"},
+  {"id": "bashkir_carpet", "name": "Башкирский ковёр", "tier": "finished", "category": "home"}
 ]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/api_client.gd" id="2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/safe_area.gd" id="5"]
 [ext_resource type="Script" path="res://scripts/city_ambience.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/settings_panel.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/manage_panel.gd" id="8"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -406,3 +407,56 @@ text = "Выдать задания"
 layout_mode = 2
 text = "Закрыть"
 [connection signal="pressed" from="SafeArea/UI/SettingsPanel/Margin/VBox/CloseBtn" to="SafeArea/UI/SettingsPanel" method="_on_close"]
+
+[node name="ManagePanel" type="PanelContainer" parent="SafeArea/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -340.0
+offset_right = 300.0
+offset_bottom = 340.0
+script = ExtResource("8")
+
+[node name="BG" type="ColorRect" parent="SafeArea/UI/ManagePanel"]
+layout_mode = 2
+color = Color(0.08, 0.12, 0.13, 0.98)
+
+[node name="Margin" type="MarginContainer" parent="SafeArea/UI/ManagePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="SafeArea/UI/ManagePanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Настройка"
+
+[node name="Sub" type="Label" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
+layout_mode = 2
+text = "Завод / магазин"
+
+[node name="Hint" type="Label" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
+layout_mode = 2
+autowrap_mode = 3
+text = ""
+
+[node name="Body" type="VBoxContainer" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="CloseBtn" type="Button" parent="SafeArea/UI/ManagePanel/Margin/VBox"]
+layout_mode = 2
+text = "Закрыть"
+[connection signal="pressed" from="SafeArea/UI/ManagePanel/Margin/VBox/CloseBtn" to="SafeArea/UI/ManagePanel" method="_on_close"]

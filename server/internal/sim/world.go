@@ -13,6 +13,15 @@ import (
 type Engine struct {
 	Catalog *model.Catalog
 	World   *model.World
+	Paused  bool
+	DataDir string
+	Store   WorldStore
+}
+
+// WorldStore — optional SQLite persistence (RM-PERSIST).
+type WorldStore interface {
+	SaveWorld(w *model.World) error
+	HasWorld() bool
 }
 
 func NewEngine(cat *model.Catalog) *Engine {
@@ -94,7 +103,9 @@ func generateParcels(radius int) []model.Parcel {
 			if abs(x)+abs(y) > radius {
 				continue
 			}
-			out = append(out, model.Parcel{X: x, Y: y, Zone: "empty"})
+			// Mild hills for map_3d preview (Urals-ish east rise).
+			elev := 0.15*math.Sin(float64(x)*0.7) + 0.12*math.Cos(float64(y)*0.55) + 0.04*float64(x)
+			out = append(out, model.Parcel{X: x, Y: y, Zone: "empty", Elevation: elev})
 		}
 	}
 	return out
@@ -355,6 +366,7 @@ func (e *Engine) placeBuilding(firmID, cityID, typ, recipeID string, x, y int, f
 	if roadTiles > 0 {
 		e.World.Events = append(e.World.Events, fmt.Sprintf("%s проложил дорогу (%d кл., %.0f ₽) к (%d,%d) в %s", firm.Name, roadTiles, roadCost, x, y, cityID))
 	}
+	e.markDirty(cityID, x, y, "build")
 	return id, nil
 }
 

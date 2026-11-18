@@ -13,6 +13,11 @@ import (
 const ticksPerMonth = 24 // 1 game month = 24 real hours = 24 ticks
 
 func (e *Engine) Tick() {
+	if e.Paused {
+		e.World.LastTickLog = []string{"Мир на паузе (админ)"}
+		return
+	}
+	e.clearDirty()
 	log := []string{}
 	e.World.Tick++
 	// 1 tick = 1 real hour = 1/24 game month
@@ -47,6 +52,16 @@ func (e *Engine) Tick() {
 	e.World.Events = append(e.World.Events, log...)
 	if len(e.World.Events) > 200 {
 		e.World.Events = e.World.Events[len(e.World.Events)-200:]
+	}
+	e.autosave()
+}
+
+func (e *Engine) autosave() {
+	if e.Store == nil {
+		return
+	}
+	if err := e.Store.SaveWorld(e.World); err != nil {
+		e.World.Events = append(e.World.Events, "autosave error: "+err.Error())
 	}
 }
 
@@ -90,22 +105,16 @@ func (e *Engine) resolveContracts(log *[]string) {
 		buyer.Cash -= pay
 		seller.Cash += pay
 		avgQ := qualitySum / float64(moved)
-		routeTicks, cost := e.routeInfo(c.CityFrom, c.CityTo)
 		own := c.UseOwnFleet && buyer.Trucks > 0
-		shipCost := float64(moved) * cost
-		if own {
-			shipCost *= 0.55
-		} else {
-			shipCost *= 1.0
-		}
-		buyer.Cash -= shipCost
-		id := uuid.NewString()
-		e.World.Shipments[id] = &model.Shipment{
-			ID: id, FirmID: c.BuyerID, ItemID: c.ItemID, Qty: moved, Quality: avgQ,
-			FromCity: c.CityFrom, ToCity: c.CityTo, TicksLeft: max(1, routeTicks), CostPaid: shipCost, OwnFleet: own,
+		ship := e.createShipment(c.BuyerID, c.ItemID, c.CityFrom, c.CityTo, moved, avgQ, own)
+		ticks := 1
+		dist := 0.0
+		if ship != nil {
+			ticks = ship.TicksLeft
+			dist = ship.Distance
 		}
 		c.TicksLeft--
-		*log = append(*log, fmt.Sprintf("Контракт %s: %d %s → %s", c.ID[:8], moved, c.ItemID, c.CityTo))
+		*log = append(*log, fmt.Sprintf("Контракт %s: %d %s → %s · %d тик(ов), дист. %.0f", c.ID[:8], moved, c.ItemID, c.CityTo, ticks, dist))
 	}
 }
 
@@ -137,7 +146,7 @@ func (e *Engine) advanceShipments(log *[]string) {
 				}
 			}
 		}
-		*log = append(*log, fmt.Sprintf("Доставка %d %s в %s", s.Qty, s.ItemID, s.ToCity))
+		*log = append(*log, fmt.Sprintf("Доставка %d %s в %s (дист. %.0f)", s.Qty, s.ItemID, s.ToCity, s.Distance))
 		delete(e.World.Shipments, id)
 	}
 }
@@ -285,10 +294,17 @@ func (e *Engine) matchMarket(log *[]string) {
 			}
 			buyer.Cash -= pay
 			seller.Cash += pay
-			e.putInventory(b.FirmID, b.CityID, b.ItemID, taken)
+			own := buyer.Trucks > 0
+			// Доставка всегда по расстоянию, минимум 1 тик — даже в том же городе.
+			ship := e.createShipment(b.FirmID, b.ItemID, s.CityID, b.CityID, taken, s.Quality, own)
+			ticks, dist := 1, 0.0
+			if ship != nil {
+				ticks = ship.TicksLeft
+				dist = ship.Distance
+			}
 			s.Filled += taken
 			b.Filled += taken
-			*log = append(*log, fmt.Sprintf("Биржа: %d %s @ %.1f", taken, k.item, price))
+			*log = append(*log, fmt.Sprintf("Биржа: %d %s @ %.1f · доставка %d тик (%.0f)", taken, k.item, price, ticks, dist))
 			if s.Qty-s.Filled <= 0 {
 				si++
 			}
@@ -641,18 +657,6 @@ func (e *Engine) firmBuildingsInCity(firmID, cityID string) []*model.BuildingIns
 		}
 	}
 	return out
-}
-
-func (e *Engine) routeInfo(from, to string) (int, float64) {
-	if from == to {
-		return 0, 0
-	}
-	for _, r := range e.Catalog.Routes {
-		if (r.From == from && r.To == to) || (r.From == to && r.To == from) {
-			return r.Ticks, r.CostPerUnit
-		}
-	}
-	return 2, 4
 }
 
 func min(a, b int) int {

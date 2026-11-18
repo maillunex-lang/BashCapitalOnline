@@ -22,6 +22,7 @@ extends Control
 @onready var rankings_box: ItemList = $SafeArea/UI/RankPanel/Margin/VBox/List
 @onready var city_tabs: HBoxContainer = $SafeArea/UI/CityTabs
 @onready var settings_panel: SettingsPanel = $SafeArea/UI/SettingsPanel
+@onready var manage_panel: ManagePanel = $SafeArea/UI/ManagePanel
 @onready var game_layer: Node2D = $GameLayer
 @onready var bottom_panel: PanelContainer = $SafeArea/UI/BottomPanel
 @onready var rank_panel: PanelContainer = $SafeArea/UI/RankPanel
@@ -29,6 +30,7 @@ extends Control
 var current_city: String = "ufa"
 var selected_parcel: Dictionary = {}
 var grade_material: ShaderMaterial
+var season_names := ["", "Ҡыш", "Ҡыш", "Яҙ", "Яҙ", "Яҙ", "Йәй", "Йәй", "Йәй", "Көҙ", "Көҙ", "Көҙ", "Ҡыш"]
 
 func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -57,12 +59,17 @@ func _ready() -> void:
 	settings_panel.subscribe_pressed.connect(_on_subscribe)
 	settings_panel.hire_deputy_pressed.connect(_on_hire_deputy)
 	settings_panel.deputy_tasks_pressed.connect(_on_deputy_tasks)
+	manage_panel.save_building.connect(_on_save_building)
+	manage_panel.save_shop.connect(_on_save_shop)
+	manage_panel.stock_shop.connect(_on_stock_shop)
+	manage_panel.closed.connect(func(): manage_panel.visible = false)
 	side.visible = false
 	game_layer.visible = false
 	bottom_panel.visible = false
 	rank_panel.visible = false
 	city_tabs.visible = false
 	settings_panel.visible = false
+	manage_panel.visible = false
 
 func _fill_build_options() -> void:
 	build_option.clear()
@@ -158,7 +165,9 @@ func _refresh() -> void:
 
 func _render_world() -> void:
 	var w: Dictionary = api.world
-	tick_label.text = "Тик %s · %s.%s" % [w.get("tick", 0), w.get("month", 1), w.get("year", 2026)]
+	var month: int = int(w.get("month", 1))
+	var season := season_names[month] if month >= 1 and month <= 12 else ""
+	tick_label.text = "Тик %s · %s.%s · %s" % [w.get("tick", 0), month, w.get("year", 2026), season]
 	if api.firm_id != "" and w.has("firms"):
 		var f: Dictionary = w["firms"].get(api.firm_id, {})
 		var sub := " · PRO" if f.get("subscription_active", false) else ""
@@ -171,6 +180,7 @@ func _render_world() -> void:
 	log_box.clear()
 	for line in logs:
 		log_box.append_text(str(line) + "\n")
+	_render_my_assets()
 
 func _render_rankings() -> void:
 	rankings_box.clear()
@@ -187,14 +197,27 @@ func _on_tile_clicked(x: int, y: int, parcel: Dictionary) -> void:
 	var zone := str(parcel.get("zone", "?"))
 	var slots := int(parcel.get("retail_slots", 0))
 	side_body.clear()
-	side_body.append_text("[b]Участок (%s, %s)[/b]\nЗона: %s\nДорога: %s\nСлоты аренды: %s\nТрафик: %.2f\n" % [
-		x, y, zone, "да" if bool(parcel.get("has_road", false)) else "нет (подведём за ваш счёт)", slots, float(parcel.get("traffic", 0))
+	side_body.append_text("[b]Участок (%s, %s)[/b]\nЗона: %s\nДорога: %s\nСлоты аренды: %s\nТрафик: %.2f\nВысота: %.2f\n" % [
+		x, y, zone, "да" if bool(parcel.get("has_road", false)) else "нет (подведём за ваш счёт)", slots, float(parcel.get("traffic", 0)), float(parcel.get("elevation", 0))
 	])
 	var city: Dictionary = api.world.get("cities", {}).get(current_city, {})
 	for d in city.get("deposits", []):
 		if int(d.get("x", 999)) == x and int(d.get("y", 999)) == y and int(d.get("amount", 0)) > 0:
 			side_body.append_text("\n[color=#c2b280]Залежь: %s · %s/%s[/color]\n" % [d.get("item_id"), d.get("amount"), d.get("max_amount")])
 			break
+	# CapLab-style manage: tap owned factory/shop
+	for id in api.world.get("buildings", {}).keys():
+		var b: Dictionary = api.world["buildings"][id]
+		if str(b.get("firm_id")) == api.firm_id and str(b.get("city_id")) == current_city and int(b.get("x")) == x and int(b.get("y")) == y:
+			side_body.append_text("\n[color=#9fd4c2]Ваш завод — откройте настройку[/color]\n")
+			manage_panel.open_building(b, api.catalog, api.world, api.firm_id)
+			return
+	for id in api.world.get("shops", {}).keys():
+		var s: Dictionary = api.world["shops"][id]
+		if str(s.get("firm_id")) == api.firm_id and str(s.get("city_id")) == current_city and int(s.get("x")) == x and int(s.get("y")) == y:
+			side_body.append_text("\n[color=#d4c29f]Ваш магазин — откройте настройку[/color]\n")
+			manage_panel.open_shop(s, api.catalog)
+			return
 
 func _on_build_pressed() -> void:
 	if selected_parcel.is_empty():
@@ -280,3 +303,29 @@ func _city_name(id: String) -> String:
 
 func _money(v) -> String:
 	return str(int(float(v)))
+
+func _render_my_assets() -> void:
+	# Asset shortcuts stay in side body footer when no parcel focus needed.
+	pass
+
+func _on_save_building(payload: Dictionary) -> void:
+	var res := await api.action("configure_building", payload)
+	if res.has("error"):
+		status_label.text = str(res["error"])
+	else:
+		status_label.text = "Завод настроен"
+	await _refresh()
+
+func _on_save_shop(payload: Dictionary) -> void:
+	var res := await api.action("configure_shop", payload)
+	if res.has("error"):
+		status_label.text = str(res["error"])
+	else:
+		status_label.text = "Магазин настроен"
+	await _refresh()
+
+func _on_stock_shop(shop_id: String, qty: int) -> void:
+	var res := await api.action("stock_shop", {"shop_id": shop_id, "qty": qty})
+	if res.has("error"):
+		status_label.text = str(res["error"])
+	await _refresh()

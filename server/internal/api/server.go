@@ -10,24 +10,29 @@ import (
 
 	"bashcapital/server/internal/model"
 	"bashcapital/server/internal/sim"
+	"bashcapital/server/internal/store"
 )
 
 type Server struct {
-	Engine   *sim.Engine
-	Mu       sync.RWMutex
-	Upgrader websocket.Upgrader
-	clients  map[*websocket.Conn]bool
-	tickEvery time.Duration
+	Engine     *sim.Engine
+	DB         *store.DB
+	Mu         sync.RWMutex
+	Upgrader   websocket.Upgrader
+	clients    map[*websocket.Conn]bool
+	tickEvery  time.Duration
 	manualOnly bool
+	AdminToken string
 }
 
-func New(engine *sim.Engine, tickEvery time.Duration, manualOnly bool) *Server {
+func New(engine *sim.Engine, tickEvery time.Duration, manualOnly bool, adminToken string, db *store.DB) *Server {
 	return &Server{
 		Engine: engine,
+		DB:     db,
 		Upgrader: websocket.Upgrader{CheckOrigin: func(r *http.Request) bool { return true }},
-		clients: map[*websocket.Conn]bool{},
-		tickEvery: tickEvery,
+		clients:    map[*websocket.Conn]bool{},
+		tickEvery:  tickEvery,
 		manualOnly: manualOnly,
+		AdminToken: adminToken,
 	}
 }
 
@@ -41,6 +46,22 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("/api/deputy/catalog", s.handleDeputyCatalog)
 	mux.HandleFunc("/api/action/", s.handleAction)
 	mux.HandleFunc("/api/tick", s.handleManualTick)
+	mux.HandleFunc("/api/route", s.handleRouteQuote)
+	mux.HandleFunc("/api/auth/register", s.handleAuthRegister)
+	mux.HandleFunc("/api/auth/login", s.handleAuthLogin)
+	mux.HandleFunc("/api/auth/me", s.handleAuthMe)
+	mux.HandleFunc("/api/payment/create", s.handlePaymentCreate)
+	mux.HandleFunc("/api/payment/status", s.handlePaymentGet)
+	mux.HandleFunc("/api/payment/webhook/yookassa", s.handleYooKassaWebhook)
+	mux.HandleFunc("/api/payment/mock-pay", s.handlePaymentMockPay)
+	mux.HandleFunc("/api/admin/status", s.handleAdminStatus)
+	mux.HandleFunc("/api/admin/tick", s.handleAdminTick)
+	mux.HandleFunc("/api/admin/pause", s.handleAdminPause)
+	mux.HandleFunc("/api/admin/economy", s.handleAdminEconomy)
+	mux.HandleFunc("/api/admin/cities", s.handleAdminCities)
+	mux.HandleFunc("/api/admin/recipe", s.handleAdminRecipe)
+	mux.HandleFunc("/api/updates/manifest", s.handleUpdatesManifest)
+	mux.HandleFunc("/api/map/ack", s.handleMapAck)
 	mux.HandleFunc("/ws", s.handleWS)
 	return withCORS(mux)
 }
@@ -48,13 +69,31 @@ func (s *Server) Handler() http.Handler {
 func withCORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Firm-Id")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Firm-Id, X-Admin-Token, X-Session-Token")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(204)
 			return
 		}
 		next.ServeHTTP(w, r)
+	})
+}
+
+func (s *Server) handleRouteQuote(w http.ResponseWriter, r *http.Request) {
+	from := r.URL.Query().Get("from")
+	to := r.URL.Query().Get("to")
+	if from == "" || to == "" {
+		http.Error(w, "from&to required", 400)
+		return
+	}
+	s.Mu.RLock()
+	defer s.Mu.RUnlock()
+	ticks, cost := s.Engine.RouteQuote(from, to)
+	dist := s.Engine.CityDistance(from, to)
+	writeJSON(w, map[string]any{
+		"from": from, "to": to,
+		"ticks": ticks, "cost_per_unit": cost, "distance": dist,
+		"min_ticks": 1,
 	})
 }
 
@@ -66,9 +105,12 @@ func (s *Server) StartTicker() {
 		t := time.NewTicker(s.tickEvery)
 		for range t.C {
 			s.Mu.Lock()
-			s.Engine.Tick()
+			if !s.Engine.Paused {
+				s.Engine.Tick()
+			}
+			tick := s.Engine.World.Tick
 			s.Mu.Unlock()
-			s.broadcast(map[string]any{"type": "tick", "tick": s.Engine.World.Tick})
+			s.broadcast(map[string]any{"type": "tick", "tick": tick})
 		}
 	}()
 }
@@ -82,7 +124,7 @@ func (s *Server) handleCatalog(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, map[string]any{
 		"items": c.Items, "recipes": c.Recipes, "buildings": c.Buildings, "shops": c.Shops,
 		"cities": c.Cities, "routes": c.Routes,
-		"economy": c.Economy, "ai_personas": c.AIPersonas,
+		"economy": c.Economy, "ai_personas": c.AIPersonas, "rnd_tree": c.RnDTree,
 	})
 }
 
@@ -122,12 +164,20 @@ func (s *Server) handleRegister(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 400)
 		return
 	}
+	acc, sess, _ := s.sessionFromRequest(r)
 	s.Mu.Lock()
 	defer s.Mu.Unlock()
 	firm, err := s.Engine.CreatePlayer(body.Name, body.Industry)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
+	}
+	if acc != nil && s.DB != nil {
+		firm.AccountID = acc.ID
+		_ = s.DB.LinkFirm(acc.ID, firm.ID)
+		if sess != nil {
+			_ = s.DB.UpdateSessionFirm(sess.Token, firm.ID)
+		}
 	}
 	writeJSON(w, firm)
 }
@@ -155,9 +205,9 @@ func (s *Server) handleAction(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "POST", 405)
 		return
 	}
-	firmID := r.Header.Get("X-Firm-Id")
+	firmID := s.resolveFirmID(r)
 	if firmID == "" {
-		http.Error(w, "X-Firm-Id required", 401)
+		http.Error(w, "X-Firm-Id or X-Session-Token required", 401)
 		return
 	}
 	action := r.URL.Path[len("/api/action/"):]

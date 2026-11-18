@@ -97,10 +97,19 @@ type ChatConfig struct {
 	MinTicksBetweenAIMsg  int `json:"min_ticks_between_ai_msg"`
 }
 
+// LogisticsConfig — доставка по расстоянию (как в жизни): тики = f(дистанция), минимум 1.
+type LogisticsConfig struct {
+	UnitsPerTick     float64 `json:"units_per_tick"`      // map units per 1 tick of travel
+	CostPerUnitDist  float64 `json:"cost_per_unit_dist"`  // ₽ per map-unit per cargo unit
+	LocalCostPerUnit float64 `json:"local_cost_per_unit"` // same-city last mile
+	BaseCostPerUnit  float64 `json:"base_cost_per_unit"`  // fixed loading fee
+}
+
 type EconomyConfig struct {
 	PriceCorridors map[string]PriceCorridor `json:"price_corridors"`
 	CityMarket     []CityMarketOffer        `json:"city_market"`
 	Chat           ChatConfig               `json:"chat"`
+	Logistics      LogisticsConfig          `json:"logistics"`
 }
 
 type AIPersona struct {
@@ -118,6 +127,18 @@ type AIPersona struct {
 	Cash          float64 `json:"cash"`
 }
 
+type RnDNode struct {
+	ID              string   `json:"id"`
+	Name            string   `json:"name"`
+	Cost            int      `json:"cost"`
+	Requires        []string `json:"requires"`
+	UnlocksRecipes  []string `json:"unlocks_recipes"`
+}
+
+type RnDTree struct {
+	Nodes []RnDNode `json:"nodes"`
+}
+
 type Catalog struct {
 	Items        []ItemDef
 	Recipes      []RecipeDef
@@ -127,6 +148,7 @@ type Catalog struct {
 	Routes       []RouteDef
 	Economy      EconomyConfig
 	AIPersonas   []AIPersona
+	RnDTree      RnDTree
 	ItemByID     map[string]ItemDef
 	RecipeByID   map[string]RecipeDef
 	BuildingByID map[string]BuildingDef
@@ -136,15 +158,16 @@ type Catalog struct {
 }
 
 type Parcel struct {
-	X        int     `json:"x"`
-	Y        int     `json:"y"`
-	Zone     string  `json:"zone"` // center, residential, commercial, industrial, rural, empty
-	OwnerID  string  `json:"owner_id,omitempty"`
-	Building string  `json:"building_id,omitempty"` // instance id
-	Slots    int     `json:"retail_slots"`
-	RentedBy string  `json:"rented_by,omitempty"`
-	Traffic  float64 `json:"traffic"`
-	HasRoad  bool    `json:"has_road"`
+	X         int     `json:"x"`
+	Y         int     `json:"y"`
+	Zone      string  `json:"zone"` // center, residential, commercial, industrial, rural, empty
+	OwnerID   string  `json:"owner_id,omitempty"`
+	Building  string  `json:"building_id,omitempty"` // instance id
+	Slots     int     `json:"retail_slots"`
+	RentedBy  string  `json:"rented_by,omitempty"`
+	Traffic   float64 `json:"traffic"`
+	HasRoad   bool    `json:"has_road"`
+	Elevation float64 `json:"elevation"` // mild heightmap for map_3d / iso offset
 }
 
 type BuildingInst struct {
@@ -219,6 +242,7 @@ type Firm struct {
 	Deputy             *Deputy            `json:"deputy,omitempty"`
 	PersonaID          string             `json:"persona_id,omitempty"`
 	LastChatTick       int                `json:"last_chat_tick,omitempty"`
+	AccountID          string             `json:"account_id,omitempty"`
 }
 
 type MarketOrder struct {
@@ -258,6 +282,8 @@ type Shipment struct {
 	TicksLeft  int     `json:"ticks_left"`
 	CostPaid   float64 `json:"cost_paid"`
 	OwnFleet   bool    `json:"own_fleet"`
+	Distance   float64 `json:"distance"` // map units (≈km scale)
+	Mode       string  `json:"mode"`     // local|road|rail
 }
 
 // ResourceDeposit — конечная залежь на карте; после исчерпания появляется в другом месте.

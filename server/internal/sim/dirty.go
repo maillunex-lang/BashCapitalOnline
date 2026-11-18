@@ -16,3 +16,6 @@ func (e *Engine) markDirty(cityID string, x, y int, reason string) {
 func (e *Engine) clearDirty() {
 	e.World.DirtyTiles = nil
 }
+
+// ClearDirty exports clear for admin/API ack.
+func (e *Engine) ClearDirty() { e.clearDirty() }

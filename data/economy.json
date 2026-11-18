@@ -55,7 +55,15 @@
     "toy": {"min": 15, "max": 120},
     "book": {"min": 12, "max": 100},
     "steel_goods": {"min": 25, "max": 200},
-    "fuel_can": {"min": 30, "max": 220}
+    "fuel_can": {"min": 30, "max": 220},
+    "honey": {"min": 20, "max": 160},
+    "koumiss": {"min": 25, "max": 180},
+    "qurut": {"min": 18, "max": 140},
+    "chakchak": {"min": 22, "max": 160},
+    "baursak": {"min": 15, "max": 120},
+    "herbal_tea": {"min": 12, "max": 100},
+    "felt": {"min": 20, "max": 150},
+    "bashkir_carpet": {"min": 80, "max": 600}
   },
   "city_market": [
     {"item_id": "wheat", "price": 5, "quality": 1.4, "stock_per_tick": 50},
@@ -77,5 +85,11 @@
     "max_messages": 120,
     "ai_messages_per_tick_cap": 2,
     "min_ticks_between_ai_msg": 2
+  },
+  "logistics": {
+    "units_per_tick": 80,
+    "cost_per_unit_dist": 0.012,
+    "local_cost_per_unit": 0.8,
+    "base_cost_per_unit": 1.2
   }
 }

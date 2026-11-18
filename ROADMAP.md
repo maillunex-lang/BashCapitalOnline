@@ -3,7 +3,7 @@
 > **Для AI-исполнителей:** сначала прочитай [`AGENTS.md`](./AGENTS.md) и [`roadmap/STATUS.json`](./roadmap/STATUS.json).  
 > Статус в `STATUS.json` — источник истины. Этот файл — человекочитаемое зеркало.
 
-Обновлено: 2026-11-18 · Каноническая ветка: **`main`** · PR: [#1](https://github.com/maillunex-lang/BashCapitalOnline/pull/1)
+Обновлено: 2026-11-18 · Каноническая ветка: **`main`**
 
 > AI и люди: после завершения задачи **пушить в `main`**. Feature-ветки — только промежуточно.
 
@@ -19,10 +19,8 @@
 
 ## Сейчас (next)
 
-1. **RM-ADMIN** — Админ-портал мира (цены, рецепты, тики, города)
-2. **RM-ASSETS-APK** — Remote assets + самообновление APK
-3. **RM-MAP-DIRTY** — Инкрементальная перерисовка карты (dirty tiles) до конца
-4. **RM-GODOT-MOBILE** — Godot UI: панели завода/магазина как в web, телефонные layout’ы
+1. **RM-ASSETS-APK** — Remote assets + самообновление APK
+2. **RM-MAP-DIRTY** — Инкрементальная перерисовка карты (dirty tiles) до конца
 
 ## Сделано (done)
 
@@ -39,17 +37,21 @@
 | RM-MAP-SPRITES | Iso-спрайты зданий/залежей/тайлов |
 | RM-WEB-MOBILE | Web UI: mobile tabs, manage sheet завода/магазина, иконки |
 | RM-ROADMAP-DOCS | ROADMAP.md + STATUS.json + AGENTS.md + sync script |
+| RM-ADMIN | Админ API + `web/admin.html` (pause/tick/cities/economy) |
+| RM-GODOT-MOBILE | Godot ManagePanel завода/магазина |
+| RM-PERSIST | SQLite autosave мира + accounts/payments |
+| RM-AUTH | Аккаунты / сессии (`X-Session-Token`) |
+| RM-PAYMENT | YooKassa-ready create + webhook + mock-pay |
+| RM-LOGISTICS-DIST | Доставка по расстоянию, минимум 1 тик |
+| RM-BASHKIR-FLAVOR | Ҡымыҙ/ҡорот/сәк-сәк/мёд, season, rnd_tree, elevation |
 
 ## Backlog
 
 | ID | Что | Заметки |
 |----|-----|---------|
-| RM-STERLITAMAK | Включить 3-й город (Стерлитамак) | После админки городов |
+| RM-STERLITAMAK | Включить 3-й город (Стерлитамак) | Админка городов готова |
 | RM-DEMAND | Спрос по сегментам качества/бренда глубже CapLab | |
 | RM-CONTRACTS-UI | UI контрактов и биржи на телефоне | |
-| RM-PAYMENT | Реальная оплата подписки (не mock) | Нужны секреты |
-| RM-PERSIST | Сохранение мира (Postgres/SQLite) | Сейчас in-memory |
-| RM-AUTH | Аккаунты игроков / сессии | |
 | RM-BALANCE | Баланс экономики под hourly ticks | |
 | RM-I18N | Башкирский / английский UI | |
 

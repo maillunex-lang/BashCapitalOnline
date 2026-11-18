@@ -134,6 +134,7 @@ func (e *Engine) RentShop(firmID, cityID string, x, y int, shopType, itemID stri
 	e.World.Shops[id] = shop
 	parcel.RentedBy = firmID
 	parcel.HasRoad = true
+	e.markDirty(cityID, x, y, "shop")
 	return shop, nil
 }
 

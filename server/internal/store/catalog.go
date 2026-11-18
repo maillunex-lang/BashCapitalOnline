@@ -42,6 +42,7 @@ func LoadCatalog(dataDir string) (*model.Catalog, error) {
 	}
 	_ = readJSON(filepath.Join(dataDir, "economy.json"), &c.Economy)
 	_ = readJSON(filepath.Join(dataDir, "ai_personas.json"), &c.AIPersonas)
+	_ = readJSON(filepath.Join(dataDir, "rnd_tree.json"), &c.RnDTree)
 	for _, it := range c.Items {
 		c.ItemByID[it.ID] = it
 	}

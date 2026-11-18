@@ -138,7 +138,13 @@ func _draw() -> void:
 				_draw_catchment(x, y, r)
 
 func _iso(x: int, y: int) -> Vector2:
-	return Vector2((x - y) * TILE_W * 0.5, (x + y) * TILE_H * 0.5)
+	var elev := 0.0
+	for p in parcels:
+		if int(p.get("x", 999)) == x and int(p.get("y", 999)) == y:
+			elev = float(p.get("elevation", 0))
+			break
+	# map_3d lite: elevation shifts iso Y (Urals relief)
+	return Vector2((x - y) * TILE_W * 0.5, (x + y) * TILE_H * 0.5 - elev * 10.0)
 
 func _draw_tile(center: Vector2, col: Color) -> void:
 	var pts := PackedVector2Array([

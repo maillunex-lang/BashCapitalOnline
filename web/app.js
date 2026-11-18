@@ -176,6 +176,13 @@ async function refresh() {
     return `<div class="row"><div><strong>${o.side === "sell" ? "Продажа" : "Покупка"}</strong> ${itemName(o.item_id)} ×${o.qty - o.filled}<br/>${firm?.name || o.firm_id} · ${money(o.price)} ₽</div></div>`;
   }).join("") || "<div class='row'>Биржа пуста</div>";
 
+  const ships = Object.values(w.shipments || {});
+  if ($("shipments")) {
+    $("shipments").innerHTML = "<h3 style='color:var(--accent-2);font-size:13px'>В пути (мин. 1 тик)</h3>" + (ships.map((s) =>
+      `<div class="row"><div><strong>${itemName(s.item_id)}</strong> ×${s.qty}<br/>${s.from_city} → ${s.to_city} · ${s.ticks_left} тик · дист. ${Math.round(s.distance || 0)}</div></div>`
+    ).join("") || "<div class='row'>Нет доставок</div>");
+  }
+
   renderMyAssets();
   drawMap();
   if (state.manage) reopenManage();

@@ -13,7 +13,7 @@
     "rent_mult": 0.9,
     "allowed_categories": ["food", "grain"],
     "allowed_tiers": ["finished"],
-    "allowed_items": ["bread", "pastry", "flour", "snack"],
+    "allowed_items": ["bread", "pastry", "flour", "snack", "chakchak", "baursak"],
     "icon": "shop_bakery"
   },
   {
@@ -22,7 +22,7 @@
     "rent_mult": 1.2,
     "allowed_categories": ["home"],
     "allowed_tiers": ["finished"],
-    "allowed_items": ["furniture", "toy", "book", "steel_goods"],
+    "allowed_items": ["furniture", "toy", "book", "steel_goods", "bashkir_carpet"],
     "icon": "shop_furniture"
   },
   {

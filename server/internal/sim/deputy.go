@@ -26,13 +26,28 @@ func (e *Engine) ActivateSubscription(firmID string, months int) error {
 	if months <= 0 {
 		months = 1
 	}
-	// Mock donate: in production replace with payment webhook (YooKassa etc.)
-	cost := 490.0 * float64(months) // decorative price in soft currency for MVP mock
+	// Dev mock: charge soft cash. Real money path: ActivateSubscriptionPaid via YooKassa webhook.
+	cost := 490.0 * float64(months)
 	if firm.Cash < cost {
-		// allow activating even with low cash in mock via "donate flag" — still charge if possible
 		cost = 0
 	}
 	firm.Cash -= cost
+	return e.extendSubscription(firm, months, "mock")
+}
+
+// ActivateSubscriptionPaid — после успешной оплаты (YooKassa webhook / mock-pay).
+func (e *Engine) ActivateSubscriptionPaid(firmID string, months int) error {
+	firm := e.World.Firms[firmID]
+	if firm == nil || firm.IsAI {
+		return fmt.Errorf("фирма не найдена")
+	}
+	if months <= 0 {
+		months = 1
+	}
+	return e.extendSubscription(firm, months, "yookassa")
+}
+
+func (e *Engine) extendSubscription(firm *model.Firm, months int, via string) error {
 	extend := months * 24 // 24 hourly ticks per game month
 	if firm.SubscriptionActive && firm.SubscriptionUntil > e.World.Tick {
 		firm.SubscriptionUntil += extend
@@ -40,7 +55,7 @@ func (e *Engine) ActivateSubscription(firmID string, months int) error {
 		firm.SubscriptionUntil = e.World.Tick + extend
 	}
 	firm.SubscriptionActive = true
-	e.World.Events = append(e.World.Events, fmt.Sprintf("%s оформил подписку до тика %d", firm.Name, firm.SubscriptionUntil))
+	e.World.Events = append(e.World.Events, fmt.Sprintf("%s оформил подписку (%s) до тика %d", firm.Name, via, firm.SubscriptionUntil))
 	return nil
 }
 

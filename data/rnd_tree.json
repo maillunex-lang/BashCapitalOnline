@@ -1,0 +1,11 @@
+{
+  "nodes": [
+    {"id": "agro_basics", "name": "Агрономия Башкортостана", "cost": 0, "requires": [], "unlocks_recipes": ["grow_wheat", "grow_potato", "farm_milk"]},
+    {"id": "orchard_craft", "name": "Садоводство и бортничество", "cost": 400, "requires": ["agro_basics"], "unlocks_recipes": ["farm_cherry", "farm_apple", "harvest_honey"]},
+    {"id": "dairy_tradition", "name": "Молочные традиции", "cost": 600, "requires": ["agro_basics"], "unlocks_recipes": ["make_koumiss", "make_qurut", "bottle_milk"]},
+    {"id": "bashkir_bakery", "name": "Национальная выпечка", "cost": 700, "requires": ["orchard_craft"], "unlocks_recipes": ["make_chakchak", "make_baursak"]},
+    {"id": "textile_felt", "name": "Войлок и ткачество", "cost": 800, "requires": ["agro_basics"], "unlocks_recipes": ["make_felt", "make_bashkir_carpet"]},
+    {"id": "ural_metal", "name": "Уральская металлургия", "cost": 500, "requires": [], "unlocks_recipes": ["smelt_steel", "steel_goods"]},
+    {"id": "oil_chain", "name": "Нефтехимия", "cost": 900, "requires": ["ural_metal"], "unlocks_recipes": ["refine_diesel", "pack_fuel"]}
+  ]
+}

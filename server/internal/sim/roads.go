@@ -66,6 +66,7 @@ func (e *Engine) ensureRoadAccess(firm *model.Firm, city *model.CityState, x, y 
 		}
 		p.HasRoad = true
 		p.Traffic = maxf(p.Traffic, 0.5)
+		e.markDirty(city.ID, pt[0], pt[1], "road")
 	}
 	return newTiles, cost, nil
 }
