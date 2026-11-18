@@ -27,7 +27,7 @@
       "status": "in_progress",
       "maturity": "unverified",
       "area": "client/server",
-      "notes": "Phase 1 complete on local Go + headless Godot: 170 items, 200 recipes, 92 buildings, 14 shops and V2 grocery rental. Phase 2 (three cities and incremental Godot map) is next. Signed APK, device verification, and the full production-to-retail loop remain pending.",
+      "notes": "Phase 1 catalog and phase 2 map verified locally in Godot and Chromium. Next is the production-to-retail loop. Low-end Android profiling, signed APK and device verification remain open.",
       "files": [
         "roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md",
         "data/catalog_v2/",
@@ -343,7 +343,7 @@
       "status": "done",
       "maturity": "scaffold",
       "area": "client",
-      "notes": "Server tracks dirty tiles; client receives map_revision/dirty list but still full-redraws. Real incremental paint is RM-MAP-INCREMENTAL.",
+      "notes": "Server publishes a bounded dirty list and map revision. Clients compare visible fields in the authoritative snapshot, which also covers deposits and updates after the buffer is cleared.",
       "files": [
         "server/internal/sim/dirty.go",
         "client/scripts/city_map.gd",
@@ -388,15 +388,21 @@
     {
       "id": "RM-MAP-INCREMENTAL",
       "title": "Actual incremental map redraw (not full redraw)",
-      "status": "next",
-      "maturity": "scaffold",
+      "status": "done",
+      "maturity": "mvp",
       "area": "client",
       "depends_on": [
         "RM-MAP-DIRTY"
       ],
-      "notes": "Use dirty tile list to repaint only changed parcels/buildings on web + Godot.",
+      "notes": "Godot caches draw commands per parcel. Web clips repaint to damaged regions and redraws overlapping sprites in depth order. Verified at all three cities locally; Android frame, memory and draw-call profiling pending.",
       "updated": "2026-11-18",
-      "stage": "S8"
+      "stage": "S8",
+      "files": [
+        "client/scripts/city_map.gd",
+        "client/tests/city_map_smoke.gd",
+        "web/app.js",
+        "scripts/test_web_map.py"
+      ]
     },
     {
       "id": "RM-DEMAND",

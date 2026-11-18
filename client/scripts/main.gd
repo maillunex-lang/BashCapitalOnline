@@ -18,6 +18,7 @@ extends Control
 @onready var side_title: Label = $SafeArea/UI/SidePanel/Margin/VBox/Title
 @onready var side_body: RichTextLabel = $SafeArea/UI/SidePanel/Margin/VBox/Body
 @onready var build_option: OptionButton = $SafeArea/UI/SidePanel/Margin/VBox/BuildType
+@onready var build_recipe: OptionButton = $SafeArea/UI/SidePanel/Margin/VBox/BuildRecipe
 @onready var log_box: RichTextLabel = $SafeArea/UI/BottomPanel/Margin/Log
 @onready var rankings_box: ItemList = $SafeArea/UI/RankPanel/Margin/VBox/List
 @onready var city_tabs: HBoxContainer = $SafeArea/UI/CityTabs
@@ -60,6 +61,8 @@ func _ready() -> void:
 		industry_option.add_item(str(industries[i][0]), i)
 		industry_option.set_item_metadata(i, industries[i][1])
 	add_child(catalog_panel)
+	build_option.item_selected.connect(func(_index): _fill_build_recipes())
+	build_recipe.get_popup().add_theme_constant_override("icon_max_width", 28)
 	_fill_build_options()
 	city_map.tile_clicked.connect(_on_tile_clicked)
 	ambience.setup(gfx)
@@ -88,13 +91,29 @@ func _fill_build_options() -> void:
 	build_option.clear()
 	for entry in api.catalog.get("buildings", []):
 		CatalogUI.add_option(build_option, entry, "buildings")
+	_fill_build_recipes()
+
+func _fill_build_recipes() -> void:
+	build_recipe.clear()
+	var building := CatalogUI.selected_id(build_option)
+	var deposit := _parcel_deposit(selected_parcel)
+	for recipe in api.catalog.get("recipes", []):
+		if recipe["building_type"] != building:
+			continue
+		var item_id: String = recipe["output"]["item_id"]
+		var output := CatalogUI.find(api.catalog, "items", item_id)
+		var index := build_recipe.item_count
+		build_recipe.add_icon_item(CatalogUI.icon(output, "items"), recipe["name"])
+		build_recipe.set_item_metadata(index, recipe["id"])
+		if item_id == deposit.get("item_id") and not str(recipe.get("extract_mode", "")).is_empty():
+			build_recipe.select(index)
+	build_recipe.visible = build_recipe.item_count > 1
 
 func _on_catalog_pressed() -> void:
 	catalog_panel.open(api.catalog)
 
 func _on_quality_changed(level: int) -> void:
 	city_map.detail_level = level
-	city_map.queue_redraw()
 	# Ultra color grade on backdrop
 	if level >= GraphicsSettings.QUALITY_ULTRA:
 		if grade_material == null:
@@ -157,7 +176,6 @@ func _on_connect_pressed() -> void:
 	city_map.bind_catalog(api.catalog)
 	await remote_assets.check_and_fetch()
 	_fill_build_options()
-	_rebuild_city_tabs()
 	var industry: String = str(industry_option.get_item_metadata(industry_option.selected))
 	var firm := await api.register_firm(name_edit.text.strip_edges(), industry)
 	if not firm.has("id"):
@@ -182,7 +200,7 @@ func _on_connect_pressed() -> void:
 func _refresh() -> void:
 	await api.fetch_world()
 	_render_world()
-	_render_rankings()
+	await _render_rankings()
 
 func _render_world() -> void:
 	var w: Dictionary = api.world
@@ -195,11 +213,10 @@ func _render_world() -> void:
 		cash_label.text = "Касса: %s ₽ · Фуры: %s%s" % [_money(f.get("cash", 0)), f.get("trucks", 0), sub]
 	var cities: Dictionary = w.get("cities", {})
 	if cities.has(current_city):
-		var dirty: Array = []
-		for t in w.get("dirty_tiles", []):
-			if str(t.get("city_id", "")) == current_city:
-				dirty.append(t)
-		city_map.set_city_data(cities[current_city], w.get("buildings", {}), w.get("shops", {}), int(w.get("map_revision", -1)), dirty)
+		city_map.set_city_data(cities[current_city], w.get("buildings", {}), w.get("shops", {}), api.firm_id)
+		if not selected_parcel.is_empty():
+			selected_parcel = city_map.parcel_at(city_map.selected)
+			_render_parcel_details(selected_parcel)
 		side_title.text = _city_name(current_city)
 	var logs = w.get("last_tick_log")
 	log_box.clear()
@@ -209,8 +226,8 @@ func _render_world() -> void:
 	_render_my_assets()
 
 func _render_rankings() -> void:
-	rankings_box.clear()
 	var rows: Array = await api.rankings()
+	rankings_box.clear()
 	rows.sort_custom(func(a, b): return float(a.get("capital", 0)) > float(b.get("capital", 0)))
 	for r in rows:
 		var tag := "AI" if r.get("is_ai", false) else "Вы"
@@ -218,32 +235,61 @@ func _render_rankings() -> void:
 
 func _on_tile_clicked(x: int, y: int, parcel: Dictionary) -> void:
 	selected_parcel = parcel
-	selected_parcel["x"] = x
-	selected_parcel["y"] = y
+	_render_parcel_details(parcel)
+	_fill_build_recipes()
+	_open_parcel_management(x, y)
+
+func _render_parcel_details(parcel: Dictionary) -> void:
+	if parcel.is_empty():
+		side_body.text = "Выберите участок на карте"
+		return
+	var x := int(parcel["x"])
+	var y := int(parcel["y"])
 	var zone := str(parcel.get("zone", "?"))
 	var slots := int(parcel.get("retail_slots", 0))
 	side_body.clear()
 	side_body.append_text("[b]Участок (%s, %s)[/b]\nЗона: %s\nДорога: %s\nСлоты аренды: %s\nТрафик: %.2f\nВысота: %.2f\n" % [
 		x, y, zone, "да" if bool(parcel.get("has_road", false)) else "нет (подведём за ваш счёт)", slots, float(parcel.get("traffic", 0)), float(parcel.get("elevation", 0))
 	])
+	var deposit := _parcel_deposit(parcel)
+	if not deposit.is_empty():
+		side_body.append_text("\n[color=#c2b280]Залежь: %s · %s/%s[/color]\n" % [
+			CatalogUI.entry_name(api.catalog, "items", str(deposit["item_id"])),
+			deposit["amount"], deposit["max_amount"],
+		])
+
+	var coord := Vector2i(x, y)
+	var building := city_map.building_at(coord)
+	if not building.is_empty():
+		_append_business(CatalogUI.entry_name(api.catalog, "buildings", building["type"]), building["firm_id"])
+	var shop := city_map.shop_at(coord)
+	if not shop.is_empty():
+		_append_business(CatalogUI.entry_name(api.catalog, "shops", shop["shop_type"]), shop["firm_id"])
+
+func _append_business(name: String, firm_id: String) -> void:
+	var firm: Dictionary = api.world.get("firms", {}).get(firm_id, {})
+	side_body.add_text("\n%s · %s" % [name, firm.get("name", firm_id)])
+
+func _parcel_deposit(parcel: Dictionary) -> Dictionary:
 	var city: Dictionary = api.world.get("cities", {}).get(current_city, {})
-	for d in city.get("deposits", []):
-		if int(d.get("x", 999)) == x and int(d.get("y", 999)) == y and int(d.get("amount", 0)) > 0:
-			side_body.append_text("\n[color=#c2b280]Залежь: %s · %s/%s[/color]\n" % [CatalogUI.entry_name(api.catalog, "items", str(d.get("item_id"))), d.get("amount"), d.get("max_amount")])
-			break
-	# CapLab-style manage: tap owned factory/shop
-	for id in api.world.get("buildings", {}).keys():
-		var b: Dictionary = api.world["buildings"][id]
-		if str(b.get("firm_id")) == api.firm_id and str(b.get("city_id")) == current_city and int(b.get("x")) == x and int(b.get("y")) == y:
-			side_body.append_text("\n[color=#9fd4c2]Ваш завод — откройте настройку[/color]\n")
-			manage_panel.open_building(b, api.catalog, api.world, api.firm_id)
-			return
-	for id in api.world.get("shops", {}).keys():
-		var s: Dictionary = api.world["shops"][id]
-		if str(s.get("firm_id")) == api.firm_id and str(s.get("city_id")) == current_city and int(s.get("x")) == x and int(s.get("y")) == y:
-			side_body.append_text("\n[color=#d4c29f]Ваш магазин — откройте настройку[/color]\n")
-			manage_panel.open_shop(s, api.catalog)
-			return
+	var deposits = city.get("deposits")
+	if parcel.is_empty() or not deposits is Array:
+		return {}
+	for deposit in deposits:
+		if deposit["x"] == parcel["x"] and deposit["y"] == parcel["y"] and deposit["amount"] > 0:
+			return deposit
+	return {}
+
+func _open_parcel_management(x: int, y: int) -> void:
+	var coord := Vector2i(x, y)
+	var building := city_map.building_at(coord)
+	var shop := city_map.shop_at(coord)
+	if building.get("firm_id", "") == api.firm_id and not building.is_empty():
+		manage_panel.open_building(building, api.catalog, api.world, api.firm_id)
+	elif shop.get("firm_id", "") == api.firm_id and not shop.is_empty():
+		manage_panel.open_shop(shop, api.catalog)
+	else:
+		manage_panel.hide()
 
 func _on_build_pressed() -> void:
 	if selected_parcel.is_empty():
@@ -254,11 +300,11 @@ func _on_build_pressed() -> void:
 	var res := await api.action("build", {
 		"city_id": current_city,
 		"building_type": typ,
+		"recipe_id": CatalogUI.selected_id(build_recipe),
 		"x": selected_parcel.get("x", 0),
 		"y": selected_parcel.get("y", 0),
 	})
-	if res.has("error"):
-		status_label.text = str(res["error"])
+	status_label.text = str(res.get("error", "Здание построено"))
 	_render_world()
 
 func _on_rent_pressed() -> void:
@@ -295,14 +341,6 @@ func _on_tick_pressed() -> void:
 	await api.manual_tick()
 	await _refresh()
 
-func _on_city_ufa() -> void:
-	current_city = "ufa"
-	await _refresh()
-
-func _on_city_beloretsk() -> void:
-	current_city = "beloretsk"
-	await _refresh()
-
 func _city_enabled(id: String) -> bool:
 	for c in api.catalog.get("cities", []):
 		if str(c.get("id")) == id:
@@ -315,6 +353,7 @@ func _rebuild_city_tabs() -> void:
 	for child in city_tabs.get_children():
 		if child.name == "TickBtn":
 			continue
+		city_tabs.remove_child(child)
 		child.queue_free()
 	var tick_btn: Node = city_tabs.get_node_or_null("TickBtn")
 	for c in api.catalog.get("cities", []):
@@ -333,8 +372,11 @@ func _rebuild_city_tabs() -> void:
 func _on_city_selected(cid: String) -> void:
 	if current_city != cid:
 		selected_parcel = {}
+		manage_panel.hide()
 		side_body.text = "Выберите участок на карте"
 	current_city = cid
+	_fill_build_recipes()
+	_render_world()
 	await _refresh()
 
 func _city_name(id: String) -> String:

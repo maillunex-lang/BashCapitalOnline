@@ -3,7 +3,7 @@
 > **Для AI:** сначала [`AGENTS.md`](./AGENTS.md) → подробные этапы [`roadmap/STAGES.md`](./roadmap/STAGES.md) → статус [`roadmap/STATUS.json`](./roadmap/STATUS.json).  
 > `STATUS.json` — источник истины. `STAGES.md` — как выполнять. Этот файл — краткое зеркало.
 
-Обновлено: 2026-11-18 · Ветка: **`main`** · Текущий этап: **Android V2** (следующий шаг — карта трёх городов)
+Обновлено: 2026-11-18 · Ветка: **`main`** · Текущий этап: **Android V2** (следующий шаг — производственная цепочка)
 
 ## Честность статусов
 
@@ -16,7 +16,7 @@
 
 ## Сейчас
 
-[RM-ANDROID-V2-VERTICAL-SLICE](roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md) в работе. Каталог V2 и аренда магазина проверены через Godot и локальный Go-сервер. Следующий шаг — инкрементальная перерисовка карты Уфы, Белорецка и Стерлитамака. Подписанную APK и проверку на устройстве планируем после игрового цикла.
+[RM-ANDROID-V2-VERTICAL-SLICE](roadmap/RM-ANDROID-V2-VERTICAL-SLICE.md) в работе. Каталог V2, аренда магазина и частичная перерисовка карт Уфы, Белорецка и Стерлитамака проверены локально. Следующий шаг — цепочка «пшеница → мука → хлеб → магазин» и сохранение прогресса после перезапуска. Профилирование на Android и подписанный APK ещё впереди.
 
 ## Этапы (сводка)
 
@@ -25,13 +25,14 @@
 | S0–S4 | mvp ✅ | Foundation → demand |
 | S5 Contracts UI | mvp ✅ | Биржа/контракты в web |
 | **S6 Payments live** | 🔓 mvp | ЮKassa create+webhook; mock gated |
-| S7 Android verify | next | APK на устройстве |
+| S7 Android verify | в работе | APK на устройстве |
 | S8 Scale | backlog | Postgres, load-test, geo-map, i18n |
 
 ## Недавно сделано
 
 | ID | maturity | Что |
 |----|----------|-----|
+| RM-MAP-INCREMENTAL | mvp | Частичная перерисовка Godot и web, проверена стройка на подходящей залежи |
 | Android V2 · каталог | mvp | 170 товаров, 200 рецептов, 92 здания и 14 типов магазинов в Godot. Проверена аренда с товаром V2 |
 | RM-PAYMENT-LIVE | mvp | Live YooKassa create + verify webhook; mock-pay только -dev/ALLOW_MOCK_PAY |
 | RM-CONTRACTS-UI | mvp | Web ордера + контракты |
@@ -43,7 +44,7 @@
 
 ## Backlog
 
-RM-MAP-INCREMENTAL · RM-POSTGRES · RM-LOAD-TEST · RM-GEO-MAP · RM-I18N
+RM-POSTGRES · RM-LOAD-TEST · RM-GEO-MAP · RM-I18N
 
 ## Запуск
 

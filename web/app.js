@@ -57,7 +57,15 @@ function img(name, folder = "map") {
   const key = `${folder}:${name}`;
   if (state.imgs[key]) return state.imgs[key];
   const el = new Image();
-  el.onload = () => { if (state.tab === "map") drawMap(); };
+  el.onload = () => {
+    mapAssetRevision++;
+    if (state.tab === "map" && !mapAssetFrame) {
+      mapAssetFrame = requestAnimationFrame(() => {
+        mapAssetFrame = 0;
+        if (state.tab === "map") drawMap();
+      });
+    }
+  };
   el.src = `./assets/${folder}/${name}.png`;
   state.imgs[key] = el;
   return el;
@@ -340,7 +348,12 @@ function fillCityChips() {
     btn.dataset.city = c.id;
     btn.innerHTML = `<img src="./assets/ui/icon_map.png" alt="" /> ${c.name}`;
     btn.onclick = () => {
-      state.city = c.id;
+      if (state.city !== c.id) {
+        state.city = c.id;
+        state.selected = null;
+        $("tileInfo").textContent = "Выберите участок на карте";
+        drawMap();
+      }
       fillCityChips();
       refresh().catch(() => drawMap());
     };
@@ -749,15 +762,18 @@ function reopenManage() {
   if (state.manage?.kind === "shop") openShopManage(state.manage.id);
 }
 
-function iso(x, y) {
-  const { tw, th } = isoMetrics();
-  return [(x - y) * tw * 0.5, (x + y) * th * 0.5];
-}
-
 function preferMapSprite(el) {
   // Skip tiny placeholder map sprites (~1KB / tiny natural size); prefer catalog icons.
   if (!el?.complete || !el.naturalWidth) return false;
   return el.naturalWidth >= 64 && el.naturalHeight >= 64;
+}
+
+let mapAssetRevision = 0;
+let mapAssetFrame = 0;
+let paintedMap = null;
+
+function tileKey(entry) {
+  return `${entry.x},${entry.y}`;
 }
 
 function drawMap() {
@@ -765,7 +781,93 @@ function drawMap() {
   if (!canvas) return;
   const ctx = canvas.getContext("2d", { alpha: false });
   const w = canvas.width, h = canvas.height;
+  const city = state.world?.cities?.[state.city];
+  const { tw, th, icon } = isoMetrics();
+  const label = `${cityDefName()} · ×${tileScale().toFixed(2)} · тап = участок`;
+  const frameKey = JSON.stringify([city?.id, w, h, tw, th, label, mapAssetRevision]);
+  const tiles = new Map();
+  if (city) {
+    const at = (entries) => new Map(entries.map((entry) => [tileKey(entry), entry]));
+    const buildings = at(Object.values(state.world.buildings || {}).filter((b) => b.city_id === state.city));
+    const shops = at(Object.values(state.world.shops || {}).filter((s) => s.city_id === state.city));
+    const deposits = new Map();
+    for (const deposit of city.deposits || []) {
+      const key = tileKey(deposit);
+      if (deposit.amount > 0 && !deposits.has(key)) deposits.set(key, deposit);
+    }
+    for (const p of [...city.parcels].sort((a, b) => (a.x + a.y) - (b.x + b.y) || a.x - b.x)) {
+      const key = tileKey(p);
+      const bld = buildings.get(key), shop = shops.get(key), dep = deposits.get(key);
+      const selected = state.selected?.x === p.x && state.selected?.y === p.y;
+      const owned = !!bld && bld.firm_id === state.firmId;
+      const cx = w / 2 + (p.x - p.y) * tw / 2, cy = h * 0.36 + (p.x + p.y) * th / 2;
+      const sprite = bld ? mapImg(BUILDING_SPRITE[bld.type] || ("bld_" + bld.type))
+        : shop ? mapImg("bld_shop") : null;
+      const scale = Math.min(tw / 110, th / 40) * (bld ? 1.35 : 1.25);
+      const hasSprite = preferMapSprite(sprite);
+      // Include overlapping sprites, outlines and corner badges in the damage region.
+      const halfWidth = Math.max(tw * 0.55, hasSprite ? sprite.width * scale / 2 : 0) + 3;
+      const top = Math.max(th * 1.2, bld || shop ? tw * 0.7 : 0, hasSprite ? sprite.height * scale * 0.88 : 0) + 3;
+      const bottom = Math.max(th, hasSprite ? sprite.height * scale * 0.12 : 0) + 3;
+      const bounds = { left: cx - halfWidth, right: cx + halfWidth, top: cy - top, bottom: cy + bottom };
+      const appearance = JSON.stringify([
+        p.zone, p.has_road, p.retail_slots || p.slots || 0, selected, dep?.item_id,
+        bld?.type, !!shop, shop?.item_id, owned,
+      ]);
+      tiles.set(key, { p, selected, bld, shop, dep, owned, cx, cy, bounds, appearance });
+    }
+  }
 
+  if (state.selected) {
+    const tile = tiles.get(tileKey(state.selected));
+    if (tile) renderTileInfo(tile.p, tile.bld, tile.shop);
+    else {
+      state.selected = null;
+      $("tileInfo").textContent = "Выберите участок на карте";
+    }
+  }
+  const previous = paintedMap;
+  paintedMap = { frameKey, tiles };
+  if (previous?.frameKey !== frameKey) {
+    paintMap(ctx, w, h, city, tiles.values(), tw, th, icon, label);
+    return;
+  }
+
+  const damage = [];
+  for (const [key, tile] of tiles) {
+    const old = previous.tiles.get(key);
+    if (tile.appearance === old?.appearance) continue;
+    if (!old) {
+      damage.push(tile.bounds);
+      continue;
+    }
+    damage.push({
+      left: Math.min(tile.bounds.left, old.bounds.left),
+      right: Math.max(tile.bounds.right, old.bounds.right),
+      top: Math.min(tile.bounds.top, old.bounds.top),
+      bottom: Math.max(tile.bounds.bottom, old.bounds.bottom),
+    });
+  }
+  for (const [key, tile] of previous.tiles) {
+    if (!tiles.has(key)) damage.push(tile.bounds);
+  }
+  if (!damage.length) return;
+
+  ctx.save();
+  ctx.beginPath();
+  for (const rect of damage) {
+    const x = Math.floor(rect.left), y = Math.floor(rect.top);
+    ctx.rect(x, y, Math.ceil(rect.right) - x, Math.ceil(rect.bottom) - y);
+  }
+  ctx.clip();
+  const overlapping = [...tiles.values()].filter(({ bounds }) => damage.some((rect) =>
+    bounds.left < rect.right + 1 && bounds.right > rect.left - 1
+    && bounds.top < rect.bottom + 1 && bounds.bottom > rect.top - 1));
+  paintMap(ctx, w, h, city, overlapping, tw, th, icon, label);
+  ctx.restore();
+}
+
+function paintMap(ctx, w, h, city, tiles, tw, th, icon, label) {
   // Opaque base — never leave transparent pixels (headless shots / photo bleed)
   ctx.fillStyle = "#122820";
   ctx.fillRect(0, 0, w, h);
@@ -776,7 +878,6 @@ function drawMap() {
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, w, h);
 
-  const city = state.world?.cities?.[state.city];
   if (!city) {
     ctx.fillStyle = "#eef6f2";
     ctx.font = "600 22px Manrope";
@@ -784,24 +885,13 @@ function drawMap() {
     return;
   }
 
-  const { tw, th, sprite, icon } = isoMetrics();
-  const ox = w / 2, oy = h * 0.36;
   const colors = {
     center: "#3a7f78", residential: "#4f8a5f", industrial: "#7a828c",
     rural: "#7fad68", empty: "#3f524c", commercial: "#c4a35a",
   };
-  const parcels = [...city.parcels].sort((a, b) => (a.x + a.y) - (b.x + b.y));
-  const buildings = Object.values(state.world.buildings || {}).filter((b) => b.city_id === state.city);
-  const shops = Object.values(state.world.shops || {}).filter((s) => s.city_id === state.city);
-  const deposits = city.deposits || [];
-
-  for (const p of parcels) {
-    const [ix, iy] = iso(p.x, p.y);
-    const cx = ox + ix, cy = oy + iy;
-    const selected = state.selected && state.selected.x === p.x && state.selected.y === p.y;
-    // Empty industrial pads look like a gray checkerboard at scale — use meadow unless occupied.
-    const occupied = buildings.some((b) => b.x === p.x && b.y === p.y)
-      || shops.some((s) => s.x === p.x && s.y === p.y);
+  for (const { p, selected, bld, shop: shopHere, dep, owned, cx, cy } of tiles) {
+    // Empty industrial pads use meadow until occupied.
+    const occupied = bld || shopHere;
     let tileName = ZONE_TILE[p.zone] || "tile_grass";
     if (p.zone === "industrial" && !occupied) tileName = "tile_meadow";
     if (p.zone === "empty") tileName = "tile_grass";
@@ -824,7 +914,6 @@ function drawMap() {
       ctx.stroke();
     }
 
-    const dep = deposits.find((d) => d.x === p.x && d.y === p.y && d.amount > 0);
     if (dep) {
       const di = assetImg("item_" + dep.item_id, itemDef(dep.item_id)?.icon, "res_" + dep.item_id);
       const size = Math.min(icon * 0.55, tw * 0.55);
@@ -846,8 +935,6 @@ function drawMap() {
         ctx.globalAlpha = 1;
       }
     }
-    const bld = buildings.find((b) => b.x === p.x && b.y === p.y);
-    const shopHere = shops.find((s) => s.x === p.x && s.y === p.y);
     if (bld) {
       const mapSprite = mapImg(BUILDING_SPRITE[bld.type] || ("bld_" + bld.type));
       if (preferMapSprite(mapSprite)) {
@@ -861,7 +948,7 @@ function drawMap() {
           ctx.drawImage(badge, cx - bs / 2, cy - tw * 0.55 - bs * 0.2, bs, bs);
         }
       }
-      if (bld.firm_id === state.firmId) {
+      if (owned) {
         ctx.fillStyle = "#e0c575";
         ctx.beginPath();
         ctx.arc(cx + tw * 0.28, cy - th * 1.1, Math.max(4, tw * 0.06), 0, Math.PI * 2);
@@ -895,7 +982,7 @@ function drawMap() {
   ctx.globalAlpha = 1;
   ctx.fillStyle = "#eef6f2";
   ctx.font = "700 14px Manrope";
-  ctx.fillText(`${cityDefName()} · ×${tileScale().toFixed(2)} · тап = участок`, 26, h - 28);
+  ctx.fillText(label, 26, h - 28);
 }
 
 function cityDefName() {
@@ -936,6 +1023,16 @@ function pickTile(mx, my) {
   return city.parcels.find((p) => p.x === x && p.y === y) || null;
 }
 
+function renderTileInfo(p, bld, shop) {
+  const dep = (state.world?.cities?.[state.city]?.deposits || []).find((d) => d.x === p.x && d.y === p.y && d.amount > 0);
+  let info = `Участок (${p.x},${p.y}) · ${p.zone}`;
+  if (dep) info += ` · залежь ${itemName(dep.item_id)} ${dep.amount}/${dep.max_amount}`;
+  if (bld) info += ` · ${buildingName(bld.type)}`;
+  if (shop) info += ` · ${shopName(shop.shop_type)}: ${itemName(shop.item_id)}`;
+  if (state.place) info += " · готово к подтверждению";
+  $("tileInfo").textContent = info;
+}
+
 $("map").addEventListener("click", (e) => {
   const rect = $("map").getBoundingClientRect();
   const scaleX = $("map").width / rect.width;
@@ -943,15 +1040,9 @@ $("map").addEventListener("click", (e) => {
   const p = pickTile((e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
   if (!p) return;
   state.selected = p;
-  const dep = (state.world?.cities?.[state.city]?.deposits || []).find((d) => d.x === p.x && d.y === p.y && d.amount > 0);
   const bld = Object.values(state.world?.buildings || {}).find((b) => b.city_id === state.city && b.x === p.x && b.y === p.y);
   const shop = Object.values(state.world?.shops || {}).find((s) => s.city_id === state.city && s.x === p.x && s.y === p.y);
-  let info = `Участок (${p.x},${p.y}) · ${p.zone}`;
-  if (dep) info += ` · залежь ${itemName(dep.item_id)} ${dep.amount}/${dep.max_amount}`;
-  if (bld) info += ` · ${buildingName(bld.type)}`;
-  if (shop) info += ` · ${shopName(shop.shop_type)}: ${itemName(shop.item_id)}`;
-  if (state.place) info += " · готово к подтверждению";
-  $("tileInfo").textContent = info;
+  renderTileInfo(p, bld, shop);
   drawMap();
   if (!state.place) {
     if (bld && bld.firm_id === state.firmId) openBuildingManage(bld.id);

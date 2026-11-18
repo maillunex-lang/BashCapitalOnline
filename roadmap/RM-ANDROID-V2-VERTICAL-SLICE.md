@@ -22,7 +22,7 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 - Confirm Go catalog validator and tests green.
 - Deliver report with actual counts, defects, screenshots or headless verification evidence.
 
-### 2. Map and three cities
+### 2. Map and three cities (verified locally; device profiling pending)
 - Ufa, Beloretsk, Sterlitamak; parcels, deposits, roads, factories, stores, other companies.
 - Implement incremental dirty-tile redraw in Godot and web if still used for admin/debug, not a full redraw per state update.
 - Validate parcel selection, construction placement, deposit rules, and server-authoritative state.
@@ -63,6 +63,14 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 - To repeat the Godot check from the repository root, start a scratch server with `/tmp/bashcapital -data "$PWD/data" -db "$(mktemp -d)/world.db" -addr 127.0.0.1:18081 -tick-hours 0`. Run `godot --headless --path client --editor --import`, then `godot --headless --path client --script res://tests/catalog_v2_smoke.gd -- http://127.0.0.1:18081`.
 - Device performance, signed APK, and loading remote pack textures on Android remain pending.
 
+## Phase 2 verification (2026-11-18)
+
+- A fresh V2 world contained 41 parcels in Ufa and 25 each in Beloretsk and Sterlitamak. Godot checked roads, deposits, other companies' buildings, and clearing selection on city switches.
+- Godot reuses one set of draw commands per parcel. An unchanged snapshot redrew zero parcels; changing one deposit at the same map revision redrew one of 25. Selecting a parcel redrew its highlight. In the smoke run, the server refused a mine with a mismatched deposit, then placed a mine on coal and confirmed its road access. The successful action redrew one of 25 parcels.
+- Chromium checked that an unchanged snapshot skips painting. Selection, changes to a road, and removal of a building replayed only overlapping parcels in the damaged canvas region. The pixel comparison against a full paint allows for rounding at antialiased clip edges.
+- Go tests and server build passed. For the Godot smoke, use the fresh server and import commands above, then run `godot --headless --path client --script res://tests/city_map_smoke.gd -- http://127.0.0.1:18081`. For web, serve `web/` on port 8090 and run `python3 scripts/test_web_map.py --api http://127.0.0.1:18081` with Playwright and Chromium installed.
+- Frame time, memory, and GPU draw calls on a low-end Android device still need measurement.
+
 ## Immediate next action
 
-Phase 2: validate the three cities and implement incremental dirty-tile rendering in Godot.
+Phase 3: exercise the full wheat → flour → bread → grocery loop from a new player, then verify a metallurgy or fuel chain and persistence.
