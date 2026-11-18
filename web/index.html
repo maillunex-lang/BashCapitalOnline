@@ -27,27 +27,138 @@
     </header>
 
     <main class="stage">
-      <section class="map-card" id="mapSection">
+      <!-- Owner desktop (home) -->
+      <section class="desktop" id="desktopSection">
+        <div class="desk-hero">
+          <div>
+            <p class="eyebrow">Рабочий стол собственника</p>
+            <h2 id="deskTitle">Ваша фирма</h2>
+            <p id="deskHint" class="muted">Откройте фирму, затем стройте и управляйте из этого кабинета — карта нужна только для выбора участка.</p>
+          </div>
+          <div class="desk-actions-row">
+            <button type="button" id="goBuild" class="big-cta"><img src="./assets/ui/icon_factory.png" alt="" /> Строить</button>
+            <button type="button" id="goShop" class="big-cta secondary"><img src="./assets/ui/icon_shop.png" alt="" /> Магазин</button>
+            <button type="button" id="goCity" class="big-cta secondary"><img src="./assets/ui/icon_map.png" alt="" /> В город</button>
+          </div>
+        </div>
+
+        <div class="desk-grid">
+          <article class="desk-block" id="buildBlock">
+            <header class="block-head">
+              <h3>Строительство</h3>
+              <p class="muted">Категория → объект → город → участок на карте</p>
+            </header>
+            <div class="cat-row" id="buildCats"></div>
+            <div class="catalog-grid" id="buildCatalog"></div>
+            <div class="build-detail" id="buildDetail" hidden>
+              <div class="build-detail-main">
+                <img id="buildPickIcon" class="pick-ico" alt="" />
+                <div>
+                  <strong id="buildPickName">—</strong>
+                  <p id="buildPickMeta" class="muted"></p>
+                </div>
+              </div>
+              <label class="field-inline">Рецепт
+                <select id="recipeType"></select>
+              </label>
+              <button type="button" id="startBuildPlace"><img src="./assets/ui/icon_map.png" alt="" /> Выбрать город и участок</button>
+            </div>
+          </article>
+
+          <article class="desk-block" id="shopBlock">
+            <header class="block-head">
+              <h3>Аренда магазина</h3>
+              <p class="muted">Тип витрины → товар → город → коммерческий слот</p>
+            </header>
+            <div class="catalog-grid compact" id="shopCatalog"></div>
+            <div class="build-detail" id="shopDetail" hidden>
+              <div class="build-detail-main">
+                <img id="shopPickIcon" class="pick-ico" alt="" />
+                <div>
+                  <strong id="shopPickName">—</strong>
+                  <p id="shopPickMeta" class="muted"></p>
+                </div>
+              </div>
+              <label class="field-inline">Товар на витрине
+                <select id="shopItem"></select>
+              </label>
+              <button type="button" id="startShopPlace"><img src="./assets/ui/icon_map.png" alt="" /> Выбрать город и слот</button>
+            </div>
+          </article>
+
+          <article class="desk-block">
+            <header class="block-head">
+              <h3>Отчёт</h3>
+              <p class="muted">Касса, активы, последний тик</p>
+            </header>
+            <div class="report-strip" id="reportStrip">
+              <div><span>Заводы</span><strong id="repBuildings">0</strong></div>
+              <div><span>Магазины</span><strong id="repShops">0</strong></div>
+              <div><span>Фуры</span><strong id="repTrucks">0</strong></div>
+            </div>
+            <div class="list" id="deskLog"></div>
+          </article>
+
+          <article class="desk-block span-2">
+            <header class="block-head">
+              <h3>Активы</h3>
+              <p class="muted">Настройка производства и витрин без карты</p>
+            </header>
+            <div class="assets-split">
+              <div id="myBuildings" class="list"></div>
+              <div id="myShops" class="list"></div>
+            </div>
+          </article>
+
+          <article class="desk-block" id="firmSetup">
+            <header class="block-head">
+              <h3>Фирма</h3>
+              <p class="muted">Регистрация и сервер</p>
+            </header>
+            <input id="server" value="http://127.0.0.1:8080" placeholder="Сервер" />
+            <input id="name" value="Уфимский Комбинат" placeholder="Название" />
+            <select id="industry">
+              <option value="dairy">Молочка</option>
+              <option value="food">Еда / пекарня</option>
+              <option value="furniture">Мебель</option>
+              <option value="apparel">Одежда</option>
+              <option value="steel">Металл</option>
+              <option value="oil">Нефть / химия (Стерлитамак)</option>
+            </select>
+            <div class="btn-row">
+              <button type="button" id="register">Открыть фирму</button>
+              <button type="button" class="secondary" id="refresh">Обновить</button>
+              <button type="button" class="secondary" id="tickBtn">Тик (dev)</button>
+              <button type="button" class="secondary" id="truck">Купить фуру</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- City map (placement / explore) -->
+      <section class="map-card" id="mapSection" hidden>
         <div class="map-toolbar">
+          <button type="button" class="ghost back" id="backDesktop">← Кабинет</button>
           <div class="city-chips" id="cityChips"></div>
           <span class="pill" id="cityPill">Уфа</span>
         </div>
-        <div id="playHint" class="play-hint">
-          <strong>Как начать</strong>
-          <p>1) Вкладка «Фирма» → название и отрасль → «Открыть фирму». 2) На карте найдите залежь (иконка ресурса). 3) Выберите здание/рецепт и нажмите «Завод». 4) «Тик» двигает экономику.</p>
+        <div id="placeBanner" class="place-banner" hidden>
+          <div>
+            <strong id="placeTitle">Выбор участка</strong>
+            <p id="placeSub" class="muted">Тапните клетку на карте, затем подтвердите</p>
+          </div>
+          <button type="button" class="secondary" id="cancelPlace">Отмена</button>
         </div>
-        <canvas id="map" width="900" height="560"></canvas>
-        <div id="tileInfo" class="tile-info">Тапните участок · стройка только на залежи нужного ресурса</div>
+        <canvas id="map" width="1100" height="720"></canvas>
+        <div id="tileInfo" class="tile-info">Выберите город выше · карта крупнее в режиме стройки</div>
         <div class="map-actions" id="mapActions">
-          <select id="buildType"></select>
-          <select id="recipeType"></select>
-          <button id="build"><img src="./assets/ui/icon_factory.png" alt="" /> Завод</button>
-          <select id="shopType"></select>
-          <select id="shopItem"></select>
-          <button id="rent" class="secondary"><img src="./assets/ui/icon_shop.png" alt="" /> Магазин</button>
-          <button id="buyParcel" class="secondary">Участок</button>
-          <button id="develop" class="secondary">Жильё</button>
+          <button type="button" id="confirmPlace" hidden><img src="./assets/ui/icon_factory.png" alt="" /> Подтвердить здесь</button>
+          <button type="button" id="buyParcel" class="secondary">Купить участок</button>
+          <button type="button" id="develop" class="secondary">Жилой проект</button>
         </div>
+        <!-- hidden selects kept for catalog helpers -->
+        <select id="buildType" hidden></select>
+        <select id="shopType" hidden></select>
       </section>
 
       <section class="sheet" id="manageSheet" hidden>
@@ -58,40 +169,32 @@
             <h2 id="manageTitle">Настройка</h2>
             <p id="manageSub" class="muted">Как в Capitalism Lab</p>
           </div>
-          <button class="ghost" id="closeSheet">✕</button>
+          <button type="button" class="ghost" id="closeSheet">✕</button>
         </div>
         <div id="manageBody" class="sheet-body"></div>
+      </section>
+
+      <section class="sheet" id="cityPickSheet" hidden>
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <img src="./assets/ui/icon_map.png" alt="" />
+          <div>
+            <h2>Куда строить?</h2>
+            <p class="muted" id="cityPickSub">Выберите город — откроется карта</p>
+          </div>
+          <button type="button" class="ghost" id="closeCityPick">✕</button>
+        </div>
+        <div id="cityPickBody" class="city-pick-grid"></div>
       </section>
     </main>
 
     <nav class="tabbar">
-      <button class="tab active" data-tab="map"><img src="./assets/ui/icon_map.png" alt="" /><span>Карта</span></button>
-      <button class="tab" data-tab="firm"><img src="./assets/ui/icon_firm.png" alt="" /><span>Фирма</span></button>
-      <button class="tab" data-tab="market"><img src="./assets/ui/icon_market.png" alt="" /><span>Опт</span></button>
-      <button class="tab" data-tab="rank"><img src="./assets/ui/icon_rank.png" alt="" /><span>Рейтинг</span></button>
-      <button class="tab" data-tab="more"><img src="./assets/ui/icon_settings.png" alt="" /><span>Ещё</span></button>
+      <button type="button" class="tab active" data-tab="desk"><img src="./assets/ui/icon_firm.png" alt="" /><span>Кабинет</span></button>
+      <button type="button" class="tab" data-tab="map"><img src="./assets/ui/icon_map.png" alt="" /><span>Город</span></button>
+      <button type="button" class="tab" data-tab="market"><img src="./assets/ui/icon_market.png" alt="" /><span>Опт</span></button>
+      <button type="button" class="tab" data-tab="rank"><img src="./assets/ui/icon_rank.png" alt="" /><span>Рейтинг</span></button>
+      <button type="button" class="tab" data-tab="more"><img src="./assets/ui/icon_settings.png" alt="" /><span>Ещё</span></button>
     </nav>
-
-    <section class="panel" id="panel-firm" hidden>
-      <img class="panel-bg" src="./assets/ui/panel_header.png" alt="" />
-      <h2>Фирма</h2>
-      <input id="server" value="http://127.0.0.1:8080" placeholder="Сервер" />
-      <input id="name" value="Уфимский Комбинат" placeholder="Название" />
-      <select id="industry">
-        <option value="dairy">Молочка</option>
-        <option value="food">Еда / пекарня</option>
-        <option value="furniture">Мебель</option>
-        <option value="apparel">Одежда</option>
-        <option value="steel">Металл</option>
-        <option value="oil">Нефть / химия (Стерлитамак)</option>
-      </select>
-      <button id="register">Открыть фирму</button>
-      <button class="secondary" id="refresh">Обновить</button>
-      <button class="secondary" id="tickBtn">Тик (dev)</button>
-      <button class="secondary" id="truck">Купить фуру</button>
-      <div id="myBuildings" class="list"></div>
-      <div id="myShops" class="list"></div>
-    </section>
 
     <section class="panel" id="panel-market" hidden>
       <img class="panel-bg" src="./assets/ui/panel_header.png" alt="" />
@@ -123,22 +226,20 @@
       </select>
       <h2>Подписка · заместитель</h2>
       <div id="subStatus" class="muted">Подписка не активна</div>
-      <button id="subscribe">Оформить подписку (dev)</button>
+      <button type="button" id="subscribe">Оформить подписку (dev)</button>
       <input id="deputyName" value="Рустам" />
-      <button class="secondary" id="hireDeputy">Нанять</button>
+      <button type="button" class="secondary" id="hireDeputy">Нанять</button>
       <label class="check"><input type="checkbox" class="task" value="procure_inputs" checked /> Поставщики</label>
       <label class="check"><input type="checkbox" class="task" value="restock" checked /> Магазины</label>
       <label class="check"><input type="checkbox" class="task" value="price_retail" checked /> Цены</label>
       <label class="check"><input type="checkbox" class="task" value="sell_excess" /> Сбыт на сторону</label>
       <label class="check"><input type="checkbox" class="task" value="research" /> R&D</label>
       <label class="check"><input type="checkbox" class="task" value="auto_contracts" /> Контракты</label>
-      <button class="secondary" id="applyTasks">Выдать задания</button>
+      <button type="button" class="secondary" id="applyTasks">Выдать задания</button>
       <div id="deputyTasks" class="list"></div>
       <div class="art">
         <img src="./assets/icons/items_atlas.png" alt="Каталог товаров" />
         <img src="./assets/icons/buildings_atlas.png" alt="Каталог зданий" />
-        <img src="./assets/icons/items_agro_food_sheet.jpg" alt="Агро и еда" />
-        <img src="./assets/icons/items_industry_sheet.jpg" alt="Промышленность" />
       </div>
     </section>
   </div>
