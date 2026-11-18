@@ -13,7 +13,7 @@ import json
 from collections import defaultdict, deque
 from pathlib import Path
 
-ROOT = Path("/workspace/data")
+ROOT = Path(__file__).resolve().parent.parent / "data"
 
 # Hourly tick wage proxies (₽) — roughly 1/170 of monthly Bashkortostan 2026 wages.
 WAGE = {"worker": 18.0, "engineer": 32.0, "manager": 48.0}

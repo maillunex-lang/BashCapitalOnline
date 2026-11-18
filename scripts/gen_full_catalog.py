@@ -11,7 +11,7 @@ import math
 from copy import deepcopy
 from pathlib import Path
 
-ROOT = Path("/workspace/data")
+ROOT = Path(__file__).resolve().parent.parent / "data"
 
 # Realistic Bashkortostan-2026 mid wholesale-ish anchors (₽/unit, game scale).
 # Used later by rebalance; also seed corridors here lightly.

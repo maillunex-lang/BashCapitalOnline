@@ -23,6 +23,22 @@ func (e *Engine) ClampPrice(itemID string, price float64) (float64, error) {
 	return price, nil
 }
 
+// SnapPriceToCorridor clamps price into the item corridor (mid if out of range or <=0).
+// Used for retail lease setup so a stale client default (e.g. 55₽) still rents successfully.
+func (e *Engine) SnapPriceToCorridor(itemID string, price float64) float64 {
+	c, ok := e.Catalog.Economy.PriceCorridors[itemID]
+	if !ok {
+		if price <= 0 {
+			return 50
+		}
+		return price
+	}
+	if price < c.Min || price > c.Max {
+		return (c.Min + c.Max) / 2
+	}
+	return price
+}
+
 func (e *Engine) initCityMarket() {
 	e.World.CityMarket = map[string]model.CityMarketStock{}
 	for _, o := range e.Catalog.Economy.CityMarket {

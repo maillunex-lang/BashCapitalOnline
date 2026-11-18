@@ -39,6 +39,7 @@ func (e *Engine) Tick() {
 	e.matchMarket(&log)
 	e.runRetail(&log)
 	e.payRentsAndWages(&log)
+	e.restockAllAutoShops(&log)
 	e.aiAct(&log)
 	e.refreshCityMarket()
 	e.runAIChat(&log)
@@ -63,6 +64,11 @@ func (e *Engine) autosave() {
 	if err := e.Store.SaveWorld(e.World); err != nil {
 		e.World.Events = append(e.World.Events, "autosave error: "+err.Error())
 	}
+}
+
+// Persist saves world immediately (register/actions) so progress survives restart before the next tick.
+func (e *Engine) Persist() {
+	e.autosave()
 }
 
 func (e *Engine) resetLabor() {
@@ -496,6 +502,60 @@ func (e *Engine) payRentsAndWages(log *[]string) {
 	_ = log
 }
 
+// restockAllAutoShops fills AutoRestock shops for every firm (players + AI) from own inventory.
+// AI may fall back to city wholesale; players only pull from their buildings unless StockSource=city.
+func (e *Engine) restockAllAutoShops(log *[]string) {
+	for _, shop := range e.World.Shops {
+		if !shop.AutoRestock || shop.Stock >= 25 {
+			continue
+		}
+		firm := e.World.Firms[shop.FirmID]
+		if firm == nil {
+			continue
+		}
+		if e.ShopAllowsItem(shop.ShopType, shop.ItemID) != nil {
+			continue
+		}
+		need := 25 - shop.Stock
+		taken := 0
+		switch shop.StockSource {
+		case "city":
+			for _, b := range e.World.Buildings {
+				if b.FirmID != firm.ID {
+					continue
+				}
+				n := e.buyCityIntoBuilding(b, shop.ItemID, need, log)
+				if n > 0 {
+					b.Inventory[shop.ItemID] -= n
+					taken += n
+				}
+				break
+			}
+		default:
+			taken = e.takeInventory(firm.ID, shop.CityID, shop.ItemID, need)
+			if taken < need && firm.IsAI {
+				for _, b := range e.World.Buildings {
+					if b.FirmID != firm.ID {
+						continue
+					}
+					n := e.buyCityIntoBuilding(b, shop.ItemID, need-taken, log)
+					if n > 0 {
+						b.Inventory[shop.ItemID] -= n
+						taken += n
+					}
+					if taken >= need {
+						break
+					}
+				}
+			}
+		}
+		if taken > 0 {
+			shop.Stock += taken
+			*log = append(*log, fmt.Sprintf("%s: автопополнение %s +%d", firm.Name, shop.ItemID, taken))
+		}
+	}
+}
+
 func (e *Engine) aiAct(log *[]string) {
 	for _, f := range e.World.Firms {
 		if !f.IsAI {
@@ -509,48 +569,6 @@ func (e *Engine) aiAct(log *[]string) {
 			}
 			if shop.Stock < 25 {
 				shopNeed[shop.ItemID] += 25 - shop.Stock
-			}
-		}
-		// restock shops (respect shop specialization + stock source)
-		for _, shop := range e.World.Shops {
-			if shop.FirmID != f.ID || !shop.AutoRestock || shop.Stock >= 25 {
-				continue
-			}
-			if e.ShopAllowsItem(shop.ShopType, shop.ItemID) != nil {
-				continue
-			}
-			need := 25 - shop.Stock
-			switch shop.StockSource {
-			case "city":
-				for _, b := range e.World.Buildings {
-					if b.FirmID == f.ID {
-						n := e.buyCityIntoBuilding(b, shop.ItemID, need, log)
-						if n > 0 {
-							b.Inventory[shop.ItemID] -= n
-							shop.Stock += n
-						}
-						break
-					}
-				}
-			default:
-				taken := e.takeInventory(f.ID, shop.CityID, shop.ItemID, need)
-				if taken < need {
-					// Fallback: buy from city wholesale into any firm building, then pull to shop.
-					for _, b := range e.World.Buildings {
-						if b.FirmID != f.ID {
-							continue
-						}
-						n := e.buyCityIntoBuilding(b, shop.ItemID, need-taken, log)
-						if n > 0 {
-							b.Inventory[shop.ItemID] -= n
-							taken += n
-						}
-						if taken >= need {
-							break
-						}
-					}
-				}
-				shop.Stock += taken
 			}
 		}
 		for _, b := range e.World.Buildings {

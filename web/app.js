@@ -583,12 +583,19 @@ $("build").onclick = () => {
 };
 $("buyParcel").onclick = () => state.selected && act("buy_parcel", { city_id: state.city, x: state.selected.x, y: state.selected.y });
 $("develop").onclick = () => state.selected && act("develop_housing", { city_id: state.city, x: state.selected.x, y: state.selected.y });
+function retailPriceForItem(itemId) {
+  const corr = state.catalog?.economy?.price_corridors?.[itemId];
+  if (corr && Number.isFinite(corr.min) && Number.isFinite(corr.max)) {
+    return Math.round((corr.min + corr.max) / 2);
+  }
+  return 0; // server snaps to corridor mid
+}
 $("rent").onclick = () => {
   if (!state.selected) return;
   const item = $("shopItem").value || SHOP_ITEM_BY_INDUSTRY[$("industry").value] || "bread";
   act("rent_shop", {
     city_id: state.city, x: state.selected.x, y: state.selected.y,
-    shop_type: $("shopType").value, item_id: item, price: 55,
+    shop_type: $("shopType").value, item_id: item, price: retailPriceForItem(item),
   });
 };
 $("truck").onclick = () => act("buy_truck", {});

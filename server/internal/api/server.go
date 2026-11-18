@@ -180,6 +180,7 @@ func (s *Server) handleRegister(w http.ResponseWriter, r *http.Request) {
 			_ = s.DB.UpdateSessionFirm(sess.Token, firm.ID)
 		}
 	}
+	s.Engine.Persist() // survive restart before first tick
 	writeJSON(w, firm)
 }
 
@@ -279,6 +280,7 @@ func (s *Server) handleAction(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 400)
 		return
 	}
+	s.Engine.Persist() // persist mutations immediately (build/rent/configure/…)
 	if result == nil {
 		result = map[string]any{"ok": true}
 	}

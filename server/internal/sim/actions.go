@@ -55,25 +55,53 @@ func (e *Engine) ConfigureBuilding(firmID, buildingID, recipeID string, autoProc
 	if b == nil || b.FirmID != firmID {
 		return nil, fmt.Errorf("здание не найдено")
 	}
+	// Validate everything first — never partially mutate on error (HTTP 400 must be all-or-nothing).
+	mode := normalizeInputMode(defaultMode)
+	if mode == "firm" && preferFirm == "" {
+		return nil, fmt.Errorf("для закупки у фирмы укажите firm_id")
+	}
+	parsedInputs := map[string]model.InputSource{}
+	if inputMap != nil {
+		for itemID, raw := range inputMap {
+			m, _ := raw.(map[string]any)
+			imode, _ := m["mode"].(string)
+			fid, _ := m["firm_id"].(string)
+			nm := normalizeInputMode(imode)
+			if nm == "firm" && fid == "" {
+				return nil, fmt.Errorf("для закупки у фирмы укажите firm_id (%s)", itemID)
+			}
+			parsedInputs[itemID] = model.InputSource{Mode: nm, FirmID: fid}
+		}
+	}
+	var newRecipe string
+	var retool bool
 	if recipeID != "" {
-		if err := e.SetRecipe(firmID, buildingID, recipeID); err != nil {
+		if err := e.RecipeFitsBuilding(b.Type, recipeID); err != nil {
 			return nil, err
+		}
+		r := e.Catalog.RecipeByID[recipeID]
+		firm := e.World.Firms[firmID]
+		if r.ResearchCost > 0 && firm != nil && !firm.Researched[recipeID] {
+			return nil, fmt.Errorf("рецепт не исследован")
+		}
+		if b.RecipeID != recipeID {
+			newRecipe = recipeID
+			retool = true
+		}
+	}
+
+	// Apply only after all checks pass.
+	if newRecipe != "" {
+		b.RecipeID = newRecipe
+		if retool {
+			b.RetoolWeeks = 1
 		}
 	}
 	b.AutoProcure = autoProcure
 	b.SellExternal = sellExternal
-	b.DefaultInput = model.InputSource{Mode: normalizeInputMode(defaultMode), FirmID: preferFirm}
-	if b.DefaultInput.Mode == "firm" && preferFirm == "" {
-		return nil, fmt.Errorf("для закупки у фирмы укажите firm_id")
-	}
+	b.DefaultInput = model.InputSource{Mode: mode, FirmID: preferFirm}
 	if inputMap != nil {
-		b.InputSources = map[string]model.InputSource{}
-		for itemID, raw := range inputMap {
-			m, _ := raw.(map[string]any)
-			mode, _ := m["mode"].(string)
-			fid, _ := m["firm_id"].(string)
-			b.InputSources[itemID] = model.InputSource{Mode: normalizeInputMode(mode), FirmID: fid}
-		}
+		b.InputSources = parsedInputs
 	}
 	return b, nil
 }
@@ -107,14 +135,7 @@ func (e *Engine) RentShop(firmID, cityID string, x, y int, shopType, itemID stri
 	if parcel.RentedBy != "" {
 		return nil, fmt.Errorf("слот уже арендован")
 	}
-	if price <= 0 {
-		price = 50
-	}
-	var err error
-	price, err = e.ClampPrice(itemID, price)
-	if err != nil {
-		return nil, err
-	}
+	price = e.SnapPriceToCorridor(itemID, price)
 	if _, _, err := e.ensureRoadAccess(firm, city, x, y, false); err != nil {
 		return nil, err
 	}
@@ -184,11 +205,7 @@ func (e *Engine) ConfigureShop(firmID, shopID, shopType, itemID string, price fl
 		return nil, err
 	}
 	if price > 0 {
-		p, err := e.ClampPrice(itemID, price)
-		if err != nil {
-			return nil, err
-		}
-		shop.Price = p
+		shop.Price = e.SnapPriceToCorridor(itemID, price)
 	}
 	shop.ShopType = shopType
 	shop.ItemID = itemID

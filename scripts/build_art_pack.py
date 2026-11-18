@@ -11,7 +11,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
 
-ROOT = Path("/workspace")
+ROOT = Path(__file__).resolve().parent.parent
 ART = Path("/opt/cursor/artifacts/assets")
 CLIENT_MAP = ROOT / "client/assets/map"
 CLIENT_UI = ROOT / "client/assets/ui"
