@@ -1,0 +1,4034 @@
+{
+  "appliance": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "appliance_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "appliance_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bashkir_carpet": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bashkir_carpet_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bashkir_carpet_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "book": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "book_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "book_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "boots": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "boots_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "boots_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_egg": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_egg_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_egg_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_goat_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_goat_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_goat_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_koumiss_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_koumiss_base_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_koumiss_base_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_milk_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_milk_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_milk_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_sheep_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_sheep_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_sheep_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_rapeseed_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottled_veg_oil_sunflower_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_barley_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_buckwheat_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_oats_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_rye_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bread_wheat_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "brick": {
+    "action": "map_to_new",
+    "new_id": "brick"
+  },
+  "canned_cabbage": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cabbage_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_carrot_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_cucumber_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_onion_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_pepper_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_potato_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_sugar_beet_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "canned_tomato_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chakchak_honey_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_egg": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_egg_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_egg_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_goat_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_goat_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_goat_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_koumiss_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_koumiss_base_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_koumiss_base_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_milk_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_milk_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_milk_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_sheep_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_sheep_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cheese_sheep_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_winter": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_winter_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_winter_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_work": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_work_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "clothing_work_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "electronics": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "electronics_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "electronics_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "felt_boots": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "felt_boots_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "felt_boots_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_diesel": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_diesel_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_diesel_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_fuel_oil": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_fuel_oil_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_fuel_oil_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_gasoline": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_gasoline_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_gasoline_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_kerosene": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_kerosene_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fuel_can_kerosene_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_birch": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_birch_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_birch_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_firewood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_firewood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_firewood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_linden": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_linden_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_linden_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_pine": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_pine_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_pine_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_wood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_wood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "furniture_wood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_aluminum": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_aluminum_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_aluminum_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_copper": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_copper_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_copper_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_gold": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_gold_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_gold_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_zinc": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_zinc_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goods_zinc_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "hat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "hat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "hat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "herbal_tea_honey_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey_candy_honey_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "ice_cream": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_apple_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_cherry_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_currant_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_pear_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_plum_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_raspberry_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "jam_strawberry_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_apple_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_cherry_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_currant_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_pear_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_plum_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_raspberry_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "juice_strawberry_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_koumiss_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_koumiss_base_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_koumiss_base_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_milk_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_milk_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_milk_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "kvass": {
+    "action": "map_to_new",
+    "new_id": "kvass"
+  },
+  "mineral_water": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "paint": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pasta": {
+    "action": "map_to_new",
+    "new_id": "pasta"
+  },
+  "pastry_barley_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_barley_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_barley_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_barley_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_barley_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_barley_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_barley_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_barley_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_buckwheat_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_oats_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_rye_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pastry_wheat_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_koumiss_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_koumiss_base_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_koumiss_base_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_milk_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_milk_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "qurut_milk_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_beef": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_beef_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_beef_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_beef_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_beef_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_beef_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_chicken": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_chicken_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_chicken_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_goat_meat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_goat_meat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_goat_meat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_horse_meat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_horse_meat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_horse_meat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_mutton": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_mutton_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_mutton_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_pork": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_pork_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sausage_pork_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "shoes": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "shoes_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "shoes_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cabbage_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_carrot_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_cucumber_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_onion_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_pepper_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_potato_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_sugar_beet_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_prem_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_prem_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_prem_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_std_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_std_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_std_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "snack_tomato_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "steel_goods_steel": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "steel_goods_steel_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "steel_goods_steel_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_birch": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_birch_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_birch_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_firewood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_firewood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_firewood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_linden": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_linden_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_linden_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_pine": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_pine_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_pine_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_wood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_wood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "toy_wood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_egg": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_egg_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_egg_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_goat_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_goat_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_goat_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_koumiss_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_koumiss_base_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_koumiss_base_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_milk_beloretsk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_milk_sterli": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_milk_ufa": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_sheep_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_sheep_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "yogurt_sheep_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "aluminum": {
+    "action": "map_to_new",
+    "new_id": "aluminum"
+  },
+  "aluminum_prem": {
+    "action": "map_to_new",
+    "new_id": "aluminum"
+  },
+  "aluminum_std": {
+    "action": "map_to_new",
+    "new_id": "aluminum"
+  },
+  "animal_feed": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "beam_steel_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "beam_steel_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "beef": {
+    "action": "map_to_new",
+    "new_id": "beef"
+  },
+  "beef_prem": {
+    "action": "map_to_new",
+    "new_id": "beef"
+  },
+  "beef_std": {
+    "action": "map_to_new",
+    "new_id": "beef"
+  },
+  "board_birch": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_birch_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_birch_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_firewood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_firewood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_firewood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_linden": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_linden_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_linden_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_pine": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_pine_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_pine_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_wood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_wood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "board_wood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "bottle": {
+    "action": "convert_to_compensation",
+    "reason": "utility_not_sku"
+  },
+  "cement": {
+    "action": "map_to_new",
+    "new_id": "cement"
+  },
+  "chicken": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chicken_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "chicken_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "circuit": {
+    "action": "map_to_new",
+    "new_id": "circuit_board"
+  },
+  "circuit_prem": {
+    "action": "map_to_new",
+    "new_id": "circuit_board"
+  },
+  "circuit_std": {
+    "action": "map_to_new",
+    "new_id": "circuit_board"
+  },
+  "copper": {
+    "action": "map_to_new",
+    "new_id": "copper"
+  },
+  "copper_prem": {
+    "action": "map_to_new",
+    "new_id": "copper"
+  },
+  "copper_std": {
+    "action": "map_to_new",
+    "new_id": "copper"
+  },
+  "diesel": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "diesel_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "diesel_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fabric_cotton": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fabric_cotton_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fabric_cotton_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fabric_flax": {
+    "action": "map_to_new",
+    "new_id": "woven_fabric"
+  },
+  "fabric_flax_prem": {
+    "action": "map_to_new",
+    "new_id": "woven_fabric"
+  },
+  "fabric_flax_std": {
+    "action": "map_to_new",
+    "new_id": "woven_fabric"
+  },
+  "fabric_hemp": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fabric_hemp_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fabric_hemp_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "feather": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "feather_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "feather_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "felt_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "fertilizer": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_barley": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_barley_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_barley_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_buckwheat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_buckwheat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_buckwheat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_oats": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_oats_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_oats_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "flour_rye": {
+    "action": "map_to_new",
+    "new_id": "rye_flour"
+  },
+  "flour_rye_prem": {
+    "action": "map_to_new",
+    "new_id": "rye_flour"
+  },
+  "flour_rye_std": {
+    "action": "map_to_new",
+    "new_id": "rye_flour"
+  },
+  "flour_wheat": {
+    "action": "map_to_new",
+    "new_id": "wheat_flour"
+  },
+  "flour_wheat_prem": {
+    "action": "map_to_new",
+    "new_id": "wheat_flour"
+  },
+  "flour_wheat_std": {
+    "action": "map_to_new",
+    "new_id": "wheat_flour"
+  },
+  "fuel_oil": {
+    "action": "map_to_new",
+    "new_id": "fuel_oil"
+  },
+  "fuel_oil_prem": {
+    "action": "map_to_new",
+    "new_id": "fuel_oil"
+  },
+  "fuel_oil_std": {
+    "action": "map_to_new",
+    "new_id": "fuel_oil"
+  },
+  "gasoline": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gasoline_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gasoline_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_cheese_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_cheese_base_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_cheese_base_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_meat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_meat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_meat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gold": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gold_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gold_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "horse_meat": {
+    "action": "map_to_new",
+    "new_id": "horse_meat"
+  },
+  "horse_meat_prem": {
+    "action": "map_to_new",
+    "new_id": "horse_meat"
+  },
+  "horse_meat_std": {
+    "action": "map_to_new",
+    "new_id": "horse_meat"
+  },
+  "horsehair": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "horsehair_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "horsehair_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "kerosene": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "kerosene_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "kerosene_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "leather": {
+    "action": "map_to_new",
+    "new_id": "tanned_leather"
+  },
+  "leather_prem": {
+    "action": "map_to_new",
+    "new_id": "tanned_leather"
+  },
+  "leather_std": {
+    "action": "map_to_new",
+    "new_id": "tanned_leather"
+  },
+  "mutton": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "mutton_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "mutton_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "packaging": {
+    "action": "convert_to_compensation",
+    "reason": "utility_not_sku"
+  },
+  "paper": {
+    "action": "map_to_new",
+    "new_id": "paper"
+  },
+  "planks_birch": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_birch_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_birch_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_firewood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_firewood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_firewood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_linden": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_linden_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_linden_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_pine": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_pine_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_pine_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_wood": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_wood_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "planks_wood_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "plastic": {
+    "action": "map_to_new",
+    "new_id": "plastic_parts"
+  },
+  "pork": {
+    "action": "map_to_new",
+    "new_id": "pork"
+  },
+  "pork_prem": {
+    "action": "map_to_new",
+    "new_id": "pork"
+  },
+  "pork_std": {
+    "action": "map_to_new",
+    "new_id": "pork"
+  },
+  "research_notes": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "steel": {
+    "action": "map_to_new",
+    "new_id": "steel"
+  },
+  "steel_prem": {
+    "action": "map_to_new",
+    "new_id": "steel"
+  },
+  "steel_std": {
+    "action": "map_to_new",
+    "new_id": "steel"
+  },
+  "sugar_sugar_beet": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sugar_sugar_beet_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sugar_sugar_beet_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "veg_oil_rapeseed": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "veg_oil_rapeseed_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "veg_oil_rapeseed_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "veg_oil_sunflower": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "veg_oil_sunflower_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "veg_oil_sunflower_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "wire": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "wire_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "wire_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "wool": {
+    "action": "map_to_new",
+    "new_id": "wool"
+  },
+  "wool_prem": {
+    "action": "map_to_new",
+    "new_id": "wool"
+  },
+  "wool_std": {
+    "action": "map_to_new",
+    "new_id": "wool"
+  },
+  "zinc": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "zinc_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "zinc_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "apple": {
+    "action": "map_to_new",
+    "new_id": "apples"
+  },
+  "apple_prem": {
+    "action": "map_to_new",
+    "new_id": "apples"
+  },
+  "apple_std": {
+    "action": "map_to_new",
+    "new_id": "apples"
+  },
+  "barley": {
+    "action": "map_to_new",
+    "new_id": "barley"
+  },
+  "barley_prem": {
+    "action": "map_to_new",
+    "new_id": "barley"
+  },
+  "barley_std": {
+    "action": "map_to_new",
+    "new_id": "barley"
+  },
+  "bauxite": {
+    "action": "map_to_new",
+    "new_id": "bauxite"
+  },
+  "bauxite_std": {
+    "action": "map_to_new",
+    "new_id": "bauxite"
+  },
+  "bee": {
+    "action": "remove_only_if_unused",
+    "reason": "misnamed_apiary"
+  },
+  "bee_prem": {
+    "action": "remove_only_if_unused",
+    "reason": "misnamed_apiary"
+  },
+  "bee_std": {
+    "action": "remove_only_if_unused",
+    "reason": "misnamed_apiary"
+  },
+  "birch": {
+    "action": "map_to_new",
+    "new_id": "hardwood"
+  },
+  "birch_prem": {
+    "action": "map_to_new",
+    "new_id": "hardwood"
+  },
+  "birch_std": {
+    "action": "map_to_new",
+    "new_id": "hardwood"
+  },
+  "buckwheat": {
+    "action": "map_to_new",
+    "new_id": "buckwheat"
+  },
+  "buckwheat_prem": {
+    "action": "map_to_new",
+    "new_id": "buckwheat"
+  },
+  "buckwheat_std": {
+    "action": "map_to_new",
+    "new_id": "buckwheat"
+  },
+  "cabbage": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cabbage_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cabbage_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "carrot": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "carrot_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "carrot_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cattle": {
+    "action": "map_to_new",
+    "new_id": "beef"
+  },
+  "cattle_prem": {
+    "action": "map_to_new",
+    "new_id": "beef"
+  },
+  "cattle_std": {
+    "action": "map_to_new",
+    "new_id": "beef"
+  },
+  "chemicals": {
+    "action": "map_to_new",
+    "new_id": "chemical_reagent"
+  },
+  "chemicals_std": {
+    "action": "map_to_new",
+    "new_id": "chemical_reagent"
+  },
+  "cherry": {
+    "action": "map_to_new",
+    "new_id": "cherries"
+  },
+  "cherry_prem": {
+    "action": "map_to_new",
+    "new_id": "cherries"
+  },
+  "cherry_std": {
+    "action": "map_to_new",
+    "new_id": "cherries"
+  },
+  "clay": {
+    "action": "map_to_new",
+    "new_id": "clay"
+  },
+  "clay_std": {
+    "action": "map_to_new",
+    "new_id": "clay"
+  },
+  "coal": {
+    "action": "map_to_new",
+    "new_id": "coal"
+  },
+  "coal_std": {
+    "action": "map_to_new",
+    "new_id": "coal"
+  },
+  "copper_ore": {
+    "action": "map_to_new",
+    "new_id": "copper_ore"
+  },
+  "copper_ore_std": {
+    "action": "map_to_new",
+    "new_id": "copper_ore"
+  },
+  "cotton": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cotton_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cotton_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cucumber": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cucumber_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "cucumber_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "currant": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "currant_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "currant_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "egg": {
+    "action": "map_to_new",
+    "new_id": "eggs"
+  },
+  "egg_prem": {
+    "action": "map_to_new",
+    "new_id": "eggs"
+  },
+  "egg_std": {
+    "action": "map_to_new",
+    "new_id": "eggs"
+  },
+  "firewood": {
+    "action": "map_to_new",
+    "new_id": "wood_chips"
+  },
+  "firewood_prem": {
+    "action": "map_to_new",
+    "new_id": "wood_chips"
+  },
+  "firewood_std": {
+    "action": "map_to_new",
+    "new_id": "wood_chips"
+  },
+  "flax": {
+    "action": "map_to_new",
+    "new_id": "flax"
+  },
+  "flax_prem": {
+    "action": "map_to_new",
+    "new_id": "flax"
+  },
+  "flax_std": {
+    "action": "map_to_new",
+    "new_id": "flax"
+  },
+  "gas": {
+    "action": "map_to_new",
+    "new_id": "natural_gas"
+  },
+  "gas_std": {
+    "action": "map_to_new",
+    "new_id": "natural_gas"
+  },
+  "goat": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "goat_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gold_ore": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gold_ore_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gravel": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "gravel_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "hemp": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "hemp_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "hemp_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "honey": {
+    "action": "map_to_new",
+    "new_id": "honey"
+  },
+  "honey_prem": {
+    "action": "map_to_new",
+    "new_id": "honey"
+  },
+  "honey_std": {
+    "action": "map_to_new",
+    "new_id": "honey"
+  },
+  "horse": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "horse_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "horse_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "iron_ore": {
+    "action": "map_to_new",
+    "new_id": "iron_ore"
+  },
+  "iron_ore_std": {
+    "action": "map_to_new",
+    "new_id": "iron_ore"
+  },
+  "koumiss_base": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_base_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "koumiss_base_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "limestone": {
+    "action": "map_to_new",
+    "new_id": "limestone"
+  },
+  "limestone_std": {
+    "action": "map_to_new",
+    "new_id": "limestone"
+  },
+  "linden": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "linden_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "linden_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "milk": {
+    "action": "map_to_new",
+    "new_id": "milk"
+  },
+  "milk_prem": {
+    "action": "map_to_new",
+    "new_id": "milk"
+  },
+  "milk_std": {
+    "action": "map_to_new",
+    "new_id": "milk"
+  },
+  "oats": {
+    "action": "map_to_new",
+    "new_id": "oats"
+  },
+  "oats_prem": {
+    "action": "map_to_new",
+    "new_id": "oats"
+  },
+  "oats_std": {
+    "action": "map_to_new",
+    "new_id": "oats"
+  },
+  "oil": {
+    "action": "map_to_new",
+    "new_id": "crude_oil"
+  },
+  "oil_std": {
+    "action": "map_to_new",
+    "new_id": "crude_oil"
+  },
+  "onion": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "onion_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "onion_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pear": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pear_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pear_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pepper": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pepper_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pepper_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "pig": {
+    "action": "map_to_new",
+    "new_id": "pork"
+  },
+  "pig_prem": {
+    "action": "map_to_new",
+    "new_id": "pork"
+  },
+  "pig_std": {
+    "action": "map_to_new",
+    "new_id": "pork"
+  },
+  "pine": {
+    "action": "map_to_new",
+    "new_id": "softwood"
+  },
+  "pine_prem": {
+    "action": "map_to_new",
+    "new_id": "softwood"
+  },
+  "pine_std": {
+    "action": "map_to_new",
+    "new_id": "softwood"
+  },
+  "plum": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "plum_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "plum_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "potato": {
+    "action": "map_to_new",
+    "new_id": "potato"
+  },
+  "potato_prem": {
+    "action": "map_to_new",
+    "new_id": "potato"
+  },
+  "potato_std": {
+    "action": "map_to_new",
+    "new_id": "potato"
+  },
+  "poultry": {
+    "action": "map_to_new",
+    "new_id": "poultry"
+  },
+  "poultry_prem": {
+    "action": "map_to_new",
+    "new_id": "poultry"
+  },
+  "poultry_std": {
+    "action": "map_to_new",
+    "new_id": "poultry"
+  },
+  "quartz": {
+    "action": "map_to_new",
+    "new_id": "quartz"
+  },
+  "quartz_std": {
+    "action": "map_to_new",
+    "new_id": "quartz"
+  },
+  "rapeseed": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "rapeseed_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "rapeseed_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "raspberry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "raspberry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "raspberry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "rye": {
+    "action": "map_to_new",
+    "new_id": "rye"
+  },
+  "rye_prem": {
+    "action": "map_to_new",
+    "new_id": "rye"
+  },
+  "rye_std": {
+    "action": "map_to_new",
+    "new_id": "rye"
+  },
+  "salt": {
+    "action": "map_to_new",
+    "new_id": "salt"
+  },
+  "salt_std": {
+    "action": "map_to_new",
+    "new_id": "salt"
+  },
+  "sand": {
+    "action": "map_to_new",
+    "new_id": "sand"
+  },
+  "sand_std": {
+    "action": "map_to_new",
+    "new_id": "sand"
+  },
+  "sheep": {
+    "action": "map_to_new",
+    "new_id": "wool"
+  },
+  "sheep_milk": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sheep_milk_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sheep_milk_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sheep_prem": {
+    "action": "map_to_new",
+    "new_id": "wool"
+  },
+  "sheep_std": {
+    "action": "map_to_new",
+    "new_id": "wool"
+  },
+  "strawberry": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "strawberry_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "strawberry_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "sugar_beet": {
+    "action": "map_to_new",
+    "new_id": "sugar_beet"
+  },
+  "sugar_beet_prem": {
+    "action": "map_to_new",
+    "new_id": "sugar_beet"
+  },
+  "sugar_beet_std": {
+    "action": "map_to_new",
+    "new_id": "sugar_beet"
+  },
+  "sunflower": {
+    "action": "map_to_new",
+    "new_id": "sunflower"
+  },
+  "sunflower_prem": {
+    "action": "map_to_new",
+    "new_id": "sunflower"
+  },
+  "sunflower_std": {
+    "action": "map_to_new",
+    "new_id": "sunflower"
+  },
+  "tomato": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "tomato_prem": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "tomato_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "wheat": {
+    "action": "map_to_new",
+    "new_id": "wheat"
+  },
+  "wheat_prem": {
+    "action": "map_to_new",
+    "new_id": "wheat"
+  },
+  "wheat_std": {
+    "action": "map_to_new",
+    "new_id": "wheat"
+  },
+  "wood": {
+    "action": "map_to_new",
+    "new_id": "softwood"
+  },
+  "wood_prem": {
+    "action": "map_to_new",
+    "new_id": "softwood"
+  },
+  "wood_std": {
+    "action": "map_to_new",
+    "new_id": "softwood"
+  },
+  "zinc_ore": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  },
+  "zinc_ore_std": {
+    "action": "convert_to_compensation",
+    "reason": "no_v2_equivalent"
+  }
+}

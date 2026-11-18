@@ -1,0 +1,114 @@
+[
+  {
+    "from": "ufa",
+    "to": "beloretsk",
+    "ticks": 3,
+    "cost_per_unit": 2.5,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "sterlitamak",
+    "ticks": 2,
+    "cost_per_unit": 1.8,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "salavat",
+    "ticks": 2,
+    "cost_per_unit": 2.0,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "ishimbay",
+    "ticks": 2,
+    "cost_per_unit": 1.7,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "neftekamsk",
+    "ticks": 3,
+    "cost_per_unit": 2.2,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "oktyabrsky",
+    "ticks": 3,
+    "cost_per_unit": 2.4,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "tuymazy",
+    "ticks": 3,
+    "cost_per_unit": 2.3,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "meleuz",
+    "ticks": 3,
+    "cost_per_unit": 2.5,
+    "mode": "road"
+  },
+  {
+    "from": "ufa",
+    "to": "sibay",
+    "ticks": 5,
+    "cost_per_unit": 3.8,
+    "mode": "road"
+  },
+  {
+    "from": "beloretsk",
+    "to": "sibay",
+    "ticks": 3,
+    "cost_per_unit": 2.6,
+    "mode": "road"
+  },
+  {
+    "from": "beloretsk",
+    "to": "sterlitamak",
+    "ticks": 3,
+    "cost_per_unit": 2.4,
+    "mode": "road"
+  },
+  {
+    "from": "sterlitamak",
+    "to": "salavat",
+    "ticks": 1,
+    "cost_per_unit": 1.0,
+    "mode": "road"
+  },
+  {
+    "from": "sterlitamak",
+    "to": "ishimbay",
+    "ticks": 1,
+    "cost_per_unit": 1.1,
+    "mode": "road"
+  },
+  {
+    "from": "salavat",
+    "to": "meleuz",
+    "ticks": 1,
+    "cost_per_unit": 1.2,
+    "mode": "road"
+  },
+  {
+    "from": "neftekamsk",
+    "to": "oktyabrsky",
+    "ticks": 2,
+    "cost_per_unit": 1.5,
+    "mode": "road"
+  },
+  {
+    "from": "oktyabrsky",
+    "to": "tuymazy",
+    "ticks": 1,
+    "cost_per_unit": 1.0,
+    "mode": "road"
+  }
+]

@@ -1,0 +1,784 @@
+{
+  "economy_catalog_version": 2,
+  "price_corridors": {
+    "iron_ore": {
+      "min": 12.1,
+      "max": 31.9
+    },
+    "copper_ore": {
+      "min": 15.4,
+      "max": 40.6
+    },
+    "bauxite": {
+      "min": 13.2,
+      "max": 34.8
+    },
+    "limestone": {
+      "min": 4.4,
+      "max": 11.6
+    },
+    "sand": {
+      "min": 3.3,
+      "max": 8.7
+    },
+    "clay": {
+      "min": 3.9,
+      "max": 10.2
+    },
+    "quartz": {
+      "min": 16.5,
+      "max": 43.5
+    },
+    "stone": {
+      "min": 3.9,
+      "max": 10.2
+    },
+    "salt": {
+      "min": 5.5,
+      "max": 14.5
+    },
+    "crude_oil": {
+      "min": 30.3,
+      "max": 79.8
+    },
+    "natural_gas": {
+      "min": 22.0,
+      "max": 58.0
+    },
+    "coal": {
+      "min": 8.8,
+      "max": 23.2
+    },
+    "peat": {
+      "min": 5.0,
+      "max": 13.0
+    },
+    "wheat": {
+      "min": 7.7,
+      "max": 20.3
+    },
+    "rye": {
+      "min": 7.2,
+      "max": 18.8
+    },
+    "barley": {
+      "min": 6.6,
+      "max": 17.4
+    },
+    "oats": {
+      "min": 6.1,
+      "max": 15.9
+    },
+    "buckwheat": {
+      "min": 12.1,
+      "max": 31.9
+    },
+    "potato": {
+      "min": 8.8,
+      "max": 23.2
+    },
+    "sugar_beet": {
+      "min": 5.0,
+      "max": 13.0
+    },
+    "sunflower": {
+      "min": 15.4,
+      "max": 40.6
+    },
+    "flax": {
+      "min": 11.0,
+      "max": 29.0
+    },
+    "vegetables": {
+      "min": 9.9,
+      "max": 26.1
+    },
+    "milk": {
+      "min": 15.4,
+      "max": 40.6
+    },
+    "beef": {
+      "min": 49.5,
+      "max": 130.5
+    },
+    "pork": {
+      "min": 38.5,
+      "max": 101.5
+    },
+    "poultry": {
+      "min": 24.8,
+      "max": 65.2
+    },
+    "eggs": {
+      "min": 6.6,
+      "max": 17.4
+    },
+    "wool": {
+      "min": 19.2,
+      "max": 50.8
+    },
+    "raw_hide": {
+      "min": 22.0,
+      "max": 58.0
+    },
+    "softwood": {
+      "min": 8.8,
+      "max": 23.2
+    },
+    "hardwood": {
+      "min": 10.5,
+      "max": 27.6
+    },
+    "wood_chips": {
+      "min": 4.4,
+      "max": 11.6
+    },
+    "forest_berries": {
+      "min": 22.0,
+      "max": 58.0
+    },
+    "mushrooms": {
+      "min": 20.9,
+      "max": 55.1
+    },
+    "honey": {
+      "min": 52.3,
+      "max": 137.8
+    },
+    "apples": {
+      "min": 12.1,
+      "max": 31.9
+    },
+    "cherries": {
+      "min": 19.2,
+      "max": 50.8
+    },
+    "horse_meat": {
+      "min": 46.8,
+      "max": 123.2
+    },
+    "mare_milk": {
+      "min": 23.1,
+      "max": 60.9
+    },
+    "pig_iron": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "steel": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "copper": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "aluminum": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "steel_sheet": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "steel_pipe": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "copper_wire": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "aluminum_profile": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "metal_parts": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "gasoline_base": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "diesel_base": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "fuel_oil": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "bitumen": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "polymer_granules": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "synthetic_rubber": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "industrial_solvent": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "chemical_reagent": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "cement": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "concrete": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "brick": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "glass_sheet": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "insulation": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "ceramic_tile": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "paint_base": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "dry_mix": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "wheat_flour": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "rye_flour": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "groats": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "sugar": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "sunflower_oil": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "cream": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "butter_base": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "minced_meat": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "fruit_puree": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "fermented_milk": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "flax_fiber": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "yarn": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "woven_fabric": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "knitted_fabric": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "tanned_leather": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "textile_filling": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "dyed_fabric": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "lumber": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "plywood": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "particle_board": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "paper": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "cardboard": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "furniture_parts": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "engine": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "wiring_harness": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "circuit_board": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "electronic_module": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "battery_cell": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "plastic_parts": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "mechanical_assembly": {
+      "min": 36.0,
+      "max": 84.0
+    },
+    "wheat_bread": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "rye_bread": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "bun": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "cookies": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "pasta": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "buckwheat_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "horse_meat_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "potato_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "vegetable_mix": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "sunflower_oil_bottle": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "sugar_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "milk_bottle": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "cream_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "butter": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "cheese": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "yogurt": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "beef_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "pork_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "chicken_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "eggs_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "bottled_water": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "apple_juice": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "cherry_juice": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "berry_drink": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "kvass": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "koumiss": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "dairy_drink": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "tshirt": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "shirt": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "trousers": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "jacket": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "knit_sweater": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "workwear": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "leather_shoes": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "textile_shoes": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "winter_hat": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "table": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "chair": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "wardrobe": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "bed": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "sofa": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "detergent": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "dishware": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "pillow": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "cement_bag": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "brick_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "concrete_mix": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "window_unit": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "paint_can": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "tile_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "insulation_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "pipe_set": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "tire": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "car_battery": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "engine_oil": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "brake_parts": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "filter_set": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "car_body_parts": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "car_spare_kit": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "smartphone": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "television": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "refrigerator": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "washing_machine": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "electric_kettle": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "home_router": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "bashkir_honey_pack": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "qurut": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "chak_chak": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "honey_gift_set": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "bashkir_souvenir": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "ai92": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "ai95": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "diesel_fuel": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "lpg": {
+      "min": 91.0,
+      "max": 196.0
+    },
+    "heating_fuel": {
+      "min": 91.0,
+      "max": 196.0
+    }
+  },
+  "city_market": [
+    {
+      "item_id": "crude_oil",
+      "price": 48,
+      "quality": 2.0,
+      "stock_per_tick": 25
+    },
+    {
+      "item_id": "natural_gas",
+      "price": 35,
+      "quality": 2.0,
+      "stock_per_tick": 20
+    },
+    {
+      "item_id": "wheat",
+      "price": 10,
+      "quality": 1.5,
+      "stock_per_tick": 40
+    },
+    {
+      "item_id": "coal",
+      "price": 12,
+      "quality": 1.8,
+      "stock_per_tick": 30
+    },
+    {
+      "item_id": "cement",
+      "price": 40,
+      "quality": 2.0,
+      "stock_per_tick": 15
+    },
+    {
+      "item_id": "dry_mix",
+      "price": 35,
+      "quality": 2.0,
+      "stock_per_tick": 12
+    },
+    {
+      "item_id": "bitumen",
+      "price": 45,
+      "quality": 2.0,
+      "stock_per_tick": 10
+    }
+  ],
+  "chat": {
+    "max_messages": 120,
+    "ai_messages_per_tick_cap": 2,
+    "min_ticks_between_ai_msg": 2
+  },
+  "logistics": {
+    "units_per_tick": 80,
+    "cost_per_unit_dist": 0.012,
+    "local_cost_per_unit": 0.8,
+    "base_cost_per_unit": 1.2
+  },
+  "balance": {
+    "version": 2,
+    "region": "Bashkortostan",
+    "year": 2026,
+    "wage_per_tick": {
+      "worker": 18.0,
+      "engineer": 32.0,
+      "manager": 48.0
+    },
+    "energy_cost_extract": 10.0,
+    "energy_cost_factory": 18.0,
+    "water_cost_per_unit": 2.5,
+    "utility_cost_scale": 1.0,
+    "target_margin": {
+      "raw": 0.18,
+      "intermediate": 0.16,
+      "finished": 0.22
+    },
+    "notes": "Catalog V2 — quality is batch 1–5, not SKU clones."
+  },
+  "demand": {
+    "class_shares": {
+      "budget": 0.35,
+      "mid": 0.45,
+      "premium": 0.2
+    },
+    "quality_weight": 0.35,
+    "brand_weight": 0.2,
+    "price_weight": 0.35,
+    "distance_weight": 0.1,
+    "brand_decay": 0.98,
+    "brand_floor": 0.2,
+    "brand_gain_on_sale": 0.02,
+    "pop_demand_per_day": {
+      "food": 0.08,
+      "dairy": 0.03,
+      "apparel": 0.015,
+      "home": 0.02,
+      "tech": 0.008,
+      "fuel": 0.01,
+      "mineral": 0.01
+    },
+    "too_expensive_at": 1.65
+  }
+}

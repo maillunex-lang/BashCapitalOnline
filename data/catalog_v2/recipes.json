@@ -1,0 +1,5461 @@
+[
+  {
+    "id": "extract_iron_ore",
+    "name": "Добыча: Железная руда",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "iron_ore",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_copper_ore",
+    "name": "Добыча: Медная руда",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "copper_ore",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_bauxite",
+    "name": "Добыча: Бокситы",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "bauxite",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_limestone",
+    "name": "Добыча: Известняк",
+    "building_type": "quarry",
+    "inputs": [],
+    "output": {
+      "item_id": "limestone",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_sand",
+    "name": "Добыча: Песок",
+    "building_type": "quarry",
+    "inputs": [],
+    "output": {
+      "item_id": "sand",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_clay",
+    "name": "Добыча: Глина",
+    "building_type": "quarry",
+    "inputs": [],
+    "output": {
+      "item_id": "clay",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_quartz",
+    "name": "Добыча: Кварц",
+    "building_type": "quarry",
+    "inputs": [],
+    "output": {
+      "item_id": "quartz",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_stone",
+    "name": "Добыча: Камень",
+    "building_type": "quarry",
+    "inputs": [],
+    "output": {
+      "item_id": "stone",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_salt",
+    "name": "Добыча: Соль",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "salt",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_crude_oil",
+    "name": "Добыча: Нефть",
+    "building_type": "oil_well",
+    "inputs": [],
+    "output": {
+      "item_id": "crude_oil",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_natural_gas",
+    "name": "Добыча: Природный газ",
+    "building_type": "gas_well",
+    "inputs": [],
+    "output": {
+      "item_id": "natural_gas",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_coal",
+    "name": "Добыча: Уголь",
+    "building_type": "mine",
+    "inputs": [],
+    "output": {
+      "item_id": "coal",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_peat",
+    "name": "Добыча: Торф",
+    "building_type": "peat_field",
+    "inputs": [],
+    "output": {
+      "item_id": "peat",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 8.0,
+    "extract_mode": "depleting"
+  },
+  {
+    "id": "extract_wheat",
+    "name": "Добыча: Пшеница",
+    "building_type": "grain_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "wheat",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      7,
+      8,
+      9
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_rye",
+    "name": "Добыча: Рожь",
+    "building_type": "grain_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "rye",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      7,
+      8,
+      9
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_barley",
+    "name": "Добыча: Ячмень",
+    "building_type": "grain_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "barley",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      7,
+      8,
+      9
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_oats",
+    "name": "Добыча: Овёс",
+    "building_type": "grain_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "oats",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      7,
+      8,
+      9
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_buckwheat",
+    "name": "Добыча: Гречиха",
+    "building_type": "grain_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "buckwheat",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      7,
+      8,
+      9
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_potato",
+    "name": "Добыча: Картофель",
+    "building_type": "crop_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "potato",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_sugar_beet",
+    "name": "Добыча: Сахарная свёкла",
+    "building_type": "crop_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "sugar_beet",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_sunflower",
+    "name": "Добыча: Подсолнечник",
+    "building_type": "oilseed_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "sunflower",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_flax",
+    "name": "Добыча: Лён",
+    "building_type": "fiber_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "flax",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_vegetables",
+    "name": "Добыча: Овощи",
+    "building_type": "vegetable_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "vegetables",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_milk",
+    "name": "Добыча: Сырое молоко",
+    "building_type": "dairy_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "milk",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_beef",
+    "name": "Добыча: Говядина",
+    "building_type": "livestock_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "beef",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_pork",
+    "name": "Добыча: Свинина",
+    "building_type": "livestock_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "pork",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_poultry",
+    "name": "Добыча: Мясо птицы",
+    "building_type": "poultry_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "poultry",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_eggs",
+    "name": "Добыча: Яйца",
+    "building_type": "poultry_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "eggs",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_wool",
+    "name": "Добыча: Шерсть",
+    "building_type": "sheep_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "wool",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_raw_hide",
+    "name": "Добыча: Кожа-сырец",
+    "building_type": "livestock_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "raw_hide",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_softwood",
+    "name": "Добыча: Хвойная древесина",
+    "building_type": "logging_camp",
+    "inputs": [],
+    "output": {
+      "item_id": "softwood",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_hardwood",
+    "name": "Добыча: Лиственная древесина",
+    "building_type": "logging_camp",
+    "inputs": [],
+    "output": {
+      "item_id": "hardwood",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_wood_chips",
+    "name": "Добыча: Древесная щепа",
+    "building_type": "logging_camp",
+    "inputs": [],
+    "output": {
+      "item_id": "wood_chips",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_forest_berries",
+    "name": "Добыча: Лесные ягоды",
+    "building_type": "forest_gathering",
+    "inputs": [],
+    "output": {
+      "item_id": "forest_berries",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_mushrooms",
+    "name": "Добыча: Грибы",
+    "building_type": "forest_gathering",
+    "inputs": [],
+    "output": {
+      "item_id": "mushrooms",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_honey",
+    "name": "Добыча: Мёд",
+    "building_type": "apiary",
+    "inputs": [],
+    "output": {
+      "item_id": "honey",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_apples",
+    "name": "Добыча: Яблоки",
+    "building_type": "orchard",
+    "inputs": [],
+    "output": {
+      "item_id": "apples",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_cherries",
+    "name": "Добыча: Вишня",
+    "building_type": "orchard",
+    "inputs": [],
+    "output": {
+      "item_id": "cherries",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [
+      6,
+      7,
+      8
+    ],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_horse_meat",
+    "name": "Добыча: Конина",
+    "building_type": "horse_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "horse_meat",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "extract_mare_milk",
+    "name": "Добыча: Кобылье молоко",
+    "building_type": "horse_farm",
+    "inputs": [],
+    "output": {
+      "item_id": "mare_milk",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0.0,
+    "utility_cost": 5.0,
+    "extract_mode": "renewable"
+  },
+  {
+    "id": "met_01",
+    "name": "Чугун",
+    "building_type": "blast_furnace",
+    "inputs": [
+      {
+        "item_id": "iron_ore",
+        "qty": 4
+      },
+      {
+        "item_id": "coal",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "pig_iron",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 6,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "met_02",
+    "name": "Сталь",
+    "building_type": "steel_plant",
+    "inputs": [
+      {
+        "item_id": "pig_iron",
+        "qty": 3
+      },
+      {
+        "item_id": "limestone",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "steel",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "met_03",
+    "name": "Медь",
+    "building_type": "smelter",
+    "inputs": [
+      {
+        "item_id": "copper_ore",
+        "qty": 4
+      },
+      {
+        "item_id": "coal",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "copper",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "met_04",
+    "name": "Алюминий",
+    "building_type": "aluminum_plant",
+    "inputs": [
+      {
+        "item_id": "bauxite",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "aluminum",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 7,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 12
+  },
+  {
+    "id": "met_05",
+    "name": "Стальной лист",
+    "building_type": "rolling_mill",
+    "inputs": [
+      {
+        "item_id": "steel",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "steel_sheet",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "met_06",
+    "name": "Стальная труба",
+    "building_type": "pipe_plant",
+    "inputs": [
+      {
+        "item_id": "steel",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "steel_pipe",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "met_07",
+    "name": "Медный провод",
+    "building_type": "wire_plant",
+    "inputs": [
+      {
+        "item_id": "copper",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "copper_wire",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "met_08",
+    "name": "Алюминиевый профиль",
+    "building_type": "profile_plant",
+    "inputs": [
+      {
+        "item_id": "aluminum",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "aluminum_profile",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "met_09",
+    "name": "Металлические детали",
+    "building_type": "machine_works",
+    "inputs": [
+      {
+        "item_id": "steel",
+        "qty": 2
+      },
+      {
+        "item_id": "copper",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "metal_parts",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "oil_01",
+    "name": "Бензиновая фракция",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "crude_oil",
+        "qty": 5
+      }
+    ],
+    "output": {
+      "item_id": "gasoline_base",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 6,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "oil_02",
+    "name": "Дизельная фракция",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "crude_oil",
+        "qty": 5
+      }
+    ],
+    "output": {
+      "item_id": "diesel_base",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 6,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "oil_03",
+    "name": "Мазут",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "crude_oil",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "fuel_oil",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "oil_04",
+    "name": "Битум",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "crude_oil",
+        "qty": 3
+      },
+      {
+        "item_id": "limestone",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "bitumen",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "oil_05",
+    "name": "Полимеры",
+    "building_type": "petrochemical_plant",
+    "inputs": [
+      {
+        "item_id": "crude_oil",
+        "qty": 3
+      },
+      {
+        "item_id": "natural_gas",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "polymer_granules",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 6,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "oil_06",
+    "name": "Каучук",
+    "building_type": "petrochemical_plant",
+    "inputs": [
+      {
+        "item_id": "polymer_granules",
+        "qty": 2
+      },
+      {
+        "item_id": "natural_gas",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "synthetic_rubber",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "oil_07",
+    "name": "Растворитель",
+    "building_type": "chemical_plant",
+    "inputs": [
+      {
+        "item_id": "crude_oil",
+        "qty": 2
+      },
+      {
+        "item_id": "natural_gas",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "industrial_solvent",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "oil_08",
+    "name": "Химреагент",
+    "building_type": "chemical_plant",
+    "inputs": [
+      {
+        "item_id": "natural_gas",
+        "qty": 2
+      },
+      {
+        "item_id": "salt",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "chemical_reagent",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_01",
+    "name": "Цемент",
+    "building_type": "cement_plant",
+    "inputs": [
+      {
+        "item_id": "limestone",
+        "qty": 3
+      },
+      {
+        "item_id": "clay",
+        "qty": 1
+      },
+      {
+        "item_id": "coal",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cement",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_02",
+    "name": "Бетон",
+    "building_type": "concrete_plant",
+    "inputs": [
+      {
+        "item_id": "cement",
+        "qty": 2
+      },
+      {
+        "item_id": "sand",
+        "qty": 2
+      },
+      {
+        "item_id": "stone",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "concrete",
+      "qty": 5
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 4,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_03",
+    "name": "Кирпич",
+    "building_type": "brickworks",
+    "inputs": [
+      {
+        "item_id": "clay",
+        "qty": 3
+      },
+      {
+        "item_id": "coal",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "brick",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_04",
+    "name": "Стекло",
+    "building_type": "glass_plant",
+    "inputs": [
+      {
+        "item_id": "sand",
+        "qty": 3
+      },
+      {
+        "item_id": "quartz",
+        "qty": 1
+      },
+      {
+        "item_id": "limestone",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "glass_sheet",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "packaging",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_05",
+    "name": "Утеплитель",
+    "building_type": "insulation_plant",
+    "inputs": [
+      {
+        "item_id": "glass_sheet",
+        "qty": 2
+      },
+      {
+        "item_id": "polymer_granules",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "insulation",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_06",
+    "name": "Плитка",
+    "building_type": "ceramics_plant",
+    "inputs": [
+      {
+        "item_id": "clay",
+        "qty": 2
+      },
+      {
+        "item_id": "quartz",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "ceramic_tile",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_07",
+    "name": "Основа краски",
+    "building_type": "paint_plant",
+    "inputs": [
+      {
+        "item_id": "chemical_reagent",
+        "qty": 2
+      },
+      {
+        "item_id": "industrial_solvent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "paint_base",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bld_08",
+    "name": "Сухая смесь",
+    "building_type": "dry_mix_plant",
+    "inputs": [
+      {
+        "item_id": "cement",
+        "qty": 2
+      },
+      {
+        "item_id": "sand",
+        "qty": 1
+      },
+      {
+        "item_id": "limestone",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "dry_mix",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "food_01",
+    "name": "Пшеничная мука",
+    "building_type": "flour_mill",
+    "inputs": [
+      {
+        "item_id": "wheat",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "wheat_flour",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_02",
+    "name": "Ржаная мука",
+    "building_type": "flour_mill",
+    "inputs": [
+      {
+        "item_id": "rye",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "rye_flour",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_03",
+    "name": "Крупа",
+    "building_type": "grain_mill",
+    "inputs": [
+      {
+        "item_id": "buckwheat",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "groats",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_04",
+    "name": "Сахар",
+    "building_type": "sugar_plant",
+    "inputs": [
+      {
+        "item_id": "sugar_beet",
+        "qty": 5
+      }
+    ],
+    "output": {
+      "item_id": "sugar",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "food_05",
+    "name": "Растительное масло",
+    "building_type": "oil_press",
+    "inputs": [
+      {
+        "item_id": "sunflower",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "sunflower_oil",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_06",
+    "name": "Сливки",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "cream",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_07",
+    "name": "Масляная основа",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "cream",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "butter_base",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_08",
+    "name": "Фарш",
+    "building_type": "meat_plant",
+    "inputs": [
+      {
+        "item_id": "beef",
+        "qty": 2
+      },
+      {
+        "item_id": "pork",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "minced_meat",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_09",
+    "name": "Фруктовое пюре",
+    "building_type": "fruit_plant",
+    "inputs": [
+      {
+        "item_id": "apples",
+        "qty": 3
+      },
+      {
+        "item_id": "cherries",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "fruit_puree",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "food_10",
+    "name": "Кисломолочная основа",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "fermented_milk",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "tex_01",
+    "name": "Льняное волокно",
+    "building_type": "fiber_plant",
+    "inputs": [
+      {
+        "item_id": "flax",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "flax_fiber",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "tex_02",
+    "name": "Пряжа",
+    "building_type": "spinning_mill",
+    "inputs": [
+      {
+        "item_id": "flax_fiber",
+        "qty": 3
+      },
+      {
+        "item_id": "wool",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "yarn",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "tex_03",
+    "name": "Ткань",
+    "building_type": "textile_mill",
+    "inputs": [
+      {
+        "item_id": "yarn",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "woven_fabric",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "tex_04",
+    "name": "Трикотаж",
+    "building_type": "knitwear",
+    "inputs": [
+      {
+        "item_id": "yarn",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "knitted_fabric",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "tex_05",
+    "name": "Выделанная кожа",
+    "building_type": "leather_works",
+    "inputs": [
+      {
+        "item_id": "raw_hide",
+        "qty": 4
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "tanned_leather",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "tex_06",
+    "name": "Наполнитель",
+    "building_type": "textile_mill",
+    "inputs": [
+      {
+        "item_id": "wool",
+        "qty": 2
+      },
+      {
+        "item_id": "wood_chips",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "textile_filling",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "tex_07",
+    "name": "Окрашенная ткань",
+    "building_type": "textile_dye",
+    "inputs": [
+      {
+        "item_id": "woven_fabric",
+        "qty": 3
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "dyed_fabric",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "wood_01",
+    "name": "Доски",
+    "building_type": "sawmill",
+    "inputs": [
+      {
+        "item_id": "softwood",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "lumber",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "wood_02",
+    "name": "Фанера",
+    "building_type": "wood_plant",
+    "inputs": [
+      {
+        "item_id": "lumber",
+        "qty": 3
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "plywood",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "wood_03",
+    "name": "ДСП",
+    "building_type": "wood_plant",
+    "inputs": [
+      {
+        "item_id": "wood_chips",
+        "qty": 2
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "particle_board",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "wood_04",
+    "name": "Бумага",
+    "building_type": "paper_mill",
+    "inputs": [
+      {
+        "item_id": "wood_chips",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "paper",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 3,
+    "utility_cost": 2
+  },
+  {
+    "id": "wood_05",
+    "name": "Картон",
+    "building_type": "paper_mill",
+    "inputs": [
+      {
+        "item_id": "paper",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "cardboard",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "wood_06",
+    "name": "Мебельные детали",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "lumber",
+        "qty": 2
+      },
+      {
+        "item_id": "particle_board",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "furniture_parts",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "tech_01",
+    "name": "Двигатель",
+    "building_type": "engine_plant",
+    "inputs": [
+      {
+        "item_id": "steel",
+        "qty": 2
+      },
+      {
+        "item_id": "metal_parts",
+        "qty": 2
+      },
+      {
+        "item_id": "aluminum",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "engine",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 3,
+      "manager": 1
+    },
+    "energy": 6,
+    "research_cost": 100,
+    "branch": "metal",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 4
+  },
+  {
+    "id": "tech_02",
+    "name": "Жгут проводки",
+    "building_type": "electronics_plant",
+    "inputs": [
+      {
+        "item_id": "copper_wire",
+        "qty": 2
+      },
+      {
+        "item_id": "polymer_granules",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "wiring_harness",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "tech_03",
+    "name": "Печатная плата",
+    "building_type": "chip_fab",
+    "inputs": [
+      {
+        "item_id": "copper",
+        "qty": 1
+      },
+      {
+        "item_id": "quartz",
+        "qty": 1
+      },
+      {
+        "item_id": "polymer_granules",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "circuit_board",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 1,
+      "engineer": 3
+    },
+    "energy": 5,
+    "research_cost": 150,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "tech_04",
+    "name": "Электронный модуль",
+    "building_type": "electronics_plant",
+    "inputs": [
+      {
+        "item_id": "circuit_board",
+        "qty": 2
+      },
+      {
+        "item_id": "copper_wire",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "electronic_module",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "tech_05",
+    "name": "Аккумуляторная ячейка",
+    "building_type": "battery_plant",
+    "inputs": [
+      {
+        "item_id": "aluminum",
+        "qty": 1
+      },
+      {
+        "item_id": "copper",
+        "qty": 1
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "battery_cell",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "tech_06",
+    "name": "Пластиковые детали",
+    "building_type": "plastics_plant",
+    "inputs": [
+      {
+        "item_id": "polymer_granules",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "plastic_parts",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "tech_07",
+    "name": "Механический узел",
+    "building_type": "machine_works",
+    "inputs": [
+      {
+        "item_id": "metal_parts",
+        "qty": 2
+      },
+      {
+        "item_id": "wiring_harness",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "mechanical_assembly",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "food_11",
+    "name": "Хлеб пшеничный",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "wheat_bread",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_12",
+    "name": "Хлеб ржаной",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "rye_flour",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "rye_bread",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_13",
+    "name": "Булочки",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 2
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "bun",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_14",
+    "name": "Печенье",
+    "building_type": "confectionery",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 2
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      },
+      {
+        "item_id": "butter_base",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cookies",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_15",
+    "name": "Макароны",
+    "building_type": "pasta_plant",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 3
+      },
+      {
+        "item_id": "eggs",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "pasta",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_16",
+    "name": "Гречка фасованная",
+    "building_type": "packaging_plant",
+    "inputs": [
+      {
+        "item_id": "groats",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "buckwheat_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 4
+  },
+  {
+    "id": "food_17",
+    "name": "Конина фасованная",
+    "building_type": "meat_plant",
+    "inputs": [
+      {
+        "item_id": "horse_meat",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "horse_meat_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_18",
+    "name": "Картофель фасованный",
+    "building_type": "packaging_plant",
+    "inputs": [
+      {
+        "item_id": "potato",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "potato_pack",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_19",
+    "name": "Овощная смесь",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "vegetables",
+        "qty": 4
+      },
+      {
+        "item_id": "sunflower_oil",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "vegetable_mix",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_20",
+    "name": "Масло бутылочное",
+    "building_type": "bottling_plant",
+    "inputs": [
+      {
+        "item_id": "sunflower_oil",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "sunflower_oil_bottle",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 4
+  },
+  {
+    "id": "food_21",
+    "name": "Сахар фасованный",
+    "building_type": "packaging_plant",
+    "inputs": [
+      {
+        "item_id": "sugar",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "sugar_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_22",
+    "name": "Молоко питьевое",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "milk_bottle",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_23",
+    "name": "Сливки фасованные",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "cream",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "cream_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_24",
+    "name": "Масло сливочное",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "butter_base",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "butter",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_25",
+    "name": "Сыр",
+    "building_type": "cheese_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      },
+      {
+        "item_id": "salt",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cheese",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_26",
+    "name": "Йогурт",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "fermented_milk",
+        "qty": 3
+      },
+      {
+        "item_id": "fruit_puree",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "yogurt",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_27",
+    "name": "Говядина фасованная",
+    "building_type": "meat_plant",
+    "inputs": [
+      {
+        "item_id": "beef",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "beef_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_28",
+    "name": "Свинина фасованная",
+    "building_type": "meat_plant",
+    "inputs": [
+      {
+        "item_id": "pork",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "pork_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_29",
+    "name": "Курица фасованная",
+    "building_type": "meat_plant",
+    "inputs": [
+      {
+        "item_id": "poultry",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "chicken_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "food_30",
+    "name": "Яйца фасованные",
+    "building_type": "packaging_plant",
+    "inputs": [
+      {
+        "item_id": "eggs",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "eggs_pack",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "drink_01",
+    "name": "Вода питьевая",
+    "building_type": "water_plant",
+    "inputs": [],
+    "output": {
+      "item_id": "bottled_water",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 8,
+    "utility_cost": 5
+  },
+  {
+    "id": "drink_02",
+    "name": "Яблочный сок",
+    "building_type": "juice_plant",
+    "inputs": [
+      {
+        "item_id": "apples",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "apple_juice",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 1,
+    "utility_cost": 3
+  },
+  {
+    "id": "drink_03",
+    "name": "Вишнёвый сок",
+    "building_type": "juice_plant",
+    "inputs": [
+      {
+        "item_id": "cherries",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "cherry_juice",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 1,
+    "utility_cost": 3
+  },
+  {
+    "id": "drink_04",
+    "name": "Ягодный морс",
+    "building_type": "juice_plant",
+    "inputs": [
+      {
+        "item_id": "forest_berries",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "berry_drink",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 2,
+    "utility_cost": 3
+  },
+  {
+    "id": "drink_05",
+    "name": "Квас",
+    "building_type": "beverage_plant",
+    "inputs": [
+      {
+        "item_id": "rye_flour",
+        "qty": 2
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "kvass",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 3,
+    "utility_cost": 3
+  },
+  {
+    "id": "drink_06",
+    "name": "Кумыс",
+    "building_type": "fermentation_plant",
+    "inputs": [
+      {
+        "item_id": "mare_milk",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "koumiss",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "drink_07",
+    "name": "Кисломолочный напиток",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "fermented_milk",
+        "qty": 3
+      },
+      {
+        "item_id": "honey",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "dairy_drink",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "app_01",
+    "name": "Футболка",
+    "building_type": "garment_factory",
+    "inputs": [
+      {
+        "item_id": "knitted_fabric",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "tshirt",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_02",
+    "name": "Рубашка",
+    "building_type": "garment_factory",
+    "inputs": [
+      {
+        "item_id": "woven_fabric",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "shirt",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_03",
+    "name": "Брюки",
+    "building_type": "garment_factory",
+    "inputs": [
+      {
+        "item_id": "dyed_fabric",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "trousers",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_04",
+    "name": "Куртка",
+    "building_type": "garment_factory",
+    "inputs": [
+      {
+        "item_id": "dyed_fabric",
+        "qty": 2
+      },
+      {
+        "item_id": "textile_filling",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "jacket",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_05",
+    "name": "Свитер",
+    "building_type": "knitwear",
+    "inputs": [
+      {
+        "item_id": "knitted_fabric",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "knit_sweater",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_06",
+    "name": "Спецодежда",
+    "building_type": "workwear_factory",
+    "inputs": [
+      {
+        "item_id": "dyed_fabric",
+        "qty": 3
+      },
+      {
+        "item_id": "tanned_leather",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "workwear",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_07",
+    "name": "Кожаная обувь",
+    "building_type": "shoe_factory",
+    "inputs": [
+      {
+        "item_id": "tanned_leather",
+        "qty": 2
+      },
+      {
+        "item_id": "synthetic_rubber",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "leather_shoes",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_08",
+    "name": "Текстильная обувь",
+    "building_type": "shoe_factory",
+    "inputs": [
+      {
+        "item_id": "woven_fabric",
+        "qty": 2
+      },
+      {
+        "item_id": "synthetic_rubber",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "textile_shoes",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "app_09",
+    "name": "Зимняя шапка",
+    "building_type": "knitwear",
+    "inputs": [
+      {
+        "item_id": "knitted_fabric",
+        "qty": 2
+      },
+      {
+        "item_id": "wool",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "winter_hat",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "home_01",
+    "name": "Стол",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "furniture_parts",
+        "qty": 2
+      },
+      {
+        "item_id": "lumber",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "table",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "home_02",
+    "name": "Стул",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "furniture_parts",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "chair",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "home_03",
+    "name": "Шкаф",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "furniture_parts",
+        "qty": 3
+      },
+      {
+        "item_id": "plywood",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "wardrobe",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "home_04",
+    "name": "Кровать",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "furniture_parts",
+        "qty": 3
+      },
+      {
+        "item_id": "plywood",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "bed",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "home_05",
+    "name": "Диван",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "furniture_parts",
+        "qty": 2
+      },
+      {
+        "item_id": "textile_filling",
+        "qty": 2
+      },
+      {
+        "item_id": "dyed_fabric",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "sofa",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "home_06",
+    "name": "Моющее средство",
+    "building_type": "chemical_plant",
+    "inputs": [
+      {
+        "item_id": "chemical_reagent",
+        "qty": 2
+      },
+      {
+        "item_id": "industrial_solvent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "detergent",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "home_07",
+    "name": "Посуда",
+    "building_type": "ceramics_plant",
+    "inputs": [
+      {
+        "item_id": "ceramic_tile",
+        "qty": 2
+      },
+      {
+        "item_id": "glass_sheet",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "dishware",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "home_08",
+    "name": "Подушка",
+    "building_type": "textile_mill",
+    "inputs": [
+      {
+        "item_id": "textile_filling",
+        "qty": 2
+      },
+      {
+        "item_id": "woven_fabric",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "pillow",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "build_01",
+    "name": "Цемент мешковой",
+    "building_type": "building_packaging",
+    "inputs": [
+      {
+        "item_id": "cement",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "cement_bag",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "build_02",
+    "name": "Кирпич упаковка",
+    "building_type": "building_packaging",
+    "inputs": [
+      {
+        "item_id": "brick",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "brick_pack",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "build_03",
+    "name": "Бетон товарный",
+    "building_type": "concrete_plant",
+    "inputs": [
+      {
+        "item_id": "concrete",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "concrete_mix",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "build_04",
+    "name": "Оконный блок",
+    "building_type": "window_plant",
+    "inputs": [
+      {
+        "item_id": "glass_sheet",
+        "qty": 2
+      },
+      {
+        "item_id": "aluminum_profile",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "window_unit",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "build_05",
+    "name": "Краска",
+    "building_type": "paint_plant",
+    "inputs": [
+      {
+        "item_id": "paint_base",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "paint_can",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "build_06",
+    "name": "Плитка упаковка",
+    "building_type": "building_packaging",
+    "inputs": [
+      {
+        "item_id": "ceramic_tile",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "tile_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "build_07",
+    "name": "Утеплитель упаковка",
+    "building_type": "building_packaging",
+    "inputs": [
+      {
+        "item_id": "insulation",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "insulation_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "build_08",
+    "name": "Комплект труб",
+    "building_type": "pipe_plant",
+    "inputs": [
+      {
+        "item_id": "steel_pipe",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "pipe_set",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "auto_01",
+    "name": "Шина",
+    "building_type": "tire_plant",
+    "inputs": [
+      {
+        "item_id": "synthetic_rubber",
+        "qty": 2
+      },
+      {
+        "item_id": "steel",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "tire",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "auto_02",
+    "name": "Автоаккумулятор",
+    "building_type": "battery_plant",
+    "inputs": [
+      {
+        "item_id": "battery_cell",
+        "qty": 3
+      },
+      {
+        "item_id": "plastic_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "car_battery",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "auto_03",
+    "name": "Моторное масло",
+    "building_type": "lubricant_plant",
+    "inputs": [
+      {
+        "item_id": "fuel_oil",
+        "qty": 2
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "engine_oil",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "auto_04",
+    "name": "Тормозные детали",
+    "building_type": "auto_parts_plant",
+    "inputs": [
+      {
+        "item_id": "steel",
+        "qty": 2
+      },
+      {
+        "item_id": "metal_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "brake_parts",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "auto_05",
+    "name": "Фильтры",
+    "building_type": "auto_parts_plant",
+    "inputs": [
+      {
+        "item_id": "paper",
+        "qty": 1
+      },
+      {
+        "item_id": "plastic_parts",
+        "qty": 1
+      },
+      {
+        "item_id": "metal_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "filter_set",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "auto_06",
+    "name": "Кузовные детали",
+    "building_type": "auto_parts_plant",
+    "inputs": [
+      {
+        "item_id": "steel_sheet",
+        "qty": 2
+      },
+      {
+        "item_id": "plastic_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "car_body_parts",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "auto_07",
+    "name": "Комплект запчастей",
+    "building_type": "auto_parts_plant",
+    "inputs": [
+      {
+        "item_id": "mechanical_assembly",
+        "qty": 2
+      },
+      {
+        "item_id": "wiring_harness",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "car_spare_kit",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "elec_01",
+    "name": "Смартфон",
+    "building_type": "electronics_assembly",
+    "inputs": [
+      {
+        "item_id": "electronic_module",
+        "qty": 2
+      },
+      {
+        "item_id": "battery_cell",
+        "qty": 1
+      },
+      {
+        "item_id": "glass_sheet",
+        "qty": 1
+      },
+      {
+        "item_id": "plastic_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "smartphone",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 3,
+      "manager": 1
+    },
+    "energy": 5,
+    "research_cost": 200,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 4
+  },
+  {
+    "id": "elec_02",
+    "name": "Телевизор",
+    "building_type": "electronics_assembly",
+    "inputs": [
+      {
+        "item_id": "electronic_module",
+        "qty": 2
+      },
+      {
+        "item_id": "glass_sheet",
+        "qty": 2
+      },
+      {
+        "item_id": "plastic_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "television",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 3
+    },
+    "energy": 5,
+    "research_cost": 150,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 4
+  },
+  {
+    "id": "elec_03",
+    "name": "Холодильник",
+    "building_type": "appliance_plant",
+    "inputs": [
+      {
+        "item_id": "mechanical_assembly",
+        "qty": 2
+      },
+      {
+        "item_id": "steel_sheet",
+        "qty": 2
+      },
+      {
+        "item_id": "electronic_module",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "refrigerator",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 100,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "elec_04",
+    "name": "Стиральная машина",
+    "building_type": "appliance_plant",
+    "inputs": [
+      {
+        "item_id": "mechanical_assembly",
+        "qty": 2
+      },
+      {
+        "item_id": "steel_sheet",
+        "qty": 2
+      },
+      {
+        "item_id": "electronic_module",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "washing_machine",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 100,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "elec_05",
+    "name": "Электрочайник",
+    "building_type": "appliance_plant",
+    "inputs": [
+      {
+        "item_id": "mechanical_assembly",
+        "qty": 1
+      },
+      {
+        "item_id": "steel_sheet",
+        "qty": 1
+      },
+      {
+        "item_id": "plastic_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "electric_kettle",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "elec_06",
+    "name": "Домашний роутер",
+    "building_type": "electronics_assembly",
+    "inputs": [
+      {
+        "item_id": "circuit_board",
+        "qty": 2
+      },
+      {
+        "item_id": "electronic_module",
+        "qty": 1
+      },
+      {
+        "item_id": "plastic_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "home_router",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bash_01",
+    "name": "Башкирский мёд",
+    "building_type": "honey_packaging",
+    "inputs": [
+      {
+        "item_id": "honey",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "bashkir_honey_pack",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "bash_02",
+    "name": "Ҡорот",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "fermented_milk",
+        "qty": 3
+      },
+      {
+        "item_id": "salt",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "qurut",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "bash_03",
+    "name": "Чак-чак",
+    "building_type": "confectionery",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 2
+      },
+      {
+        "item_id": "honey",
+        "qty": 2
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "chak_chak",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "bash_04",
+    "name": "Подарочный набор мёда",
+    "building_type": "gift_packaging",
+    "inputs": [
+      {
+        "item_id": "bashkir_honey_pack",
+        "qty": 2
+      },
+      {
+        "item_id": "cardboard",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "honey_gift_set",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 4
+  },
+  {
+    "id": "bash_05",
+    "name": "Сувенир",
+    "building_type": "souvenir_workshop",
+    "inputs": [
+      {
+        "item_id": "lumber",
+        "qty": 1
+      },
+      {
+        "item_id": "dyed_fabric",
+        "qty": 1
+      },
+      {
+        "item_id": "paper",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "bashkir_souvenir",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "fuel_01",
+    "name": "АИ-92",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "gasoline_base",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "ai92",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "fuel_02",
+    "name": "АИ-95",
+    "building_type": "refinery_deep",
+    "inputs": [
+      {
+        "item_id": "gasoline_base",
+        "qty": 3
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "ai95",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 50,
+    "branch": "oil_chem",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "fuel_03",
+    "name": "Дизель",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "diesel_base",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "diesel_fuel",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "fuel_04",
+    "name": "Автогаз",
+    "building_type": "gas_processing",
+    "inputs": [
+      {
+        "item_id": "natural_gas",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "lpg",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "fuel_05",
+    "name": "Печное топливо",
+    "building_type": "refinery",
+    "inputs": [
+      {
+        "item_id": "fuel_oil",
+        "qty": 3
+      }
+    ],
+    "output": {
+      "item_id": "heating_fuel",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_01",
+    "name": "Ячневая крупа",
+    "building_type": "grain_mill",
+    "inputs": [
+      {
+        "item_id": "barley",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "groats",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "alt_02",
+    "name": "Овсяная крупа",
+    "building_type": "grain_mill",
+    "inputs": [
+      {
+        "item_id": "oats",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "groats",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "alt_03",
+    "name": "Смешанный хлеб",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 2
+      },
+      {
+        "item_id": "rye_flour",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "wheat_bread",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_04",
+    "name": "Медовый ржаной",
+    "building_type": "bakery",
+    "inputs": [
+      {
+        "item_id": "rye_flour",
+        "qty": 3
+      },
+      {
+        "item_id": "honey",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "rye_bread",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_05",
+    "name": "Грибная смесь",
+    "building_type": "food_plant",
+    "inputs": [
+      {
+        "item_id": "mushrooms",
+        "qty": 2
+      },
+      {
+        "item_id": "vegetables",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "vegetable_mix",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_07",
+    "name": "Лиственные доски",
+    "building_type": "sawmill",
+    "inputs": [
+      {
+        "item_id": "hardwood",
+        "qty": 4
+      }
+    ],
+    "output": {
+      "item_id": "lumber",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 1
+  },
+  {
+    "id": "alt_08",
+    "name": "Берёзовая фанера",
+    "building_type": "wood_plant",
+    "inputs": [
+      {
+        "item_id": "hardwood",
+        "qty": 3
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "plywood",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_09",
+    "name": "Цемент на торфе",
+    "building_type": "cement_plant",
+    "inputs": [
+      {
+        "item_id": "limestone",
+        "qty": 2
+      },
+      {
+        "item_id": "clay",
+        "qty": 1
+      },
+      {
+        "item_id": "peat",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cement",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_10",
+    "name": "Кирпич на торфе",
+    "building_type": "brickworks",
+    "inputs": [
+      {
+        "item_id": "clay",
+        "qty": 3
+      },
+      {
+        "item_id": "peat",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "brick",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_11",
+    "name": "Цементная смесь в мешках",
+    "building_type": "building_packaging",
+    "inputs": [
+      {
+        "item_id": "dry_mix",
+        "qty": 2
+      },
+      {
+        "item_id": "cement",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cement_bag",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 1
+    },
+    "energy": 1,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_12",
+    "name": "Смесь для стяжки",
+    "building_type": "concrete_plant",
+    "inputs": [
+      {
+        "item_id": "dry_mix",
+        "qty": 3
+      },
+      {
+        "item_id": "sand",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "concrete_mix",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "mining",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 2,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_13",
+    "name": "Битумная основа краски",
+    "building_type": "paint_plant",
+    "inputs": [
+      {
+        "item_id": "bitumen",
+        "qty": 2
+      },
+      {
+        "item_id": "industrial_solvent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "paint_base",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_14",
+    "name": "Ремкомплект двигателя",
+    "building_type": "engine_plant",
+    "inputs": [
+      {
+        "item_id": "engine",
+        "qty": 1
+      },
+      {
+        "item_id": "mechanical_assembly",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "car_spare_kit",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_15",
+    "name": "Стиралка с мотором",
+    "building_type": "appliance_plant",
+    "inputs": [
+      {
+        "item_id": "engine",
+        "qty": 1
+      },
+      {
+        "item_id": "steel_sheet",
+        "qty": 1
+      },
+      {
+        "item_id": "electronic_module",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "washing_machine",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_16",
+    "name": "Стол из массива",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "hardwood",
+        "qty": 2
+      },
+      {
+        "item_id": "furniture_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "table",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_17",
+    "name": "Стул с обивкой",
+    "building_type": "furniture_plant",
+    "inputs": [
+      {
+        "item_id": "plywood",
+        "qty": 2
+      },
+      {
+        "item_id": "dyed_fabric",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "chair",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "timber",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_18",
+    "name": "Тканая футболка",
+    "building_type": "garment_factory",
+    "inputs": [
+      {
+        "item_id": "woven_fabric",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "tshirt",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_19",
+    "name": "Демисезонная куртка",
+    "building_type": "garment_factory",
+    "inputs": [
+      {
+        "item_id": "knitted_fabric",
+        "qty": 2
+      },
+      {
+        "item_id": "dyed_fabric",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "jacket",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_20",
+    "name": "Комбинированная обувь",
+    "building_type": "shoe_factory",
+    "inputs": [
+      {
+        "item_id": "tanned_leather",
+        "qty": 1
+      },
+      {
+        "item_id": "woven_fabric",
+        "qty": 1
+      },
+      {
+        "item_id": "synthetic_rubber",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "leather_shoes",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "textile",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_21",
+    "name": "Медовый йогурт",
+    "building_type": "dairy_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 4
+      },
+      {
+        "item_id": "honey",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "yogurt",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_22",
+    "name": "Сливочный сыр",
+    "building_type": "cheese_plant",
+    "inputs": [
+      {
+        "item_id": "milk",
+        "qty": 3
+      },
+      {
+        "item_id": "cream",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cheese",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 1
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "dairy",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_23",
+    "name": "Медовое печенье",
+    "building_type": "confectionery",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 2
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      },
+      {
+        "item_id": "honey",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "cookies",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_24",
+    "name": "Ягодно-яблочный морс",
+    "building_type": "juice_plant",
+    "inputs": [
+      {
+        "item_id": "apples",
+        "qty": 2
+      },
+      {
+        "item_id": "forest_berries",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "berry_drink",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "bashkir",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 1,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_25",
+    "name": "Ячменный квас",
+    "building_type": "beverage_plant",
+    "inputs": [
+      {
+        "item_id": "barley",
+        "qty": 2
+      },
+      {
+        "item_id": "sugar",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "kvass",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 3,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_26",
+    "name": "Газохимические полимеры",
+    "building_type": "petrochemical_plant",
+    "inputs": [
+      {
+        "item_id": "crude_oil",
+        "qty": 2
+      },
+      {
+        "item_id": "natural_gas",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "polymer_granules",
+      "qty": 2
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 2
+    },
+    "energy": 6,
+    "research_cost": 0,
+    "branch": "oil_chem",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  },
+  {
+    "id": "alt_27",
+    "name": "Сталь из лома",
+    "building_type": "steel_plant",
+    "inputs": [
+      {
+        "item_id": "pig_iron",
+        "qty": 2
+      },
+      {
+        "item_id": "metal_parts",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "steel",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 4,
+      "engineer": 2
+    },
+    "energy": 5,
+    "research_cost": 0,
+    "branch": "metal",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_28",
+    "name": "Высокопрозрачное стекло",
+    "building_type": "glass_plant",
+    "inputs": [
+      {
+        "item_id": "sand",
+        "qty": 2
+      },
+      {
+        "item_id": "quartz",
+        "qty": 2
+      }
+    ],
+    "output": {
+      "item_id": "glass_sheet",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 3,
+      "engineer": 1
+    },
+    "energy": 5,
+    "research_cost": 80,
+    "branch": "packaging",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_29",
+    "name": "Автономный роутер",
+    "building_type": "electronics_assembly",
+    "inputs": [
+      {
+        "item_id": "circuit_board",
+        "qty": 2
+      },
+      {
+        "item_id": "electronic_module",
+        "qty": 1
+      },
+      {
+        "item_id": "battery_cell",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "home_router",
+      "qty": 1
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 3,
+    "research_cost": 0,
+    "branch": "tech",
+    "tier_unlock": 2,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_30",
+    "name": "Зимний дизель",
+    "building_type": "refinery_deep",
+    "inputs": [
+      {
+        "item_id": "diesel_base",
+        "qty": 3
+      },
+      {
+        "item_id": "chemical_reagent",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "diesel_fuel",
+      "qty": 3
+    },
+    "labor": {
+      "worker": 2,
+      "engineer": 2
+    },
+    "energy": 4,
+    "research_cost": 40,
+    "branch": "oil_chem",
+    "tier_unlock": 1,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 2
+  },
+  {
+    "id": "alt_minced_pasta",
+    "name": "Фарш в начинку макаронных",
+    "building_type": "pasta_plant",
+    "inputs": [
+      {
+        "item_id": "wheat_flour",
+        "qty": 2
+      },
+      {
+        "item_id": "minced_meat",
+        "qty": 1
+      }
+    ],
+    "output": {
+      "item_id": "pasta",
+      "qty": 4
+    },
+    "labor": {
+      "worker": 2
+    },
+    "energy": 2,
+    "research_cost": 0,
+    "branch": "agro",
+    "tier_unlock": 0,
+    "season_bonus_months": [],
+    "water_cost": 0,
+    "utility_cost": 3
+  }
+]
