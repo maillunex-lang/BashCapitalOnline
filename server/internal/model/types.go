@@ -330,18 +330,19 @@ type Contract struct {
 }
 
 type Shipment struct {
-	ID         string  `json:"id"`
-	FirmID     string  `json:"firm_id"`
-	ItemID     string  `json:"item_id"`
-	Qty        int     `json:"qty"`
-	Quality    float64 `json:"quality"`
-	FromCity   string  `json:"from_city"`
-	ToCity     string  `json:"to_city"`
-	TicksLeft  int     `json:"ticks_left"`
-	CostPaid   float64 `json:"cost_paid"`
-	OwnFleet   bool    `json:"own_fleet"`
-	Distance   float64 `json:"distance"` // map units (≈km scale)
-	Mode       string  `json:"mode"`     // local|road|rail
+	ID           string  `json:"id"`
+	FirmID       string  `json:"firm_id"`
+	ItemID       string  `json:"item_id"`
+	Qty          int     `json:"qty"`
+	Quality      float64 `json:"quality"`
+	FromCity     string  `json:"from_city"`
+	ToCity       string  `json:"to_city"`
+	ToBuildingID string  `json:"to_building_id,omitempty"`
+	TicksLeft    int     `json:"ticks_left"`
+	CostPaid     float64 `json:"cost_paid"`
+	OwnFleet     bool    `json:"own_fleet"`
+	Distance     float64 `json:"distance"` // map units (≈km scale)
+	Mode         string  `json:"mode"`     // local|road|rail
 }
 
 // ResourceDeposit — залежь/участок на карте.

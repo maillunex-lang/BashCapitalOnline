@@ -275,16 +275,16 @@ func (e *Engine) requireDepositForBuild(city *model.CityState, buildingType, rec
 	return nil
 }
 
-func (e *Engine) consumeDeposit(city *model.CityState, x, y, qty int, itemID string, log *[]string) (float64, bool) {
+func (e *Engine) consumeDeposit(city *model.CityState, x, y, qty int, itemID string, log *[]string) (int, float64) {
 	d := depositAt(city, x, y)
 	if d == nil || !depositMatchesNeed(d.ItemID, itemID) {
-		return 0, false
+		return 0, 0
 	}
 	if d.Amount < qty {
 		qty = d.Amount
 	}
 	if qty <= 0 {
-		return d.Quality, false
+		return 0, d.Quality
 	}
 	d.Amount -= qty
 	q := d.Quality
@@ -298,7 +298,7 @@ func (e *Engine) consumeDeposit(city *model.CityState, x, y, qty int, itemID str
 		if d.Amount > d.MaxAmount {
 			d.Amount = d.MaxAmount
 		}
-		return q, true
+		return qty, q
 	}
 	if d.Amount <= 0 {
 		d.Amount = 0
@@ -308,7 +308,7 @@ func (e *Engine) consumeDeposit(city *model.CityState, x, y, qty int, itemID str
 			*log = append(*log, fmt.Sprintf("Ресурс %s появился в другом месте (%d,%d)", spawnID, nd.X, nd.Y))
 		}
 	}
-	return q, true
+	return qty, q
 }
 
 func (e *Engine) removeEmptyDeposits(city *model.CityState) {

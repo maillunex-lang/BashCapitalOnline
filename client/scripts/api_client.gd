@@ -15,7 +15,13 @@ func _ready() -> void:
 	pass
 
 func configure(url: String) -> void:
-	base_url = url.rstrip("/")
+	var next_url := url.rstrip("/")
+	if next_url != base_url:
+		session_token = ""
+		firm_id = ""
+		firm = {}
+		world = {}
+	base_url = next_url
 
 func _headers(extra: Dictionary = {}) -> PackedStringArray:
 	var h: PackedStringArray = ["Content-Type: application/json"]
@@ -29,14 +35,14 @@ func auth_register(username: String, password: String) -> Dictionary:
 	var res = await _post("/api/auth/register", {"username": username, "password": password})
 	if res is Dictionary and res.has("session_token"):
 		session_token = str(res["session_token"])
+		firm_id = ""
 	return res if res is Dictionary else {}
 
 func auth_login(username: String, password: String) -> Dictionary:
 	var res = await _post("/api/auth/login", {"username": username, "password": password})
 	if res is Dictionary and res.has("session_token"):
 		session_token = str(res["session_token"])
-		if res.get("firm_id", "") != "":
-			firm_id = str(res["firm_id"])
+		firm_id = str(res.get("firm_id", ""))
 	return res if res is Dictionary else {}
 
 func route_quote(from_city: String, to_city: String) -> Dictionary:

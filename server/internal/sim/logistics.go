@@ -1,6 +1,7 @@
 package sim
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/google/uuid"
@@ -115,19 +116,44 @@ func (e *Engine) routeInfo(from, to string) (int, float64) {
 func (e *Engine) RouteQuote(from, to string) (int, float64) { return e.routeInfo(from, to) }
 func (e *Engine) CityDistance(from, to string) float64      { return e.cityDistance(from, to) }
 
+// TransferStock schedules a paid shipment between two buildings of the same firm.
+func (e *Engine) TransferStock(firmID, fromID, toID, itemID string, qty int) (*model.Shipment, error) {
+	firm, from, to := e.World.Firms[firmID], e.World.Buildings[fromID], e.World.Buildings[toID]
+	if firm == nil || from == nil || to == nil || from.FirmID != firmID || to.FirmID != firmID || fromID == toID {
+		return nil, fmt.Errorf("выберите два разных здания своей фирмы")
+	}
+	if _, ok := e.Catalog.ItemByID[itemID]; !ok || qty <= 0 {
+		return nil, fmt.Errorf("выберите товар и положительное количество")
+	}
+	if from.Inventory[itemID] < qty {
+		return nil, fmt.Errorf("на складе недостаточно товара для отправки")
+	}
+	ownFleet := firm.Trucks > 0
+	cost := float64(qty) * e.shipmentRoute(from.CityID, to.CityID, ownFleet).CostUnit
+	if firm.Cash < cost {
+		return nil, fmt.Errorf("недостаточно средств на доставку")
+	}
+	shipment := e.createShipment(firmID, itemID, from.CityID, to.CityID, qty, from.Quality, ownFleet)
+	shipment.ToBuildingID = to.ID
+	from.Inventory[itemID] -= qty
+	return shipment, nil
+}
+
+func (e *Engine) shipmentRoute(from, to string, ownFleet bool) routeQuote {
+	q := e.quoteRoute(from, to)
+	if ownFleet {
+		q.CostUnit *= 0.55
+		q.Ticks = max(1, q.Ticks-1)
+	}
+	return q
+}
+
 func (e *Engine) createShipment(firmID, itemID, from, to string, qty int, quality float64, ownFleet bool) *model.Shipment {
 	if qty <= 0 {
 		return nil
 	}
-	q := e.quoteRoute(from, to)
+	q := e.shipmentRoute(from, to, ownFleet)
 	cost := float64(qty) * q.CostUnit
-	if ownFleet {
-		cost *= 0.55
-		// own fleet a bit faster on long hauls, still ≥1 tick
-		if q.Ticks > 1 {
-			q.Ticks = max(1, q.Ticks-1)
-		}
-	}
 	firm := e.World.Firms[firmID]
 	if firm != nil {
 		if firm.Cash < cost {

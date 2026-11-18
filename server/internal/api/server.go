@@ -175,9 +175,18 @@ func (s *Server) handleRegister(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 400)
 		return
 	}
-	acc, sess, _ := s.sessionFromRequest(r)
 	s.Mu.Lock()
 	defer s.Mu.Unlock()
+	acc, _, authErr := s.sessionFromRequest(r)
+	if authErr != nil && (r.Header.Get("X-Session-Token") != "" || r.URL.Query().Get("session") != "") {
+		http.Error(w, "недействительная сессия", http.StatusUnauthorized)
+		return
+	}
+	if acc != nil && acc.FirmID != "" {
+		http.Error(w, "у аккаунта уже есть фирма", http.StatusConflict)
+		return
+	}
+	eventsBefore := len(s.Engine.World.Events)
 	firm, err := s.Engine.CreatePlayer(body.Name, body.Industry)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
@@ -185,12 +194,15 @@ func (s *Server) handleRegister(w http.ResponseWriter, r *http.Request) {
 	}
 	if acc != nil && s.DB != nil {
 		firm.AccountID = acc.ID
-		_ = s.DB.LinkFirm(acc.ID, firm.ID)
-		if sess != nil {
-			_ = s.DB.UpdateSessionFirm(sess.Token, firm.ID)
+		if err := s.DB.SaveWorldAndLinkFirm(s.Engine.World, acc.ID, firm.ID); err != nil {
+			delete(s.Engine.World.Firms, firm.ID)
+			s.Engine.World.Events = s.Engine.World.Events[:eventsBefore]
+			http.Error(w, "не удалось привязать фирму к аккаунту", http.StatusInternalServerError)
+			return
 		}
+	} else {
+		s.Engine.Persist() // survive restart before first tick
 	}
-	s.Engine.Persist() // survive restart before first tick
 	writeJSON(w, firm)
 }
 
@@ -251,6 +263,8 @@ func (s *Server) handleAction(w http.ResponseWriter, r *http.Request) {
 		result, err = s.Engine.RentShop(firmID, str(body["city_id"]), intNum(body["x"]), intNum(body["y"]), str(body["shop_type"]), str(body["item_id"]), floatNum(body["price"]))
 	case "configure_shop":
 		result, err = s.Engine.ConfigureShop(firmID, str(body["shop_id"]), str(body["shop_type"]), str(body["item_id"]), floatNum(body["price"]), str(body["stock_source"]), boolDefaultTrue(body["auto_restock"]))
+	case "transfer_stock":
+		result, err = s.Engine.TransferStock(firmID, str(body["from_building_id"]), str(body["to_building_id"]), str(body["item_id"]), intNum(body["qty"]))
 	case "stock_shop":
 		err = s.Engine.StockShop(firmID, str(body["shop_id"]), intNum(body["qty"]))
 	case "order":

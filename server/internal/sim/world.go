@@ -188,15 +188,35 @@ func (e *Engine) seedAI() {
 		}
 		e.World.Firms[f.ID] = f
 		for _, b := range p.builds {
-			if _, err := e.placeBuilding(f.ID, p.city, b.typ, b.recipe, b.x, b.y, true); err != nil {
-				if x, y, ok := e.findAIBuildSite(p.city, b.typ, b.recipe); ok {
-					_, _ = e.placeBuilding(f.ID, p.city, b.typ, b.recipe, x, y, true)
+			if city := e.World.Cities[p.city]; city != nil && e.canSeedAIBuildAt(city, b.x, b.y) {
+				if _, err := e.placeBuilding(f.ID, p.city, b.typ, b.recipe, b.x, b.y, true); err == nil {
+					continue
 				}
+			}
+			if x, y, ok := e.findAIBuildSite(p.city, b.typ, b.recipe); ok {
+				_, _ = e.placeBuilding(f.ID, p.city, b.typ, b.recipe, x, y, true)
 			}
 		}
 		e.seedAIInventory(f.ID, p.industry)
 		e.openAIShop(f, p.city, p.shopItem, p.shopPrice)
 	}
+}
+
+// Leave at least one accessible deposit of each generated resource when seeding competitors.
+func (e *Engine) canSeedAIBuildAt(city *model.CityState, x, y int) bool {
+	d := depositAt(city, x, y)
+	if e.Catalog.Version < 2 || d == nil {
+		return true
+	}
+	for _, other := range city.Deposits {
+		if (other.X == x && other.Y == y) || other.Amount <= 0 || !depositMatchesNeed(other.ItemID, d.ItemID) {
+			continue
+		}
+		if p := parcelAt(city, other.X, other.Y); p != nil && p.Building == "" {
+			return true
+		}
+	}
+	return false
 }
 
 // findAIBuildSite picks a free parcel for AI seeding (zone-aware, prefers matching deposits).
@@ -212,7 +232,7 @@ func (e *Engine) findAIBuildSite(cityID, buildingType, recipeID string) (int, in
 	needRes := e.depositItemForBuild(buildingType, recipeID)
 	var candidates []model.Parcel
 	for _, p := range city.Parcels {
-		if p.Building != "" {
+		if p.Building != "" || !e.canSeedAIBuildAt(city, p.X, p.Y) {
 			continue
 		}
 		zoneOK := false

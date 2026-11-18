@@ -28,7 +28,7 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 - Validate parcel selection, construction placement, deposit rules, and server-authoritative state.
 - Profile frame time, memory and draw calls on low-end Android.
 
-### 3. One complete playable economic chain
+### 3. One complete playable economic chain (verified locally)
 - Account registration -> company creation -> select city/parcel -> extract -> process -> transport -> shop -> sell -> profit -> reinvest.
 - Test wheat -> flour -> bread -> grocery as canonical path, plus at least one metallurgy or fuel chain.
 - Include purchase of inputs, money deductions, labor/utility constraints, inventory updates, logistics, prices and sales.
@@ -71,6 +71,15 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 - Go tests and server build passed. For the Godot smoke, use the fresh server and import commands above, then run `godot --headless --path client --script res://tests/city_map_smoke.gd -- http://127.0.0.1:18081`. For web, serve `web/` on port 8090 and run `python3 scripts/test_web_map.py --api http://127.0.0.1:18081` with Playwright and Chromium installed.
 - Frame time, memory, and GPU draw calls on a low-end Android device still need measurement.
 
+## Phase 3 verification (2026-11-18)
+
+- HTTP integration starts with account registration and normal starter grants, with AI competitors present. The bread firm grows wheat, mills it, bakes bread, ships to its warehouse in Sterlitamak, auto-restocks a grocery and sells there. After the pipeline fills, operating cash rises by at least 5,000 ₽ and the firm buys a new parcel.
+- The fuel firm pays for crude oil, refines gasoline base, retools for AI-92, stocks a fuel station and sells the output. Tests check the refinery's inputs, output, wages and utility deductions, and reject fuel in a grocery.
+- The tests reject a city purchase without a receiving building, dispatch with insufficient stock and stocking a shop before the shipment arrives. An outstanding shipment, lease, balance and inventory are checked after reopening SQLite and signing back in.
+- Fresh V2 worlds keep at least one open parcel for each resource already generated when seeding AI competitors. This prevents the AI from occupying the last playable wheat deposit during initial setup.
+- Godot's account and warehouse controls passed a headless smoke against the built server. The server process was also restarted with the same scratch database, and the account, firm, tick, cash and delivered wheat were restored.
+- Run `go test ./... -run TestPlayableV2 -v` from `server/`. To check the Godot controls on a fresh local server, run `godot --headless --path client --script res://tests/economy_actions_smoke.gd -- http://127.0.0.1:18081` after importing the project.
+
 ## Immediate next action
 
-Phase 3: exercise the full wheat → flour → bread → grocery loop from a new player, then verify a metallurgy or fuel chain and persistence.
+Phase 4: polish the Android UI for inventory, recipes, retail and production progress, and verify touch layout.

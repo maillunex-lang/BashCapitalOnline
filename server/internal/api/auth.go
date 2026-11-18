@@ -51,7 +51,7 @@ func (s *Server) handleAuthRegister(w http.ResponseWriter, r *http.Request) {
 	salt := newToken()[:16]
 	acc := store.Account{
 		ID: uuid.NewString(), Username: user,
-		PassHash: salt + "$" + hashPassword(body.Password, salt),
+		PassHash:  salt + "$" + hashPassword(body.Password, salt),
 		CreatedAt: time.Now().Unix(),
 	}
 	if err := s.DB.CreateAccount(acc); err != nil {
@@ -62,7 +62,10 @@ func (s *Server) handleAuthRegister(w http.ResponseWriter, r *http.Request) {
 		Token: newToken(), AccountID: acc.ID,
 		ExpiresAt: time.Now().Add(30 * 24 * time.Hour).Unix(),
 	}
-	_ = s.DB.CreateSession(sess)
+	if err := s.DB.CreateSession(sess); err != nil {
+		http.Error(w, "не удалось открыть сессию", http.StatusInternalServerError)
+		return
+	}
 	writeJSON(w, map[string]any{
 		"account_id": acc.ID, "username": acc.Username, "session_token": sess.Token,
 	})
@@ -99,7 +102,10 @@ func (s *Server) handleAuthLogin(w http.ResponseWriter, r *http.Request) {
 		Token: newToken(), AccountID: acc.ID, FirmID: acc.FirmID,
 		ExpiresAt: time.Now().Add(30 * 24 * time.Hour).Unix(),
 	}
-	_ = s.DB.CreateSession(sess)
+	if err := s.DB.CreateSession(sess); err != nil {
+		http.Error(w, "не удалось открыть сессию", http.StatusInternalServerError)
+		return
+	}
 	writeJSON(w, map[string]any{
 		"account_id": acc.ID, "username": acc.Username, "firm_id": acc.FirmID,
 		"session_token": sess.Token,
@@ -107,13 +113,13 @@ func (s *Server) handleAuthLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) handleAuthMe(w http.ResponseWriter, r *http.Request) {
-	acc, sess, err := s.sessionFromRequest(r)
+	acc, _, err := s.sessionFromRequest(r)
 	if err != nil {
 		http.Error(w, err.Error(), 401)
 		return
 	}
 	writeJSON(w, map[string]any{
-		"account_id": acc.ID, "username": acc.Username, "firm_id": sess.FirmID,
+		"account_id": acc.ID, "username": acc.Username, "firm_id": acc.FirmID,
 	})
 }
 
@@ -140,12 +146,19 @@ func (s *Server) sessionFromRequest(r *http.Request) (*store.Account, *store.Ses
 }
 
 func (s *Server) resolveFirmID(r *http.Request) string {
-	if firm := r.Header.Get("X-Firm-Id"); firm != "" {
-		return firm
+	if r.Header.Get("X-Session-Token") != "" || r.URL.Query().Get("session") != "" {
+		acc, _, err := s.sessionFromRequest(r)
+		if err != nil {
+			return ""
+		}
+		return acc.FirmID
 	}
-	_, sess, err := s.sessionFromRequest(r)
-	if err != nil {
+	firmID := r.Header.Get("X-Firm-Id")
+	s.Mu.RLock()
+	defer s.Mu.RUnlock()
+	firm := s.Engine.World.Firms[firmID]
+	if firm == nil || firm.IsAI || firm.AccountID != "" {
 		return ""
 	}
-	return sess.FirmID
+	return firmID
 }

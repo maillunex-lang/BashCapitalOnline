@@ -6,6 +6,7 @@ signal save_building(payload: Dictionary)
 signal save_shop(payload: Dictionary)
 signal rent_shop(payload: Dictionary)
 signal stock_shop(shop_id: String, qty: int)
+signal transfer_stock(payload: Dictionary)
 
 @onready var title: Label = $Margin/VBox/Title
 @onready var sub: Label = $Margin/VBox/Sub
@@ -86,7 +87,56 @@ func open_building(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fir
 	save.text = "Сохранить"
 	save.pressed.connect(_on_save_building)
 	body.add_child(save)
+	var inventory: Dictionary = b.get("inventory", {}) if b.get("inventory") is Dictionary else {}
+	if inventory.values().any(func(quantity): return int(quantity) > 0):
+		var transfer := Button.new()
+		transfer.text = "Склад и отправка груза"
+		transfer.pressed.connect(_open_transfer.bind(b, catalog, world, my_firm, inventory))
+		body.add_child(transfer)
 	visible = true
+
+func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_firm: String, inventory: Dictionary) -> void:
+	_clear_body()
+	sub.text = "Склад и отправка груза"
+	hint.text = "Доставка занимает от одного тика и оплачивается при отправке."
+	var item := OptionButton.new()
+	for id in inventory:
+		if int(inventory[id]) > 0:
+			item.add_item("%s ×%d" % [CatalogUI.entry_name(catalog, "items", id), int(inventory[id])])
+			item.set_item_metadata(item.item_count - 1, id)
+	_add_field("Товар на складе", item)
+
+	var destination := OptionButton.new()
+	destination.fit_to_longest_item = false
+	destination.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	for other in world.get("buildings", {}).values():
+		if other["firm_id"] != my_firm or other["id"] == b["id"]:
+			continue
+		var city := CatalogUI.entry_name(catalog, "cities", other["city_id"])
+		var name := CatalogUI.entry_name(catalog, "buildings", other["type"])
+		destination.add_item("%s · %s (%d, %d)" % [city, name, int(other["x"]), int(other["y"])])
+		destination.set_item_metadata(destination.item_count - 1, other["id"])
+	_add_field("Здание назначения", destination)
+
+	var qty := SpinBox.new()
+	qty.min_value = 1
+	qty.max_value = maxi(1, int(inventory.get(CatalogUI.selected_id(item), 0)))
+	item.item_selected.connect(func(_index): qty.max_value = int(inventory[CatalogUI.selected_id(item)]))
+	_add_field("Количество", qty)
+
+	var send := Button.new()
+	send.text = "Отправить"
+	send.disabled = item.item_count == 0 or destination.item_count == 0
+	send.pressed.connect(func():
+		visible = false
+		transfer_stock.emit({
+			"from_building_id": b["id"],
+			"to_building_id": CatalogUI.selected_id(destination),
+			"item_id": CatalogUI.selected_id(item),
+			"qty": int(qty.value),
+		})
+	)
+	body.add_child(send)
 
 func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	kind = "shop"

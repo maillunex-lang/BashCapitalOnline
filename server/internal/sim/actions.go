@@ -231,6 +231,9 @@ func shopRadiusForZone(zone string, slots int) int {
 }
 
 func (e *Engine) StockShop(firmID, shopID string, qty int) error {
+	if qty <= 0 {
+		return fmt.Errorf("количество должно быть положительным")
+	}
 	shop := e.World.Shops[shopID]
 	if shop == nil || shop.FirmID != firmID {
 		return fmt.Errorf("магазин не найден")

@@ -75,23 +75,24 @@ func (e *Engine) BuyFromCity(firmID, itemID string, qty int) error {
 	if firm.Cash < pay {
 		return fmt.Errorf("недостаточно средств")
 	}
-	firm.Cash -= pay
-	offer.Stock -= qty
-	e.World.CityMarket[itemID] = offer
-	// dump into any building inventory in firm's home-ish city
-	placed := false
+	var target *model.BuildingInst
 	for _, b := range e.World.Buildings {
 		if b.FirmID == firmID {
-			b.Inventory[itemID] += qty
-			// city goods are low quality — pull building quality slightly down if mixing
-			b.Quality = clamp((b.Quality*0.7)+(offer.Quality*0.3), 1, 5)
-			placed = true
+			target = b
 			break
 		}
 	}
-	if !placed {
+	if target == nil {
 		return fmt.Errorf("нужен хотя бы один склад/здание для приёмки")
 	}
+	firm.Cash -= pay
+	offer.Stock -= qty
+	e.World.CityMarket[itemID] = offer
+	if target.Inventory == nil {
+		target.Inventory = map[string]int{}
+	}
+	target.Inventory[itemID] += qty
+	target.Quality = clamp(target.Quality*0.7+offer.Quality*0.3, 1, 5)
 	e.World.Events = append(e.World.Events, fmt.Sprintf("%s купил у города %d %s (качество %.1f)", firm.Name, qty, itemID, offer.Quality))
 	return nil
 }

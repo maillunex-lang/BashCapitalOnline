@@ -38,7 +38,7 @@ func (e *Engine) Tick() {
 	e.runProduction(&log)
 	e.matchMarket(&log)
 	e.runRetail(&log)
-	e.payRentsAndWages(&log)
+	e.payRentsAndCredit()
 	e.restockAllAutoShops(&log)
 	e.aiAct(&log)
 	e.refreshCityMarket()
@@ -130,14 +130,23 @@ func (e *Engine) advanceShipments(log *[]string) {
 		if s.TicksLeft > 0 {
 			continue
 		}
+		if s.ToBuildingID != "" {
+			b := e.World.Buildings[s.ToBuildingID]
+			if b == nil || b.FirmID != s.FirmID || b.CityID != s.ToCity {
+				// Keep the cargo in transit if the recipient is unavailable in a save.
+				s.TicksLeft = 1
+				continue
+			}
+			deliverCargo(b, s)
+			*log = append(*log, fmt.Sprintf("Доставка %d %s в %s (дист. %.0f)", s.Qty, s.ItemID, s.ToCity, s.Distance))
+			delete(e.World.Shipments, id)
+			continue
+		}
 		// deliver into any warehouse/building of firm in destination
 		delivered := false
 		for _, b := range e.World.Buildings {
 			if b.FirmID == s.FirmID && b.CityID == s.ToCity {
-				b.Inventory[s.ItemID] += s.Qty
-				if s.Quality > 0 {
-					b.Quality = (b.Quality + s.Quality) / 2
-				}
+				deliverCargo(b, s)
 				delivered = true
 				break
 			}
@@ -154,6 +163,16 @@ func (e *Engine) advanceShipments(log *[]string) {
 		}
 		*log = append(*log, fmt.Sprintf("Доставка %d %s в %s (дист. %.0f)", s.Qty, s.ItemID, s.ToCity, s.Distance))
 		delete(e.World.Shipments, id)
+	}
+}
+
+func deliverCargo(b *model.BuildingInst, s *model.Shipment) {
+	if b.Inventory == nil {
+		b.Inventory = map[string]int{}
+	}
+	b.Inventory[s.ItemID] += s.Qty
+	if s.Quality > 0 {
+		b.Quality = (b.Quality + s.Quality) / 2
 	}
 }
 
@@ -182,7 +201,15 @@ func (e *Engine) runProduction(log *[]string) {
 		if city == nil {
 			continue
 		}
-		if !e.reserveLabor(city, recipe.Labor) {
+		if !hasLabor(city, recipe.Labor) || e.RecipeFitsBuilding(b.Type, recipe.ID) != nil {
+			continue
+		}
+		extract := isExtractRecipe(recipe)
+		utility := isUtilityExtract(recipe)
+		ww, we, wm := e.wageRates()
+		cost := e.opsCost(recipe, extract || utility) +
+			float64(recipe.Labor.Worker)*ww + float64(recipe.Labor.Engineer)*we + float64(recipe.Labor.Manager)*wm
+		if firm.Cash < cost {
 			continue
 		}
 		outQty := recipe.Output.Qty
@@ -193,68 +220,48 @@ func (e *Engine) runProduction(log *[]string) {
 				break
 			}
 		}
-		if err := e.RecipeFitsBuilding(b.Type, recipe.ID); err != nil {
-			continue
-		}
-		// Utility extract (e.g. bottled water): no deposit, pays water/utility.
-		if isUtilityExtract(recipe) {
-			cost := e.opsCost(recipe, true)
-			if firm.Cash < cost {
+		quality := clamp(b.Quality*0.7+2.0*0.3, 1, 5)
+		switch {
+		case utility:
+			quality = clamp(b.Quality*0.5+2.5*0.5, 1, 5)
+		case extract:
+			qty, depositQuality := e.consumeDeposit(city, b.X, b.Y, outQty, recipe.Output.ItemID, log)
+			if qty == 0 {
 				continue
 			}
-			firm.Cash -= cost
-			b.Inventory[recipe.Output.ItemID] += outQty
-			b.Quality = clamp(b.Quality*0.5+2.5*0.5, 1, 5)
-			continue
-		}
-		// Добыча: списываем запас залежи / участка на клетке
-		if isExtractRecipe(recipe) {
-			depQ, ok := e.consumeDeposit(city, b.X, b.Y, outQty, recipe.Output.ItemID, log)
-			if !ok {
-				continue // залежь иссякла / нет ресурса
+			outQty = qty
+			quality = clamp(depositQuality*0.7+b.Quality*0.3, 1, 5)
+		default:
+			e.procureInputs(b, recipe, log)
+			if firm.Cash < cost || !hasInputs(b, recipe) {
+				continue
 			}
-			cost := e.opsCost(recipe, true)
-			firm.Cash -= cost
-			b.Inventory[recipe.Output.ItemID] += outQty
-			b.Quality = clamp((depQ*0.7)+(b.Quality*0.3), 1, 5)
-			continue
-		}
-		e.procureInputs(b, recipe, log)
-		// check inputs
-		can := true
-		for _, in := range recipe.Inputs {
-			if b.Inventory[in.ItemID] < in.Qty {
-				can = false
-				break
+			for _, in := range recipe.Inputs {
+				b.Inventory[in.ItemID] -= in.Qty
 			}
+			quality = clamp(b.Quality*0.7+2.0*0.3, 1, 5)
 		}
-		if !can {
-			continue
-		}
-		inputQ := b.Quality
-		for _, in := range recipe.Inputs {
-			b.Inventory[in.ItemID] -= in.Qty
-		}
-		cost := e.opsCost(recipe, false)
+		city.LaborUsed.Worker += recipe.Labor.Worker
+		city.LaborUsed.Engineer += recipe.Labor.Engineer
+		city.LaborUsed.Manager += recipe.Labor.Manager
 		firm.Cash -= cost
 		b.Inventory[recipe.Output.ItemID] += outQty
-		b.Quality = clamp((inputQ*0.7)+2.0*0.3, 1, 5)
+		b.Quality = quality
 	}
 }
 
-func (e *Engine) reserveLabor(city *model.CityState, need model.Labor) bool {
-	if city.LaborUsed.Worker+need.Worker > city.LaborPool.Worker {
-		return false
+func hasLabor(city *model.CityState, need model.Labor) bool {
+	return city.LaborUsed.Worker+need.Worker <= city.LaborPool.Worker &&
+		city.LaborUsed.Engineer+need.Engineer <= city.LaborPool.Engineer &&
+		city.LaborUsed.Manager+need.Manager <= city.LaborPool.Manager
+}
+
+func hasInputs(b *model.BuildingInst, recipe model.RecipeDef) bool {
+	for _, in := range recipe.Inputs {
+		if b.Inventory[in.ItemID] < in.Qty {
+			return false
+		}
 	}
-	if city.LaborUsed.Engineer+need.Engineer > city.LaborPool.Engineer {
-		return false
-	}
-	if city.LaborUsed.Manager+need.Manager > city.LaborPool.Manager {
-		return false
-	}
-	city.LaborUsed.Worker += need.Worker
-	city.LaborUsed.Engineer += need.Engineer
-	city.LaborUsed.Manager += need.Manager
 	return true
 }
 
@@ -502,34 +509,13 @@ func (e *Engine) runRetail(log *[]string) {
 	}
 }
 
-func (e *Engine) payRentsAndWages(log *[]string) {
+func (e *Engine) payRentsAndCredit() {
 	for _, shop := range e.World.Shops {
 		firm := e.World.Firms[shop.FirmID]
 		if firm == nil {
 			continue
 		}
 		firm.Cash -= shop.FixedRent / 24 // почасовая доля месячной/суточной аренды
-	}
-	for _, city := range e.World.Cities {
-		// ставки за тик-час из economy.balance (синхрон с rebalance_economy.py)
-		ww, we, wm := e.wageRates()
-		wage := float64(city.LaborUsed.Worker)*ww + float64(city.LaborUsed.Engineer)*we + float64(city.LaborUsed.Manager)*wm
-		// split wage across firms with buildings in city proportional to buildings
-		counts := map[string]int{}
-		total := 0
-		for _, b := range e.World.Buildings {
-			if b.CityID == city.ID {
-				counts[b.FirmID]++
-				total++
-			}
-		}
-		if total == 0 || wage == 0 {
-			continue
-		}
-		for fid, n := range counts {
-			share := wage * float64(n) / float64(total)
-			e.World.Firms[fid].Cash -= share
-		}
 	}
 	// credit interest
 	for _, f := range e.World.Firms {
@@ -543,7 +529,6 @@ func (e *Engine) payRentsAndWages(log *[]string) {
 			}
 		}
 	}
-	_ = log
 }
 
 // restockAllAutoShops fills AutoRestock shops for every firm (players + AI) from own inventory.

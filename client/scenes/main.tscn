@@ -155,13 +155,22 @@ theme_override_constants/separation = 12
 [node name="Title" type="Label" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-text = "Открыть фирму"
+text = "Вход в БашКапитал"
 horizontal_alignment = 1
 
 [node name="Hint" type="Label" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
 layout_mode = 2
-text = "Полный экран · safe-area под камеру · тик = неделя"
+text = "Без логина и пароля можно начать гостевую игру."
 autowrap_mode = 3
+
+[node name="Username" type="LineEdit" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+placeholder_text = "Логин"
+
+[node name="Password" type="LineEdit" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+placeholder_text = "Пароль"
+secret = true
 
 [node name="NameEdit" type="LineEdit" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
 layout_mode = 2
@@ -179,6 +188,11 @@ text = "http://127.0.0.1:8080"
 layout_mode = 2
 text = "Войти в мир"
 [connection signal="pressed" from="SafeArea/UI/LoginPanel/Margin/VBox/ConnectBtn" to="." method="_on_connect_pressed"]
+
+[node name="RegisterBtn" type="Button" parent="SafeArea/UI/LoginPanel/Margin/VBox"]
+layout_mode = 2
+text = "Зарегистрироваться"
+[connection signal="pressed" from="SafeArea/UI/LoginPanel/Margin/VBox/RegisterBtn" to="." method="_on_connect_pressed" binds= [true]]
 
 [node name="CityTabs" type="HBoxContainer" parent="SafeArea/UI"]
 layout_mode = 0

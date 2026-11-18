@@ -87,11 +87,15 @@ func (d *DB) SaveWorld(w *model.World) error {
 	if d == nil {
 		return nil
 	}
+	return saveWorld(d.sql.Exec, w)
+}
+
+func saveWorld(exec func(string, ...any) (sql.Result, error), w *model.World) error {
 	b, err := json.Marshal(w)
 	if err != nil {
 		return err
 	}
-	_, err = d.sql.Exec(
+	_, err = exec(
 		`INSERT INTO world_save(id, payload, updated_at) VALUES(1, ?, ?)
 		 ON CONFLICT(id) DO UPDATE SET payload=excluded.payload, updated_at=excluded.updated_at`,
 		b, time.Now().Unix(),
@@ -216,9 +220,28 @@ func (d *DB) AccountByID(id string) (*Account, error) {
 	return &a, nil
 }
 
-func (d *DB) LinkFirm(accountID, firmID string) error {
-	_, err := d.sql.Exec(`UPDATE accounts SET firm_id=? WHERE id=?`, firmID, accountID)
-	return err
+// SaveWorldAndLinkFirm commits the new firm and its account association together.
+func (d *DB) SaveWorldAndLinkFirm(w *model.World, accountID, firmID string) error {
+	tx, err := d.sql.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+	res, err := tx.Exec(`UPDATE accounts SET firm_id=? WHERE id=? AND (firm_id IS NULL OR firm_id='')`, firmID, accountID)
+	if err != nil {
+		return err
+	}
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return err
+	}
+	if rows != 1 {
+		return fmt.Errorf("account already linked or missing")
+	}
+	if err := saveWorld(tx.Exec, w); err != nil {
+		return err
+	}
+	return tx.Commit()
 }
 
 func (d *DB) CreateSession(s Session) error {
@@ -245,11 +268,6 @@ func (d *DB) SessionByToken(token string) (*Session, error) {
 		return nil, fmt.Errorf("session expired")
 	}
 	return &s, nil
-}
-
-func (d *DB) UpdateSessionFirm(token, firmID string) error {
-	_, err := d.sql.Exec(`UPDATE sessions SET firm_id=? WHERE token=?`, firmID, token)
-	return err
 }
 
 func (d *DB) SavePayment(p Payment) error {

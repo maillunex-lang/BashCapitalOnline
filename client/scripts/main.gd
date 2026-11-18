@@ -8,6 +8,8 @@ extends Control
 @onready var tick_label: Label = $SafeArea/UI/TopBar/TickLabel
 @onready var cash_label: Label = $SafeArea/UI/TopBar/CashLabel
 @onready var login_panel: PanelContainer = $SafeArea/UI/LoginPanel
+@onready var username: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/Username
+@onready var password: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/Password
 @onready var name_edit: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/NameEdit
 @onready var industry_option: OptionButton = $SafeArea/UI/LoginPanel/Margin/VBox/Industry
 @onready var url_edit: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/UrlEdit
@@ -28,6 +30,7 @@ extends Control
 @onready var bottom_panel: PanelContainer = $SafeArea/UI/BottomPanel
 @onready var rank_panel: PanelContainer = $SafeArea/UI/RankPanel
 
+var connecting := false
 var current_city: String = "ufa"
 var selected_parcel: Dictionary = {}
 var grade_material: ShaderMaterial
@@ -78,6 +81,7 @@ func _ready() -> void:
 	manage_panel.save_shop.connect(_on_save_shop)
 	manage_panel.rent_shop.connect(_on_rent_shop)
 	manage_panel.stock_shop.connect(_on_stock_shop)
+	manage_panel.transfer_stock.connect(_on_transfer_stock)
 	manage_panel.closed.connect(func(): manage_panel.visible = false)
 	side.visible = false
 	game_layer.visible = false
@@ -168,7 +172,14 @@ func _on_deputy_tasks(kinds: PackedStringArray) -> void:
 		status_label.text = "Задания выданы заместителю"
 	await _refresh()
 
-func _on_connect_pressed() -> void:
+func _on_connect_pressed(register_account := false) -> void:
+	if connecting:
+		return
+	connecting = true
+	await _connect_to_world(register_account)
+	connecting = false
+
+func _connect_to_world(register_account: bool) -> void:
 	api.configure(url_edit.text.strip_edges())
 	if not await api.fetch_catalog():
 		status_label.text = "Каталог недоступен. Проверьте адрес игрового сервера."
@@ -177,11 +188,31 @@ func _on_connect_pressed() -> void:
 	await remote_assets.check_and_fetch()
 	_fill_build_options()
 	var industry: String = str(industry_option.get_item_metadata(industry_option.selected))
-	var firm := await api.register_firm(name_edit.text.strip_edges(), industry)
-	if not firm.has("id"):
-		status_label.text = "Ошибка: %s" % firm.get("error", "сервер недоступен")
-		return
-	status_label.text = "Фирма: %s" % firm.get("name", "")
+	var login := username.text.strip_edges()
+	if register_account or not login.is_empty() or not password.text.is_empty():
+		var auth: Dictionary
+		if register_account:
+			auth = await api.auth_register(login, password.text)
+		else:
+			auth = await api.auth_login(login, password.text)
+		if not auth.has("session_token"):
+			status_label.text = str(auth.get("error", "Не удалось войти в аккаунт"))
+			return
+	if api.firm_id.is_empty():
+		var firm := await api.register_firm(name_edit.text.strip_edges(), industry)
+		if not firm.has("id"):
+			status_label.text = "Ошибка: %s" % firm.get("error", "сервер недоступен")
+			return
+	else:
+		await api.fetch_world()
+		var firm: Dictionary = api.world.get("firms", {}).get(api.firm_id, {})
+		if firm.is_empty():
+			status_label.text = "Фирма аккаунта недоступна"
+			return
+		industry = str(firm.get("industry", industry))
+		api.firm = firm
+	password.clear()
+	status_label.text = "Фирма: %s" % api.firm.get("name", "")
 	login_panel.visible = false
 	game_layer.visible = true
 	bottom_panel.visible = true
@@ -422,3 +453,12 @@ func _on_apk_update(info: Dictionary) -> void:
 		OS.shell_open(url)
 	elif url != "" and api != null:
 		OS.shell_open(api.base_url + url)
+
+
+func _on_transfer_stock(payload: Dictionary) -> void:
+	var res := await api.action("transfer_stock", payload)
+	if res.has("error"):
+		status_label.text = str(res["error"])
+	else:
+		status_label.text = "Груз отправлен · %d тик." % int(res.get("ticks_left", 0))
+	_render_world()
