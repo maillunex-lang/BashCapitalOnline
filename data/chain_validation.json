@@ -1,0 +1,15 @@
+{
+  "counts": {
+    "items": 1008,
+    "recipes": 1730,
+    "buildings": 110,
+    "shops": 26
+  },
+  "missing_input_refs": [],
+  "missing_building_refs": [],
+  "unproduced_non_raw": [],
+  "consumed_not_in_items": [],
+  "produced_not_in_items": [],
+  "finished_without_shop": [],
+  "ok": true
+}

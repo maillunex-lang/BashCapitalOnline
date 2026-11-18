@@ -34,7 +34,8 @@
         "data/items.json",
         "data/recipes.json",
         "data/buildings.json"
-      ]
+      ],
+      "notes": "Scaled to ~1000 items with Bashkortostan chains; icon field on every item"
     },
     {
       "id": "RM-SHOP-SPEC",
@@ -225,7 +226,7 @@
         "data/remote_manifest.json",
         "client/scripts/"
       ],
-      "notes": "Manifest v2 + zip packs served at /api/packs; Godot RemoteAssets + APK prompt",
+      "notes": "Manifest v3 + zip packs; full item/building/shop icon catalog; Godot RemoteAssets + APK prompt",
       "files": [
         "data/remote_manifest.json",
         "data/packs/",
@@ -293,6 +294,37 @@
       "title": "Bashkir / English UI",
       "status": "backlog",
       "area": "client"
+    },
+    {
+      "id": "RM-CATALOG-ICONS",
+      "title": "Full catalog icons for items/buildings/shops",
+      "status": "done",
+      "area": "art",
+      "notes": "1008 item + 110 building + 26 shop icons; AI archetype sheets + procedural variants; art pack v3",
+      "files": [
+        "scripts/gen_catalog_icons.py",
+        "scripts/build_art_pack.py",
+        "client/assets/icons/",
+        "web/assets/icons/",
+        "data/remote_manifest.json"
+      ],
+      "updated": "2026-11-18"
+    },
+    {
+      "id": "RM-CATALOG-SCALE",
+      "title": "CapLab-scale Bashkortostan catalog + chain/margin validation",
+      "status": "done",
+      "area": "content",
+      "notes": "~1008 items / 1730 recipes / 110 buildings / 26 shops; chains validated; Bashkortostan-2026 margins; icons wired",
+      "files": [
+        "scripts/gen_full_catalog.py",
+        "scripts/validate_chains.py",
+        "scripts/rebalance_economy.py",
+        "data/items.json",
+        "data/recipes.json",
+        "data/chain_validation.json"
+      ],
+      "updated": "2026-11-18"
     }
   ]
 }

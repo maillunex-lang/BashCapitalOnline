@@ -29,8 +29,8 @@ const ZONE_TILE = {
   rural: "tile_rural", empty: "tile_grass", commercial: "tile_center",
 };
 const SHOP_ITEM_BY_INDUSTRY = {
-  dairy: "bottled_milk", food: "bread", furniture: "furniture",
-  apparel: "clothing", steel: "steel_goods", oil: "fuel_can",
+  dairy: "bottled_milk", food: "bread_wheat", furniture: "furniture_wood",
+  apparel: "clothing", steel: "goods_steel", oil: "fuel_can_gasoline",
 };
 
 function img(name) {
@@ -42,14 +42,41 @@ function img(name) {
   return el;
 }
 
+function itemDef(id) {
+  return (state.catalog?.items || []).find((x) => x.id === id);
+}
+function buildingDef(id) {
+  return (state.catalog?.buildings || []).find((x) => x.id === id);
+}
+function shopDef(id) {
+  return (state.catalog?.shops || []).find((x) => x.id === id);
+}
 function itemName(id) {
-  return (state.catalog?.items || []).find((x) => x.id === id)?.name || id;
+  return itemDef(id)?.name || id;
 }
 function buildingName(id) {
-  return (state.catalog?.buildings || []).find((x) => x.id === id)?.name || id;
+  return buildingDef(id)?.name || id;
 }
 function shopName(id) {
-  return (state.catalog?.shops || []).find((x) => x.id === id)?.name || id;
+  return shopDef(id)?.name || id;
+}
+function itemIconSrc(id) {
+  const it = itemDef(id);
+  const icon = it?.icon || `item_${id}`;
+  return `./assets/icons/${icon}.png`;
+}
+function buildingIconSrc(id) {
+  const b = buildingDef(id);
+  const icon = b?.icon || `bld_${id}`;
+  return `./assets/icons/${icon}.png`;
+}
+function shopIconSrc(id) {
+  const s = shopDef(id);
+  const icon = s?.icon || `shop_${id}`;
+  return `./assets/ui/${icon}.png`;
+}
+function rowWithIcon(iconSrc, html) {
+  return `<div class="row-main"><img class="ico" src="${iconSrc}" alt="" loading="lazy" onerror="this.style.opacity=.25"/><div class="row-text">${html}</div></div>`;
 }
 
 function shopAllows(shopType, item) {
@@ -163,7 +190,7 @@ async function refresh() {
 
   const market = w.city_market || {};
   $("market").innerHTML = Object.values(market).map((m) =>
-    `<div class="row"><div><strong>${itemName(m.item_id)}</strong><br/>${m.stock} шт · ${money(m.price)} ₽ · q${Number(m.quality).toFixed(1)}</div>
+    `<div class="row">${rowWithIcon(itemIconSrc(m.item_id), `<strong>${itemName(m.item_id)}</strong><br/>${m.stock} шт · ${money(m.price)} ₽ · q${Number(m.quality).toFixed(1)}`)}
       <button data-buy="${m.item_id}">+10</button></div>`
   ).join("") || "<div class='row'>Нет городского опта</div>";
   $("market").querySelectorAll("button[data-buy]").forEach((btn) => {
@@ -173,13 +200,13 @@ async function refresh() {
   const orders = Object.values(w.orders || {}).filter((o) => o.qty > o.filled);
   $("orders").innerHTML = orders.slice(0, 40).map((o) => {
     const firm = w.firms[o.firm_id];
-    return `<div class="row"><div><strong>${o.side === "sell" ? "Продажа" : "Покупка"}</strong> ${itemName(o.item_id)} ×${o.qty - o.filled}<br/>${firm?.name || o.firm_id} · ${money(o.price)} ₽</div></div>`;
+    return `<div class="row">${rowWithIcon(itemIconSrc(o.item_id), `<strong>${o.side === "sell" ? "Продажа" : "Покупка"}</strong> ${itemName(o.item_id)} ×${o.qty - o.filled}<br/>${firm?.name || o.firm_id} · ${money(o.price)} ₽`)}</div>`;
   }).join("") || "<div class='row'>Биржа пуста</div>";
 
   const ships = Object.values(w.shipments || {});
   if ($("shipments")) {
     $("shipments").innerHTML = "<h3 style='color:var(--accent-2);font-size:13px'>В пути (мин. 1 тик)</h3>" + (ships.map((s) =>
-      `<div class="row"><div><strong>${itemName(s.item_id)}</strong> ×${s.qty}<br/>${s.from_city} → ${s.to_city} · ${s.ticks_left} тик · дист. ${Math.round(s.distance || 0)}</div></div>`
+      `<div class="row">${rowWithIcon(itemIconSrc(s.item_id), `<strong>${itemName(s.item_id)}</strong> ×${s.qty}<br/>${s.from_city} → ${s.to_city} · ${s.ticks_left} тик · дист. ${Math.round(s.distance || 0)}`)}</div>`
     ).join("") || "<div class='row'>Нет доставок</div>");
   }
 
@@ -193,9 +220,9 @@ function renderMyAssets() {
   const blds = Object.values(state.world.buildings || {}).filter((b) => b.firm_id === state.firmId);
   $("myBuildings").innerHTML = "<h3 style='color:var(--accent-2);font-size:13px'>Мои заводы</h3>" + (blds.map((b) => {
     const inv = Object.entries(b.inventory || {}).filter(([, q]) => q > 0).map(([k, v]) => `${itemName(k)}:${v}`).join(", ");
-    return `<div class="row"><div><strong>${buildingName(b.type)}</strong> (${b.x},${b.y}) · ${b.recipe_id}<br/>
+    return `<div class="row">${rowWithIcon(buildingIconSrc(b.type), `<strong>${buildingName(b.type)}</strong> (${b.x},${b.y}) · ${b.recipe_id}<br/>
       ${b.sell_external === false ? "🔒 только себе" : "🌐 можно на сторону"} · вход: ${b.default_input?.mode || "own"}<br/>
-      <span class="muted">${inv || "пусто"}</span></div>
+      <span class="muted">${inv || "пусто"}</span>`)}
       <button data-b="${b.id}">Настроить</button></div>`;
   }).join("") || "<div class='row'>Нет заводов</div>");
   $("myBuildings").querySelectorAll("button[data-b]").forEach((btn) => {
@@ -204,8 +231,8 @@ function renderMyAssets() {
 
   const shops = Object.values(state.world.shops || {}).filter((s) => s.firm_id === state.firmId);
   $("myShops").innerHTML = "<h3 style='color:var(--accent-2);font-size:13px'>Мои магазины</h3>" + (shops.map((s) =>
-    `<div class="row"><div><strong>${shopName(s.shop_type)}</strong> → ${itemName(s.item_id)}<br/>
-      запас ${s.stock} · ${money(s.price)} ₽ · источник ${s.stock_source || "own"}</div>
+    `<div class="row">${rowWithIcon(shopIconSrc(s.shop_type), `<strong>${shopName(s.shop_type)}</strong> → ${itemName(s.item_id)}<br/>
+      запас ${s.stock} · ${money(s.price)} ₽ · источник ${s.stock_source || "own"}`)}
       <button data-s="${s.id}">Настроить</button></div>`
   ).join("") || "<div class='row'>Нет магазинов</div>");
   $("myShops").querySelectorAll("button[data-s]").forEach((btn) => {

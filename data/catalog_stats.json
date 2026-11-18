@@ -1,0 +1,13 @@
+{
+  "items": 1008,
+  "recipes": 1730,
+  "buildings": 110,
+  "shops": 26,
+  "by_tier": {
+    "finished": 709,
+    "intermediate": 140,
+    "raw": 159
+  },
+  "extract_recipes": 156,
+  "production_recipes": 1574
+}

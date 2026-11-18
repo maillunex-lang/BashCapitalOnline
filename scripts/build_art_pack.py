@@ -371,7 +371,7 @@ def slice_ui_icons():
         enhancer = ImageEnhance.Contrast(icon)
         icon = enhancer.enhance(1.08)
         save_both(name, icon, "ui")
-    # shop type icons from same palette procedural badges
+    # Legacy short shop aliases — only fill gaps; full shop_* come from gen_catalog_icons.
     shop_colors = {
         "shop_grocery": (70, 150, 110),
         "shop_bakery": (210, 150, 80),
@@ -383,6 +383,9 @@ def slice_ui_icons():
         "shop_department": (90, 140, 150),
     }
     for name, col in shop_colors.items():
+        path = CLIENT_UI / f"{name}.png"
+        if path.exists() and path.stat().st_size > 1500:
+            continue
         img = Image.new("RGBA", (96, 96), (0, 0, 0, 0))
         d = ImageDraw.Draw(img)
         d.rounded_rectangle([8, 8, 88, 88], radius=18, fill=(12, 26, 24, 230))
@@ -398,44 +401,52 @@ def pack_zips():
         "base_art": [CLIENT_UI, CLIENT_BG, CLIENT_ICONS],
         "city_tiles": [CLIENT_MAP],
     }
+    pack_ver = 3
     manifest_packs = []
     for pack_id, dirs in packs.items():
-        zpath = PACK_DIR / f"{pack_id}_v2.zip"
+        zpath = PACK_DIR / f"{pack_id}_v{pack_ver}.zip"
         with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as zf:
             for d in dirs:
                 for f in sorted(d.rglob("*")):
                     if f.is_file() and f.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
-                        zf.write(f, f"{d.name}/{f.name}")
+                        rel = f.relative_to(d.parent)
+                        zf.write(f, str(rel))
         data = zpath.read_bytes()
         digest = hashlib.sha256(data).hexdigest()
         manifest_packs.append({
             "id": pack_id,
-            "version": 2,
-            "url": f"/api/packs/{pack_id}_v2.zip",
+            "version": pack_ver,
+            "url": f"/api/packs/{pack_id}_v{pack_ver}.zip",
             "sha256": digest,
             "required": True,
             "size_bytes": len(data),
         })
-        print(pack_id, "bytes", len(data), "sha", digest[:12])
+        print(pack_id, "bytes", len(data), "sha", digest[:12], "files", sum(1 for d in dirs for f in d.rglob('*') if f.is_file()))
+    # keep v2 aliases for older clients if present
+    for pack_id in packs:
+        v3 = PACK_DIR / f"{pack_id}_v{pack_ver}.zip"
+        v2 = PACK_DIR / f"{pack_id}_v2.zip"
+        if v3.exists():
+            shutil.copy(v3, v2)
     apk = {
-        "version_code": 2,
-        "version_name": "0.2.0",
-        "url": "/api/updates/apk/bashcapital-0.2.0.apk",
+        "version_code": 3,
+        "version_name": "0.3.0",
+        "url": "/api/updates/apk/bashcapital-0.3.0.apk",
         "sha256": "pending-release",
-        "changelog": "Art pack v2 · remote assets · distance logistics · manage panels",
+        "changelog": "Art pack v3 · full item/building/shop icons · catalog atlases",
     }
     manifest = {
-        "app_version": "0.2.0",
+        "app_version": "0.3.0",
         "min_client_version": "0.1.0",
         "apk": apk,
         "packs": manifest_packs,
         "style": {
             "palette": {"bg": "#0c1a18", "accent": "#3d9b84", "gold": "#d2b36a", "text": "#e8f2ee"},
             "map": "isometric teal-roof Bashkortostan industry",
+            "icons": "painted product icons for full 1000-item catalog",
         },
     }
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    # sync web copies of map already done via save_both
     print("manifest written")
 
 
@@ -470,6 +481,9 @@ def main():
     ]
     slice_grid(ART / "iso_resources_decor.jpg", res_names, cols=6, rows=3, size=96)
     procedural_missing()
+    # Full catalog icons last so they are not overwritten by UI/map slices.
+    import runpy
+    runpy.run_path(str(ROOT / "scripts/gen_catalog_icons.py"), run_name="__main__")
     # sync any client map files missing on web
     for f in CLIENT_MAP.glob("*.png"):
         dest = WEB_MAP / f.name

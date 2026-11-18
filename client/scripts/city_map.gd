@@ -70,11 +70,15 @@ func _tex(name: String) -> Texture2D:
 		return null
 	if _sprites.has(name):
 		return _sprites[name]
-	var path := "res://assets/map/%s.png" % name
-	if ResourceLoader.exists(path):
-		var t: Texture2D = load(path)
-		_sprites[name] = t
-		return t
+	for path in [
+		"res://assets/map/%s.png" % name,
+		"res://assets/icons/%s.png" % name,
+		"res://assets/ui/%s.png" % name,
+	]:
+		if ResourceLoader.exists(path):
+			var t: Texture2D = load(path)
+			_sprites[name] = t
+			return t
 	_sprites[name] = null
 	return null
 
@@ -169,7 +173,9 @@ func _draw_tile(center: Vector2, col: Color) -> void:
 
 func _draw_building_sprite(center: Vector2, typ: String, zone: String) -> void:
 	var name := str(building_sprite.get(typ, ""))
-	var tex := _tex(name)
+	var tex := _tex(name) if name != "" else null
+	if tex == null:
+		tex = _tex("bld_" + typ)
 	if tex == null:
 		_draw_building(center, zone)
 		return
@@ -223,6 +229,8 @@ func _draw_catchment(cx: int, cy: int, radius: int) -> void:
 
 func _draw_deposit(center: Vector2, item_id: String, fill_ratio: float) -> void:
 	var tex := _tex("res_" + item_id)
+	if tex == null:
+		tex = _tex("item_" + item_id)
 	if tex:
 		var s := tex.get_size()
 		draw_texture_rect(tex, Rect2(center + Vector2(-s.x * 0.28, -s.y * 0.15), s * 0.55), false)

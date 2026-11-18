@@ -7,10 +7,13 @@ type Labor struct {
 }
 
 type ItemDef struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Tier     string `json:"tier"`
-	Category string `json:"category"`
+	ID         string `json:"id"`
+	Name       string `json:"name"`
+	Tier       string `json:"tier"`
+	Category   string `json:"category"`
+	Branch     string `json:"branch,omitempty"`
+	TierUnlock int    `json:"tier_unlock,omitempty"`
+	Icon       string `json:"icon,omitempty"`
 }
 
 type RecipeIO struct {
@@ -19,15 +22,17 @@ type RecipeIO struct {
 }
 
 type RecipeDef struct {
-	ID                 string   `json:"id"`
-	Name               string   `json:"name"`
-	BuildingType       string   `json:"building_type"`
-	Inputs             []RecipeIO `json:"inputs"`
-	Output             RecipeIO `json:"output"`
-	Labor              Labor    `json:"labor"`
-	Energy             int      `json:"energy"`
-	ResearchCost       int      `json:"research_cost"`
-	SeasonBonusMonths  []int    `json:"season_bonus_months"`
+	ID                string     `json:"id"`
+	Name              string     `json:"name"`
+	BuildingType      string     `json:"building_type"`
+	Inputs            []RecipeIO `json:"inputs"`
+	Output            RecipeIO   `json:"output"`
+	Labor             Labor      `json:"labor"`
+	Energy            int        `json:"energy"`
+	ResearchCost      int        `json:"research_cost"`
+	SeasonBonusMonths []int      `json:"season_bonus_months"`
+	Branch            string     `json:"branch,omitempty"`
+	TierUnlock        int        `json:"tier_unlock,omitempty"`
 }
 
 type BuildingDef struct {
@@ -39,6 +44,9 @@ type BuildingDef struct {
 	Footprint int    `json:"footprint"`
 	// IndustryTag — специализация как в Capitalism Lab (food/furniture/steel…).
 	IndustryTag string `json:"industry_tag,omitempty"`
+	Branch      string `json:"branch,omitempty"`
+	TierUnlock  int    `json:"tier_unlock,omitempty"`
+	Icon        string `json:"icon,omitempty"`
 }
 
 // ShopDef — тип розничной точки: продуктовый не продаёт электронику и т.п.
@@ -254,6 +262,10 @@ type Firm struct {
 	PersonaID          string             `json:"persona_id,omitempty"`
 	LastChatTick       int                `json:"last_chat_tick,omitempty"`
 	AccountID          string             `json:"account_id,omitempty"`
+	// RPG research progression
+	PrimaryBranch string          `json:"primary_branch,omitempty"`
+	ResearchNodes map[string]bool `json:"research_nodes,omitempty"`
+	ResearchPoints float64        `json:"research_points,omitempty"`
 }
 
 type MarketOrder struct {

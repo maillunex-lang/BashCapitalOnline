@@ -1,11 +1,2027 @@
 {
   "nodes": [
-    {"id": "agro_basics", "name": "Агрономия Башкортостана", "cost": 0, "requires": [], "unlocks_recipes": ["grow_wheat", "grow_potato", "farm_milk"]},
-    {"id": "orchard_craft", "name": "Садоводство и бортничество", "cost": 400, "requires": ["agro_basics"], "unlocks_recipes": ["farm_cherry", "farm_apple", "harvest_honey"]},
-    {"id": "dairy_tradition", "name": "Молочные традиции", "cost": 600, "requires": ["agro_basics"], "unlocks_recipes": ["make_koumiss", "make_qurut", "bottle_milk"]},
-    {"id": "bashkir_bakery", "name": "Национальная выпечка", "cost": 700, "requires": ["orchard_craft"], "unlocks_recipes": ["make_chakchak", "make_baursak"]},
-    {"id": "textile_felt", "name": "Войлок и ткачество", "cost": 800, "requires": ["agro_basics"], "unlocks_recipes": ["make_felt", "make_bashkir_carpet"]},
-    {"id": "ural_metal", "name": "Уральская металлургия", "cost": 500, "requires": [], "unlocks_recipes": ["smelt_steel", "steel_goods"]},
-    {"id": "oil_chain", "name": "Нефтехимия", "cost": 900, "requires": ["ural_metal"], "unlocks_recipes": ["refine_diesel", "pack_fuel"]}
-  ]
+    {
+      "id": "agro_t0",
+      "name": "Агропром Башкортостана · этап 0",
+      "branch": "agro",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "grow_barley",
+        "grow_buckwheat",
+        "grow_cabbage",
+        "grow_carrot",
+        "grow_cotton",
+        "grow_cucumber",
+        "grow_flax",
+        "grow_hemp",
+        "grow_oats",
+        "grow_onion",
+        "grow_pepper",
+        "grow_potato",
+        "grow_rapeseed",
+        "grow_rye",
+        "grow_sugar_beet",
+        "grow_sunflower",
+        "grow_tomato",
+        "grow_wheat",
+        "mill_barley",
+        "mill_buckwheat",
+        "mill_oats",
+        "mill_rye",
+        "mill_wheat",
+        "farm_apple",
+        "farm_cherry",
+        "farm_currant",
+        "farm_pear",
+        "farm_plum",
+        "farm_raspberry",
+        "farm_strawberry"
+      ],
+      "unlocks_buildings": [
+        "farm",
+        "orchard",
+        "mill"
+      ],
+      "starter": true
+    },
+    {
+      "id": "agro_t1",
+      "name": "Агропром Башкортостана · этап 1",
+      "branch": "agro",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "agro_t0"
+      ],
+      "unlocks_recipes": [
+        "grow_barley_std",
+        "grow_buckwheat_std",
+        "grow_cotton_std",
+        "grow_flax_std",
+        "grow_hemp_std",
+        "grow_oats_std",
+        "grow_rapeseed_std",
+        "grow_rye_std",
+        "grow_sunflower_std",
+        "grow_wheat_std",
+        "grow_cabbage_std",
+        "grow_carrot_std",
+        "grow_cucumber_std",
+        "grow_onion_std",
+        "grow_pepper_std",
+        "grow_potato_std",
+        "grow_sugar_beet_std",
+        "grow_tomato_std",
+        "mill_barley_eff",
+        "mill_barley_std",
+        "mill_buckwheat_eff",
+        "mill_buckwheat_std",
+        "mill_oats_eff",
+        "mill_oats_std",
+        "mill_rye_eff",
+        "mill_rye_std",
+        "mill_wheat_eff",
+        "mill_wheat_std",
+        "press_rapeseed",
+        "press_rapeseed_std",
+        "press_sunflower",
+        "press_sunflower_std",
+        "farm_apple_std",
+        "farm_cherry_std",
+        "farm_currant_std",
+        "farm_pear_std",
+        "farm_plum_std",
+        "farm_raspberry_std",
+        "farm_strawberry_std"
+      ],
+      "unlocks_buildings": [
+        "greenhouse",
+        "oil_press"
+      ],
+      "starter": false
+    },
+    {
+      "id": "agro_t2",
+      "name": "Агропром Башкортостана · этап 2",
+      "branch": "agro",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "agro_t1"
+      ],
+      "unlocks_recipes": [
+        "grow_barley_prem",
+        "grow_buckwheat_prem",
+        "grow_cotton_prem",
+        "grow_flax_prem",
+        "grow_hemp_prem",
+        "grow_oats_prem",
+        "grow_rapeseed_prem",
+        "grow_rye_prem",
+        "grow_sunflower_prem",
+        "grow_wheat_prem",
+        "grow_cabbage_prem",
+        "grow_carrot_prem",
+        "grow_cucumber_prem",
+        "grow_onion_prem",
+        "grow_pepper_prem",
+        "grow_potato_prem",
+        "grow_sugar_beet_prem",
+        "grow_tomato_prem",
+        "mill_barley_prem",
+        "mill_barley_std_eff",
+        "mill_buckwheat_prem",
+        "mill_buckwheat_std_eff",
+        "mill_oats_prem",
+        "mill_oats_std_eff",
+        "mill_rye_prem",
+        "mill_rye_std_eff",
+        "mill_wheat_prem",
+        "mill_wheat_std_eff",
+        "press_rapeseed_eff",
+        "press_rapeseed_prem",
+        "press_rapeseed_std_eff",
+        "press_sunflower_eff",
+        "press_sunflower_prem",
+        "press_sunflower_std_eff",
+        "farm_apple_prem",
+        "farm_cherry_prem",
+        "farm_currant_prem",
+        "farm_pear_prem",
+        "farm_plum_prem",
+        "farm_raspberry_prem"
+      ],
+      "unlocks_buildings": [
+        "seed_plant",
+        "sugar_plant"
+      ],
+      "starter": false
+    },
+    {
+      "id": "agro_t3",
+      "name": "Агропром Башкортостана · этап 3",
+      "branch": "agro",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "agro_t2"
+      ],
+      "unlocks_recipes": [
+        "mill_barley_prem_eff",
+        "mill_buckwheat_prem_eff",
+        "mill_oats_prem_eff",
+        "mill_rye_prem_eff",
+        "mill_wheat_prem_eff",
+        "press_rapeseed_prem_eff",
+        "press_sunflower_prem_eff",
+        "sugar_sugar_beet_eff",
+        "sugar_sugar_beet_prem_eff",
+        "sugar_sugar_beet_std_eff"
+      ],
+      "unlocks_buildings": [
+        "agro_complex"
+      ],
+      "starter": false
+    },
+    {
+      "id": "agro_t4",
+      "name": "Агропром Башкортостана · этап 4",
+      "branch": "agro",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "agro_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "food_t0",
+      "name": "Пищевая промышленность · этап 0",
+      "branch": "food",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "bake_bread_barley",
+        "bake_bread_buckwheat",
+        "bake_bread_oats",
+        "bake_bread_rye",
+        "bake_bread_wheat",
+        "can_cabbage",
+        "can_carrot",
+        "can_cucumber",
+        "can_onion",
+        "can_pepper",
+        "can_potato",
+        "can_sugar_beet",
+        "can_tomato",
+        "juice_apple",
+        "juice_cherry",
+        "juice_currant",
+        "juice_pear",
+        "juice_plum",
+        "juice_raspberry",
+        "juice_strawberry",
+        "meat_cattle",
+        "meat_goat",
+        "meat_horse",
+        "meat_pig",
+        "meat_poultry",
+        "meat_sheep"
+      ],
+      "unlocks_buildings": [
+        "bakery",
+        "food_plant"
+      ],
+      "starter": true
+    },
+    {
+      "id": "food_t1",
+      "name": "Пищевая промышленность · этап 1",
+      "branch": "food",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "food_t0"
+      ],
+      "unlocks_recipes": [
+        "bake_bread_barley_eff",
+        "bake_bread_barley_std",
+        "bake_bread_buckwheat_eff",
+        "bake_bread_buckwheat_std",
+        "bake_bread_oats_eff",
+        "bake_bread_oats_std",
+        "bake_bread_rye_eff",
+        "bake_bread_rye_std",
+        "bake_bread_wheat_eff",
+        "bake_bread_wheat_std",
+        "bake_pastry_barley_std",
+        "bake_pastry_buckwheat_std",
+        "bake_pastry_oats_std",
+        "bake_pastry_rye_std",
+        "bake_pastry_wheat_std",
+        "can_cabbage_std",
+        "can_carrot_std",
+        "can_cucumber_std",
+        "can_onion_std",
+        "can_pepper_std",
+        "can_potato_std",
+        "can_sugar_beet_std",
+        "can_tomato_std",
+        "bottle_veg_oil_rapeseed",
+        "bottle_veg_oil_rapeseed_std",
+        "bottle_veg_oil_sunflower",
+        "bottle_veg_oil_sunflower_std",
+        "can_cabbage_eff",
+        "can_carrot_eff",
+        "can_cucumber_eff",
+        "can_onion_eff",
+        "can_pepper_eff",
+        "can_potato_eff",
+        "can_sugar_beet_eff",
+        "can_tomato_eff",
+        "jam_apple",
+        "jam_apple_std",
+        "jam_cherry",
+        "jam_cherry_std",
+        "jam_currant"
+      ],
+      "unlocks_buildings": [
+        "cannery",
+        "juice_plant",
+        "meat_plant",
+        "mineral_water",
+        "pasta_plant"
+      ],
+      "starter": false
+    },
+    {
+      "id": "food_t2",
+      "name": "Пищевая промышленность · этап 2",
+      "branch": "food",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "food_t1"
+      ],
+      "unlocks_recipes": [
+        "bake_bread_barley_prem",
+        "bake_bread_barley_std_eff",
+        "bake_bread_buckwheat_prem",
+        "bake_bread_buckwheat_std_eff",
+        "bake_bread_oats_prem",
+        "bake_bread_oats_std_eff",
+        "bake_bread_rye_prem",
+        "bake_bread_rye_std_eff",
+        "bake_bread_wheat_prem",
+        "bake_bread_wheat_std_eff",
+        "bake_pastry_barley_std_eff",
+        "bake_pastry_buckwheat_std_eff",
+        "bake_pastry_oats_std_eff",
+        "bake_pastry_rye_std_eff",
+        "bake_pastry_wheat_std_eff",
+        "bake_pastry_barley_prem",
+        "bake_pastry_buckwheat_prem",
+        "bake_pastry_oats_prem",
+        "bake_pastry_rye_prem",
+        "bake_pastry_wheat_prem",
+        "make_kvass",
+        "can_cabbage_prem",
+        "can_cabbage_std_eff",
+        "can_carrot_prem",
+        "can_carrot_std_eff",
+        "can_cucumber_prem",
+        "can_cucumber_std_eff",
+        "can_onion_prem",
+        "can_onion_std_eff",
+        "can_pepper_prem",
+        "can_pepper_std_eff",
+        "can_potato_prem",
+        "can_potato_std_eff",
+        "can_sugar_beet_prem",
+        "can_sugar_beet_std_eff",
+        "can_tomato_prem",
+        "can_tomato_std_eff",
+        "jam_apple_prem",
+        "jam_cherry_prem",
+        "jam_currant_prem"
+      ],
+      "unlocks_buildings": [
+        "bakery_industrial",
+        "brewery",
+        "confectionery",
+        "snack_factory"
+      ],
+      "starter": false
+    },
+    {
+      "id": "food_t3",
+      "name": "Пищевая промышленность · этап 3",
+      "branch": "food",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "food_t2"
+      ],
+      "unlocks_recipes": [
+        "bake_bread_barley_prem_eff",
+        "bake_bread_buckwheat_prem_eff",
+        "bake_bread_oats_prem_eff",
+        "bake_bread_rye_prem_eff",
+        "bake_bread_wheat_prem_eff",
+        "bake_pastry_barley_prem_eff",
+        "bake_pastry_buckwheat_prem_eff",
+        "bake_pastry_oats_prem_eff",
+        "bake_pastry_rye_prem_eff",
+        "bake_pastry_wheat_prem_eff",
+        "can_cabbage_prem_eff",
+        "can_carrot_prem_eff",
+        "can_cucumber_prem_eff",
+        "can_onion_prem_eff",
+        "can_pepper_prem_eff",
+        "can_potato_prem_eff",
+        "can_sugar_beet_prem_eff",
+        "can_tomato_prem_eff",
+        "jam_apple_prem_eff",
+        "jam_cherry_prem_eff",
+        "jam_currant_prem_eff",
+        "jam_pear_prem_eff",
+        "jam_plum_prem_eff",
+        "jam_raspberry_prem_eff",
+        "jam_strawberry_prem_eff",
+        "bottle_veg_oil_rapeseed_prem_eff",
+        "bottle_veg_oil_sunflower_prem_eff",
+        "juice_apple_prem_eff",
+        "juice_cherry_prem_eff",
+        "juice_currant_prem_eff",
+        "juice_pear_prem_eff",
+        "juice_plum_prem_eff",
+        "juice_raspberry_prem_eff",
+        "juice_strawberry_prem_eff",
+        "meat_cattle_prem_eff",
+        "meat_goat_prem_eff",
+        "meat_horse_prem_eff",
+        "meat_pig_prem_eff",
+        "meat_poultry_prem_eff",
+        "meat_sheep_prem_eff"
+      ],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "food_t4",
+      "name": "Пищевая промышленность · этап 4",
+      "branch": "food",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "food_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "dairy_t0",
+      "name": "Молоко и животноводство · этап 0",
+      "branch": "dairy",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "bottle_egg",
+        "bottle_goat_milk",
+        "bottle_koumiss_base",
+        "bottle_milk",
+        "bottle_sheep_milk",
+        "milk_cattle",
+        "milk_goat",
+        "milk_horse",
+        "milk_poultry",
+        "milk_sheep",
+        "raise_cattle",
+        "raise_goat",
+        "raise_horse",
+        "raise_pig",
+        "raise_poultry",
+        "raise_sheep",
+        "side_goat",
+        "side_horse",
+        "side_poultry"
+      ],
+      "unlocks_buildings": [
+        "livestock_farm",
+        "dairy_plant"
+      ],
+      "starter": true
+    },
+    {
+      "id": "dairy_t1",
+      "name": "Молоко и животноводство · этап 1",
+      "branch": "dairy",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "dairy_t0"
+      ],
+      "unlocks_recipes": [
+        "bottle_egg_eff",
+        "bottle_egg_std",
+        "bottle_goat_milk_eff",
+        "bottle_goat_milk_std",
+        "bottle_koumiss_base_eff",
+        "bottle_koumiss_base_std",
+        "bottle_milk_eff",
+        "bottle_milk_std",
+        "bottle_sheep_milk_eff",
+        "bottle_sheep_milk_std",
+        "cheese_egg",
+        "cheese_egg_std",
+        "cheese_goat_milk",
+        "cheese_goat_milk_std",
+        "cheese_koumiss_base",
+        "cheese_koumiss_base_std",
+        "cheese_milk",
+        "cheese_milk_std",
+        "cheese_sheep_milk",
+        "cheese_sheep_milk_std",
+        "yogurt_egg",
+        "yogurt_egg_std",
+        "yogurt_goat_milk",
+        "yogurt_goat_milk_std",
+        "yogurt_koumiss_base",
+        "yogurt_koumiss_base_std",
+        "yogurt_milk",
+        "yogurt_milk_std",
+        "yogurt_sheep_milk",
+        "yogurt_sheep_milk_std",
+        "make_feed",
+        "milk_cattle_std",
+        "milk_goat_std",
+        "milk_horse_std",
+        "milk_sheep_std",
+        "raise_cattle_std",
+        "raise_goat_std",
+        "raise_horse_std",
+        "raise_pig_std",
+        "raise_sheep_std"
+      ],
+      "unlocks_buildings": [
+        "poultry_farm",
+        "feed_mill"
+      ],
+      "starter": false
+    },
+    {
+      "id": "dairy_t2",
+      "name": "Молоко и животноводство · этап 2",
+      "branch": "dairy",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "dairy_t1"
+      ],
+      "unlocks_recipes": [
+        "make_ice_cream",
+        "bottle_egg_prem",
+        "bottle_egg_std_eff",
+        "bottle_goat_milk_prem",
+        "bottle_goat_milk_std_eff",
+        "bottle_koumiss_base_prem",
+        "bottle_koumiss_base_std_eff",
+        "bottle_milk_prem",
+        "bottle_milk_std_eff",
+        "bottle_sheep_milk_prem",
+        "bottle_sheep_milk_std_eff",
+        "cheese_egg_eff",
+        "cheese_egg_std_eff",
+        "cheese_goat_milk_eff",
+        "cheese_goat_milk_std_eff",
+        "cheese_koumiss_base_eff",
+        "cheese_koumiss_base_std_eff",
+        "cheese_milk_eff",
+        "cheese_milk_std_eff",
+        "cheese_sheep_milk_eff",
+        "cheese_sheep_milk_std_eff",
+        "yogurt_egg_eff",
+        "yogurt_egg_prem",
+        "yogurt_egg_std_eff",
+        "yogurt_goat_milk_eff",
+        "yogurt_goat_milk_prem",
+        "yogurt_goat_milk_std_eff",
+        "yogurt_koumiss_base_eff",
+        "yogurt_koumiss_base_prem",
+        "yogurt_koumiss_base_std_eff",
+        "yogurt_milk_eff",
+        "yogurt_milk_prem",
+        "yogurt_milk_std_eff",
+        "yogurt_sheep_milk_eff",
+        "yogurt_sheep_milk_prem",
+        "yogurt_sheep_milk_std_eff",
+        "cheese_egg_prem",
+        "cheese_goat_milk_prem",
+        "cheese_koumiss_base_prem",
+        "cheese_milk_prem"
+      ],
+      "unlocks_buildings": [
+        "dairy_ice",
+        "dairy_premium"
+      ],
+      "starter": false
+    },
+    {
+      "id": "dairy_t3",
+      "name": "Молоко и животноводство · этап 3",
+      "branch": "dairy",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "dairy_t2"
+      ],
+      "unlocks_recipes": [
+        "bottle_egg_prem_eff",
+        "bottle_goat_milk_prem_eff",
+        "bottle_koumiss_base_prem_eff",
+        "bottle_milk_prem_eff",
+        "bottle_sheep_milk_prem_eff",
+        "yogurt_egg_prem_eff",
+        "yogurt_goat_milk_prem_eff",
+        "yogurt_koumiss_base_prem_eff",
+        "yogurt_milk_prem_eff",
+        "yogurt_sheep_milk_prem_eff",
+        "cheese_egg_prem_eff",
+        "cheese_goat_milk_prem_eff",
+        "cheese_koumiss_base_prem_eff",
+        "cheese_milk_prem_eff",
+        "cheese_sheep_milk_prem_eff",
+        "side_goat_prem_eff",
+        "side_horse_prem_eff",
+        "side_poultry_prem_eff"
+      ],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "dairy_t4",
+      "name": "Молоко и животноводство · этап 4",
+      "branch": "dairy",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "dairy_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "textile_t0",
+      "name": "Текстиль и лёгпром · этап 0",
+      "branch": "textile",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "make_clothing",
+        "make_clothing_winter",
+        "make_clothing_work",
+        "make_hat",
+        "side_cattle",
+        "side_sheep",
+        "weave_cotton",
+        "weave_flax",
+        "weave_hemp"
+      ],
+      "unlocks_buildings": [
+        "apparel_factory",
+        "textile_mill"
+      ],
+      "starter": true
+    },
+    {
+      "id": "textile_t1",
+      "name": "Текстиль и лёгпром · этап 1",
+      "branch": "textile",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "textile_t0"
+      ],
+      "unlocks_recipes": [
+        "make_clothing_eff",
+        "make_clothing_std",
+        "make_clothing_winter_eff",
+        "make_clothing_winter_std",
+        "make_clothing_work_eff",
+        "make_clothing_work_std",
+        "make_hat_eff",
+        "make_hat_std",
+        "side_cattle_eff",
+        "side_cattle_std",
+        "side_sheep_eff",
+        "side_sheep_std",
+        "make_boots",
+        "make_boots_std",
+        "make_shoes",
+        "make_shoes_std",
+        "weave_cotton_eff",
+        "weave_cotton_std",
+        "weave_flax_eff",
+        "weave_flax_std",
+        "weave_hemp_eff",
+        "weave_hemp_std"
+      ],
+      "unlocks_buildings": [
+        "leather_works",
+        "shoe_factory",
+        "textile_dye"
+      ],
+      "starter": false
+    },
+    {
+      "id": "textile_t2",
+      "name": "Текстиль и лёгпром · этап 2",
+      "branch": "textile",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "textile_t1"
+      ],
+      "unlocks_recipes": [
+        "make_clothing_prem",
+        "make_clothing_std_eff",
+        "make_clothing_winter_prem",
+        "make_clothing_winter_std_eff",
+        "make_clothing_work_prem",
+        "make_clothing_work_std_eff",
+        "make_hat_prem",
+        "make_hat_std_eff",
+        "side_cattle_prem",
+        "side_cattle_std_eff",
+        "side_sheep_prem",
+        "side_sheep_std_eff",
+        "make_boots_eff",
+        "make_boots_prem",
+        "make_boots_std_eff",
+        "make_shoes_eff",
+        "make_shoes_prem",
+        "make_shoes_std_eff",
+        "weave_cotton_prem",
+        "weave_cotton_std_eff",
+        "weave_flax_prem",
+        "weave_flax_std_eff",
+        "weave_hemp_prem",
+        "weave_hemp_std_eff"
+      ],
+      "unlocks_buildings": [
+        "knitwear"
+      ],
+      "starter": false
+    },
+    {
+      "id": "textile_t3",
+      "name": "Текстиль и лёгпром · этап 3",
+      "branch": "textile",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "textile_t2"
+      ],
+      "unlocks_recipes": [
+        "make_clothing_prem_eff",
+        "make_clothing_winter_prem_eff",
+        "make_clothing_work_prem_eff",
+        "make_hat_prem_eff",
+        "side_cattle_prem_eff",
+        "side_sheep_prem_eff",
+        "make_boots_prem_eff",
+        "make_shoes_prem_eff",
+        "weave_cotton_prem_eff",
+        "weave_flax_prem_eff",
+        "weave_hemp_prem_eff"
+      ],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "textile_t4",
+      "name": "Текстиль и лёгпром · этап 4",
+      "branch": "textile",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "textile_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "timber_t0",
+      "name": "Лес и мебель · этап 0",
+      "branch": "timber",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "furn_birch",
+        "furn_firewood",
+        "furn_linden",
+        "furn_pine",
+        "furn_wood",
+        "extract_birch",
+        "extract_firewood",
+        "extract_linden",
+        "extract_pine",
+        "extract_wood",
+        "saw_birch",
+        "saw_firewood",
+        "saw_linden",
+        "saw_pine",
+        "saw_wood"
+      ],
+      "unlocks_buildings": [
+        "logging_camp",
+        "furniture_plant",
+        "sawmill"
+      ],
+      "starter": true
+    },
+    {
+      "id": "timber_t1",
+      "name": "Лес и мебель · этап 1",
+      "branch": "timber",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "timber_t0"
+      ],
+      "unlocks_recipes": [
+        "board_birch",
+        "board_birch_std",
+        "board_firewood",
+        "board_firewood_std",
+        "board_linden",
+        "board_linden_std",
+        "board_pine",
+        "board_pine_std",
+        "board_wood",
+        "board_wood_std",
+        "furn_birch_eff",
+        "furn_birch_std",
+        "furn_firewood_eff",
+        "furn_firewood_std",
+        "furn_linden_eff",
+        "furn_linden_std",
+        "furn_pine_eff",
+        "furn_pine_std",
+        "furn_wood_eff",
+        "furn_wood_std",
+        "extract_birch_std",
+        "extract_firewood_std",
+        "extract_linden_std",
+        "extract_pine_std",
+        "extract_wood_std",
+        "saw_birch_eff",
+        "saw_birch_std",
+        "saw_firewood_eff",
+        "saw_firewood_std",
+        "saw_linden_eff",
+        "saw_linden_std",
+        "saw_pine_eff",
+        "saw_pine_std",
+        "saw_wood_eff",
+        "saw_wood_std",
+        "toy_birch",
+        "toy_birch_std",
+        "toy_firewood",
+        "toy_firewood_std",
+        "toy_linden"
+      ],
+      "unlocks_buildings": [
+        "board_plant",
+        "toy_factory"
+      ],
+      "starter": false
+    },
+    {
+      "id": "timber_t2",
+      "name": "Лес и мебель · этап 2",
+      "branch": "timber",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "timber_t1"
+      ],
+      "unlocks_recipes": [
+        "board_birch_eff",
+        "board_birch_prem",
+        "board_birch_std_eff",
+        "board_firewood_eff",
+        "board_firewood_prem",
+        "board_firewood_std_eff",
+        "board_linden_eff",
+        "board_linden_prem",
+        "board_linden_std_eff",
+        "board_pine_eff",
+        "board_pine_prem",
+        "board_pine_std_eff",
+        "board_wood_eff",
+        "board_wood_prem",
+        "board_wood_std_eff",
+        "furn_birch_std_eff",
+        "furn_firewood_std_eff",
+        "furn_linden_std_eff",
+        "furn_pine_std_eff",
+        "furn_wood_std_eff",
+        "furn_birch_prem",
+        "furn_firewood_prem",
+        "furn_linden_prem",
+        "furn_pine_prem",
+        "furn_wood_prem",
+        "extract_birch_prem",
+        "extract_firewood_prem",
+        "extract_linden_prem",
+        "extract_pine_prem",
+        "extract_wood_prem",
+        "saw_birch_prem",
+        "saw_birch_std_eff",
+        "saw_firewood_prem",
+        "saw_firewood_std_eff",
+        "saw_linden_prem",
+        "saw_linden_std_eff",
+        "saw_pine_prem",
+        "saw_pine_std_eff",
+        "saw_wood_prem",
+        "saw_wood_std_eff"
+      ],
+      "unlocks_buildings": [
+        "furniture_premium"
+      ],
+      "starter": false
+    },
+    {
+      "id": "timber_t3",
+      "name": "Лес и мебель · этап 3",
+      "branch": "timber",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "timber_t2"
+      ],
+      "unlocks_recipes": [
+        "board_birch_prem_eff",
+        "board_firewood_prem_eff",
+        "board_linden_prem_eff",
+        "board_pine_prem_eff",
+        "board_wood_prem_eff",
+        "furn_birch_prem_eff",
+        "furn_firewood_prem_eff",
+        "furn_linden_prem_eff",
+        "furn_pine_prem_eff",
+        "furn_wood_prem_eff",
+        "saw_birch_prem_eff",
+        "saw_firewood_prem_eff",
+        "saw_linden_prem_eff",
+        "saw_pine_prem_eff",
+        "saw_wood_prem_eff",
+        "toy_birch_prem_eff",
+        "toy_firewood_prem_eff",
+        "toy_linden_prem_eff",
+        "toy_pine_prem_eff",
+        "toy_wood_prem_eff"
+      ],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "timber_t4",
+      "name": "Лес и мебель · этап 4",
+      "branch": "timber",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "timber_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "mining_t0",
+      "name": "Недра и стройматериалы · этап 0",
+      "branch": "mining",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "make_brick",
+        "extract_bauxite",
+        "extract_coal",
+        "extract_copper_ore",
+        "extract_gold_ore",
+        "extract_iron_ore",
+        "extract_salt",
+        "extract_zinc_ore",
+        "extract_clay",
+        "extract_gravel",
+        "extract_limestone",
+        "extract_quartz",
+        "extract_sand"
+      ],
+      "unlocks_buildings": [
+        "mine",
+        "quarry",
+        "brick_plant"
+      ],
+      "starter": true
+    },
+    {
+      "id": "mining_t1",
+      "name": "Недра и стройматериалы · этап 1",
+      "branch": "mining",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "mining_t0"
+      ],
+      "unlocks_recipes": [
+        "make_brick_eff",
+        "make_cement",
+        "extract_bauxite_std",
+        "extract_coal_std",
+        "extract_copper_ore_std",
+        "extract_gold_ore_std",
+        "extract_iron_ore_std",
+        "extract_salt_std",
+        "extract_zinc_ore_std",
+        "extract_clay_std",
+        "extract_gravel_std",
+        "extract_limestone_std",
+        "extract_quartz_std",
+        "extract_sand_std"
+      ],
+      "unlocks_buildings": [
+        "cement_plant"
+      ],
+      "starter": false
+    },
+    {
+      "id": "mining_t2",
+      "name": "Недра и стройматериалы · этап 2",
+      "branch": "mining",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "mining_t1"
+      ],
+      "unlocks_recipes": [
+        "make_cement_eff"
+      ],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "mining_t3",
+      "name": "Недра и стройматериалы · этап 3",
+      "branch": "mining",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "mining_t2"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "mining_t4",
+      "name": "Недра и стройматериалы · этап 4",
+      "branch": "mining",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "mining_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "metal_t0",
+      "name": "Металлургия Урала · этап 0",
+      "branch": "metal",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "smelt_aluminum",
+        "smelt_copper",
+        "smelt_gold",
+        "smelt_zinc",
+        "smelt_steel"
+      ],
+      "unlocks_buildings": [
+        "steel_mill"
+      ],
+      "starter": true
+    },
+    {
+      "id": "metal_t1",
+      "name": "Металлургия Урала · этап 1",
+      "branch": "metal",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "metal_t0"
+      ],
+      "unlocks_recipes": [
+        "goods_aluminum_std",
+        "goods_copper_std",
+        "goods_gold_std",
+        "goods_steel_std",
+        "goods_zinc_std",
+        "smelt_aluminum_eff",
+        "smelt_aluminum_std",
+        "smelt_copper_eff",
+        "smelt_copper_std",
+        "smelt_gold_eff",
+        "smelt_gold_std",
+        "smelt_zinc_eff",
+        "smelt_zinc_std",
+        "goods_aluminum",
+        "goods_copper",
+        "goods_gold",
+        "goods_steel",
+        "goods_zinc",
+        "smelt_steel_eff",
+        "smelt_steel_std"
+      ],
+      "unlocks_buildings": [
+        "hardware_plant",
+        "smelter_copper"
+      ],
+      "starter": false
+    },
+    {
+      "id": "metal_t2",
+      "name": "Металлургия Урала · этап 2",
+      "branch": "metal",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "metal_t1"
+      ],
+      "unlocks_recipes": [
+        "goods_aluminum_prem",
+        "goods_aluminum_std_eff",
+        "goods_copper_prem",
+        "goods_copper_std_eff",
+        "goods_gold_prem",
+        "goods_gold_std_eff",
+        "goods_steel_prem",
+        "goods_steel_std_eff",
+        "goods_zinc_prem",
+        "goods_zinc_std_eff",
+        "roll_steel_prem",
+        "roll_steel_std",
+        "smelt_aluminum_prem",
+        "smelt_aluminum_std_eff",
+        "smelt_copper_prem",
+        "smelt_copper_std_eff",
+        "smelt_gold_prem",
+        "smelt_gold_std_eff",
+        "smelt_zinc_prem",
+        "smelt_zinc_std_eff",
+        "goods_aluminum_eff",
+        "goods_copper_eff",
+        "goods_gold_eff",
+        "goods_steel_eff",
+        "goods_zinc_eff",
+        "smelt_steel_prem",
+        "smelt_steel_std_eff"
+      ],
+      "unlocks_buildings": [
+        "pipe_plant",
+        "rolling_mill"
+      ],
+      "starter": false
+    },
+    {
+      "id": "metal_t3",
+      "name": "Металлургия Урала · этап 3",
+      "branch": "metal",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "metal_t2"
+      ],
+      "unlocks_recipes": [
+        "goods_aluminum_prem_eff",
+        "goods_copper_prem_eff",
+        "goods_gold_prem_eff",
+        "goods_steel_prem_eff",
+        "goods_zinc_prem_eff",
+        "roll_steel_prem_eff",
+        "roll_steel_std_eff",
+        "smelt_aluminum_prem_eff",
+        "smelt_copper_prem_eff",
+        "smelt_gold_prem_eff",
+        "smelt_zinc_prem_eff",
+        "smelt_steel_prem_eff"
+      ],
+      "unlocks_buildings": [
+        "machine_works"
+      ],
+      "starter": false
+    },
+    {
+      "id": "metal_t4",
+      "name": "Металлургия Урала · этап 4",
+      "branch": "metal",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "metal_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "oil_chem_t0",
+      "name": "Нефтехимия · этап 0",
+      "branch": "oil_chem",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "extract_chemicals",
+        "extract_gas",
+        "extract_oil",
+        "pack_diesel",
+        "pack_fuel_oil",
+        "pack_gasoline",
+        "pack_kerosene",
+        "refine_diesel",
+        "refine_fuel_oil",
+        "refine_gasoline",
+        "refine_kerosene"
+      ],
+      "unlocks_buildings": [
+        "oil_well",
+        "chem_plant",
+        "refinery"
+      ],
+      "starter": true
+    },
+    {
+      "id": "oil_chem_t1",
+      "name": "Нефтехимия · этап 1",
+      "branch": "oil_chem",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "oil_chem_t0"
+      ],
+      "unlocks_recipes": [
+        "extract_chemicals_std",
+        "pack_diesel_std",
+        "pack_fuel_oil_std",
+        "pack_gasoline_std",
+        "pack_kerosene_std",
+        "extract_gas_std",
+        "extract_oil_std",
+        "make_plastic",
+        "pack_diesel_eff",
+        "pack_fuel_oil_eff",
+        "pack_gasoline_eff",
+        "pack_kerosene_eff",
+        "refine_diesel_eff",
+        "refine_diesel_std",
+        "refine_fuel_oil_eff",
+        "refine_fuel_oil_std",
+        "refine_gasoline_eff",
+        "refine_gasoline_std",
+        "refine_kerosene_eff",
+        "refine_kerosene_std"
+      ],
+      "unlocks_buildings": [
+        "gas_well",
+        "fuel_blender",
+        "plastics_plant"
+      ],
+      "starter": false
+    },
+    {
+      "id": "oil_chem_t2",
+      "name": "Нефтехимия · этап 2",
+      "branch": "oil_chem",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "oil_chem_t1"
+      ],
+      "unlocks_recipes": [
+        "make_fertilizer",
+        "pack_diesel_prem",
+        "pack_diesel_std_eff",
+        "pack_fuel_oil_prem",
+        "pack_fuel_oil_std_eff",
+        "pack_gasoline_prem",
+        "pack_gasoline_std_eff",
+        "pack_kerosene_prem",
+        "pack_kerosene_std_eff",
+        "make_paint",
+        "make_plastic_eff",
+        "refine_diesel_prem",
+        "refine_diesel_std_eff",
+        "refine_fuel_oil_prem",
+        "refine_fuel_oil_std_eff",
+        "refine_gasoline_prem",
+        "refine_gasoline_std_eff",
+        "refine_kerosene_prem",
+        "refine_kerosene_std_eff"
+      ],
+      "unlocks_buildings": [
+        "fertilizer_plant",
+        "paint_plant"
+      ],
+      "starter": false
+    },
+    {
+      "id": "oil_chem_t3",
+      "name": "Нефтехимия · этап 3",
+      "branch": "oil_chem",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "oil_chem_t2"
+      ],
+      "unlocks_recipes": [
+        "pack_diesel_prem_eff",
+        "pack_fuel_oil_prem_eff",
+        "pack_gasoline_prem_eff",
+        "pack_kerosene_prem_eff",
+        "refine_diesel_prem_eff",
+        "refine_fuel_oil_prem_eff",
+        "refine_gasoline_prem_eff",
+        "refine_kerosene_prem_eff"
+      ],
+      "unlocks_buildings": [
+        "chemical_fine",
+        "refinery_deep"
+      ],
+      "starter": false
+    },
+    {
+      "id": "oil_chem_t4",
+      "name": "Нефтехимия · этап 4",
+      "branch": "oil_chem",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "oil_chem_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "tech_t0",
+      "name": "Электроника и техника · этап 0",
+      "branch": "tech",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": true
+    },
+    {
+      "id": "tech_t1",
+      "name": "Электроника и техника · этап 1",
+      "branch": "tech",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "tech_t0"
+      ],
+      "unlocks_recipes": [
+        "make_appliance",
+        "make_appliance_std",
+        "make_wire_std",
+        "make_circuit",
+        "make_circuit_std",
+        "make_electronics",
+        "make_electronics_std",
+        "make_wire"
+      ],
+      "unlocks_buildings": [
+        "appliance_plant",
+        "cable_plant",
+        "electronics_plant"
+      ],
+      "starter": false
+    },
+    {
+      "id": "tech_t2",
+      "name": "Электроника и техника · этап 2",
+      "branch": "tech",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "tech_t1"
+      ],
+      "unlocks_recipes": [
+        "make_appliance_eff",
+        "make_appliance_prem",
+        "make_appliance_std_eff",
+        "make_wire_prem",
+        "make_wire_std_eff",
+        "make_circuit_eff",
+        "make_circuit_prem",
+        "make_circuit_std_eff",
+        "make_electronics_eff",
+        "make_electronics_prem",
+        "make_electronics_std_eff",
+        "make_wire_eff"
+      ],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "tech_t3",
+      "name": "Электроника и техника · этап 3",
+      "branch": "tech",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "tech_t2"
+      ],
+      "unlocks_recipes": [
+        "make_appliance_prem_eff",
+        "make_wire_prem_eff",
+        "make_circuit_prem_eff",
+        "make_electronics_prem_eff"
+      ],
+      "unlocks_buildings": [
+        "chip_fab"
+      ],
+      "starter": false
+    },
+    {
+      "id": "tech_t4",
+      "name": "Электроника и техника · этап 4",
+      "branch": "tech",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "tech_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [
+        "solar_pilot"
+      ],
+      "starter": false
+    },
+    {
+      "id": "packaging_t0",
+      "name": "Упаковка и бумага · этап 0",
+      "branch": "packaging",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "make_bottle",
+        "make_packaging",
+        "make_packaging_paper",
+        "make_paper"
+      ],
+      "unlocks_buildings": [
+        "glass_plant",
+        "paper_mill"
+      ],
+      "starter": true
+    },
+    {
+      "id": "packaging_t1",
+      "name": "Упаковка и бумага · этап 1",
+      "branch": "packaging",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "packaging_t0"
+      ],
+      "unlocks_recipes": [
+        "make_bottle_eff",
+        "make_packaging_eff",
+        "make_book",
+        "make_packaging_paper_eff",
+        "make_paper_eff",
+        "make_book_std"
+      ],
+      "unlocks_buildings": [
+        "packaging_plant",
+        "print_shop"
+      ],
+      "starter": false
+    },
+    {
+      "id": "packaging_t2",
+      "name": "Упаковка и бумага · этап 2",
+      "branch": "packaging",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "packaging_t1"
+      ],
+      "unlocks_recipes": [
+        "make_book_eff",
+        "make_book_prem",
+        "make_book_std_eff"
+      ],
+      "unlocks_buildings": [
+        "glass_premium"
+      ],
+      "starter": false
+    },
+    {
+      "id": "packaging_t3",
+      "name": "Упаковка и бумага · этап 3",
+      "branch": "packaging",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "packaging_t2"
+      ],
+      "unlocks_recipes": [
+        "make_book_prem_eff"
+      ],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "packaging_t4",
+      "name": "Упаковка и бумага · этап 4",
+      "branch": "packaging",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "packaging_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "bashkir_t0",
+      "name": "Башкирский бренд · этап 0",
+      "branch": "bashkir",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "farm_honey"
+      ],
+      "unlocks_buildings": [],
+      "starter": true
+    },
+    {
+      "id": "bashkir_t1",
+      "name": "Башкирский бренд · этап 1",
+      "branch": "bashkir",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "bashkir_t0"
+      ],
+      "unlocks_recipes": [
+        "farm_honey_std",
+        "make_chakchak_honey",
+        "make_herbal_tea_honey",
+        "make_honey_candy_honey",
+        "make_bashkir_carpet",
+        "make_bashkir_carpet_std",
+        "make_chakchak_honey_std",
+        "make_honey_candy_honey_std",
+        "koumiss_koumiss_base",
+        "koumiss_milk",
+        "qurut_koumiss_base",
+        "qurut_koumiss_base_std",
+        "qurut_milk",
+        "qurut_milk_std",
+        "make_felt_base",
+        "make_felt_boots",
+        "make_felt_boots_std",
+        "make_herbal_tea_honey_std",
+        "koumiss_koumiss_base_std",
+        "koumiss_milk_std"
+      ],
+      "unlocks_buildings": [
+        "apiary",
+        "felt_workshop",
+        "koumiss_plant"
+      ],
+      "starter": false
+    },
+    {
+      "id": "bashkir_t2",
+      "name": "Башкирский бренд · этап 2",
+      "branch": "bashkir",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "bashkir_t1"
+      ],
+      "unlocks_recipes": [
+        "farm_honey_prem",
+        "make_chakchak_honey_eff",
+        "make_herbal_tea_honey_eff",
+        "make_honey_candy_honey_eff",
+        "make_bashkir_carpet_eff",
+        "make_bashkir_carpet_prem",
+        "make_bashkir_carpet_std_eff",
+        "make_chakchak_honey_prem",
+        "make_chakchak_honey_std_eff",
+        "make_honey_candy_honey_prem",
+        "make_honey_candy_honey_std_eff",
+        "koumiss_koumiss_base_eff",
+        "koumiss_milk_eff",
+        "qurut_koumiss_base_eff",
+        "qurut_koumiss_base_prem",
+        "qurut_koumiss_base_std_eff",
+        "qurut_milk_eff",
+        "qurut_milk_prem",
+        "qurut_milk_std_eff",
+        "make_felt_base_eff",
+        "make_felt_boots_eff",
+        "make_felt_boots_prem",
+        "make_felt_boots_std_eff",
+        "make_herbal_tea_honey_prem",
+        "make_herbal_tea_honey_std_eff",
+        "koumiss_koumiss_base_prem",
+        "koumiss_koumiss_base_std_eff",
+        "koumiss_milk_prem",
+        "koumiss_milk_std_eff"
+      ],
+      "unlocks_buildings": [
+        "carpet_factory"
+      ],
+      "starter": false
+    },
+    {
+      "id": "bashkir_t3",
+      "name": "Башкирский бренд · этап 3",
+      "branch": "bashkir",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "bashkir_t2"
+      ],
+      "unlocks_recipes": [
+        "make_bashkir_carpet_prem_eff",
+        "make_chakchak_honey_prem_eff",
+        "make_honey_candy_honey_prem_eff",
+        "qurut_koumiss_base_prem_eff",
+        "qurut_milk_prem_eff",
+        "make_felt_boots_prem_eff",
+        "make_herbal_tea_honey_prem_eff",
+        "koumiss_koumiss_base_prem_eff",
+        "koumiss_milk_prem_eff"
+      ],
+      "unlocks_buildings": [
+        "pharma_lite"
+      ],
+      "starter": false
+    },
+    {
+      "id": "bashkir_t4",
+      "name": "Башкирский бренд · этап 4",
+      "branch": "bashkir",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "bashkir_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "retail_t0",
+      "name": "Ритейл и логистика · этап 0",
+      "branch": "retail",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [
+        "garage",
+        "warehouse"
+      ],
+      "starter": true
+    },
+    {
+      "id": "retail_t1",
+      "name": "Ритейл и логистика · этап 1",
+      "branch": "retail",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "retail_t0"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [
+        "cold_storage"
+      ],
+      "starter": false
+    },
+    {
+      "id": "retail_t2",
+      "name": "Ритейл и логистика · этап 2",
+      "branch": "retail",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "retail_t1"
+      ],
+      "unlocks_recipes": [
+        "repack_bottled_milk_beloretsk",
+        "repack_bottled_milk_sterli",
+        "repack_bottled_milk_ufa",
+        "repack_bottled_veg_oil_rapeseed_beloretsk",
+        "repack_bottled_veg_oil_rapeseed_prem_beloretsk",
+        "repack_bottled_veg_oil_rapeseed_prem_sterli",
+        "repack_bottled_veg_oil_rapeseed_prem_ufa",
+        "repack_bottled_veg_oil_rapeseed_std_beloretsk",
+        "repack_bottled_veg_oil_rapeseed_std_sterli",
+        "repack_bottled_veg_oil_rapeseed_std_ufa",
+        "repack_bottled_veg_oil_rapeseed_sterli",
+        "repack_bottled_veg_oil_rapeseed_ufa",
+        "repack_bottled_veg_oil_sunflower_beloretsk",
+        "repack_bottled_veg_oil_sunflower_prem_beloretsk",
+        "repack_bottled_veg_oil_sunflower_prem_sterli",
+        "repack_bottled_veg_oil_sunflower_prem_ufa",
+        "repack_bottled_veg_oil_sunflower_std_beloretsk",
+        "repack_bottled_veg_oil_sunflower_std_sterli",
+        "repack_bottled_veg_oil_sunflower_std_ufa",
+        "repack_bottled_veg_oil_sunflower_sterli",
+        "repack_bottled_veg_oil_sunflower_ufa",
+        "repack_bread_barley_beloretsk",
+        "repack_bread_barley_prem_beloretsk",
+        "repack_bread_barley_prem_sterli",
+        "repack_bread_barley_prem_ufa",
+        "repack_bread_barley_std_beloretsk",
+        "repack_bread_barley_std_sterli",
+        "repack_bread_barley_std_ufa",
+        "repack_bread_barley_sterli",
+        "repack_bread_barley_ufa",
+        "repack_bread_buckwheat_beloretsk",
+        "repack_bread_buckwheat_prem_beloretsk",
+        "repack_bread_buckwheat_prem_sterli",
+        "repack_bread_buckwheat_prem_ufa",
+        "repack_bread_buckwheat_std_beloretsk",
+        "repack_bread_buckwheat_std_sterli",
+        "repack_bread_buckwheat_std_ufa",
+        "repack_bread_buckwheat_sterli",
+        "repack_bread_buckwheat_ufa",
+        "repack_bread_oats_beloretsk"
+      ],
+      "unlocks_buildings": [
+        "repack_center"
+      ],
+      "starter": false
+    },
+    {
+      "id": "retail_t3",
+      "name": "Ритейл и логистика · этап 3",
+      "branch": "retail",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "retail_t2"
+      ],
+      "unlocks_recipes": [
+        "repack_bottled_veg_oil_rapeseed_beloretsk_eff",
+        "repack_bottled_veg_oil_rapeseed_prem_beloretsk_eff",
+        "repack_bottled_veg_oil_rapeseed_prem_sterli_eff",
+        "repack_bottled_veg_oil_rapeseed_prem_ufa_eff",
+        "repack_bottled_veg_oil_rapeseed_std_beloretsk_eff",
+        "repack_bottled_veg_oil_rapeseed_std_sterli_eff",
+        "repack_bottled_veg_oil_rapeseed_std_ufa_eff",
+        "repack_bottled_veg_oil_rapeseed_sterli_eff",
+        "repack_bottled_veg_oil_rapeseed_ufa_eff",
+        "repack_bottled_veg_oil_sunflower_beloretsk_eff",
+        "repack_bottled_veg_oil_sunflower_prem_beloretsk_eff",
+        "repack_bottled_veg_oil_sunflower_prem_sterli_eff",
+        "repack_bottled_veg_oil_sunflower_prem_ufa_eff",
+        "repack_bottled_veg_oil_sunflower_std_beloretsk_eff",
+        "repack_bottled_veg_oil_sunflower_std_sterli_eff",
+        "repack_bottled_veg_oil_sunflower_std_ufa_eff",
+        "repack_bottled_veg_oil_sunflower_sterli_eff",
+        "repack_bottled_veg_oil_sunflower_ufa_eff",
+        "repack_bread_barley_beloretsk_eff",
+        "repack_bread_barley_prem_beloretsk_eff",
+        "repack_bread_barley_prem_sterli_eff",
+        "repack_bread_barley_prem_ufa_eff",
+        "repack_bread_barley_std_beloretsk_eff",
+        "repack_bread_barley_std_sterli_eff",
+        "repack_bread_barley_std_ufa_eff",
+        "repack_bread_barley_sterli_eff",
+        "repack_bread_barley_ufa_eff",
+        "repack_bread_buckwheat_beloretsk_eff",
+        "repack_bread_buckwheat_prem_beloretsk_eff",
+        "repack_bread_buckwheat_prem_sterli_eff",
+        "repack_bread_buckwheat_prem_ufa_eff",
+        "repack_bread_buckwheat_std_beloretsk_eff",
+        "repack_bread_buckwheat_std_sterli_eff",
+        "repack_bread_buckwheat_std_ufa_eff",
+        "repack_bread_buckwheat_sterli_eff",
+        "repack_bread_buckwheat_ufa_eff",
+        "repack_bread_oats_beloretsk_eff",
+        "repack_bread_oats_prem_beloretsk_eff",
+        "repack_bread_oats_prem_sterli_eff",
+        "repack_bread_oats_prem_ufa_eff"
+      ],
+      "unlocks_buildings": [
+        "port_terminal",
+        "rail_depot"
+      ],
+      "starter": false
+    },
+    {
+      "id": "retail_t4",
+      "name": "Ритейл и логистика · этап 4",
+      "branch": "retail",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "retail_t3"
+      ],
+      "unlocks_recipes": [],
+      "unlocks_buildings": [],
+      "starter": false
+    },
+    {
+      "id": "research_t0",
+      "name": "R&D · этап 0",
+      "branch": "research",
+      "tier": 0,
+      "cost": 0,
+      "rp_cost": 0,
+      "requires": [],
+      "unlocks_recipes": [
+        "workshop_job_100",
+        "workshop_job_105",
+        "workshop_job_80",
+        "workshop_job_85",
+        "workshop_job_90",
+        "workshop_job_95",
+        "lab_basic_research"
+      ],
+      "unlocks_buildings": [
+        "line_workshop_100",
+        "line_workshop_105",
+        "line_workshop_80",
+        "line_workshop_85",
+        "line_workshop_90",
+        "line_workshop_95",
+        "research_lab"
+      ],
+      "starter": true
+    },
+    {
+      "id": "research_t1",
+      "name": "R&D · этап 1",
+      "branch": "research",
+      "tier": 1,
+      "cost": 800,
+      "rp_cost": 5,
+      "requires": [
+        "research_t0"
+      ],
+      "unlocks_recipes": [
+        "workshop_job_101",
+        "workshop_job_106",
+        "workshop_job_81",
+        "workshop_job_86",
+        "workshop_job_91",
+        "workshop_job_96"
+      ],
+      "unlocks_buildings": [
+        "line_workshop_101",
+        "line_workshop_106",
+        "line_workshop_81",
+        "line_workshop_86",
+        "line_workshop_91",
+        "line_workshop_96"
+      ],
+      "starter": false
+    },
+    {
+      "id": "research_t2",
+      "name": "R&D · этап 2",
+      "branch": "research",
+      "tier": 2,
+      "cost": 1600,
+      "rp_cost": 10,
+      "requires": [
+        "research_t1"
+      ],
+      "unlocks_recipes": [
+        "workshop_job_102",
+        "workshop_job_107",
+        "workshop_job_82",
+        "workshop_job_87",
+        "workshop_job_92",
+        "workshop_job_97"
+      ],
+      "unlocks_buildings": [
+        "line_workshop_102",
+        "line_workshop_107",
+        "line_workshop_82",
+        "line_workshop_87",
+        "line_workshop_92",
+        "line_workshop_97",
+        "tech_park"
+      ],
+      "starter": false
+    },
+    {
+      "id": "research_t3",
+      "name": "R&D · этап 3",
+      "branch": "research",
+      "tier": 3,
+      "cost": 2400,
+      "rp_cost": 15,
+      "requires": [
+        "research_t2"
+      ],
+      "unlocks_recipes": [
+        "workshop_job_103",
+        "workshop_job_108",
+        "workshop_job_83",
+        "workshop_job_88",
+        "workshop_job_93",
+        "workshop_job_98"
+      ],
+      "unlocks_buildings": [
+        "line_workshop_103",
+        "line_workshop_108",
+        "line_workshop_83",
+        "line_workshop_88",
+        "line_workshop_93",
+        "line_workshop_98"
+      ],
+      "starter": false
+    },
+    {
+      "id": "research_t4",
+      "name": "R&D · этап 4",
+      "branch": "research",
+      "tier": 4,
+      "cost": 3200,
+      "rp_cost": 20,
+      "requires": [
+        "research_t3"
+      ],
+      "unlocks_recipes": [
+        "workshop_job_104",
+        "workshop_job_109",
+        "workshop_job_84",
+        "workshop_job_89",
+        "workshop_job_94",
+        "workshop_job_99"
+      ],
+      "unlocks_buildings": [
+        "line_workshop_104",
+        "line_workshop_109",
+        "line_workshop_84",
+        "line_workshop_89",
+        "line_workshop_94",
+        "line_workshop_99"
+      ],
+      "starter": false
+    }
+  ],
+  "branches": {
+    "agro": "Агропром Башкортостана",
+    "food": "Пищевая промышленность",
+    "dairy": "Молоко и животноводство",
+    "textile": "Текстиль и лёгпром",
+    "timber": "Лес и мебель",
+    "mining": "Недра и стройматериалы",
+    "metal": "Металлургия Урала",
+    "oil_chem": "Нефтехимия",
+    "tech": "Электроника и техника",
+    "packaging": "Упаковка и бумага",
+    "bashkir": "Башкирский бренд",
+    "retail": "Ритейл и логистика",
+    "research": "R&D"
+  }
 }

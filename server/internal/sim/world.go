@@ -129,50 +129,50 @@ func (e *Engine) seedAI() {
 	}{
 		{"ai_dairy", "Агидель Молоко", "dairy", "ai_dairy", 180000, "ufa", "bottled_milk", 45,
 			[]struct{ typ, recipe string; x, y int }{
-				{"livestock_farm", "farm_milk", -2, 0},
+				{"livestock_farm", "milk_cattle", -2, 0},
 				{"orchard", "farm_cherry", -3, 0},
 				{"quarry", "extract_sand", 3, 1},
 				{"glass_plant", "make_bottle", 2, 1},
 				{"dairy_plant", "bottle_milk", 2, 0},
 			}},
-		{"ai_bakery", "Хлебный Урал", "food", "ai_rookie", 150000, "ufa", "bread", 35,
+		{"ai_bakery", "Хлебный Урал", "food", "ai_rookie", 150000, "ufa", "bread_wheat", 35,
 			[]struct{ typ, recipe string; x, y int }{
 				{"farm", "grow_wheat", -4, 1},
 				{"farm", "grow_potato", -4, 0},
-				{"mill", "mill_flour", 1, -1},
-				{"plastics_plant", "make_packaging", 2, -1},
-				{"bakery", "bake_bread", 1, 0},
+				{"mill", "mill_wheat", 1, -1},
+				{"packaging_plant", "make_packaging", 2, -1},
+				{"bakery", "bake_bread_wheat", 1, 0},
 			}},
-		{"ai_furniture", "УралМебель", "furniture", "ai_furniture", 160000, "ufa", "furniture", 220,
+		{"ai_furniture", "УралМебель", "furniture", "ai_furniture", 160000, "ufa", "furniture_wood", 220,
 			[]struct{ typ, recipe string; x, y int }{
 				{"farm", "grow_flax", -3, 1},
 				{"logging_camp", "extract_wood", -4, 2},
-				{"textile_mill", "weave_fabric", 1, 2},
-				{"board_plant", "make_particle_board", 2, 2},
-				{"furniture_plant", "make_furniture", 3, 2},
+				{"textile_mill", "weave_flax", 1, 2},
+				{"board_plant", "board_wood", 2, 2},
+				{"furniture_plant", "furn_wood", 3, 2},
 			}},
 		{"ai_apparel", "БашТекстиль", "apparel", "ai_trader", 140000, "ufa", "clothing", 95,
 			[]struct{ typ, recipe string; x, y int }{
 				{"farm", "grow_flax", -1, 3},
 				{"livestock_farm", "raise_cattle", -2, 3},
-				{"textile_mill", "weave_fabric", 0, 3},
+				{"textile_mill", "weave_flax", 0, 3},
 				{"apparel_factory", "make_clothing", 1, 3},
 			}},
-		{"ai_steel", "БелорецкСталь", "steel", "ai_steel", 200000, "beloretsk", "steel_goods", 90,
+		{"ai_steel", "БелорецкСталь", "steel", "ai_steel", 200000, "beloretsk", "goods_steel", 90,
 			[]struct{ typ, recipe string; x, y int }{
-				{"mine", "mine_iron", 2, 0},
-				{"mine", "mine_coal", 3, -1},
+				{"mine", "extract_iron_ore", 2, 0},
+				{"mine", "extract_coal", 3, -1},
 				{"logging_camp", "extract_wood", -2, 1},
 				{"steel_mill", "smelt_steel", 2, 1},
-				{"steel_mill", "steel_goods", 3, 1},
+				{"steel_mill", "goods_steel", 3, 1},
 			}},
-		{"ai_oil", "УралНефть", "oil", "ai_trader", 220000, "beloretsk", "fuel_can", 85,
+		{"ai_oil", "УралНефть", "oil", "ai_trader", 220000, "beloretsk", "fuel_can_gasoline", 85,
 			[]struct{ typ, recipe string; x, y int }{
 				{"oil_well", "extract_oil", -1, 2},
 				{"chem_plant", "extract_chemicals", 0, 2},
 				{"plastics_plant", "make_plastic", 1, 2},
 				{"refinery", "refine_gasoline", 2, 2},
-				{"refinery", "pack_fuel", 3, 2},
+				{"refinery", "pack_gasoline", 3, 2},
 			}},
 	}
 
@@ -190,7 +190,7 @@ func (e *Engine) seedAI() {
 			}
 		}
 		// unlock a few mid-tier recipes so chains aren't stuck
-		for _, rid := range []string{"make_packaging", "make_plastic", "pack_fuel", "make_clothing", "make_leather", "steel_goods"} {
+		for _, rid := range []string{"make_packaging", "make_plastic", "pack_gasoline", "make_clothing", "board_wood", "goods_steel", "furn_wood", "weave_flax"} {
 			f.Researched[rid] = true
 		}
 		e.World.Firms[f.ID] = f
@@ -217,7 +217,7 @@ func (e *Engine) seedAIInventory(firmID, industry string) {
 			b.Inventory["packaging"] += 10
 		case "food":
 			b.Inventory["wheat"] += 40
-			b.Inventory["flour"] += 20
+			b.Inventory["flour_wheat"] += 20
 			b.Inventory["plastic"] += 15
 			b.Inventory["paper"] += 15
 			b.Inventory["packaging"] += 20
@@ -225,12 +225,12 @@ func (e *Engine) seedAIInventory(firmID, industry string) {
 			b.Inventory["flax"] += 40
 			b.Inventory["wood"] += 40
 			b.Inventory["chemicals"] += 30
-			b.Inventory["fabric"] += 10
-			b.Inventory["particle_board"] += 10
+			b.Inventory["fabric_flax"] += 10
+			b.Inventory["board_wood"] += 10
 		case "apparel":
 			b.Inventory["flax"] += 30
-			b.Inventory["fabric"] += 15
-			b.Inventory["cotton_fabric"] += 10
+			b.Inventory["fabric_flax"] += 15
+			b.Inventory["fabric_cotton"] += 10
 			b.Inventory["packaging"] += 15
 			b.Inventory["cattle"] += 8
 			b.Inventory["leather"] += 8
@@ -386,6 +386,25 @@ func (e *Engine) defaultRecipeForBuilding(firm *model.Firm, typ string) string {
 	return fallback
 }
 
+func mapIndustryBranch(industry string) string {
+	switch industry {
+	case "dairy":
+		return "dairy"
+	case "food":
+		return "food"
+	case "furniture":
+		return "timber"
+	case "apparel":
+		return "textile"
+	case "steel":
+		return "metal"
+	case "oil":
+		return "oil_chem"
+	default:
+		return "agro"
+	}
+}
+
 func (e *Engine) CreatePlayer(name, industry string) (*model.Firm, error) {
 	name = strings.TrimSpace(name)
 	if name == "" {
@@ -397,12 +416,18 @@ func (e *Engine) CreatePlayer(name, industry string) (*model.Firm, error) {
 		}
 	}
 	bonus := 100000.0
+	branch := mapIndustryBranch(industry)
 	researched := map[string]bool{}
+	nodes := map[string]bool{}
+	// Starter unlock: tier 0 + free research only in primary branch (and shared packaging/logistics).
 	for _, r := range e.Catalog.Recipes {
-		if r.ResearchCost == 0 {
+		if r.ResearchCost == 0 && r.TierUnlock == 0 && (r.Branch == branch || r.Branch == "packaging" || r.Branch == "retail" || r.Branch == "research" || r.Branch == "") {
 			researched[r.ID] = true
 		}
 	}
+	nodes[branch+"_t0"] = true
+	nodes["packaging_t0"] = true
+	nodes["research_t0"] = true
 	switch industry {
 	case "dairy":
 		bonus = 120000
@@ -423,7 +448,7 @@ func (e *Engine) CreatePlayer(name, industry string) (*model.Firm, error) {
 	f := &model.Firm{
 		ID: id, Name: name, IsAI: false, Industry: industry, Cash: bonus,
 		Researched: researched, BrandAwareness: map[string]float64{"food": 0.05, "home": 0.05, "apparel": 0.05, "fuel": 0.05},
-		Trucks: 0,
+		Trucks: 0, PrimaryBranch: branch, ResearchNodes: nodes, ResearchPoints: 3,
 	}
 	e.World.Firms[id] = f
 	e.World.Events = append(e.World.Events, fmt.Sprintf("Новая фирма: %s (%s)", name, industry))

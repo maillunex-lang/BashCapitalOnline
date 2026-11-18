@@ -51,9 +51,14 @@ python3 scripts/rebalance_economy.py
 
 ## Арт
 
+Полный каталог иконок (товары / здания / магазины):
+
 ```bash
+python3 scripts/gen_catalog_icons.py
 python3 scripts/build_art_pack.py
 ```
+
+Пак `base_art_v3` + атласы `items_atlas.png` / `buildings_atlas.png`.
 
 ## Правило обновления
 

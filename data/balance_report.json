@@ -1,742 +1,233 @@
 {
-  "mids": {
-    "wheat": 10,
-    "potato": 9,
-    "apple": 14,
-    "cherry": 20,
-    "flax": 16,
-    "cotton": 18,
-    "wood": 12,
-    "cattle": 120,
-    "milk": 14,
-    "sand": 8,
-    "quartz": 28,
-    "iron_ore": 18,
-    "copper_ore": 22,
-    "coal": 13,
-    "oil": 42,
-    "gas": 34,
-    "chemicals": 42,
-    "honey": 50,
-    "flour": 35.38,
-    "fabric": 101.26,
-    "cotton_fabric": 106.14,
-    "planks": 34.77,
-    "beef": 60.39,
-    "felt": 120.78,
-    "bottle": 52.46,
-    "copper": 135.42,
-    "steel": 164.29,
-    "diesel": 129.93,
-    "gasoline": 129.93,
-    "leather": 113.46,
-    "plastic": 94.25,
-    "paper": 62.95,
-    "particle_board": 109.8,
-    "sugar": 61.3,
-    "bashkir_carpet": 779.62,
-    "apple_juice": 114.51,
-    "bottled_milk": 114.25,
-    "cherry_milk_drink": 145.87,
-    "koumiss": 126.67,
-    "circuit": 517.79,
-    "steel_goods": 285.17,
-    "wire": 154.36,
-    "fuel_can": 268.87,
-    "packaging": 131.58,
-    "furniture": 667.98,
-    "appliance": 1727.97,
-    "toy": 210.06,
-    "chakchak": 192.73,
-    "canned_food": 226.53,
-    "qurut": 114.17,
-    "yogurt": 154.39,
-    "butter": 154.68,
-    "snack": 150.45,
-    "herbal_tea": 150.25,
-    "bread": 101.03,
-    "cheese": 193.72,
-    "electronics": 1759.48,
-    "book": 310.64,
-    "clothing": 309.82,
-    "shoes": 362.72,
-    "pastry": 222.0,
-    "baursak": 104.58
+  "mids_sample": {
+    "aluminum": 221.25,
+    "aluminum_prem": 221.25,
+    "aluminum_std": 240.41,
+    "animal_feed": 45.47,
+    "apple": 22,
+    "apple_prem": 27.5,
+    "apple_std": 25.3,
+    "appliance": 2115.97,
+    "appliance_prem": 2115.97,
+    "appliance_std": 2115.97,
+    "barley": 12,
+    "barley_prem": 15.0,
+    "barley_std": 13.8,
+    "bashkir_carpet": 699.4,
+    "bashkir_carpet_prem": 699.4,
+    "bashkir_carpet_std": 699.4,
+    "bauxite": 35.87,
+    "bauxite_std": 45.78,
+    "beam_steel_prem": 347.12,
+    "beam_steel_std": 361.0,
+    "bee": 100,
+    "bee_prem": 125.0,
+    "bee_std": 115.0,
+    "beef": 71.92,
+    "beef_prem": 82.07,
+    "beef_std": 78.01,
+    "birch": 17,
+    "birch_prem": 21.25,
+    "birch_std": 19.55,
+    "board_birch": 138.81,
+    "board_birch_prem": 147.03,
+    "board_birch_std": 143.74,
+    "board_firewood": 129.32,
+    "board_firewood_prem": 130.11,
+    "board_firewood_std": 129.32,
+    "board_linden": 142.68,
+    "board_linden_prem": 151.86,
+    "board_linden_std": 148.19,
+    "board_pine": 136.88,
+    "board_pine_prem": 144.61
   },
-  "setters": [
-    {
-      "item": "flour",
-      "setter_recipe": "mill_flour",
-      "unit_cost": 29.0,
-      "mid": 35.38,
-      "margin": 0.22,
-      "input_cost_batch": 50.0
-    },
-    {
-      "item": "fabric",
-      "setter_recipe": "weave_fabric",
-      "unit_cost": 83.0,
-      "mid": 101.26,
-      "margin": 0.22,
-      "input_cost_batch": 64.0
-    },
-    {
-      "item": "cotton_fabric",
-      "setter_recipe": "weave_cotton",
-      "unit_cost": 87.0,
-      "mid": 106.14,
-      "margin": 0.22,
-      "input_cost_batch": 72.0
-    },
-    {
-      "item": "planks",
-      "setter_recipe": "saw_planks",
-      "unit_cost": 28.5,
-      "mid": 34.77,
-      "margin": 0.22,
-      "input_cost_batch": 48.0
-    },
-    {
-      "item": "beef",
-      "setter_recipe": "slaughter_beef",
-      "unit_cost": 49.5,
-      "mid": 60.39,
-      "margin": 0.22,
-      "input_cost_batch": 120.0
-    },
-    {
-      "item": "felt",
-      "setter_recipe": "make_felt",
-      "unit_cost": 99.0,
-      "mid": 120.78,
-      "margin": 0.22,
-      "input_cost_batch": 120.0
-    },
-    {
-      "item": "bottle",
-      "setter_recipe": "make_bottle",
-      "unit_cost": 43.0,
-      "mid": 52.46,
-      "margin": 0.22,
-      "input_cost_batch": 44.0
-    },
-    {
-      "item": "copper",
-      "setter_recipe": "smelt_copper",
-      "unit_cost": 111.0,
-      "mid": 135.42,
-      "margin": 0.22,
-      "input_cost_batch": 123.0
-    },
-    {
-      "item": "steel",
-      "setter_recipe": "smelt_steel",
-      "unit_cost": 134.67,
-      "mid": 164.29,
-      "margin": 0.22,
-      "input_cost_batch": 116.0
-    },
-    {
-      "item": "diesel",
-      "setter_recipe": "refine_diesel",
-      "unit_cost": 106.5,
-      "mid": 129.93,
-      "margin": 0.22,
-      "input_cost_batch": 168.0
-    },
-    {
-      "item": "gasoline",
-      "setter_recipe": "refine_gasoline",
-      "unit_cost": 106.5,
-      "mid": 129.93,
-      "margin": 0.22,
-      "input_cost_batch": 168.0
-    },
-    {
-      "item": "leather",
-      "setter_recipe": "make_leather",
-      "unit_cost": 93.0,
-      "mid": 113.46,
-      "margin": 0.22,
-      "input_cost_batch": 162.0
-    },
-    {
-      "item": "plastic",
-      "setter_recipe": "make_plastic",
-      "unit_cost": 77.25,
-      "mid": 94.25,
-      "margin": 0.22,
-      "input_cost_batch": 126.0
-    },
-    {
-      "item": "paper",
-      "setter_recipe": "make_paper",
-      "unit_cost": 51.6,
-      "mid": 62.95,
-      "margin": 0.22,
-      "input_cost_batch": 90.0
-    },
-    {
-      "item": "particle_board",
-      "setter_recipe": "make_particle_board",
-      "unit_cost": 90.0,
-      "mid": 109.8,
-      "margin": 0.22,
-      "input_cost_batch": 102.0
-    },
-    {
-      "item": "sugar",
-      "setter_recipe": "make_sugar",
-      "unit_cost": 50.25,
-      "mid": 61.3,
-      "margin": 0.22,
-      "input_cost_batch": 84.0
-    },
-    {
-      "item": "bashkir_carpet",
-      "setter_recipe": "make_bashkir_carpet",
-      "unit_cost": 609.08,
-      "mid": 779.62,
-      "margin": 0.28,
-      "input_cost_batch": 444.08
-    },
-    {
-      "item": "apple_juice",
-      "setter_recipe": "apple_juice",
-      "unit_cost": 89.46,
-      "mid": 114.51,
-      "margin": 0.28,
-      "input_cost_batch": 279.84
-    },
-    {
-      "item": "bottled_milk",
-      "setter_recipe": "bottle_milk",
-      "unit_cost": 89.26,
-      "mid": 114.25,
-      "margin": 0.28,
-      "input_cost_batch": 332.3
-    },
-    {
-      "item": "cherry_milk_drink",
-      "setter_recipe": "cherry_milk_drink",
-      "unit_cost": 113.96,
-      "mid": 145.87,
-      "margin": 0.28,
-      "input_cost_batch": 305.84
-    },
-    {
-      "item": "koumiss",
-      "setter_recipe": "make_koumiss",
-      "unit_cost": 98.96,
-      "mid": 126.67,
-      "margin": 0.28,
-      "input_cost_batch": 293.84
-    },
-    {
-      "item": "circuit",
-      "setter_recipe": "make_circuit",
-      "unit_cost": 424.42,
-      "mid": 517.79,
-      "margin": 0.22,
-      "input_cost_batch": 205.42
-    },
-    {
-      "item": "steel_goods",
-      "setter_recipe": "steel_goods",
-      "unit_cost": 222.79,
-      "mid": 285.17,
-      "margin": 0.28,
-      "input_cost_batch": 328.58
-    },
-    {
-      "item": "wire",
-      "setter_recipe": "make_wire",
-      "unit_cost": 126.52,
-      "mid": 154.36,
-      "margin": 0.22,
-      "input_cost_batch": 365.09
-    },
-    {
-      "item": "fuel_can",
-      "setter_recipe": "pack_fuel",
-      "unit_cost": 210.06,
-      "mid": 268.87,
-      "margin": 0.28,
-      "input_cost_batch": 354.11
-    },
-    {
-      "item": "packaging",
-      "setter_recipe": "make_packaging",
-      "unit_cost": 107.85,
-      "mid": 131.58,
-      "margin": 0.22,
-      "input_cost_batch": 314.4
-    },
-    {
-      "item": "furniture",
-      "setter_recipe": "make_furniture",
-      "unit_cost": 521.86,
-      "mid": 667.98,
-      "margin": 0.28,
-      "input_cost_batch": 320.86
-    },
-    {
-      "item": "appliance",
-      "setter_recipe": "make_appliance",
-      "unit_cost": 1349.98,
-      "mid": 1727.97,
-      "margin": 0.28,
-      "input_cost_batch": 1094.98
-    },
-    {
-      "item": "toy",
-      "setter_recipe": "make_toy",
-      "unit_cost": 164.11,
-      "mid": 210.06,
-      "margin": 0.28,
-      "input_cost_batch": 414.33
-    },
-    {
-      "item": "chakchak",
-      "setter_recipe": "make_chakchak",
-      "unit_cost": 150.57,
-      "mid": 192.73,
-      "margin": 0.28,
-      "input_cost_batch": 337.72
-    },
-    {
-      "item": "canned_food",
-      "setter_recipe": "can_food",
-      "unit_cost": 176.98,
-      "mid": 226.53,
-      "margin": 0.28,
-      "input_cost_batch": 401.94
-    },
-    {
-      "item": "qurut",
-      "setter_recipe": "make_qurut",
-      "unit_cost": 89.19,
-      "mid": 114.17,
-      "margin": 0.28,
-      "input_cost_batch": 201.58
-    },
-    {
-      "item": "yogurt",
-      "setter_recipe": "make_yogurt",
-      "unit_cost": 120.62,
-      "mid": 154.39,
-      "margin": 0.28,
-      "input_cost_batch": 380.46
-    },
-    {
-      "item": "butter",
-      "setter_recipe": "make_butter",
-      "unit_cost": 126.79,
-      "mid": 154.68,
-      "margin": 0.22,
-      "input_cost_batch": 187.58
-    },
-    {
-      "item": "snack",
-      "setter_recipe": "make_snacks",
-      "unit_cost": 117.54,
-      "mid": 150.45,
-      "margin": 0.28,
-      "input_cost_batch": 341.16
-    },
-    {
-      "item": "herbal_tea",
-      "setter_recipe": "make_herbal_tea",
-      "unit_cost": 117.39,
-      "mid": 150.25,
-      "margin": 0.28,
-      "input_cost_batch": 313.16
-    },
-    {
-      "item": "bread",
-      "setter_recipe": "bake_bread",
-      "unit_cost": 78.93,
-      "mid": 101.03,
-      "margin": 0.28,
-      "input_cost_batch": 237.72
-    },
-    {
-      "item": "cheese",
-      "setter_recipe": "make_cheese",
-      "unit_cost": 158.79,
-      "mid": 193.72,
-      "margin": 0.22,
-      "input_cost_batch": 215.58
-    },
-    {
-      "item": "electronics",
-      "setter_recipe": "make_electronics",
-      "unit_cost": 1374.59,
-      "mid": 1759.48,
-      "margin": 0.28,
-      "input_cost_batch": 1146.59
-    },
-    {
-      "item": "book",
-      "setter_recipe": "make_book",
-      "unit_cost": 242.69,
-      "mid": 310.64,
-      "margin": 0.28,
-      "input_cost_batch": 383.38
-    },
-    {
-      "item": "clothing",
-      "setter_recipe": "make_clothing",
-      "unit_cost": 242.05,
-      "mid": 309.82,
-      "margin": 0.28,
-      "input_cost_batch": 334.1
-    },
-    {
-      "item": "shoes",
-      "setter_recipe": "make_shoes",
-      "unit_cost": 283.38,
-      "mid": 362.72,
-      "margin": 0.28,
-      "input_cost_batch": 452.75
-    },
-    {
-      "item": "pastry",
-      "setter_recipe": "bake_pastry",
-      "unit_cost": 173.44,
-      "mid": 222.0,
-      "margin": 0.28,
-      "input_cost_batch": 418.32
-    },
-    {
-      "item": "baursak",
-      "setter_recipe": "make_baursak",
-      "unit_cost": 81.71,
-      "mid": 104.58,
-      "margin": 0.28,
-      "input_cost_batch": 260.82
-    }
-  ],
-  "sample_margins": [
-    {
-      "id": "extract_quartz",
-      "profit": 16.0,
-      "margin_pct": 14.3
-    },
-    {
-      "id": "mine_copper",
-      "profit": 24.0,
-      "margin_pct": 13.6
-    },
-    {
-      "id": "saw_planks",
-      "profit": 25.1,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "mill_flour",
-      "profit": 25.5,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "mine_iron",
-      "profit": 28.0,
-      "margin_pct": 15.6
-    },
+  "negative_count": 0,
+  "negative": [],
+  "worst": [
     {
       "id": "extract_sand",
-      "profit": 28.0,
-      "margin_pct": 35.0
+      "profit": 13.3,
+      "margin_pct": 15.2,
+      "building": "quarry"
     },
     {
-      "id": "weave_fabric",
-      "profit": 36.5,
-      "margin_pct": 18.0
+      "id": "extract_firewood",
+      "profit": 14.7,
+      "margin_pct": 15.2,
+      "building": "logging_camp"
     },
     {
-      "id": "weave_cotton",
-      "profit": 38.3,
-      "margin_pct": 18.0
+      "id": "extract_firewood_std",
+      "profit": 14.7,
+      "margin_pct": 15.2,
+      "building": "logging_camp"
     },
     {
-      "id": "extract_wood",
-      "profit": 40.0,
-      "margin_pct": 41.7
+      "id": "grow_sugar_beet_std",
+      "profit": 16.6,
+      "margin_pct": 15.3,
+      "building": "greenhouse"
     },
     {
-      "id": "slaughter_beef",
-      "profit": 43.6,
-      "margin_pct": 18.0
+      "id": "extract_firewood_prem",
+      "profit": 18.0,
+      "margin_pct": 18.0,
+      "building": "logging_camp"
     },
     {
-      "id": "make_felt",
-      "profit": 43.6,
-      "margin_pct": 18.0
+      "id": "side_poultry",
+      "profit": 18.6,
+      "margin_pct": 13.8,
+      "building": "livestock_farm"
     },
     {
-      "id": "make_sugar",
-      "profit": 44.2,
-      "margin_pct": 18.0
+      "id": "raise_poultry",
+      "profit": 19.1,
+      "margin_pct": 15.3,
+      "building": "livestock_farm"
     },
     {
-      "id": "grow_potato",
-      "profit": 46.0,
-      "margin_pct": 51.1
+      "id": "side_poultry_std",
+      "profit": 20.3,
+      "margin_pct": 13.8,
+      "building": "poultry_farm"
     },
     {
-      "id": "make_bottle",
-      "profit": 47.3,
-      "margin_pct": 18.0
+      "id": "grow_hemp_prem",
+      "profit": 21.6,
+      "margin_pct": 15.3,
+      "building": "farm"
     },
     {
-      "id": "mine_coal",
-      "profit": 48.0,
-      "margin_pct": 30.8
+      "id": "grow_oats_prem",
+      "profit": 21.6,
+      "margin_pct": 15.3,
+      "building": "farm"
     },
     {
-      "id": "grow_flax",
-      "profit": 52.0,
-      "margin_pct": 54.2
+      "id": "grow_sugar_beet_prem",
+      "profit": 21.6,
+      "margin_pct": 15.3,
+      "building": "greenhouse"
     },
     {
-      "id": "extract_gas",
-      "profit": 52.0,
-      "margin_pct": 25.5
+      "id": "side_poultry_prem",
+      "profit": 22.0,
+      "margin_pct": 13.8,
+      "building": "poultry_farm"
     },
     {
-      "id": "make_butter",
-      "profit": 55.8,
-      "margin_pct": 18.0
+      "id": "saw_firewood",
+      "profit": 22.1,
+      "margin_pct": 13.8,
+      "building": "sawmill"
     },
     {
-      "id": "grow_wheat",
-      "profit": 56.0,
-      "margin_pct": 56.0
+      "id": "saw_firewood_std",
+      "profit": 22.1,
+      "margin_pct": 13.8,
+      "building": "sawmill"
     },
     {
-      "id": "make_paper",
-      "profit": 56.8,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "make_particle_board",
-      "profit": 59.4,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "make_leather",
-      "profit": 61.4,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "grow_cotton",
-      "profit": 64.0,
-      "margin_pct": 59.3
-    },
-    {
-      "id": "farm_milk",
-      "profit": 68.0,
-      "margin_pct": 60.7
-    },
-    {
-      "id": "farm_apple",
-      "profit": 68.0,
-      "margin_pct": 60.7
-    },
-    {
-      "id": "make_plastic",
-      "profit": 68.0,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "make_cheese",
-      "profit": 69.9,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "smelt_copper",
-      "profit": 73.3,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "make_qurut",
-      "profit": 74.9,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "farm_cherry",
-      "profit": 76.0,
-      "margin_pct": 63.3
-    },
-    {
-      "id": "extract_oil",
-      "profit": 80.0,
-      "margin_pct": 31.7
-    },
-    {
-      "id": "bake_bread",
-      "profit": 88.4,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "smelt_steel",
-      "profit": 88.9,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "make_baursak",
-      "profit": 91.5,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_circuit",
-      "profit": 93.4,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "refine_diesel",
-      "profit": 93.7,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "refine_gasoline",
-      "profit": 93.7,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "make_packaging",
-      "profit": 94.9,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "make_herbal_tea",
-      "profit": 98.6,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "apple_juice",
-      "profit": 100.2,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "harvest_honey",
-      "profit": 106.0,
-      "margin_pct": 70.7
-    },
-    {
-      "id": "make_koumiss",
-      "profit": 110.8,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_wire",
-      "profit": 111.4,
-      "margin_pct": 18.0
-    },
-    {
-      "id": "extract_chemicals",
-      "profit": 116.0,
-      "margin_pct": 46.0
-    },
-    {
-      "id": "pack_fuel",
-      "profit": 117.6,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "steel_goods",
-      "profit": 124.8,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "bottle_milk",
-      "profit": 124.9,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_chakchak",
-      "profit": 126.5,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "cherry_milk_drink",
-      "profit": 127.6,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_snacks",
-      "profit": 131.6,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_yogurt",
-      "profit": 135.1,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_clothing",
-      "profit": 135.5,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_book",
-      "profit": 135.9,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_toy",
-      "profit": 137.9,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "bake_pastry",
-      "profit": 145.7,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_furniture",
-      "profit": 146.1,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "can_food",
-      "profit": 148.6,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_shoes",
-      "profit": 158.7,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "raise_cattle",
-      "profit": 164.0,
-      "margin_pct": 68.3
-    },
-    {
-      "id": "make_bashkir_carpet",
-      "profit": 170.5,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_furniture_wood",
-      "profit": 333.4,
-      "margin_pct": 49.9
-    },
-    {
-      "id": "make_clothing_cotton",
-      "profit": 334.3,
-      "margin_pct": 36.0
-    },
-    {
-      "id": "make_appliance",
-      "profit": 378.0,
-      "margin_pct": 21.9
-    },
-    {
-      "id": "make_electronics",
-      "profit": 384.9,
-      "margin_pct": 21.9
+      "id": "side_goat",
+      "profit": 22.2,
+      "margin_pct": 13.8,
+      "building": "livestock_farm"
     }
-  ]
+  ],
+  "best": [
+    {
+      "id": "repack_bottled_veg_oil_sunflower_prem_beloretsk_eff",
+      "profit": 827.1,
+      "margin_pct": 60.6,
+      "building": "repack_center"
+    },
+    {
+      "id": "repack_bottled_veg_oil_sunflower_std_ufa_eff",
+      "profit": 830.0,
+      "margin_pct": 61.0,
+      "building": "repack_center"
+    },
+    {
+      "id": "repack_bottled_veg_oil_rapeseed_prem_ufa_eff",
+      "profit": 831.1,
+      "margin_pct": 61.0,
+      "building": "repack_center"
+    },
+    {
+      "id": "repack_bottled_veg_oil_sunflower_prem_ufa_eff",
+      "profit": 840.3,
+      "margin_pct": 61.0,
+      "building": "repack_center"
+    },
+    {
+      "id": "goods_gold_prem_eff",
+      "profit": 961.0,
+      "margin_pct": 45.4,
+      "building": "hardware_plant"
+    },
+    {
+      "id": "goods_gold_eff",
+      "profit": 961.0,
+      "margin_pct": 45.4,
+      "building": "steel_mill"
+    },
+    {
+      "id": "goods_gold_std_eff",
+      "profit": 1047.6,
+      "margin_pct": 45.4,
+      "building": "hardware_plant"
+    },
+    {
+      "id": "extract_gold_ore",
+      "profit": 1288.0,
+      "margin_pct": 89.4,
+      "building": "mine"
+    },
+    {
+      "id": "extract_gold_ore_std",
+      "profit": 1462.0,
+      "margin_pct": 88.3,
+      "building": "mine"
+    },
+    {
+      "id": "make_appliance_eff",
+      "profit": 2497.5,
+      "margin_pct": 59.0,
+      "building": "appliance_plant"
+    },
+    {
+      "id": "make_appliance_prem_eff",
+      "profit": 2497.5,
+      "margin_pct": 59.0,
+      "building": "appliance_plant"
+    },
+    {
+      "id": "make_appliance_std_eff",
+      "profit": 2497.5,
+      "margin_pct": 59.0,
+      "building": "appliance_plant"
+    },
+    {
+      "id": "make_electronics_eff",
+      "profit": 2627.7,
+      "margin_pct": 59.0,
+      "building": "electronics_plant"
+    },
+    {
+      "id": "make_electronics_prem_eff",
+      "profit": 2627.7,
+      "margin_pct": 59.0,
+      "building": "electronics_plant"
+    },
+    {
+      "id": "make_electronics_std_eff",
+      "profit": 2627.7,
+      "margin_pct": 59.0,
+      "building": "electronics_plant"
+    }
+  ],
+  "median_margin_pct": 21.9,
+  "recipe_count": 1730,
+  "setters": 849
 }
