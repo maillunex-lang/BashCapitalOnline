@@ -16,7 +16,6 @@ extends Control
 @onready var url_edit: LineEdit = $SafeArea/UI/LoginPanel/Margin/VBox/UrlEdit
 @onready var city_host: Node2D = $GameLayer/CityHost
 @onready var city_map: CityMap = $GameLayer/CityHost/CityMap
-@onready var ambience: CityAmbience = $GameLayer/CityHost/Ambience
 @onready var side: PanelContainer = $SafeArea/UI/SidePanel
 @onready var side_title: Label = $SafeArea/UI/SidePanel/Margin/VBox/Title
 @onready var side_body: RichTextLabel = $SafeArea/UI/SidePanel/Margin/VBox/Body
@@ -71,7 +70,7 @@ func _ready() -> void:
 	build_recipe.get_popup().add_theme_constant_override("icon_max_width", 28)
 	_fill_build_options()
 	city_map.tile_clicked.connect(_on_tile_clicked)
-	ambience.setup(gfx)
+	get_viewport().size_changed.connect(_fit_city_map)
 	gfx.quality_changed.connect(_on_quality_changed)
 	_on_quality_changed(gfx.quality)
 	settings_panel.quality_picked.connect(func(q): gfx.set_quality(q))
@@ -255,6 +254,7 @@ func _render_world() -> void:
 	var cities: Dictionary = w.get("cities", {})
 	if cities.has(current_city):
 		city_map.set_city_data(cities[current_city], w.get("buildings", {}), w.get("shops", {}), api.firm_id)
+		_fit_city_map()
 		if not selected_parcel.is_empty():
 			selected_parcel = city_map.parcel_at(city_map.selected)
 			_render_parcel_details(selected_parcel)
@@ -266,6 +266,21 @@ func _render_world() -> void:
 			log_box.append_text(str(line) + "\n")
 	if manage_panel.visible:
 		manage_panel.refresh_snapshot(api.catalog, w, api.firm_id)
+
+func _fit_city_map() -> void:
+	var bounds := city_map.visual_bounds()
+	if not bounds.has_area():
+		return
+	var left := rank_panel.get_global_rect().end.x + 20.0
+	var right := side.get_global_rect().position.x - 20.0
+	var top := city_tabs.get_global_rect().end.y + 20.0
+	var bottom := bottom_panel.get_global_rect().position.y - 20.0
+	var available := Rect2(Vector2(left, top), Vector2(right - left, bottom - top))
+	if not available.has_area():
+		return
+	var zoom := minf(available.size.x / bounds.size.x, available.size.y / bounds.size.y)
+	city_host.scale = Vector2.ONE * zoom
+	city_host.position = available.get_center() - bounds.get_center() * zoom
 
 func _render_rankings() -> void:
 	var rows: Array = await api.rankings()

@@ -4,8 +4,8 @@ config_version=5
 [application]
 
 config/name="BashCapital"
-config/version="0.4.0"
-config/android_version_code=4
+config/version="0.4.1"
+config/android_version_code=5
 config/description="Онлайн экономическая стратегия по Башкортостану"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")

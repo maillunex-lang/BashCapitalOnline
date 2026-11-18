@@ -6,6 +6,8 @@ signal tile_clicked(x: int, y: int, parcel: Dictionary)
 const TILE_W := 64.0
 const TILE_H := 32.0
 
+const ROAD_DIRECTIONS := [Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT, Vector2i.UP]
+
 const NO_TILE := Vector2i(9999, 9999)
 
 var selected := NO_TILE
@@ -48,21 +50,6 @@ func bind_catalog(catalog: Dictionary) -> void:
 	for entry in catalog.get("items", []):
 		_item_icons[entry["id"]] = entry
 	_redraw_tiles()
-
-var zone_tile := {
-	"center": "tile_center",
-	"residential": "tile_residential",
-	"industrial": "tile_industrial",
-	"rural": "tile_rural",
-	"empty": "tile_grass",
-	"commercial": "tile_center",
-}
-
-func _tex(name: String) -> Texture2D:
-	if name == "":
-		return null
-	var map_texture := CatalogUI.texture("map/%s.png" % name)
-	return map_texture if map_texture != null else CatalogUI.texture("ui/%s.png" % name)
 
 func _ready() -> void:
 	_catchment.z_index = 1
@@ -133,9 +120,17 @@ func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: D
 		var building: Dictionary = buildings.get(coord, {})
 		var shop: Dictionary = shops.get(coord, {})
 		var owner := str(building.get("firm_id", shop.get("firm_id", "")))
+		var road_links := PackedVector2Array()
+		if parcel["has_road"]:
+			for direction in ROAD_DIRECTIONS:
+				var neighbor := parcel_at(coord + direction)
+				if neighbor.get("has_road", false):
+					var rise := float(neighbor["elevation"]) - float(parcel["elevation"])
+					road_links.append(_iso(direction, rise) * 0.5)
 		var visual := {
 			"zone": parcel["zone"],
 			"road": parcel["has_road"],
+			"road_links": road_links,
 			"retail_slot": int(parcel["retail_slots"]) > 0,
 			"building_type": str(building.get("type", "")),
 			"rented": not shop.is_empty(),
@@ -172,8 +167,12 @@ func set_city_data(city: Dictionary, world_buildings: Dictionary, world_shops: D
 	if layout_changed or old_catchment_radius != int(_shop_radii.get(selected, 0)):
 		_catchment.queue_redraw()
 
-func _draw() -> void:
-	draw_circle(Vector2.ZERO, 520, Color(0.18, 0.28, 0.24, 0.35))
+func visual_bounds() -> Rect2:
+	var bounds := Rect2()
+	for tile in _tiles.values():
+		var footprint := Rect2(tile.position - Vector2(34, 39), Vector2(68, 61))
+		bounds = footprint if not bounds.has_area() else bounds.merge(footprint)
+	return bounds
 
 func _draw_parcel(coord: Vector2i, tile: ParcelTile) -> void:
 	var zone: String = tile.visual.zone
@@ -182,35 +181,21 @@ func _draw_parcel(coord: Vector2i, tile: ParcelTile) -> void:
 		col = col.lightened(0.25)
 	elif coord == hover:
 		col = col.lightened(0.12)
-	var tile_tex := _tex(str(zone_tile.get(zone, "tile_grass")))
-	if tile_tex:
-		var size := tile_tex.get_size()
-		var tint := Color(1, 1, 1, 0.96)
-		if coord == selected:
-			tint = Color(1.18, 1.18, 1.12)
-		elif coord == hover:
-			tint = Color(1.08, 1.08, 1.06)
-		tile.draw_texture_rect(tile_tex, Rect2(-size * Vector2(0.5, 0.62), size), false, tint)
-	else:
-		_draw_tile(tile, Vector2.ZERO, col)
+	_draw_tile(tile, Vector2.ZERO, col)
 	if tile.visual.road:
-		var road := _tex("tile_road")
-		if road:
-			var size := road.get_size()
-			tile.draw_texture_rect(road, Rect2(-size * Vector2(0.5, 0.55), size * 0.55), false, Color(1, 1, 1, 0.9))
-		else:
-			_draw_road(tile, Vector2.ZERO)
+		_draw_road(tile, tile.visual.road_links)
 	for deposit in tile.visual.deposits:
 		_draw_deposit(tile, Vector2.ZERO, deposit[0], float(deposit[1]) / maxf(1.0, float(deposit[2])))
 	var building_type: String = tile.visual.building_type
 	var rented: bool = tile.visual.rented
 	if not building_type.is_empty():
-		_draw_building_sprite(tile, Vector2.ZERO, building_type, zone)
+		var entry: Dictionary = _building_icons.get(building_type, {})
+		var roof := Color("#d19068")
+		match entry.get("category", ""):
+			"extract": roof = Color("#91b47b")
+			"logistics": roof = Color("#77b1ba")
+		_draw_building(tile, Vector2.ZERO, zone, roof)
 	elif tile.visual.retail_slot or rented:
-		var shop_tex := _tex("bld_shop")
-		if shop_tex:
-			var size := shop_tex.get_size()
-			tile.draw_texture_rect(shop_tex, Rect2(-size * Vector2(0.5, 0.72), size * 0.72), false)
 		_draw_shop_marker(tile, Vector2.ZERO, rented)
 	if tile.visual.owned:
 		tile.draw_circle(Vector2(18, -22), 4, Color("E0C575"))
@@ -234,17 +219,7 @@ func _draw_tile(tile: ParcelTile, center: Vector2, col: Color) -> void:
 	if detail_level >= 1:
 		tile.draw_polyline(pts + PackedVector2Array([pts[0]]), Color(1, 1, 1, 0.12), 1.0, true)
 
-func _draw_building_sprite(tile: ParcelTile, center: Vector2, typ: String, zone: String) -> void:
-	var entry: Dictionary = _building_icons.get(typ, {})
-	if entry.is_empty():
-		_draw_building(tile, center, zone)
-		return
-	var tex := CatalogUI.icon(entry, "buildings")
-	var s := tex.get_size()
-	var scale := 0.78 if detail_level < 3 else 0.86
-	tile.draw_texture_rect(tex, Rect2(center - Vector2(s.x * scale * 0.5, s.y * scale * 0.78), s * scale), false)
-
-func _draw_building(tile: ParcelTile, center: Vector2, zone: String) -> void:
+func _draw_building(tile: ParcelTile, center: Vector2, zone: String, roof: Color) -> void:
 	var h := 28.0 if zone == "industrial" else 18.0
 	if detail_level >= 3:
 		h += 6.0
@@ -261,7 +236,7 @@ func _draw_building(tile: ParcelTile, center: Vector2, zone: String) -> void:
 		tile.draw_colored_polygon(PackedVector2Array([b0 + Vector2(4, 6), b2 + Vector2(4, 6), b1 + Vector2(4, 6)]), Color(0, 0, 0, 0.18))
 	tile.draw_colored_polygon(PackedVector2Array([b0, b2, t2, t0]), wall)
 	tile.draw_colored_polygon(PackedVector2Array([b1, b2, t2, t1]), wall.darkened(0.1))
-	tile.draw_colored_polygon(PackedVector2Array([t0, t1, t2]), base_col.lightened(0.1))
+	tile.draw_colored_polygon(PackedVector2Array([t0, t1, t2]), roof)
 	if detail_level >= 2:
 		tile.draw_rect(Rect2(center + Vector2(-4, -h + 6), Vector2(4, 4)), Color(0.75, 0.9, 1.0, 0.55))
 
@@ -270,15 +245,12 @@ func _draw_shop_marker(tile: ParcelTile, center: Vector2, rented: bool) -> void:
 	tile.draw_circle(center + Vector2(0, -6), 5, c)
 	tile.draw_arc(center + Vector2(0, -6), 5, 0, TAU, 16, Color(0, 0, 0, 0.25), 1.0)
 
-func _draw_road(tile: ParcelTile, center: Vector2) -> void:
-	var strip := PackedVector2Array([
-		center + Vector2(0, -6),
-		center + Vector2(18, 0),
-		center + Vector2(0, 6),
-		center + Vector2(-18, 0),
-	])
-	tile.draw_colored_polygon(strip, Color(0.35, 0.36, 0.38, 0.85))
-	tile.draw_line(center + Vector2(-10, 0), center + Vector2(10, 0), Color(0.85, 0.75, 0.35, 0.7), 1.0)
+func _draw_road(tile: ParcelTile, links: PackedVector2Array) -> void:
+	var asphalt := Color("#424951")
+	tile.draw_circle(Vector2.ZERO, 3.5, asphalt)
+	for end in links:
+		tile.draw_line(Vector2.ZERO, end, asphalt, 7.0, true)
+		tile.draw_line(end * 0.28, end * 0.77, Color("#b6a16f"), 0.8, true)
 
 func _draw_catchment() -> void:
 	var radius: int = _shop_radii.get(selected, 0)
@@ -291,14 +263,12 @@ func _draw_catchment() -> void:
 				_catchment.draw_circle(tile.position, 4, Color(0.85, 0.7, 0.2, 0.2))
 
 func _draw_deposit(tile: ParcelTile, center: Vector2, item_id: String, fill_ratio: float) -> void:
-	var tex := _tex("res_" + item_id)
-	if tex == null and _item_icons.has(item_id):
-		tex = CatalogUI.icon(_item_icons[item_id], "items")
-	if tex:
-		var s := tex.get_size()
-		tile.draw_texture_rect(tex, Rect2(center + Vector2(-s.x * 0.28, -s.y * 0.15), s * 0.55), false)
-		tile.draw_arc(center + Vector2(0, 8), 8, -PI/2, -PI/2 + TAU * clampf(fill_ratio, 0.05, 1.0), 16, Color(1, 1, 1, 0.55), 2.0)
-		return
+	if _item_icons.has(item_id):
+		var tex := CatalogUI.icon(_item_icons[item_id], "items")
+		if tex != null:
+			tile.draw_texture_rect(tex, Rect2(center + Vector2(-20, -3), Vector2(14, 14)), false)
+			tile.draw_arc(center + Vector2(-13, 4), 8, -PI/2, -PI/2 + TAU * clampf(fill_ratio, 0.05, 1.0), 12, Color(1, 1, 1, 0.65), 1.0)
+			return
 	var col := Color("8B7355")
 	match item_id:
 		"oil": col = Color("2C2C2C")
