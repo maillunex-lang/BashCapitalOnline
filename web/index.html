@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0c1a18" />
+  <title>BashCapital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Spectral:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <img class="logo" src="./assets/ui/logo_bashcapital.jpg" alt="BashCapital" />
+      <div class="brand-text">
+        <h1>BashCapital</h1>
+        <p id="topSub">Башкортостан · экономика</p>
+      </div>
+      <div class="top-stats">
+        <div><span>Тик</span><strong id="tick">—</strong></div>
+        <div><span>Дата</span><strong id="date">—</strong></div>
+        <div><span>Касса</span><strong id="cash">—</strong></div>
+      </div>
+    </header>
+
+    <main class="stage">
+      <section class="map-card" id="mapSection">
+        <div class="map-toolbar">
+          <button class="chip" id="ufa"><img src="./assets/ui/icon_map.png" alt="" /> Уфа</button>
+          <button class="chip" id="bel"><img src="./assets/ui/icon_map.png" alt="" /> Белорецк</button>
+          <span class="pill" id="cityPill">Уфа</span>
+        </div>
+        <canvas id="map" width="900" height="560"></canvas>
+        <div id="tileInfo" class="tile-info">Тапните участок</div>
+        <div class="map-actions" id="mapActions">
+          <select id="buildType"></select>
+          <select id="recipeType"></select>
+          <button id="build"><img src="./assets/ui/icon_factory.png" alt="" /> Завод</button>
+          <select id="shopType"></select>
+          <select id="shopItem"></select>
+          <button id="rent" class="secondary"><img src="./assets/ui/icon_shop.png" alt="" /> Магазин</button>
+          <button id="buyParcel" class="secondary">Участок</button>
+          <button id="develop" class="secondary">Жильё</button>
+        </div>
+      </section>
+
+      <section class="sheet" id="manageSheet" hidden>
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <img id="manageIcon" src="./assets/ui/icon_factory.png" alt="" />
+          <div>
+            <h2 id="manageTitle">Настройка</h2>
+            <p id="manageSub" class="muted">Как в Capitalism Lab</p>
+          </div>
+          <button class="ghost" id="closeSheet">✕</button>
+        </div>
+        <div id="manageBody" class="sheet-body"></div>
+      </section>
+    </main>
+
+    <nav class="tabbar">
+      <button class="tab active" data-tab="map"><img src="./assets/ui/icon_map.png" alt="" /><span>Карта</span></button>
+      <button class="tab" data-tab="firm"><img src="./assets/ui/icon_firm.png" alt="" /><span>Фирма</span></button>
+      <button class="tab" data-tab="market"><img src="./assets/ui/icon_market.png" alt="" /><span>Опт</span></button>
+      <button class="tab" data-tab="rank"><img src="./assets/ui/icon_rank.png" alt="" /><span>Рейтинг</span></button>
+      <button class="tab" data-tab="more"><img src="./assets/ui/icon_settings.png" alt="" /><span>Ещё</span></button>
+    </nav>
+
+    <section class="panel" id="panel-firm" hidden>
+      <img class="panel-bg" src="./assets/ui/panel_header.png" alt="" />
+      <h2>Фирма</h2>
+      <input id="server" value="http://127.0.0.1:8080" placeholder="Сервер" />
+      <input id="name" value="Уфимский Комбинат" placeholder="Название" />
+      <select id="industry">
+        <option value="dairy">Молочка</option>
+        <option value="food">Еда / пекарня</option>
+        <option value="furniture">Мебель</option>
+        <option value="apparel">Одежда</option>
+        <option value="steel">Металл</option>
+        <option value="oil">Нефть</option>
+      </select>
+      <button id="register">Открыть фирму</button>
+      <button class="secondary" id="refresh">Обновить</button>
+      <button class="secondary" id="tickBtn">Тик (dev)</button>
+      <button class="secondary" id="truck">Купить фуру</button>
+      <div id="myBuildings" class="list"></div>
+      <div id="myShops" class="list"></div>
+    </section>
+
+    <section class="panel" id="panel-market" hidden>
+      <img class="panel-bg" src="./assets/ui/panel_header.png" alt="" />
+      <h2>Городской опт</h2>
+      <p class="muted">Низкое качество · коридор цен · как city wholesaler в CapLab</p>
+      <div id="market" class="list"></div>
+      <h2>Биржа (ордера)</h2>
+      <div id="orders" class="list"></div>
+    </section>
+
+    <section class="panel" id="panel-rank" hidden>
+      <img class="panel-bg" src="./assets/ui/panel_header.png" alt="" />
+      <h2>Рейтинг</h2>
+      <div class="rank" id="rank"></div>
+      <h2>Журнал</h2>
+      <div class="log" id="log"></div>
+    </section>
+
+    <section class="panel" id="panel-more" hidden>
+      <img class="panel-bg" src="./assets/ui/panel_header.png" alt="" />
+      <h2>Графика</h2>
+      <select id="quality">
+        <option value="0">Низкое</option>
+        <option value="1">Среднее</option>
+        <option value="2" selected>Высокое</option>
+        <option value="3">Ультра</option>
+      </select>
+      <h2>Подписка · заместитель</h2>
+      <div id="subStatus" class="muted">Подписка не активна</div>
+      <button id="subscribe">Оформить подписку</button>
+      <input id="deputyName" value="Заместитель" />
+      <button class="secondary" id="hireDeputy">Нанять</button>
+      <label class="check"><input type="checkbox" class="task" value="procure_inputs" checked /> Поставщики</label>
+      <label class="check"><input type="checkbox" class="task" value="restock" checked /> Магазины</label>
+      <label class="check"><input type="checkbox" class="task" value="price_retail" checked /> Цены</label>
+      <label class="check"><input type="checkbox" class="task" value="sell_excess" /> Сбыт на сторону</label>
+      <label class="check"><input type="checkbox" class="task" value="research" /> R&D</label>
+      <label class="check"><input type="checkbox" class="task" value="auto_contracts" /> Контракты</label>
+      <button class="secondary" id="applyTasks">Выдать задания</button>
+      <div class="art">
+        <img src="./assets/icons/buildings_sheet.jpg" alt="Здания" />
+        <img src="./assets/icons/items_sheet.jpg" alt="Товары" />
+      </div>
+    </section>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
