@@ -44,9 +44,29 @@ func _run() -> void:
 		return
 	open_button.pressed.emit()
 	var send: Button = game.manage_panel.body.get_child(-1)
-	if not _check(not send.disabled, "shipment form has a product and a destination"):
+	if not _check(await _wait_for_quote(send), "shipment form received the route quote"):
 		quit(1)
 		return
+	var estimate: Label = game.manage_panel.body.get_child(-3)
+	_check(estimate.text.contains("Наёмная доставка"), "estimate shows the hired transport tariff")
+	var regular: Dictionary = await game.api.route_quote("ufa", "sterlitamak")
+	_check(estimate.text.begins_with("%.2f ₽" % float(regular["cost_per_unit"])), "regular one-unit price matches the API")
+	var truck: Dictionary = await game.api.action("buy_truck", {})
+	_check(not truck.has("error"), "firm buys a truck")
+	world = game.api.world
+	live_farm = world["buildings"][farm["id"]]
+	game.manage_panel.open_building(live_farm, game.api.catalog, world, id)
+	open_button = game.manage_panel.body.get_child(-1)
+	open_button.pressed.emit()
+	send = game.manage_panel.body.get_child(-1)
+	if not _check(await _wait_for_quote(send), "shipment form received the fleet quote"):
+		quit(1)
+		return
+	estimate = game.manage_panel.body.get_child(-3)
+	var qty: SpinBox = game.manage_panel.body.find_children("*", "SpinBox", false, false)[0]
+	qty.value = 2
+	var sent_estimate := estimate.text
+	_check(sent_estimate.contains("Своя фура") and sent_estimate.contains("за 2 ед."), "quote updates when quantity changes")
 	send.pressed.emit()
 	await game.api.world_updated
 	await process_frame
@@ -55,6 +75,7 @@ func _run() -> void:
 		if row["firm_id"] == id:
 			shipment = row
 	if _check(not shipment.is_empty(), "send control queued a shipment"):
+		_check(sent_estimate.begins_with("%.2f ₽ за 2 ед. · %d тик." % [float(shipment["cost_paid"]), int(shipment["ticks_left"])]), "dispatch matches the displayed fleet estimate")
 		_check(shipment["to_building_id"] == warehouse["id"] and shipment["item_id"] == "wheat", "form sent wheat to the selected warehouse")
 		game._on_company_pressed()
 		_check(game.manage_panel.kind == "company" and game.manage_panel._snapshot.text.contains("Уфа → Стерлитамак"), "company shows the shipment route")
@@ -73,6 +94,12 @@ func _run() -> void:
 	_check(reconnected.api.firm_id == id and reconnected.api.world["buildings"].has(warehouse["id"]), "login reopened the same firm and warehouse")
 	print("Economy controls smoke: %s" % ("failed" if failed else "passed"))
 	quit(1 if failed else 0)
+
+func _wait_for_quote(send: Button) -> bool:
+	var deadline := Time.get_ticks_msec() + 3000
+	while send.disabled and Time.get_ticks_msec() < deadline:
+		await process_frame
+	return not send.disabled
 
 func _check_company_layout(game) -> void:
 	var panel: ManagePanel = game.manage_panel

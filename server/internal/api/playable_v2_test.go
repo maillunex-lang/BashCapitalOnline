@@ -233,6 +233,21 @@ func TestPlayableV2Bread(t *testing.T) {
 	if first == nil || first.ToBuildingID != warehouse || first.TicksLeft < 1 || first.CostPaid <= 0 {
 		t.Fatalf("unexpected shipment: %+v", first)
 	}
+	var publicQuote struct {
+		Ticks int     `json:"ticks"`
+		Cost  float64 `json:"cost_per_unit"`
+		Fleet struct {
+			Ticks int     `json:"ticks"`
+			Cost  float64 `json:"cost_per_unit"`
+		} `json:"fleet"`
+	}
+	p.request(http.MethodGet, "/api/route?from=ufa&to=sterlitamak", nil, http.StatusOK, &publicQuote)
+	if first.TicksLeft != publicQuote.Ticks || math.Abs(first.CostPaid-float64(first.Qty)*publicQuote.Cost) > 0.001 {
+		t.Fatal("dispatch differs from the public route quote")
+	}
+	if publicQuote.Fleet.Ticks != max(1, publicQuote.Ticks-1) || math.Abs(publicQuote.Fleet.Cost-publicQuote.Cost*0.55) > 0.001 {
+		t.Fatalf("unexpected own-fleet quote: %+v", publicQuote.Fleet)
+	}
 	cashAfterDispatch := p.world().Firms[p.firm].Cash
 	if math.Abs(world.Firms[p.firm].Cash-cashAfterDispatch-first.CostPaid) > 0.001 {
 		t.Fatal("shipping charge was not deducted")

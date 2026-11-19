@@ -36,6 +36,7 @@ var _inventory_rows: ItemList
 var _inventory_heading: Label
 var _transfer: Button
 var _current_world: Dictionary = {}
+var api: ApiClient
 
 func _ready() -> void:
 	$Margin/VBox/CloseBtn.custom_minimum_size.y = EconomyView.touch_height()
@@ -129,7 +130,7 @@ func open_building(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fir
 func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_firm: String, inventory: Dictionary) -> void:
 	_clear_body()
 	sub.text = "Склад и отправка груза"
-	hint.text = "Доставка занимает от одного тика и оплачивается при отправке."
+	hint.text = ""
 	var item := OptionButton.new()
 	for id in inventory:
 		if int(inventory[id]) > 0:
@@ -151,13 +152,19 @@ func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fi
 
 	var qty := SpinBox.new()
 	qty.min_value = 1
+	qty.value = 1
 	qty.max_value = maxi(1, int(inventory.get(CatalogUI.selected_id(item), 0)))
 	item.item_selected.connect(func(_index): qty.max_value = int(inventory[CatalogUI.selected_id(item)]))
 	_add_field("Количество", qty)
 
+	var estimate := _add_summary()
+	var retry := Button.new()
+	retry.text = "Повторить расчёт"
+	_add_touch_control(retry)
+	retry.hide()
 	var send := Button.new()
 	send.text = "Отправить"
-	send.disabled = item.item_count == 0 or destination.item_count == 0
+	send.disabled = true
 	send.pressed.connect(func():
 		visible = false
 		transfer_stock.emit({
@@ -168,6 +175,47 @@ func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fi
 		})
 	)
 	_add_touch_control(send)
+	var route := {"request": 0, "quote": {}}
+	var via_truck := int(world.get("firms", {}).get(my_firm, {}).get("trucks", 0)) > 0
+	var display_quote := func():
+		var quote: Dictionary = route["quote"]
+		if quote.is_empty():
+			return
+		estimate.text = "%.2f ₽ за %d ед. · %d тик. · %s" % [
+			float(quote["cost_per_unit"]) * qty.value, int(qty.value), int(quote["ticks"]),
+			"Своя фура" if via_truck else "Наёмная доставка",
+		]
+		send.disabled = false
+	var update_quote := func():
+		route["request"] += 1
+		var seq: int = route["request"]
+		route["quote"] = {}
+		send.disabled = true
+		retry.hide()
+		var building: Dictionary = world.get("buildings", {}).get(CatalogUI.selected_id(destination), {})
+		if item.item_count == 0 or building.is_empty():
+			estimate.text = "Для отправки нужен товар и второе здание вашей фирмы."
+			return
+		estimate.text = "Рассчитываем доставку…"
+		var quote := await api.route_quote(b["city_id"], building["city_id"])
+		if not is_instance_valid(estimate) or not estimate.is_inside_tree() or seq != route["request"]:
+			return
+		if not quote.has("cost_per_unit") or not quote.has("ticks"):
+			estimate.text = "Сервер не вернул расчёт доставки."
+			retry.show()
+			return
+		if via_truck:
+			# Older V2 servers publish only the regular tariff.
+			quote = quote.get("fleet", {
+				"ticks": maxi(1, int(quote["ticks"]) - 1),
+				"cost_per_unit": float(quote["cost_per_unit"]) * 0.55,
+			})
+		route["quote"] = quote
+		display_quote.call()
+	destination.item_selected.connect(func(_index): update_quote.call())
+	qty.value_changed.connect(func(_value): display_quote.call())
+	retry.pressed.connect(update_quote)
+	update_quote.call()
 
 func open_shop(s: Dictionary, catalog: Dictionary) -> void:
 	kind = "shop"

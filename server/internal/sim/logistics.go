@@ -116,6 +116,12 @@ func (e *Engine) routeInfo(from, to string) (int, float64) {
 func (e *Engine) RouteQuote(from, to string) (int, float64) { return e.routeInfo(from, to) }
 func (e *Engine) CityDistance(from, to string) float64      { return e.cityDistance(from, to) }
 
+// FleetRouteQuote reports the tariff used when a firm has its own truck.
+func (e *Engine) FleetRouteQuote(from, to string) (int, float64) {
+	q := e.shipmentRoute(from, to, true)
+	return q.Ticks, q.CostUnit
+}
+
 // TransferStock schedules a paid shipment between two buildings of the same firm.
 func (e *Engine) TransferStock(firmID, fromID, toID, itemID string, qty int) (*model.Shipment, error) {
 	firm, from, to := e.World.Firms[firmID], e.World.Buildings[fromID], e.World.Buildings[toID]

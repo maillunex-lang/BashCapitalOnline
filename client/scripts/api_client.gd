@@ -48,7 +48,7 @@ func auth_login(username: String, password: String) -> Dictionary:
 	return res if res is Dictionary else {}
 
 func route_quote(from_city: String, to_city: String) -> Dictionary:
-	var res = await _http_get("/api/route?from=%s&to=%s" % [from_city, to_city])
+	var res = await _http_get("/api/route?from=%s&to=%s" % [from_city.uri_encode(), to_city.uri_encode()])
 	return res if res is Dictionary else {}
 
 func create_payment(months: int = 1) -> Dictionary:

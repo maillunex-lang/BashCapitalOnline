@@ -89,6 +89,7 @@ func _ready() -> void:
 	manage_panel.save_shop.connect(_on_save_shop)
 	manage_panel.rent_shop.connect(_on_rent_shop)
 	manage_panel.stock_shop.connect(_on_stock_shop)
+	manage_panel.api = api
 	manage_panel.transfer_stock.connect(_on_transfer_stock)
 	manage_panel.asset_chosen.connect(_on_asset_chosen)
 	manage_panel.bread_parcel_requested.connect(_on_bread_parcel_requested)
@@ -583,7 +584,7 @@ func _on_transfer_stock(payload: Dictionary) -> void:
 	if res.has("error"):
 		status_label.text = str(res["error"])
 	else:
-		status_label.text = "Груз отправлен · %d тик." % int(res.get("ticks_left", 0))
+		status_label.text = "Груз отправлен · %.2f ₽ · %d тик." % [float(res.get("cost_paid", 0)), int(res.get("ticks_left", 0))]
 	_render_world()
 
 func _on_zoom_in() -> void:

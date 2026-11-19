@@ -94,10 +94,12 @@ func (s *Server) handleRouteQuote(w http.ResponseWriter, r *http.Request) {
 	defer s.Mu.RUnlock()
 	ticks, cost := s.Engine.RouteQuote(from, to)
 	dist := s.Engine.CityDistance(from, to)
+	fleetTicks, fleetCost := s.Engine.FleetRouteQuote(from, to)
 	writeJSON(w, map[string]any{
 		"from": from, "to": to,
 		"ticks": ticks, "cost_per_unit": cost, "distance": dist,
 		"min_ticks": 1,
+		"fleet": map[string]any{"ticks": fleetTicks, "cost_per_unit": fleetCost},
 	})
 }
 
