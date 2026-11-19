@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"sync"
 	"time"
@@ -246,11 +247,20 @@ func (s *Server) handleAction(w http.ResponseWriter, r *http.Request) {
 	action := r.URL.Path[len("/api/action/"):]
 	var body map[string]any
 	_ = json.NewDecoder(r.Body).Decode(&body)
+	payload, status, err := s.executeAction(firmID, action, body)
+	if err != nil {
+		http.Error(w, err.Error(), status)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	_, _ = w.Write(payload)
+}
+
+func (s *Server) executeAction(firmID, action string, body map[string]any) ([]byte, int, error) {
 	s.Mu.Lock()
 	defer s.Mu.Unlock()
 	if _, ok := s.Engine.World.Firms[firmID]; !ok {
-		http.Error(w, "unknown firm", 401)
-		return
+		return nil, http.StatusUnauthorized, errors.New("unknown firm")
 	}
 	var (
 		result any
@@ -306,18 +316,20 @@ func (s *Server) handleAction(w http.ResponseWriter, r *http.Request) {
 	case "chat":
 		result, err = s.Engine.PostChat(firmID, str(body["channel"]), str(body["text"]))
 	default:
-		http.Error(w, "unknown action", 404)
-		return
+		return nil, http.StatusNotFound, errors.New("unknown action")
 	}
 	if err != nil {
-		http.Error(w, err.Error(), 400)
-		return
+		return nil, http.StatusBadRequest, err
 	}
 	s.Engine.Persist() // persist mutations immediately (build/rent/configure/…)
 	if result == nil {
 		result = map[string]any{"ok": true}
 	}
-	writeJSON(w, result)
+	payload, err := json.Marshal(result)
+	if err != nil {
+		return nil, http.StatusInternalServerError, errors.New("action response unavailable")
+	}
+	return payload, http.StatusOK, nil
 }
 
 func (s *Server) handleWS(w http.ResponseWriter, r *http.Request) {

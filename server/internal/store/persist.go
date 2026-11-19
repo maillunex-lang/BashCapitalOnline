@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"net/url"
+	"strings"
 	"os"
 	"path/filepath"
 	"time"
@@ -23,11 +25,36 @@ func OpenDB(path string) (*DB, error) {
 	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
 		return nil, err
 	}
-	sqlDB, err := sql.Open("sqlite", path)
+	dsn := path
+	if path != ":memory:" {
+		filePath, err := filepath.Abs(path)
+		if err != nil {
+			return nil, err
+		}
+		filePath = filepath.ToSlash(filePath)
+		if !strings.HasPrefix(filePath, "/") {
+			filePath = "/" + filePath
+		}
+		file := url.URL{Scheme: "file", Path: filePath}
+		file.RawQuery = url.Values{"_pragma": {"synchronous(FULL)"}}.Encode()
+		dsn = file.String()
+	}
+	sqlDB, err := sql.Open("sqlite", dsn)
 	if err != nil {
 		return nil, err
 	}
 	sqlDB.SetMaxOpenConns(1)
+	if path != ":memory:" {
+		var mode string
+		if err := sqlDB.QueryRow("PRAGMA journal_mode=WAL").Scan(&mode); err != nil {
+			_ = sqlDB.Close()
+			return nil, fmt.Errorf("enable SQLite WAL: %w", err)
+		}
+		if !strings.EqualFold(mode, "wal") {
+			_ = sqlDB.Close()
+			return nil, fmt.Errorf("SQLite journal mode is %q, expected WAL", mode)
+		}
+	}
 	d := &DB{sql: sqlDB, path: path}
 	if err := d.migrate(); err != nil {
 		_ = sqlDB.Close()

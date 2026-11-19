@@ -43,8 +43,8 @@ func (s *measuredStore) SaveWorld(world *model.World) error {
 }
 
 type playerLoad struct {
-	firmID, token string
-	socket        *websocket.Conn
+	firmID, token, buildingID string
+	socket                    *websocket.Conn
 }
 
 type loadSample struct {
@@ -101,6 +101,22 @@ func runV2Load(t *testing.T, players, tickCount int) {
 	client := httpServer.Client()
 	client.Timeout = 10 * time.Second
 
+	withFactories := os.Getenv("BASHCAPITAL_LOAD_FACTORIES") == "1"
+	var sites []model.Parcel
+	var siteCities []string
+	if withFactories {
+		for _, cityID := range []string{"ufa", "beloretsk", "sterlitamak"} {
+			for _, parcel := range engine.World.Cities[cityID].Parcels {
+				if parcel.Building == "" && (parcel.Zone == "industrial" || parcel.Zone == "empty") {
+					sites = append(sites, parcel)
+					siteCities = append(siteCities, cityID)
+				}
+			}
+		}
+		if len(sites) < players {
+			t.Fatalf("only %d free factory sites for %d players", len(sites), players)
+		}
+	}
 	users := make([]playerLoad, players)
 	for index := range users {
 		username := fmt.Sprintf("load-player-%d", index)
@@ -114,12 +130,22 @@ func runV2Load(t *testing.T, players, tickCount int) {
 		if err := loadRequest(client, httpServer.URL, "/api/register", auth.Token, map[string]any{"name": username, "industry": "food"}, &firm); err != nil {
 			t.Fatal(err)
 		}
+		var building model.BuildingInst
+		if withFactories {
+			parcel := sites[index]
+			if err := loadRequest(client, httpServer.URL, "/api/action/build", auth.Token, map[string]any{
+				"city_id": siteCities[index], "building_type": "water_plant", "recipe_id": "drink_01",
+				"x": parcel.X, "y": parcel.Y,
+			}, &building); err != nil {
+				t.Fatal(err)
+			}
+		}
 		conn, _, err := websocket.DefaultDialer.Dial("ws"+strings.TrimPrefix(httpServer.URL, "http")+"/ws", nil)
 		if err != nil {
 			t.Fatal(err)
 		}
 		defer conn.Close()
-		users[index] = playerLoad{firm.ID, auth.Token, conn}
+		users[index] = playerLoad{firmID: firm.ID, token: auth.Token, buildingID: building.ID, socket: conn}
 	}
 	for deadline := time.Now().Add(time.Second); ; {
 		server.wsMu.Lock()
@@ -149,7 +175,7 @@ func runV2Load(t *testing.T, players, tickCount int) {
 				}
 				sample.reads = append(sample.reads, time.Since(began))
 				began = time.Now()
-				if sample.err = loadRequest(client, httpServer.URL, "/api/action/advertise", user.token, map[string]any{"category": "food", "budget": 1}, nil); sample.err != nil {
+				if sample.err = loadRequest(client, httpServer.URL, "/api/action/advertise", user.token, map[string]any{"category": "load_test", "budget": 1}, nil); sample.err != nil {
 					break
 				}
 				sample.writes = append(sample.writes, time.Since(began))
@@ -179,6 +205,8 @@ func runV2Load(t *testing.T, players, tickCount int) {
 	}
 
 	initialDBStats := db.Stats()
+	initialSaves := tracker.saves.Load()
+	initialSaveTime := tracker.saveTime.Load()
 	close(start)
 	tickStarts := make([]time.Time, 0, tickCount)
 	tickTimes := make([]time.Duration, 0, tickCount)
@@ -211,8 +239,9 @@ func runV2Load(t *testing.T, players, tickCount int) {
 			deliveryTimes = append(deliveryTimes, timestamp.Sub(tickStarts[index]))
 		}
 	}
-	if tracker.errors.Load() != 0 || tracker.saves.Load() != int64(len(writeTimes)+tickCount) {
-		t.Errorf("SQLite saves=%d errors=%d; expected %d saves", tracker.saves.Load(), tracker.errors.Load(), len(writeTimes)+tickCount)
+	workloadSaves := tracker.saves.Load() - initialSaves
+	if tracker.errors.Load() != 0 || workloadSaves != int64(len(writeTimes)+tickCount) {
+		t.Errorf("SQLite saves=%d errors=%d; expected %d saves", workloadSaves, tracker.errors.Load(), len(writeTimes)+tickCount)
 	}
 	stats := db.Stats()
 	restored, err := store.OpenDB(path)
@@ -227,21 +256,45 @@ func runV2Load(t *testing.T, players, tickCount int) {
 	if saved.Tick != tickCount {
 		t.Errorf("SQLite restored tick %d, expected %d", saved.Tick, tickCount)
 	}
+	produced := 0
 	for _, user := range users {
 		firm := saved.Firms[user.firmID]
 		if firm == nil {
 			t.Fatal("SQLite lost a firm")
 		}
-		// Only advertising changes these asset-free food firms' cash.
-		if expected := 115000 - float64(writesPerFirm[user.firmID]); firm.Cash != expected {
-			t.Errorf("SQLite restored firm %s with %.0f ₽, expected %.0f ₽", user.firmID, firm.Cash, expected)
+		live := engine.World.Firms[user.firmID]
+		if firm.Cash != live.Cash || firm.BrandAwareness["load_test"] != live.BrandAwareness["load_test"] {
+			t.Errorf("SQLite restored a different balance or advertising state for %s", user.firmID)
+		}
+		if !withFactories && firm.Cash != 115000-float64(writesPerFirm[user.firmID]) {
+			t.Errorf("unexpected advertising debits for %s", user.firmID)
+		}
+		if withFactories {
+			factory := saved.Buildings[user.buildingID]
+			if factory == nil || factory.FirmID != user.firmID || factory.Production == nil ||
+				factory.Production.Tick != tickCount {
+				t.Fatalf("SQLite lost factory or production report for %s", user.firmID)
+			}
+			inventory := factory.Inventory["bottled_water"]
+			if inventory != engine.World.Buildings[user.buildingID].Inventory["bottled_water"] {
+				t.Errorf("SQLite restored different stock for %s", user.firmID)
+			}
+			if inventory > 0 {
+				produced++
+			}
+		}
+	}
+	if withFactories {
+		t.Logf("factories=%d with persisted output=%d", players, produced)
+		if produced != players {
+			t.Errorf("only %d/%d player factories produced water", produced, players)
 		}
 	}
 	t.Logf("GOMAXPROCS=%d players=%d loads=%d actions=%d SQLite saves=%d failures=%d WS=%d/%d",
-		runtime.GOMAXPROCS(0), players, len(readTimes), len(writeTimes), tracker.saves.Load(), tracker.errors.Load(), len(deliveryTimes), players*tickCount)
+		runtime.GOMAXPROCS(0), players, len(readTimes), len(writeTimes), workloadSaves, tracker.errors.Load(), len(deliveryTimes), players*tickCount)
 	t.Logf("SQLite pool waits=%d total_wait=%s mean_save=%s",
 		stats.WaitCount-initialDBStats.WaitCount, (stats.WaitDuration - initialDBStats.WaitDuration).Round(time.Millisecond),
-		time.Duration(tracker.saveTime.Load()/tracker.saves.Load()).Round(time.Microsecond))
+		time.Duration((tracker.saveTime.Load()-initialSaveTime)/workloadSaves).Round(time.Microsecond))
 	logLoadLatency(t, "GET world", readTimes)
 	logLoadLatency(t, "POST advertise", writeTimes)
 	logLoadLatency(t, "POST tick", tickTimes)
