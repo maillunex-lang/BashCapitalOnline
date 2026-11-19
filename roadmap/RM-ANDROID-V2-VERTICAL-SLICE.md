@@ -87,6 +87,13 @@ Status: IN PROGRESS (plan approved 2026-11-18). Target: real signed Android APK,
 - Landscape layout is explicit. Scrollable forms keep the close control visible. Larger mobile controls and safe-area offsets are applied for touch use. New mobile installs default to medium graphics with traffic animation disabled.
 - Godot headless smoke verified live stock, shelf icons, shipment details, and panel geometry at 1600×900 and 2000×900. Go tests and server build passed. Touch, notch behavior and frame pacing still need an Android device check.
 
+### Freight tracking follow-up (2026-11-19)
+
+- Manual transfers save the dispatch tick and both building IDs. A shipment with an unavailable destination waits for acceptance without crediting stock. A successful delivery records the arrival tick and tariff.
+- The company panel shows active cargo and arrival estimates. **История доставок** displays the latest 20 deliveries to the firm's buildings. The web wholesale panel includes the same receipt details.
+- The Godot dispatch form shows the current stock at both buildings and updates its cash and stock checks as world snapshots arrive. The server validates the actual transfer.
+- The Go integration test checks an active shipment and its receipt across SQLite restarts. The Godot economy smoke checks that opening the history before arrival shows the receipt once delivery completes. Chromium confirmed the same transition against the local API.
+
 ## Phase 5 preview verification (2026-11-18)
 
 - Version 0.4.0 (code 4) has an Android APK for API 24+, ARM64 and x86_64. The preview uses its own application ID and the Godot debug certificate. APK signature and manifest checks are included in the export script. The APK, SHA‑256 and build provenance are linked from the [GitHub prerelease](https://github.com/maillunex-lang/BashCapitalOnline/releases/tag/v0.4.0-preview.1).

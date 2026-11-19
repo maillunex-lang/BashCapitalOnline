@@ -65,7 +65,17 @@ func _run() -> void:
 	estimate = game.manage_panel.body.get_child(-3)
 	var qty: SpinBox = game.manage_panel.body.find_children("*", "SpinBox", false, false)[0]
 	qty.value = 2
+	var stock_world := game.api.world.duplicate(true) as Dictionary
+	stock_world["buildings"][farm["id"]]["inventory"]["wheat"] = 1
+	game.manage_panel.refresh_snapshot(game.api.catalog, stock_world, id)
+	_check(send.disabled and estimate.text.contains("недостаточно товара"), "a live stock change blocks dispatch")
+	var low_cash_world := game.api.world.duplicate(true) as Dictionary
+	low_cash_world["firms"][id]["cash"] = 0
+	game.manage_panel.refresh_snapshot(game.api.catalog, low_cash_world, id)
+	_check(send.disabled and estimate.text.contains("не хватает"), "an unaffordable dispatch is blocked")
+	game.manage_panel.refresh_snapshot(game.api.catalog, game.api.world, id)
 	var sent_estimate := estimate.text
+	_check(not send.disabled and sent_estimate.contains("на складе получателя 0 ед."), "stock and dispatch recover on the next snapshot")
 	_check(sent_estimate.contains("Своя фура") and sent_estimate.contains("за 2 ед."), "quote updates when quantity changes")
 	send.pressed.emit()
 	await game.api.world_updated
@@ -78,15 +88,20 @@ func _run() -> void:
 		_check(sent_estimate.begins_with("%.2f ₽ за 2 ед. · %d тик." % [float(shipment["cost_paid"]), int(shipment["ticks_left"])]), "dispatch matches the displayed fleet estimate")
 		_check(shipment["to_building_id"] == warehouse["id"] and shipment["item_id"] == "wheat", "form sent wheat to the selected warehouse")
 		game._on_company_pressed()
-		_check(game.manage_panel.kind == "company" and game.manage_panel._snapshot.text.contains("Уфа → Стерлитамак"), "company shows the shipment route")
+		_check(game.manage_panel.kind == "company" and game.manage_panel._snapshot.text.contains("Уфа") and game.manage_panel._snapshot.text.contains("Стерлитамак") and game.manage_panel._snapshot.text.contains("прибытие"), "company shows the shipment route")
 		await process_frame
 		await process_frame
 		await _check_company_layout(game)
-		game.manage_panel.hide()
+		for button in game.manage_panel.body.find_children("*", "Button", false, false):
+			if button.text == "История доставок":
+				button.pressed.emit()
+				break
+		_check(game.manage_panel.kind == "shipment_history" and game.manage_panel._snapshot.text.contains("Поступлений пока нет"), "history is empty while the shipment is in transit")
 		for _tick in int(shipment["ticks_left"]):
-			await game.api.manual_tick()
+			await game._on_tick_pressed()
 		var target: Dictionary = game.api.world["buildings"][warehouse["id"]]
 		_check(target["inventory"]["wheat"] == shipment["qty"], "shipment arrived in the warehouse")
+		_check(game.manage_panel._snapshot.text.contains("Доставлено") and game.manage_panel._snapshot.text.contains("Своя фура"), "open history updates when cargo arrives")
 
 	game.queue_free()
 	await process_frame

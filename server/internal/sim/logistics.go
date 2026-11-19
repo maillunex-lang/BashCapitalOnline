@@ -140,6 +140,7 @@ func (e *Engine) TransferStock(firmID, fromID, toID, itemID string, qty int) (*m
 		return nil, fmt.Errorf("недостаточно средств на доставку")
 	}
 	shipment := e.createShipment(firmID, itemID, from.CityID, to.CityID, qty, from.Quality, ownFleet)
+	shipment.FromBuildingID = from.ID
 	shipment.ToBuildingID = to.ID
 	from.Inventory[itemID] -= qty
 	return shipment, nil
@@ -176,7 +177,7 @@ func (e *Engine) createShipment(firmID, itemID, from, to string, qty int, qualit
 	s := &model.Shipment{
 		ID: id, FirmID: firmID, ItemID: itemID, Qty: qty, Quality: quality,
 		FromCity: from, ToCity: to, TicksLeft: q.Ticks, CostPaid: cost, OwnFleet: ownFleet,
-		Distance: q.Distance, Mode: q.Mode,
+		Distance: q.Distance, Mode: q.Mode, DispatchedTick: e.World.Tick,
 	}
 	e.World.Shipments[id] = s
 	return s

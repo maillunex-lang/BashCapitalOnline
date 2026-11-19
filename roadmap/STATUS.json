@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "project": "BashCapitalOnline",
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "branch_default": "main",
   "active_pr": null,
   "honesty_rule": "status=done means code exists and runs in-repo. It does NOT mean production-ready, device-verified, load-tested, or live payments. Use maturity: shipped | mvp | scaffold | unverified. Never mark scaffold as if it were shipped.",
@@ -296,13 +296,17 @@
       "status": "done",
       "maturity": "mvp",
       "area": "economy",
-      "notes": "Ticks/cost from schematic city coords; same-city local = 1 tick. Coords are game-projection, not GIS.",
+      "notes": "Distance-based rates and at least 1 tick in transit. Manual transfers record the dispatch tick, source and destination, show waiting for an unavailable receiver and keep the last 20 successful receipts per firm in SQLite. Godot and web show transit and receipt details. Godot checks the latest stock and cash before dispatch. Verified locally; Android device and VPS checks remain open.",
       "files": [
         "server/internal/sim/logistics.go",
         "server/internal/sim/tick.go",
+        "server/internal/api/playable_v2_test.go",
+        "client/scripts/manage_panel.gd",
+        "web/app.js",
         "data/economy.json",
         "data/routes.json"
-      ]
+      ],
+      "updated": "2026-11-19"
     },
     {
       "id": "RM-BASHKIR-FLAVOR",

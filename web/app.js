@@ -620,17 +620,71 @@ async function refresh() {
       return `<div class="row">${rowWithIcon(itemIconSrc(c.item_id), `<strong>${itemName(c.item_id)}</strong> ×${c.qty_per_tick}/тик · ${money(c.price)} ₽<br/>${seller} → ${buyer}<br/><span class="muted">${cityLabel(c.city_from)} → ${cityLabel(c.city_to)} · ещё ${c.ticks_left} тик${mine ? " · ваш" : ""}</span>`)}</div>`;
     }).join("") || "<div class='row'>Нет активных контрактов</div>";
   }
-  const ships = Object.values(w.shipments || {});
-  if ($("shipments")) {
-    $("shipments").innerHTML = "<h3 style='color:var(--accent-2);font-size:13px'>В пути</h3>" + (ships.map((s) =>
-      `<div class="row">${rowWithIcon(itemIconSrc(s.item_id), `<strong>${itemName(s.item_id)}</strong> ×${s.qty}<br/>${cityLabel(s.from_city)} → ${cityLabel(s.to_city)} · ${s.ticks_left} тик`)}</div>`
-    ).join("") || "<div class='row'>Нет доставок</div>");
-  }
+  renderShipments(w);
 
   renderDeskReport();
   renderMyAssets();
   if (state.tab === "map") drawMap();
   if (state.manage) reopenManage();
+}
+
+function renderShipments(world) {
+  const container = $("shipments");
+  if (!container) return;
+  container.replaceChildren();
+
+  const endpoint = (shipment, side) => {
+    const city = cityLabel(shipment[side + "_city"]);
+    const building = world.buildings?.[shipment[side + "_building_id"]];
+    return building ? `${city} · ${buildingName(building.type)} (${building.x}, ${building.y})` : city;
+  };
+  const addSection = (title, shipments, emptyText, status) => {
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+    heading.style.color = "var(--accent-2)";
+    heading.style.fontSize = "13px";
+    container.append(heading);
+    if (shipments.length === 0) {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.textContent = emptyText;
+      container.append(row);
+    }
+    for (const shipment of shipments) {
+      const row = document.createElement("div");
+      row.className = "row";
+      const main = document.createElement("div");
+      main.className = "row-main";
+      const icon = document.createElement("img");
+      icon.className = "ico";
+      icon.alt = "";
+      icon.loading = "lazy";
+      icon.onerror = () => { icon.style.opacity = ".25"; };
+      icon.src = itemIconSrc(shipment.item_id);
+      const content = document.createElement("div");
+      content.className = "row-text";
+      const item = document.createElement("strong");
+      item.textContent = `${itemName(shipment.item_id)} ×${shipment.qty}`;
+      const price = Number(shipment.cost_paid || 0).toFixed(2);
+      const tariff = shipment.own_fleet ? "Своя фура" : "Наёмная доставка";
+      content.append(item, ` · ${price} ₽ · ${tariff}`, document.createElement("br"),
+        `${endpoint(shipment, "from")} → ${endpoint(shipment, "to")}`, document.createElement("br"),
+        status(shipment));
+      main.append(icon, content);
+      row.append(main);
+      container.append(row);
+    }
+  };
+
+  const active = Object.values(world.shipments || {});
+  active.sort((a, b) => a.ticks_left - b.ticks_left || a.id.localeCompare(b.id));
+  addSection("В пути", active, "Нет доставок", (s) => s.waiting_for_destination
+    ? "Ожидает приёмки" : `Ещё ${s.ticks_left} тик. · прибытие на тике ${Number(world.tick) + s.ticks_left}`);
+  if (state.firmId) {
+    const history = world.shipment_history?.[state.firmId] || [];
+    addSection("История доставок фирмы", history.slice().reverse(), "Поступлений пока нет",
+      (s) => `Доставлено на тике ${s.delivered_tick}`);
+  }
 }
 
 function renderMyAssets() {

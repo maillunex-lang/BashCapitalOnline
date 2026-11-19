@@ -35,6 +35,7 @@ var _bread_buttons: Array[Button] = []
 var _inventory_rows: ItemList
 var _inventory_heading: Label
 var _transfer: Button
+var _transfer_refresh: Callable
 var _current_world: Dictionary = {}
 var api: ApiClient
 
@@ -129,6 +130,8 @@ func open_building(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fir
 
 func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_firm: String, inventory: Dictionary) -> void:
 	_clear_body()
+	kind = "transfer"
+	_current_world = world
 	sub.text = "Склад и отправка груза"
 	hint.text = ""
 	var item := OptionButton.new()
@@ -176,16 +179,40 @@ func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fi
 	)
 	_add_touch_control(send)
 	var route := {"request": 0, "quote": {}}
-	var via_truck := int(world.get("firms", {}).get(my_firm, {}).get("trucks", 0)) > 0
 	var display_quote := func():
 		var quote: Dictionary = route["quote"]
 		if quote.is_empty():
 			return
+		var firm: Dictionary = _current_world.get("firms", {}).get(my_firm, {})
+		var via_truck := int(firm.get("trucks", 0)) > 0
+		if via_truck:
+			# Older V2 servers publish only the hired tariff.
+			quote = quote.get("fleet", {
+				"ticks": maxi(1, int(quote["ticks"]) - 1),
+				"cost_per_unit": float(quote["cost_per_unit"]) * 0.55,
+			})
+		var cost := float(quote["cost_per_unit"]) * qty.value
 		estimate.text = "%.2f ₽ за %d ед. · %d тик. · %s" % [
-			float(quote["cost_per_unit"]) * qty.value, int(qty.value), int(quote["ticks"]),
+			cost, int(qty.value), int(quote["ticks"]),
 			"Своя фура" if via_truck else "Наёмная доставка",
 		]
-		send.disabled = false
+		var buildings: Dictionary = _current_world.get("buildings", {})
+		var source: Dictionary = buildings.get(b["id"], {})
+		var receiver: Dictionary = buildings.get(CatalogUI.selected_id(destination), {})
+		var item_id := CatalogUI.selected_id(item)
+		var available := int(source.get("inventory", {}).get(item_id, 0))
+		var received := int(receiver.get("inventory", {}).get(item_id, 0))
+		estimate.text += "\nНа складе отправителя %d ед. · на складе получателя %d ед." % [available, received]
+		send.disabled = true
+		if source.get("firm_id") != my_firm or receiver.get("firm_id") != my_firm:
+			estimate.text += "\nОдно из зданий больше недоступно."
+		elif available < int(qty.value):
+			estimate.text += "\nНа складе недостаточно товара."
+		elif float(firm.get("cash", 0)) < cost:
+			estimate.text += "\nНа доставку не хватает %.2f ₽." % (cost - float(firm.get("cash", 0)))
+		else:
+			send.disabled = false
+	_transfer_refresh = display_quote
 	var update_quote := func():
 		route["request"] += 1
 		var seq: int = route["request"]
@@ -204,12 +231,6 @@ func _open_transfer(b: Dictionary, catalog: Dictionary, world: Dictionary, my_fi
 			estimate.text = "Сервер не вернул расчёт доставки."
 			retry.show()
 			return
-		if via_truck:
-			# Older V2 servers publish only the regular tariff.
-			quote = quote.get("fleet", {
-				"ticks": maxi(1, int(quote["ticks"]) - 1),
-				"cost_per_unit": float(quote["cost_per_unit"]) * 0.55,
-			})
 		route["quote"] = quote
 		display_quote.call()
 	destination.item_selected.connect(func(_index): update_quote.call())
@@ -324,6 +345,10 @@ func open_company(catalog: Dictionary, world: Dictionary, firm_id: String) -> vo
 		guide.pressed.connect(func(): open_bread_guide(catalog, _current_world, firm_id))
 		_add_touch_control(guide)
 	_snapshot = _add_summary()
+	var history := Button.new()
+	history.text = "История доставок"
+	history.pressed.connect(func(): _open_shipment_history(catalog, _current_world, firm_id))
+	_add_touch_control(history)
 	for section in [["buildings", "Здания"], ["shops", "Магазины"]]:
 		var label := _add_summary()
 		label.text = section[1]
@@ -404,10 +429,41 @@ func _show_bread_progress(world: Dictionary, firm_id: String) -> void:
 	if ready == BreadGuide.STEPS.size():
 		_snapshot.text += " · магазин может продавать хлеб по тикам"
 
+func _open_shipment_history(catalog: Dictionary, world: Dictionary, firm_id: String) -> void:
+	kind = "shipment_history"
+	_clear_body()
+	title.text = "История доставок"
+	sub.text = "Последние 20 поступлений из зданий вашей фирмы"
+	hint.text = ""
+	_snapshot = _add_summary()
+	var back := Button.new()
+	back.text = "Назад к компании"
+	back.pressed.connect(func(): open_company(catalog, _current_world, firm_id))
+	_add_touch_control(back)
+	refresh_snapshot(catalog, world, firm_id)
+
+func _shipment_text(shipment: Dictionary, catalog: Dictionary, world: Dictionary) -> String:
+	var endpoints := PackedStringArray()
+	for side in ["from", "to"]:
+		var city := CatalogUI.entry_name(catalog, "cities", shipment[side + "_city"])
+		var building: Dictionary = world.get("buildings", {}).get(shipment.get(side + "_building_id", ""), {})
+		if not building.is_empty():
+			city += " · %s (%d, %d)" % [
+				CatalogUI.entry_name(catalog, "buildings", building["type"]), int(building["x"]), int(building["y"]),
+			]
+		endpoints.append(city)
+	return "%s · %.2f ₽ · %s\n%s" % [
+		EconomyView.quantity_text(shipment, catalog), float(shipment.get("cost_paid", 0)),
+		"Своя фура" if shipment.get("own_fleet", false) else "Наёмная доставка", " → ".join(endpoints),
+	]
+
 func refresh_snapshot(catalog: Dictionary, world: Dictionary, firm_id: String) -> void:
+	_current_world = world
+	if kind == "transfer" and _transfer_refresh.is_valid():
+		_transfer_refresh.call()
+		return
 	if _snapshot == null:
 		return
-	_current_world = world
 	match kind:
 		"bread_guide":
 			_show_bread_progress(world, firm_id)
@@ -424,18 +480,29 @@ func refresh_snapshot(catalog: Dictionary, world: Dictionary, firm_id: String) -
 			var lines := PackedStringArray(["Касса %.0f ₽ · Долг %.0f ₽ · Фуры %d" % [
 				float(firm.get("cash", 0)), float(firm.get("credit", 0)), int(firm.get("trucks", 0)),
 			]])
-			for shipment in world.get("shipments", {}).values():
-				if shipment["firm_id"] != firm_id:
-					continue
-				lines.append("%s · %s → %s · %d тик." % [
-					EconomyView.quantity_text(shipment, catalog),
-					CatalogUI.entry_name(catalog, "cities", shipment["from_city"]),
-					CatalogUI.entry_name(catalog, "cities", shipment["to_city"]),
-					int(shipment["ticks_left"]),
-				])
-			if lines.size() == 1:
+			var shipments: Array = world.get("shipments", {}).values().filter(func(shipment): return shipment["firm_id"] == firm_id)
+			shipments.sort_custom(func(a, b):
+				if int(a["ticks_left"]) == int(b["ticks_left"]):
+					return str(a["id"]) < str(b["id"])
+				return int(a["ticks_left"]) < int(b["ticks_left"])
+			)
+			for shipment in shipments:
+				var eta := "Ожидает приёмки" if shipment.get("waiting_for_destination", false) else "В пути · %d тик. · прибытие на тике %d" % [
+					int(shipment["ticks_left"]), int(world.get("tick", 0)) + int(shipment["ticks_left"]),
+				]
+				lines.append(eta + "\n" + _shipment_text(shipment, catalog, world))
+			if shipments.is_empty():
 				lines.append("Грузов в пути нет")
-			_snapshot.text = "\n".join(lines)
+			_snapshot.text = "\n\n".join(lines)
+		"shipment_history":
+			var history: Array = world.get("shipment_history", {}).get(firm_id, [])
+			var lines := PackedStringArray()
+			for i in range(history.size() - 1, -1, -1):
+				var receipt: Dictionary = history[i]
+				lines.append("Доставлено на тике %d\n%s" % [
+					int(receipt["delivered_tick"]), _shipment_text(receipt, catalog, world),
+				])
+			_snapshot.text = "Поступлений пока нет" if lines.is_empty() else "\n\n".join(lines)
 
 func _show_building_snapshot(building: Dictionary, catalog: Dictionary) -> void:
 	_snapshot.text = EconomyView.production_text(building, catalog)
@@ -522,6 +589,7 @@ func _clear_body() -> void:
 	_snapshot = null
 	_inventory_rows = null
 	_transfer = null
+	_transfer_refresh = Callable()
 	_recipe = null
 	_input = null
 	_firm = null

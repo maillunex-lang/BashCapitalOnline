@@ -340,19 +340,27 @@ type Contract struct {
 }
 
 type Shipment struct {
-	ID           string  `json:"id"`
-	FirmID       string  `json:"firm_id"`
-	ItemID       string  `json:"item_id"`
-	Qty          int     `json:"qty"`
-	Quality      float64 `json:"quality"`
-	FromCity     string  `json:"from_city"`
-	ToCity       string  `json:"to_city"`
-	ToBuildingID string  `json:"to_building_id,omitempty"`
-	TicksLeft    int     `json:"ticks_left"`
-	CostPaid     float64 `json:"cost_paid"`
-	OwnFleet     bool    `json:"own_fleet"`
-	Distance     float64 `json:"distance"` // map units (≈km scale)
-	Mode         string  `json:"mode"`     // local|road|rail
+	ID                    string  `json:"id"`
+	FirmID                string  `json:"firm_id"`
+	ItemID                string  `json:"item_id"`
+	Qty                   int     `json:"qty"`
+	Quality               float64 `json:"quality"`
+	FromCity              string  `json:"from_city"`
+	ToCity                string  `json:"to_city"`
+	FromBuildingID        string  `json:"from_building_id,omitempty"`
+	ToBuildingID          string  `json:"to_building_id,omitempty"`
+	DispatchedTick        int     `json:"dispatched_tick"`
+	WaitingForDestination bool    `json:"waiting_for_destination,omitempty"`
+	TicksLeft             int     `json:"ticks_left"`
+	CostPaid              float64 `json:"cost_paid"`
+	OwnFleet              bool    `json:"own_fleet"`
+	Distance              float64 `json:"distance"` // map units (≈km scale)
+	Mode                  string  `json:"mode"`     // local|road|rail
+}
+
+type ShipmentReceipt struct {
+	Shipment
+	DeliveredTick int `json:"delivered_tick"`
 }
 
 // ResourceDeposit — залежь/участок на карте.
@@ -416,6 +424,8 @@ type World struct {
 	CityMarket      map[string]CityMarketStock `json:"city_market"` // item_id -> offer
 	MapRevision     int                      `json:"map_revision"`
 	DirtyTiles      []DirtyTile              `json:"dirty_tiles,omitempty"`
+
+	ShipmentHistory map[string][]ShipmentReceipt `json:"shipment_history,omitempty"`
 }
 
 type DirtyTile struct {

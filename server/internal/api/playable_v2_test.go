@@ -230,7 +230,8 @@ func TestPlayableV2Bread(t *testing.T) {
 		t.Fatal("rejected shipment altered cash or inventory")
 	}
 	first := sendBread(world)
-	if first == nil || first.ToBuildingID != warehouse || first.TicksLeft < 1 || first.CostPaid <= 0 {
+	if first == nil || first.FromBuildingID != bakery || first.ToBuildingID != warehouse ||
+		first.DispatchedTick != world.Tick || first.TicksLeft < 1 || first.CostPaid <= 0 {
 		t.Fatalf("unexpected shipment: %+v", first)
 	}
 	var publicQuote struct {
@@ -266,6 +267,19 @@ func TestPlayableV2Bread(t *testing.T) {
 		world = p.tick()
 		if i+1 < first.TicksLeft && world.Shops[shop].Stock != 0 {
 			t.Fatal("bread reached the shop before the route elapsed")
+		}
+		if i+1 == first.TicksLeft {
+			receipt := *first
+			receipt.TicksLeft = 0
+			want := model.ShipmentReceipt{Shipment: receipt, DeliveredTick: world.Tick}
+			if world.Shipments[first.ID] != nil || len(world.ShipmentHistory[p.firm]) != 1 || world.ShipmentHistory[p.firm][0] != want {
+				t.Fatal("arrived shipment was not replaced with its receipt")
+			}
+			p.restart()
+			world = p.world()
+			if world.Shipments[first.ID] != nil || len(world.ShipmentHistory[p.firm]) != 1 || world.ShipmentHistory[p.firm][0] != want {
+				t.Fatal("delivery receipt did not survive restart")
+			}
 		}
 		for _, line := range world.LastTickLog {
 			if strings.Contains(line, "Розница Игровая фирма") && strings.Contains(line, "sold") && strings.Contains(line, "wheat_bread") {

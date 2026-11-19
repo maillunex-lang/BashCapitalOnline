@@ -135,9 +135,12 @@ func (e *Engine) advanceShipments(log *[]string) {
 			if b == nil || b.FirmID != s.FirmID || b.CityID != s.ToCity {
 				// Keep the cargo in transit if the recipient is unavailable in a save.
 				s.TicksLeft = 1
+				s.WaitingForDestination = true
 				continue
 			}
 			deliverCargo(b, s)
+			s.WaitingForDestination = false
+			e.recordShipmentReceipt(s)
 			*log = append(*log, fmt.Sprintf("Доставка %d %s в %s (дист. %.0f)", s.Qty, s.ItemID, s.ToCity, s.Distance))
 			delete(e.World.Shipments, id)
 			continue
@@ -164,6 +167,21 @@ func (e *Engine) advanceShipments(log *[]string) {
 		*log = append(*log, fmt.Sprintf("Доставка %d %s в %s (дист. %.0f)", s.Qty, s.ItemID, s.ToCity, s.Distance))
 		delete(e.World.Shipments, id)
 	}
+}
+
+const shipmentHistoryLimit = 20
+
+func (e *Engine) recordShipmentReceipt(shipment *model.Shipment) {
+	if e.World.ShipmentHistory == nil {
+		e.World.ShipmentHistory = make(map[string][]model.ShipmentReceipt)
+	}
+	history := e.World.ShipmentHistory[shipment.FirmID]
+	if len(history) >= shipmentHistoryLimit {
+		history = history[len(history)-shipmentHistoryLimit+1:]
+	}
+	e.World.ShipmentHistory[shipment.FirmID] = append(history, model.ShipmentReceipt{
+		Shipment: *shipment, DeliveredTick: e.World.Tick,
+	})
 }
 
 func deliverCargo(b *model.BuildingInst, s *model.Shipment) {
